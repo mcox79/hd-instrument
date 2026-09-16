@@ -143,10 +143,12 @@ def decide_bundle_range(desktop_head: str, laptop_head: str, desktop_head_is_anc
     fall back to bundling the last 200 commits and say so via `note`."""
     if desktop_head == laptop_head:
         return None, "desktop already at laptop HEAD; no bundle needed"
+    # The range must END IN A REF (HEAD), not a bare commit hash: `git bundle create` records refs, and a
+    # range ending in a sha yields "Refusing to create empty bundle" (found on the first real run, 2026-09-15).
     if desktop_head_is_ancestor:
-        return f"{desktop_head}..{laptop_head}", None
+        return f"{desktop_head}..HEAD", None
     return (
-        f"{laptop_head}~200..{laptop_head}",
+        "HEAD~200..HEAD",
         f"desktop HEAD {desktop_head} is not an ancestor of laptop HEAD {laptop_head}; "
         "bundling the last 200 commits instead",
     )

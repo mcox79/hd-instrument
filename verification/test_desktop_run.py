@@ -24,12 +24,12 @@ def _check_bundle_range_decision():
 
     # clean ancestor case -> the documented <desktop_head>..<laptop_head> range, no note
     rng, note = DR.decide_bundle_range("d0d0d0", "l1l1l1", True)
-    assert rng == "d0d0d0..l1l1l1", rng
+    assert rng == "d0d0d0..HEAD", rng   # ends in a REF: a sha-ended range makes an empty bundle
     assert note is None
 
     # desktop HEAD is NOT an ancestor (diverged / rewritten history) -> fall back to last-200, and SAY SO
     rng, note = DR.decide_bundle_range("d0d0d0", "l1l1l1", False)
-    assert rng == "l1l1l1~200..l1l1l1", rng
+    assert rng == "HEAD~200..HEAD", rng
     assert note and "not an ancestor" in note and "d0d0d0" in note and "l1l1l1" in note
 
 
