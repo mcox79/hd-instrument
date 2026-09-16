@@ -64,7 +64,8 @@ SLUG = ("the_introduction_organ_opens_one_referent_per_content_noun_token_with_a
         "positions")
 DIFF_PATH = os.path.join(_REPO, "notes", "problems", SLUG, "np_span_patch.diff")
 PATCH_FILES = ["hdlab/referent_per_np.py", "hdlab/situation_reader.py",
-               "hdlab/entity_resolver.py", "hdlab/goal_register.py", "hdlab/coref.py"]
+               "hdlab/entity_resolver.py", "hdlab/goal_register.py", "hdlab/coref.py",
+               "experiments/exp_board_rows_on_the_reader_v1.py"]
 
 
 def get_output_dir(default_name: str = "np_span_introduction_v1"):

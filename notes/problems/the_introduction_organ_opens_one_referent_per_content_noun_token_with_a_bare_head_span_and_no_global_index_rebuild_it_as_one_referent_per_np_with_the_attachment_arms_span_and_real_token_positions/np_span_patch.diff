@@ -430,7 +430,7 @@ index 78504fb0c..3a6ffc7d4 100644
 +                                    wstart=_a))
      return _finalize(pron + out), n_sents
 diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
-index 67b0df3ae..abec3dfc7 100644
+index 67b0df3ae..5f34a488d 100644
 --- a/hdlab/situation_reader.py
 +++ b/hdlab/situation_reader.py
 @@ -113,6 +113,9 @@ from hdlab.frame_induction import (
@@ -600,8 +600,25 @@ index 67b0df3ae..abec3dfc7 100644
                  if tv is not None and n_c >= 2:
                      out.append({"sent_idx": si, "verb_pos": tv[0], "undergoer": m["head"],
                                  "resolved": pick, "coarg": coarg})
+@@ -5021,7 +5069,15 @@ class SituationReader:
+                 _base = _ofv()
+                 _V = _copy.deepcopy(_base) if _base is not None else None
+                 self._of_validities = _V
+-            _online_lab = EntityResolver(validities=_V).cluster(role_mentions, gaz=self.gaz)   # unified organ (== online_cluster, byte-identical)
++            # pri 138: HAND THE SENTENCES OVER.  `entity_resolver._definiteness` reads the determiner from
++            # `span_toks[0]` and falls back to the token before the mention when `sents` is supplied -- and
++            # this call site never supplied them, so before this rung EVERY mention answered `bare` at
++            # inference and Heim's Novelty-Familiarity Condition (pri 136's own headline mechanism) was
++            # LANDED AND INERT on the live read while the teacher that built its shift had read the fallback.
++            # With the noun-phrase span the determiner is ON the card and the fallback is not needed; passing
++            # `sents` anyway makes the criterion live on EITHER mention stream, so the A/B compares the organ
++            # and not the reachability of the cue.
++            _online_lab = EntityResolver(validities=_V).cluster(role_mentions, gaz=self.gaz, sents=sents)
+             if getattr(self, "online_entity_cluster_bridge", True):
+                 # DE-LEAK PART 2 of 2 -- the GOLD-FREE crosstype definite->name BRIDGE (Q111). PART 1 (above) removed
+                 # the gold-coref leak; alone that drops the cross-type experiencer bind to the honest floor (~0.156).
 diff --git a/hdlab/entity_resolver.py b/hdlab/entity_resolver.py
-index d82773efb..846e3f46b 100644
+index d82773efb..c8bf08535 100644
 --- a/hdlab/entity_resolver.py
 +++ b/hdlab/entity_resolver.py
 @@ -529,6 +529,18 @@ def competition_cluster(ms, gaz, *, validities, tau=0.0, decay=None, role_promin
@@ -623,8 +640,66 @@ index d82773efb..846e3f46b 100644
          upos = (m.get("span_upos") or [""])[-1] or ""
          is_name = bool(name_content_tokens(span, upos=m.get("span_upos")))
          canon = aliaser.assign(span, gender, upos=m.get("span_upos")) if is_name else None
-@@ -570,7 +582,7 @@ def competition_cluster(ms, gaz, *, validities, tau=0.0, decay=None, role_promin
+@@ -537,6 +549,7 @@ def competition_cluster(ms, gaz, *, validities, tau=0.0, decay=None, role_promin
+         if bridge_binds is not None:
+             link_file = bridge_binds.get(m["midx"])
+         best, best_a, runner, best_cues = None, -1e18, -1e18, None
++        runner_cues = None                    # pri 138: the CONTRAST candidate's cue vector (see below)
+         for f in files:
+             a = actr_activation(f.history, float(order), decay, role_prominence)
+             if a == float("-inf"):
+@@ -547,10 +560,10 @@ def competition_cluster(ms, gaz, *, validities, tau=0.0, decay=None, role_promin
+                            sents=sents, cue_set=validities.cue_set)
+             s = a + sum(validities.w(c, v) for c, v in cu.items())
+             if s > best_a:
+-                runner = best_a
++                runner, runner_cues = best_a, best_cues
+                 best, best_a, best_cues = f, s, cu
+             elif s > runner:
+-                runner = s
++                runner, runner_cues = s, cu
+         opened = False
+         # THE CRITERION, not the evidence: the mention's own determiner shifts the threshold (Heim's
+         # Novelty-Familiarity Condition as a signal-detection criterion).
+@@ -566,11 +579,44 @@ def competition_cluster(ms, gaz, *, validities, tau=0.0, decay=None, role_promin
+         if online and (best_a - runner) >= online_margin:
+             # THE OBSERVE PATH: a decision the reader made with a high margin is its own confirmed outcome
+             # (self-supervised; the pri 117 template).  Nothing gold is consulted.
++            #
++            # THE LOSER TERM (pri 138, 2026-09-16).  THE DEFECT, MEASURED: this branch used to accrue ONLY
++            # `same` -- a confident MERGE incremented P(value|same) for every cue value that fired and NOTHING
++            # ever incremented P(value|different), so `strength = log P(v|same) - log P(v|different)` could
++            # only rise, the next decision merged more easily, and the loop closed on itself.  On the
++            # one-token mention stream it was a measured GAIN (pri 136: +0.0745 plastic vs +0.0680 frozen)
++            # because those confident merges were NP-INTERNAL and correct -- the runaway had nothing to feed
++            # on.  On the NOUN-PHRASE stream the confident merges are between PHRASES and it runs away: the
++            # SAME mention stream scores B-cubed 0.6585 with the table frozen, 0.3562 through the live read,
++            # and collapses a whole three-document corpus into FIVE files when the table is shared.
++            #
++            # THE LEARNING RULE THE ORGAN CLAIMS is a CONTRAST -- Anderson & Milson's log-odds over counts,
++            # MacWhinney's cue validity as P(correct | cue) against its complement -- so a decision made with
++            # a margin is evidence about the candidate that WON *and* about the candidate that LOST.  The
++            # competition already computes the loser; this accrues it.
++            #   * on a MERGE   : the winner's cue vector is `same`, and the RUNNER-UP's is `different`
++            #                    (the competition decided, with margin, that this mention is NOT that file).
++            #                    With only ONE open file there IS no runner-up and no contrast is invented --
++            #                    the `same` observation stands alone, which is the honest state.
++            #   * on an OPEN   : no open file cleared the criterion, so the BEST file -- the strongest
++            #                    candidate there was -- is a `different` observation.  Before this, an OPEN
++            #                    decision accrued NOTHING into the cue counts at all, only the criterion.
++            #                    With no open file at all there is no candidate and nothing is observed.
++            #   * on a REVISION: not available here -- this organ commits forward and never revisits a file,
++            #                    so a later correction has no path back into these counts.  That is the
++            #                    observation this rule is still missing and it is named as such.
++            # Heim's criterion is UNCHANGED and was always a contrast: `observe_criterion(definite, opened)`
++            # counts re-accessed vs opened per definiteness value, on BOTH branches.
++            # HDLAB_OBJECT_FILE_LOSER=0 restores the one-sided update byte-for-byte.
+             if not opened and best_cues is not None:
                  validities.observe(best_cues, True)
++                if _LOSER_TERM and runner_cues is not None:
++                    validities.observe(runner_cues, False)
++            elif _LOSER_TERM and opened and best_cues is not None:
++                validities.observe(best_cues, False)
              validities.observe_criterion(definite, opened)
              validities.recompute()
 -        best.update(order, role, gender, number, head, sent_idx, canon, surf, is_name, wpos=wpos,
@@ -632,13 +707,18 @@ index d82773efb..846e3f46b 100644
                      upos=upos)
          rank_in_sent.setdefault(sent_idx, {}).setdefault(best.cid, rk)
          labels[m["midx"]] = best.cid
-@@ -602,9 +614,16 @@ OBJECT_FILE_TAU = 0.0   # 2026-09-16 landing (strategy): pri 136's joint grid --
+@@ -601,10 +647,20 @@ OBJECT_FILE_TAU = 0.0   # 2026-09-16 landing (strategy): pri 136's joint grid --
+ # removes the consumer regression.  Set HDLAB_OBJECT_FILE_ONLINE=0 to freeze the table (which makes a read
  # order-independent, for a byte-identical A/B).
  OBJECT_FILE_ONLINE_MARGIN = 1.0
- 
+-
 -OBJECT_FILE_VALIDITY_ASSET = os.path.join(
 -    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "frontend_assets",
 -    "object_file_validities_gum_v1.json")
++# pri 138: the online update observes the LOSER as well as the winner (see `competition_cluster`).  Set
++# HDLAB_OBJECT_FILE_LOSER=0 to restore the one-sided update that only ever accrued `same`.
++_LOSER_TERM = os.environ.get("HDLAB_OBJECT_FILE_LOSER", "1") != "0"
++
 +_OF_ASSET_DIR = os.path.join(
 +    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "frontend_assets")
 +# pri 138: the validities RE-ACCRUED on the noun-phrase mention stream (one referent per NP, real spans).
@@ -703,3 +783,28 @@ index 451477a88..6c875dddf 100644
              hist.setdefault(k, []).append((order, role))
              last_sent[k] = si
              # 2026-09-16 (strategy, pri 136 landing): the pick ANSWERS with this file's most recent mention; since the
+diff --git a/experiments/exp_board_rows_on_the_reader_v1.py b/experiments/exp_board_rows_on_the_reader_v1.py
+index 7169a85ae..588449f5d 100644
+--- a/experiments/exp_board_rows_on_the_reader_v1.py
++++ b/experiments/exp_board_rows_on_the_reader_v1.py
+@@ -500,11 +500,18 @@ def score_entity_set(doc, sm, reader, rng):
+     which is not a per-item rate and so cannot go through `_row`."""
+     out = {"entity_set": defaultdict(lambda: [0, 0])}
+     eid_at = _gold_eid_by_wpos(doc)
++    # pri 138: THE ANSWER KEY IS KEYED BY THE GOLD MENTION'S HEAD TOKEN (`_gold_eid_by_wpos`), and since the
++    # introduction organ emits ONE REFERENT PER NOUN PHRASE a reader mention's `wtok_start` is the phrase's
++    # FIRST token -- a determiner on 41% of them.  Aligning on it would score this row on determiners and
++    # report a number that is about the scorer, not the reader.  `mention_head_wpos` is the substrate's own
++    # accessor and is byte-identical to `wtok_start` on a one-token mention, so this changes nothing on the
++    # pre-phrase stream.
++    from hdlab.graded_role_assigner import mention_head_wpos as _mhw
+     ms = [m for m in (getattr(reader, "_coref_mentions", []) or []) if not m.get("is_pronoun")]
+-    ms = sorted(ms, key=lambda m: (m["sent_idx"], m["wtok_start"]))
++    ms = sorted(ms, key=lambda m: (m["sent_idx"], _mhw(m)))
+     rows = []
+     for m in ms:
+-        e = eid_at.get((m["sent_idx"], int(m["wtok_start"])))
++        e = eid_at.get((m["sent_idx"], int(_mhw(m))))
+         if e is None:
+             continue
+         rows.append({"file": m.get("cluster"), "eid": e, "head": (m.get("head") or "").lower()})
