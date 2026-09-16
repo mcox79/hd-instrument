@@ -800,6 +800,42 @@ the winner's is accrued as `same`. The competition already computes the runner-u
 CONTRAST and the loser is evidence. **That line belongs to pri 136's organ, not this one**, so it is handed
 over rather than changed here.
 
+## 22c. PHASE 7 -- THE UPSTREAM-CHAIN FIX IS PROTOTYPED IN THIS DIFF
+
+Strategy's instruction: the loser term is the UPSTREAM-CHAIN FIX that bars 1 / 2 / S9-1 need, so it belongs
+in the incoming solution rather than in a hand-off. Three hunks were added to `np_span_patch.diff`:
+
+**(a) THE LOSER TERM** (`hdlab/entity_resolver.py`, `competition_cluster`'s online branch). The organ's
+claimed learning rule is a CONTRAST -- `strength = log P(value|same) - log P(value|different)`, Anderson &
+Milson's log-odds over counts, MacWhinney's cue validity as P(correct|cue) against its complement. A
+decision made with a margin is evidence about the candidate that WON *and* the candidate that LOST, and the
+competition already computes the loser. What a correct online update observes:
+
+| the decision | what is observed now | what was observed before |
+|---|---|---|
+| **a MERGE** (a file cleared the criterion) | the winner's cue vector as **`same`** AND **the RUNNER-UP's as `different`** | the winner's as `same` only |
+| **a MERGE with only ONE open file** | the winner's as `same`, and **NO contrast is invented** -- there is no runner-up and inventing one would be a fabricated count | the winner's as `same` |
+| **an OPEN** (nothing cleared the criterion) | **the REJECTED BEST file's cue vector as `different`** -- the strongest candidate there was, and it lost | **nothing at all** entered the cue counts; only the criterion |
+| **an OPEN with no open file at all** | nothing (there is no candidate) | nothing |
+| **a later REVISION** | **NOT AVAILABLE, and named as the missing observation**: this organ commits forward and never revisits a file, so a correction has no path back into these counts | not available |
+| Heim's criterion | **unchanged** -- `observe_criterion(definite, opened)` counts re-accessed vs opened per definiteness value on BOTH branches, so it was always two-sided | same |
+
+`HDLAB_OBJECT_FILE_LOSER=0` restores the one-sided update byte-for-byte.
+
+**(b) HEIM'S CRITERION MADE LIVE AT THE CALL SITE** (`hdlab/situation_reader.py`): `EntityResolver(...)
+.cluster(role_mentions, gaz=self.gaz, **sents=sents**)`. The determiner is on the card once the span is real,
+so the `sents` fallback is not needed by the phrase stream -- but passing the sentences makes the criterion
+live on EITHER stream, so the A/B compares the organ rather than the reachability of the cue. **I did not
+delete the fallback**: with `sents` supplied it is no longer dead code, it is the path that rescues a
+one-token mention, and deleting it would silently re-break the shipped arm of every A/B.
+
+**(c) THE BOARD'S OWN ENTITY-SET SCORER** (`experiments/exp_board_rows_on_the_reader_v1.score_entity_set`):
+aligns at `mention_head_wpos(m)` instead of `m["wtok_start"]`. The answer key is keyed by the GOLD mention's
+HEAD; a reader mention's `wtok_start` is the phrase's first token, a determiner on 41% of them. Byte-
+identical on a one-token mention, so the pre-phrase board row is unchanged.
+
+`git apply --check` CLEAN on all six files; self-test 20/20; witness 22/22.
+
 ## 23. THE HONEST SELF-ASSESSMENT
 
 **What I am confident in.** The organ is right and it is made of organs the reader already runs: one referent
