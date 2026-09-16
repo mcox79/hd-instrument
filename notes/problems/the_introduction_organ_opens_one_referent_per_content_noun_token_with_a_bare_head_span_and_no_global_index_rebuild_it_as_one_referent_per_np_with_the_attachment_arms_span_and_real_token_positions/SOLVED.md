@@ -660,7 +660,28 @@ phrase stream. Three forms, in increasing order of effort:
    the teacher, not to the organ.
 3. **Make the boundary itself plastic** (next step 2) so the cue and the boundary are learned together.
 
-## 19. SECTIONS TO COME
+## 19. EVERY COMPONENT TOUCHED OR CREATED, AND ITS BRAIN-FOUNDATIONAL STATUS
+
+| component | what it is | touched how | BF status |
+|---|---|---|---|
+| `hdlab/referent_per_np.py` | THE introduction organ (Kamp/Heim discourse-referent introduction) | **rebuilt**: `np_groups` (the Right-Hand-Head collapse), `np_left_edge` (the boundary), `_cat_prob_inside` / `_graded_prob` (the graded arms), the canonical schema on both arms, `_arcs_for` | **BF** at the computational level: one object file per NP is PINNED (Kahneman/Treisman/Gibbs 1992; Karttunen 1976; Heim 1982); the boundary's *representation* (a token span) is OUR-INVENTION and labelled as such; NO fitted parameter |
+| `hdlab/attachment_arm.py` via `hdlab.frontend.parser` | the reader's own head model, with a graded head posterior | **read only**, through the reader's shared per-read parse | BF_SPIRIT (unchanged) |
+| `hdlab/lexical_categories.py` (the category organ) | the count-based generative category model with a forward-backward posterior | **read only**, including its POSTERIOR for the `post` boundary arm | BF_SPIRIT (unchanged) |
+| `hdlab/situation_reader.py` | the reader | `_CachedTagShim.parse_heads` (serves the shared parse -- no second pass); `TrackedEntity.names`; `_build_entities` fills it; five head-index repairs (`_nom_head_at`, the frame role positions, the np-head gate, the structural-DO probe, the affected-entity decision keys) | unchanged in kind; the repairs make existing organs read the right token |
+| `hdlab/entity_resolver.py` | the object-file competition (ACT-R base level + counted log-odds cue validities, PLASTIC) | the `np` cue's distance now measured from the phrase's END; the asset path prefers the re-accrued table | BF_SPIRIT; **and this rung MEASURES a defect in it** (section 10.9) |
+| `hdlab/goal_register.py` | the goal register | `_cluster_name` reads the card's NAME before its longest surface | **more BF than before**: a proper name is a rigid designator (Kripke 1980) retrieved by its own route (Semenza 2006) |
+| `hdlab/coref.py` | the retrieval organ | `ent_at_pos` registers every token of the phrase, so Principle B's clause-mate ban stops missing | unchanged in kind; a repair |
+| `hdlab/graded_role_assigner.mention_head_wpos` | the head-index accessor (pri 134, landed) | **reused, not re-implemented** | unchanged |
+| `hdlab/np_head_reduce.py` | reduce an NP span to its head | fed the real head index; now largely redundant | unchanged; filed for deletion if inert |
+| `hdlab/crosstype_live_adapter.py` / `crosstype_bridge.py` | the name-linking bridge | **read only**; its `_ART` definite gate starts firing | unchanged |
+| `data/frontend_assets/object_file_validities_gum_npspan_v1.json` | NEW asset: the merge/split validities re-accrued on the phrase stream | built by the cell (`--build-validities 24`) | a static, re-buildable OFFLINE foundation asset with an ONLINE accrual path (`observe_file_decision`) -- nothing frozen |
+| `experiments/exp_np_span_introduction_v1.py` | NEW cell | the instrument | n/a |
+| `verification/test_referent_per_np_span_landing.py` | NEW witness | 22 checks, tree-aware | n/a |
+
+**NO external LLM, no supervised parser, no chunker and no off-the-shelf model is used at inference. The two
+organs that draw the boundary are organs the reader already runs on every sentence.**
+
+## 20. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
 check; (6) alternate paths and next steps.
