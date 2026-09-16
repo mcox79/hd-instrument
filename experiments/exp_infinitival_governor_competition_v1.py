@@ -413,9 +413,17 @@ def accrue(cap=4000, rounds=1, teacher="arm", alpha=1.0, out=INFIN_ASSET, maxlen
         ONLY the two new cue channels are written: every other cell of the landed table is byte-identical, which
         is what makes the A/B a measurement of these cues and not of a rebuild.
     """
-    os.environ["HDLAB_ARM_INFIN_CTX"] = "1"      # the asset CARRIES the refuted channel's cells so the switch is
-    #                                              measurable without a re-accrual; the READ default is OFF.
+    # The asset CARRIES the refuted context channel's cells so that switch stays measurable without a re-accrual,
+    # but the READ default is OFF -- so the override is scoped to the module this function loads and RESTORED
+    # immediately.  (Measured cost of getting this wrong, in this very cell: leaving it set leaked into a --live-ab
+    # run in the same process and reported 0.7359 with advcl_purpose 0.5915, i.e. the refuted arm's profile.)
+    _env0 = os.environ.get("HDLAB_ARM_INFIN_CTX")
+    os.environ["HDLAB_ARM_INFIN_CTX"] = "1"
     M = patched_module("pri133_arm_accrue", AA.ASSET)
+    if _env0 is None:
+        os.environ.pop("HDLAB_ARM_INFIN_CTX", None)
+    else:
+        os.environ["HDLAB_ARM_INFIN_CTX"] = _env0
     tg, _ps = _frontend()
     from experiments.exp_whodidwhat_ud_structural_v1 import load_ud
     sents = load_ud(UD_TRAIN)[:cap]
