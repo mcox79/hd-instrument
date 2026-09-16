@@ -427,3 +427,33 @@ alternating, in one process and conservative against its own all-pairs mean, it 
 this machine. The **identity** result is not exposed that way — it is a byte comparison of complete situation
 models, 12 of 12, against both the un-memoised arm and the stock tree, and it would take a defect in the
 comparison itself (which the twin arm rules out: a corrupted memo *does* move the same comparison) to be wrong.
+
+---
+
+## 13. THE SUBMISSION PROMPT
+
+```
+Problem: sixty_one_percent_of_a_read_is_one_spreading_activation_walk_asked_twice_per_event_memoise_the_walk_per_reader_move_the_per_passage_category_state_onto_the_reader_and_certify_byte_identical_reads  (pri 146)
+
+SOLVED, as a proposed diff -- nothing in hdlab/ was written.
+
+The spreading-activation walk that is 61% of a read is asked the identical question twice per event: 608 of
+1,379 walks over 12 GUM TEST documents (12 genres, 817 sentences) are exact repeats, 44.1%. It is now
+remembered PER READER for the length of one reading (the brain's priming), and the passage's file cards, clock,
+register and POS memo become one object the reader owns and hands back when the read ends -- the process-global
+generation counter is gone.
+
+  IDENTITY:  12/12 documents byte-identical on the full situation model, memo off vs on AND against the stock
+             tree; the product board's GUM block 13/13 comparisons identical; the block 270.4s -> 179.6s.
+  SAVING:    36.4% of the read (25.0-48.4% per document, 10/12 alternating pairs kept; both discards flattered
+             the memo). That is 1.57x more reads per hour -- the brief's "2.5x" is corrected.
+  RESIDUAL:  pinned. Two fresh readers agree 12/12; ONE reader twice agrees 4/12, because the reader LEARNS
+             (its own object-file validity table, pri 136). Freeze that one accrual and it is 3/3. Named as
+             plasticity, kept; the identity unit is one reader per document.
+  TWIN:      the weak twin moved 1/3 documents, so I built the stronger one (permuted node identities): 2/3.
+             The walk IS consumed -- but destroying EVERY walk moves the recorded read by ONE affect field per
+             document (80->78, 98->99, 82->82). THE NEXT BRIEF IS TO GATE THE WALK, NOT ONLY REMEMBER IT.
+
+Read notes/problems/<slug>/SOLVED.md; the change is ppr_memo_patch.diff (271/36, git apply --check clean).
+Reverify: .venv/Scripts/python.exe verification/test_ppr_memo_landing.py   (green before AND after landing)
+```
