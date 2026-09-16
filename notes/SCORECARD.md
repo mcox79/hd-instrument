@@ -204,7 +204,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-16T22:52:22.061422+00:00 (64 on record). Generated 2026-09-16T22:57:45+00:00.
+Last full check: 2026-09-16T22:52:22.061422+00:00 (64 on record). Generated 2026-09-16T23:13:58+00:00.
 
 ### THE PRODUCT, QUESTION BY QUESTION
 
@@ -242,7 +242,7 @@ One row per stage a passage passes through, in order.
 
 ### WHAT STRATEGY IS DOING NOW
 
-AS OF: 2026-09-16 18:21 local (autoloop ARMED; the LAPTOP is live, Q145 resolved; the desktop holds the 17:21 copy, a delta on request tonight). POSITION: 136, 137, 135, 146 LANDED (146 = c97c9d9a4: 12/12 identical, board -33%). NOW: pri 126 APPLIED (seal witness 27/27; its land-tool hook already fired at the 146 landing = the first sealed read, LOCATED item 31), board pri126a running -> land with strategy_scratchpad/land_pri126.json; then 139 -> 140 -> 138. Solver 147 (gate the walk) running. Desktop: clean, the retired orchestrator's tasks disabled.
+AS OF: 2026-09-16 18:58 local (autoloop ARMED; the LAPTOP is live; the desktop holds the 17:21 copy, a delta on request tonight). POSITION: 136, 137, 135, 146, 126 LANDED (126 = 1a7fca749: every model value byte-identical, the reader rows' twins repaired, the sealed read now fires once per landing). NOW: pri 139 (three diffs: the alias, the copular deletion, the mention hand-off after 137's union) being applied -> witnesses + board pri139a -> land with strategy_scratchpad/land_pri139.json (re-measure by_cluster, expect 18-26 on 71 facts); then 140 -> 138. Solver 147 (gate the walk) running. LO
 
 **Running now:** nothing recorded as running
 
