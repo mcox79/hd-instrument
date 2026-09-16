@@ -243,6 +243,27 @@ appraisal found no goal for the character. **Draw the phrase boundary and the ow
 The prospect branches are untouched (10/9/10 vs 10/9/11), so this is not a global shift -- it is the goal
 branch coming back.
 
+### 10.2 THE VALIDITIES, RE-ACCRUED ON THE PHRASE STREAM -- and what the numbers say
+
+24 GUM TRAIN documents, 6,788 mentions through the live phrase-stream read, 1,629 aligned mentions ->
+1,128 same-file and 20,438 different-file pair observations (`--build-validities 24`; asset
+`data/frontend_assets/object_file_validities_gum_npspan_v1.json`).
+
+| cue value | v1 (learned on ONE-TOKEN mentions) | re-accrued on the PHRASE stream | what changed, mechanically |
+|---|---|---|---|
+| `np/gap1_nom` | counts 490 / 16, strength **+6.229** | counts 157 / 21, strength **+4.886** | the NP-INTERNAL 'same' observations are GONE BY CONSTRUCTION -- two adjacent nominal heads inside one phrase are now ONE mention. What is left is the CROSS-PHRASE adjacency, and it is 3.8x weaker evidence (e^1.34). **This is the stand-in the brief said had to go, and its size is 1.34 log-odds.** |
+| `np/gap2_nom` | 188 / 50, +4.154 | 278 / 64, **+4.357** | roughly unchanged -- a two-token gap was already mostly cross-phrase (an apposition, a name beside its title) |
+| `np/other_sent` | -0.976 | -0.765 | unchanged in kind |
+| **`criterion/definite`** | **+0.177** | **+0.004** | **the criterion finding of section 4, quantified.** The v1 shift was learned by a teacher that read the determiner through the `sents` FALLBACK -- a signal the live reader never had. Read the way inference reads it, a DEFINITE gives essentially ZERO threshold shift, which is what Heim's condition actually says: a definite RE-ACCESSES an open file, so it must not raise the bar for doing so. |
+| `criterion/indefinite` | +1.456 | +1.304 | an indefinite still strongly raises the threshold (it introduces a NEW file) -- the half of the condition that was always right |
+| `criterion/bare` | -0.246 | -0.139 | |
+| `name/canon_match` | +2.817 | +2.963 | the aliaser can form a multi-token canonical key for the first time |
+| `head/lemma_match` | +2.504 | +2.707 | |
+
+**The table is still PLASTIC.** This is the starting equilibrium only: `entity_resolver.observe_file_decision`
+keeps accruing the reader's own high-margin decisions during every read (`HDLAB_OBJECT_FILE_ONLINE`), so
+nothing here is frozen.
+
 ## 11. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
