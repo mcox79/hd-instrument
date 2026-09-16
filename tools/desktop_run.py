@@ -23,7 +23,9 @@ WHY NOT `start /b` ON THE REMOTE (see tools/start_desktop_runners.cmd's own hist
 `start /b ... > log 2>&1` child launched from an ssh-driven cmd.exe inherits that cmd.exe's console, and
 dies within seconds of the ssh session closing (CTRL_CLOSE_EVENT propagates to the whole console group).
 Fix used here: the ssh-invoked process is a short-lived Python launcher that spawns the actual worker with
-Win32 CREATE_NEW_PROCESS_GROUP | DETACHED_PROCESS (no console at all, so no CTRL_CLOSE_EVENT reaches it),
+Win32 CREATE_NEW_PROCESS_GROUP | DETACHED_PROCESS | CREATE_BREAKAWAY_FROM_JOB (no console, so no
+CTRL_CLOSE_EVENT reaches it; OUTSIDE sshd's session job object, so closing the session does not
+terminate it -- the 2026-09-15 defect; WMI Win32_Process.Create as the fallback),
 writes a tiny worker script to data/hook_state/desktop_<name>.run.py so no shell-quoting of the target
 command line ever has to survive two hops of quoting, and returns the worker's pid before the ssh session
 closes. The worker itself captures the target command's exit code in Python (subprocess.run().returncode)
@@ -216,12 +218,36 @@ def build_launcher_script(worker_path_remote: str, pid_path_remote: str) -> str:
         import subprocess, sys
         DETACHED_PROCESS = 0x00000008
         CREATE_NEW_PROCESS_GROUP = 0x00000200
-        p = subprocess.Popen([sys.executable, {worker_path_remote!r}],
-                              creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP,
-                              close_fds=True)
+        CREATE_BREAKAWAY_FROM_JOB = 0x01000000
+        # WHY BREAKAWAY (found 2026-09-15/16 on the first real runs; the worker's log never appeared although
+        # this launcher printed a pid): Windows OpenSSH runs every process of an ssh session inside a JOB
+        # OBJECT and terminates the job when the session closes; DETACHED_PROCESS only removes the console, the
+        # job still kills the worker the moment this launcher returns (it died during Python start-up, before
+        # its first log line). CREATE_BREAKAWAY_FROM_JOB puts the worker outside that job. If the job forbids
+        # breakaway (WinError 5), fall back to WMI: Win32_Process.Create spawns from the WMI provider host,
+        # which is outside the session's job by construction (slow on the desktop -- powershell takes 60-120 s
+        # to start there -- but a one-off per job).
+        try:
+            p = subprocess.Popen([sys.executable, {worker_path_remote!r}],
+                                  creationflags=DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP | CREATE_BREAKAWAY_FROM_JOB,
+                                  close_fds=True)
+            pid = p.pid
+            how = "breakaway"
+        except OSError as e:
+            ps = ("$r = Invoke-CimMethod -ClassName Win32_Process -MethodName Create -Arguments @{{CommandLine='"
+                  + '"' + sys.executable + '" "' + {worker_path_remote!r} + '"'
+                  + "'}}; Write-Output ('CIMPID=' + $r.ProcessId + ' RV=' + $r.ReturnValue)")
+            r = subprocess.run(["powershell", "-NoProfile", "-NonInteractive", "-Command", ps],
+                               capture_output=True, text=True, timeout=600)
+            import re as _re
+            m = _re.search(r"CIMPID=(\\d+) RV=0", r.stdout or "")
+            if not m:
+                raise SystemExit("launch failed: breakaway %r; WMI: %r %r" % (e, r.stdout, r.stderr))
+            pid = int(m.group(1))
+            how = "wmi"
         with open({pid_path_remote!r}, "w") as f:
-            f.write(str(p.pid))
-        print("PID=" + str(p.pid))
+            f.write(str(pid))
+        print("PID=" + str(pid) + " HOW=" + how)
         """)
 
 
@@ -249,13 +275,15 @@ def ssh_run(remote_cmd: str, timeout: int = 90) -> subprocess.CompletedProcess: 
 
 
 def scp_to(local_path: str, remote_path: str, recurse: bool = False, timeout: int = 600) -> subprocess.CompletedProcess:
-    argv = ["scp", "-o", "BatchMode=yes"] + (["-r"] if recurse else []) + [local_path, f"{SSH_HOST}:{remote_path}"]
+    # forward slashes: a backslash remote path reaches the desktop's scp doubled (C:\AI\...) and fails with
+    # "No such file or directory" (every pull of the first real runs, 2026-09-15/16); Windows OpenSSH takes C:/...
+    argv = ["scp", "-o", "BatchMode=yes"] + (["-r"] if recurse else []) + [local_path, f"{SSH_HOST}:{remote_path.replace(chr(92), '/')}"]
     _log("scp: " + " ".join(argv[1:]))
     return subprocess.run(argv, capture_output=True, text=True, timeout=timeout, creationflags=_NO_WINDOW)
 
 
 def scp_from(remote_path: str, local_path: str, recurse: bool = False, timeout: int = 600) -> subprocess.CompletedProcess:
-    argv = ["scp", "-o", "BatchMode=yes"] + (["-r"] if recurse else []) + [f"{SSH_HOST}:{remote_path}", local_path]
+    argv = ["scp", "-o", "BatchMode=yes"] + (["-r"] if recurse else []) + [f"{SSH_HOST}:{remote_path.replace(chr(92), '/')}", local_path]
     _log("scp: " + " ".join(argv[1:]))
     return subprocess.run(argv, capture_output=True, text=True, timeout=timeout, creationflags=_NO_WINDOW)
 

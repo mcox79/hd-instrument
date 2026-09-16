@@ -128,6 +128,10 @@ def _check_remote_source_builders():
     launcher = DR.build_launcher_script(r"C:\AI\hd-instrument\data\hook_state\desktop_x.run.py",
                                          r"C:\AI\hd-instrument\data\hook_state\desktop_x.pid")
     assert "DETACHED_PROCESS" in launcher and "CREATE_NEW_PROCESS_GROUP" in launcher and "PID=" in launcher
+    # 2026-09-16: the worker must BREAK AWAY from sshd's session job object (else it dies when the session
+    # closes -- the first two real runs), with the WMI Create as the fallback when breakaway is refused.
+    assert "CREATE_BREAKAWAY_FROM_JOB" in launcher and "Win32_Process" in launcher
+    compile(launcher, "<launcher>", "exec")   # the generated source must at least parse
     # the base64 wrapper round-trips exactly, and its only quoting is the outer double-quotes cmd.exe needs
     cmd = DR.b64_exec_command(r"C:\AI\hd-instrument\.venv\Scripts\python.exe", launcher)
     import base64
