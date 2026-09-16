@@ -1,0 +1,243 @@
+{
+ "alpha": 0.5,
+ "counts": {
+  "cb": {
+   "no": [
+    1336.0,
+    25198.0
+   ],
+   "prev_cb": [
+    242.0,
+    1783.0
+   ]
+  },
+  "etype": {
+   "blocked": [
+    172.0,
+    4047.0
+   ],
+   "licensed": [
+    68.0,
+    471.0
+   ],
+   "na": [
+    1338.0,
+    22463.0
+   ]
+  },
+  "head": {
+   "isa": [
+    67.0,
+    984.0
+   ],
+   "lemma_match": [
+    678.0,
+    947.0
+   ],
+   "mismatch": [
+    833.0,
+    25050.0
+   ],
+   "no_head": [
+    0.0,
+    0.0
+   ]
+  },
+  "name": {
+   "canon_match": [
+    326.0,
+    333.0
+   ],
+   "clash": [
+    196.0,
+    5376.0
+   ],
+   "na": [
+    714.0,
+    20781.0
+   ],
+   "surf_match": [
+    342.0,
+    491.0
+   ]
+  },
+  "np": {
+   "gap1_new_np": [
+    0.0,
+    0.0
+   ],
+   "gap1_same_np": [
+    490.0,
+    16.0
+   ],
+   "gap1_x": [
+    23.0,
+    1.0
+   ],
+   "gap2_new_np": [
+    150.0,
+    34.0
+   ],
+   "gap2_same_np": [
+    38.0,
+    16.0
+   ],
+   "gap2_x": [
+    12.0,
+    1.0
+   ],
+   "other_sent": [
+    567.0,
+    25706.0
+   ],
+   "same_sent_far": [
+    298.0,
+    1207.0
+   ]
+  },
+  "phi": {
+   "agree": [
+    825.0,
+    12568.0
+   ],
+   "conflict": [
+    207.0,
+    6237.0
+   ],
+   "unknown": [
+    546.0,
+    8176.0
+   ]
+  },
+  "predication": {
+   "linked": [
+    0.0,
+    0.0
+   ],
+   "na": [
+    1578.0,
+    26981.0
+   ]
+  }
+ },
+ "criterion": "novelty",
+ "criterion_counts": {
+  "bare": [
+   1081.0,
+   279.0
+  ],
+  "definite": [
+   452.0,
+   178.0
+  ],
+  "indefinite": [
+   45.0,
+   64.0
+  ]
+ },
+ "criterion_shift": {
+  "bare": -0.24558091924074033,
+  "definite": 0.17732187163693236,
+  "indefinite": 1.4564739314020412
+ },
+ "criterion_values": [
+  "indefinite",
+  "definite",
+  "bare"
+ ],
+ "cue_set": "v2",
+ "cue_values": {
+  "cb": [
+   "prev_cb",
+   "no"
+  ],
+  "etype": [
+   "licensed",
+   "blocked",
+   "na"
+  ],
+  "head": [
+   "lemma_match",
+   "isa",
+   "mismatch",
+   "no_head"
+  ],
+  "name": [
+   "canon_match",
+   "surf_match",
+   "clash",
+   "na"
+  ],
+  "np": [
+   "gap1_same_np",
+   "gap1_new_np",
+   "gap2_same_np",
+   "gap2_new_np",
+   "gap1_x",
+   "gap2_x",
+   "same_sent_far",
+   "other_sent"
+  ],
+  "phi": [
+   "agree",
+   "conflict",
+   "unknown"
+  ],
+  "predication": [
+   "linked",
+   "na"
+  ]
+ },
+ "cues": [
+  "name",
+  "head",
+  "etype",
+  "predication",
+  "phi",
+  "cb",
+  "np"
+ ],
+ "source": "object-file merge/split cue validities: counts accrued from GUM TRAIN gold partitions (offline supply) and from the reader's own high-margin decisions (online); strength = log P(value|same) - log P(value|different)",
+ "strength": {
+  "cb": {
+   "no": -0.09835197059628457,
+   "prev_cb": 0.8430469473217117
+  },
+  "etype": {
+   "blocked": -0.3173772826230141,
+   "licensed": 0.9089948096520288,
+   "na": 0.0177379806746982
+  },
+  "head": {
+   "isa": 0.15777589083515098,
+   "lemma_match": 2.50383973335419,
+   "mismatch": -0.5652331731669552,
+   "no_head": 2.8377821910358474
+  },
+  "name": {
+   "canon_match": 2.8165692743966546,
+   "clash": -0.47134826148541786,
+   "na": -0.5324532584353223,
+   "surf_match": 2.4765919091509057
+  },
+  "np": {
+   "gap1_new_np": 2.8365912867251435,
+   "gap1_same_np": 6.228656184824026,
+   "gap1_x": 5.588126599767094,
+   "gap2_new_np": 4.30959504687676,
+   "gap2_same_np": 3.6838891471123474,
+   "gap2_x": 4.956854822925235,
+   "other_sent": -0.9766671211121087,
+   "same_sent_far": 1.439053834031073
+  },
+  "phi": {
+   "agree": 0.11512046709609336,
+   "conflict": -0.5651232339316594,
+   "unknown": 0.13259500890150933
+  },
+  "predication": {
+   "linked": 2.8383782417431203,
+   "na": -0.0002981752134635588
+  }
+ }
+}

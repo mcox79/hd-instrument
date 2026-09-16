@@ -1,5 +1,5 @@
 diff --git a/hdlab/entity_resolver.py b/hdlab/entity_resolver.py
-index 242e5bae2..7b63bb6cf 100644
+index 242e5bae2..34919edd0 100644
 --- a/hdlab/entity_resolver.py
 +++ b/hdlab/entity_resolver.py
 @@ -69,7 +69,11 @@ __bf_note__ = ("ONE ACT-R content-addressable retrieval CORE (salience_binder.ac
@@ -14,7 +14,7 @@ index 242e5bae2..7b63bb6cf 100644
  from collections import Counter, defaultdict
  from typing import Callable, Dict, List, Optional, Sequence, Tuple
  
-@@ -83,6 +87,533 @@ import hdlab.typed_spokes as TS
+@@ -83,6 +87,542 @@ import hdlab.typed_spokes as TS
  
  NEG_INF = -1e9   # the finite floor every organ substitutes for actr_activation's -inf (empty history)
  
@@ -523,6 +523,15 @@ index 242e5bae2..7b63bb6cf 100644
 +# pronoun row (both numbers are in the SOLVED).
 +OBJECT_FILE_TAU = 2.0
 +
++# PLASTIC, NEVER FROZEN.  The reader counts its OWN high-margin merge/split decisions as it reads and the
++# strengths are recomputed from the grown counts (`observe_file_decision`); the batch fit from GUM TRAIN is
++# only the starting equilibrium.  MEASURED (28 GUM test documents, 795 questions): at tau 0 the frozen
++# table gives B-cubed +0.0680 CI-sep with the pronoun row CI-separated DOWN, and the PLASTIC table gives
++# +0.0745 CI-sep with the pronoun row NOT separated down -- plasticity improves the organ's own metric AND
++# removes the consumer regression.  Set HDLAB_OBJECT_FILE_ONLINE=0 to freeze the table (which makes a read
++# order-independent, for a byte-identical A/B).
++OBJECT_FILE_ONLINE_MARGIN = 1.0
++
 +OBJECT_FILE_VALIDITY_ASSET = os.path.join(
 +    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "frontend_assets",
 +    "object_file_validities_gum_v1.json")
@@ -548,7 +557,7 @@ index 242e5bae2..7b63bb6cf 100644
  
  # ==========================================================================================================
  # THE ONE RETRIEVAL CORE  --  content-addressable, cue-based, ACT-R-scored argmax under a write policy.
-@@ -217,11 +748,35 @@ class EntityResolver:
+@@ -217,11 +757,37 @@ class EntityResolver:
      #   Router: NAME -> identity (aliaser); COMMON -> [phi, type_exact] cue, base-level argmax, always-merge.
      # ---------------------------------------------------------------------------------------------------
      def cluster(self, ms, gaz, *, type_route: str = "exact", centering: bool = False,
@@ -574,9 +583,11 @@ index 242e5bae2..7b63bb6cf 100644
 +        if competition:
 +            V = object_file_validities()
 +            if V is not None:
++                _on = os.environ.get("HDLAB_OBJECT_FILE_ONLINE", "1") != "0"
 +                return competition_cluster(ms, gaz, validities=V, tau=tau, decay=self.decay,
 +                                           role_prominence=self.role_prominence,
-+                                           bridge_binds=bridge_binds)
++                                           bridge_binds=bridge_binds, sents=sents,
++                                           online=_on, online_margin=OBJECT_FILE_ONLINE_MARGIN)
 +        return self._cluster_hard_filter(ms, gaz, type_route=type_route, centering=centering,
 +                                         hold=hold, margin=margin)
 +
