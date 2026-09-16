@@ -1,0 +1,49 @@
+{
+  "landed": false,
+  "injected": true,
+  "witnesses": [
+    {
+      "witness": "verification/test_goal_register_constraints_are_binding.py",
+      "exit": 0,
+      "elapsed_s": 2.9,
+      "verdict": "PASS",
+      "tail": "ce, position); and every goal read is bounded by the query time, so a prediction at t can no longer be conditioned on a goal stated later in the document. The organ's authored satisfaction and reinstatement golds are unchanged.\n[SH-4-normalize] HDLAB_EXP_NAME='exp_sh4_normalize_selftest_zzz_v1' begins with 'exp_'; writing to data/exp_sh4_normalize_selftest_zzz_v1/ (canonical) instead of data/exp_exp_sh4_normalize_selftest_zzz_v1/ (double-prefix). See experiments/_seed_checkpoint.get_output_dir docstring.\n[SH-5-selftest-isolate] --self-test in argv but HDLAB_EXP_NAME='sh5_probe_zzz_v1_s7' lacks '_selftest' suffix; auto-appending to isolate selftest output from FULL path (data/exp_sh5_probe_zzz_v1_s7_selftest/ instead of data/exp_sh5_probe_zzz_v1_s7/). Defense-in-depth vs Fix #28 phantom-selftest recurrence. Callers should set HDLAB_EXP_NAME=sh5_probe_zzz_v1_s7_selftest explicitly.\n[SH-5-smoke-isolate] --smoke in argv but HDLAB_EXP_NAME='sh5_probe_zzz_v1_s7' lacks '_smoke' suffix; auto-appending to isolate smoke output from FULL path (data/exp_sh5_probe_zzz_v1_s7_smoke/ instead of data/exp_sh5_probe_zzz_v1_s7/). Callers should set HDLAB_EXP_NAME=sh5_probe_zzz_v1_s7_smoke explicitly.\n"
+    },
+    {
+      "witness": "verification/test_goal_register_landing_organ.py",
+      "exit": 0,
+      "elapsed_s": 271.6,
+      "verdict": "PASS",
+      "tail": "[pri135] PROPOSED hdlab.goal_register + hdlab.situation_reader injected under their real names\nPASS -- 6/6 landing checks:\n  L1 hdlab.goal_register + hdlab.verb_subcat_frames import; NO experiments dependency OK\n  L2 SubcatFrames.load() from shipped asset; want=complement, go=adjunct-host        OK\n  L3 byte-identity: existing dims IDENTICAL track_goals off==on across 3 docs        ADDITIVE\n  L4 goal_register is None on the OFF reader (never populated unless track_goals)    OK\n  L5 landed extractor+register bind right goal->right agent (mary:escape/john:stop)  UNIT\n  L6 LIVE: 11 goals, 1 named goal-agents; wants('alice')->fancy, achieved->satisfied LIVE\n\nHEADLINE: the GOAL/INTENTION dimension is LANDED in hdlab -- hdlab.goal_register (stdlib+hdlab only) + hdlab.verb_subcat_frames (shipped frontend asset) + SituationReader(track_goals=True), wired exactly like _read_belief/_read_world_state. The wire is PURELY ADDITIVE: the existing situation-model dimensions are byte-identical track_goals off vs on; the register is populated + the sm.wants/why/achieved query callables answer on real prose only when the flag is on.\n"
+    },
+    {
+      "witness": "verification/test_occ_appraisal_landing.py",
+      "exit": 1,
+      "elapsed_s": 497.1,
+      "verdict": "FAIL",
+      "tail": "thwart)\nFAIL L2b LIVE TYPE accuracy reproduces the headline ~0.940 through sm.infer_emotion (>= 0.90)  -- TYPE acc = 0.860 (43/50)\nPASS L3-setup found >= 1 real LitBank doc  -- docs=2\nPASS L3a existing dims (events/entities/coref) BYTE-IDENTICAL: all_capabilities_off vs +track_goal_thwart+track_infer_emotion ON, across 2 doc(s)\nPASS L3b off reader leaves sm.infer_emotion = None; on reader exposes a callable sm.infer_emotion\nPASS L4a DEFAULT reader: toggling ONLY {track_goal_thwart,track_infer_emotion} leaves events/entities/coref/entity_states/causal_links BYTE-IDENTICAL across 2 doc(s)\nPASS L4b sm.infer_emotion NEVER overwrites a stated feeling: sm.affect_register / sm.feels are byte-identical off vs on (the read-out writes to no existing field)\nPASS L5-setup goal register populated on real docs (checked 13 goals)\nPASS L5a STRICT SUPERSET on the reader path: 0 baseline satisfied/failed flipped by track_goal_thwart (7 additions active->satisfied/failed)  -- violations=0\nPASS L5b NO wants() REGRESSION (a changed current-want only removes a now-failed goal)  -- wants_regressed=0\n\nWITNESS FAILED: L2b LIVE TYPE accuracy reproduces the headline ~0.940 through sm.infer_emotion (>= 0.90)\n"
+    },
+    {
+      "witness": "verification/test_tom_chain_landing.py",
+      "exit": 0,
+      "elapsed_s": 169.0,
+      "verdict": "PASS",
+      "tail": "lief_from_action / _COS_CUES are hdlab.theory_of_mind, identity-checked)\nPASS W2b BELIEF CHAIN 0.849 (FB 0.871) vs reality floor 0.500 (FB 0.000, provably) -- through the organ  -- CHAIN 0.849 (FB 0.871) | floor 0.500 (FB 0.000)\nPASS W2c the UPSTREAM FIX is load-bearing (CHAIN_NOFIX ~chance 0.478) and the composition is EXACT with oracle belief (1.000) -> the gap is EXTRACTION\nPASS W2d both info-free twins LOSE on the FALSE-belief subset (percept-shuffle 0.496, belief-shuffle 0.527 both << CHAIN FB 0.871)\nPASS W2e ACTION CHAIN 0.655 (FB 0.669) beats the reality floor on FB (0.237) -- the belief x desire composition through the organ  -- CHAIN 0.655 (FB 0.669) | floor FB 0.237\nPASS W3a off reader leaves sm.predict_action/will_act_on/attribute_belief = None; on reader exposes them\nPASS W3b existing dimensions BYTE-IDENTICAL off vs on (events, entities, coref)  -- events 270==270 entities 618==618 coref 99==99\nPASS W3c the belief + goal EXTRACTION sm.believes/knows/wants consume is BYTE-IDENTICAL off vs on (the ToM chain is a read-only query; it changes no extraction)  -- believes-identical=True knows-identical=True wants-identical=True (n_agents=5)\n\nALL LANDING WITNESS CHECKS PASSED\n"
+    },
+    {
+      "witness": "verification/test_goal_hierarchy_landing.py",
+      "exit": 0,
+      "elapsed_s": 84.0,
+      "verdict": "PASS",
+      "tail": "[pri135] PROPOSED hdlab.goal_register + hdlab.situation_reader injected under their real names\nW1 live reader populates sm.goal_graph + 4 callables: PASS\nW2 PURE ADD -- sm.wants/why/achieved still bound: PASS\nW3 multi-hop why_chain(search)=['unlock', 'escape'], root=escape: PASS\n\nALL WITNESSES PASS\n"
+    },
+    {
+      "witness": "verification/test_forward_projection_landing.py",
+      "exit": 0,
+      "elapsed_s": 20.2,
+      "verdict": "PASS",
+      "tail": "s None until predict_next_event is invoked (zero read-time cost)\n  ok  W2-off-is-pre-landing  track_prediction=False -> no sm.predict_next_event bound (== the pre-landing reader)\n  ok  W2-on-adds-only-prediction  track_prediction=True adds ONLY sm.predict_next_event (a pure additive read-only projection)\n  ok  W3-live-discrimination  sm.predict_next_event([e1,e2]) -> picked=1 precision=0.870 dist=[0.018, 0.982] cue=[{'gek': 2.4651474101755317, 'goal': 0.0}, {'gek': 12.390295310478546, 'goal': 0.0}] (forward projection is LIVE)\n  ok  W3-live-wire-faithful  live pick=1 == promoted-organ direct-score pick=1 (gek 2.47 vs 12.39; item 0 is the documented topically-similar wrong-ending case)\n  ok  W3-live-generative  sm.predict_next_event() -> top forward-expected content ['underground', 'cigar', 'archery', 'melatonin', 'champ'] (precision=0.780)\n  ok  W3-abstains-when-asset-absent  with the store asset absent, sm.predict_next_event returns None (abstains cleanly, never raises)\n============================================================================================\nLANDING WITNESS PASS: 12/12\n============================================================================================\n"
+    }
+  ],
+  "all_pass": false
+}

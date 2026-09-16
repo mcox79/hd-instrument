@@ -1184,6 +1184,86 @@ def arm_candidate_decomposition(GR, recs):
 
 
 # ===================================================================================================
+# PHASE 7 (B) -- CONDITION THE VETO ON THE COREFERENCE PICK'S OWN CONFIDENCE
+# ===================================================================================================
+# Today a theme-identity DIFFERENCE that rests on a pronoun never vetoes, because the antecedent is a graded
+# competition this organ cannot re-run. pri 131 landed the competition itself on the record
+# (`CorefResolution.candidates` = ((entity id, activation), ...) strongest first, plus `abstain_reason`), so
+# the smallest read that could make the veto conditional is: let the difference veto WHEN THE PICK IS
+# CONFIDENT. p_top = softmax over the candidate activations (the competition's own posterior), MAP threshold
+# -- no tuned constant. This arm MEASURES that read before anything is shipped.
+def _pick_confidence(sm):
+    """{(pronoun_lower, sent_idx) -> (p_top, margin_nats, abstain_reason)} from the reader's OWN pick."""
+    out = {}
+    for r in getattr(sm, "coref_resolutions", []) or []:
+        cands = list(getattr(r, "candidates", ()) or ())
+        acts = [float(a) for (_e, a) in cands if a is not None]
+        if not acts:
+            continue
+        m = max(acts)
+        ex = [pow(2.718281828459045, a - m) for a in acts]
+        p_top = ex[acts.index(m)] / sum(ex) if sum(ex) else None
+        srt = sorted(acts, reverse=True)
+        margin = (srt[0] - srt[1]) if len(srt) > 1 else float("inf")
+        key = (str(r.pronoun).lower(), int(r.sent_idx))
+        prev = out.get(key)
+        if prev is None or (p_top or 0) > (prev[0] or 0):
+            out[key] = (p_top, margin, getattr(r, "abstain_reason", None))
+    return out
+
+
+def arm_coref_confidence(GR, cap=None):
+    """On the OCC gold (the population that carries the cost): every time the theme test reaches the
+    ANAPHORIC-IDENTITY branch, what is the coreference pick's own confidence, and would letting a CONFIDENT
+    pick veto have been right? Gold is the OCC type, so each flip is scoreable."""
+    from experiments._occ_probe import load_gold, write_conll, _protagonist_canon
+    from experiments._tom_chain import split_sents, tokenize
+    from hdlab.situation_reader import SituationReader
+    gold = load_gold()[:cap]
+    reader = SituationReader(track_goals=True, track_affect=True)
+    tmp = tempfile.mkdtemp(prefix="p135_cc_")
+    firings, rows = 0, []
+    n_conf = 0
+    for it in gold:
+        cp = write_conll(it["text"], it["char"], tmp, it["id"])
+        sm = reader.read(cp)
+        sents = [tokenize(s) for s in split_sents(it["text"])]
+        _inject_organ_themes(GR, reader, sm, sents)
+        canon = _protagonist_canon(sm, it["char"])
+        conf = _pick_confidence(sm)
+        goals = list(getattr(getattr(sm, "goal_register", None), "goals", []) or [])
+        events = list(getattr(sm, "events", []) or [])
+        ev = GR._ev_tuples(events, GR._norm_pred)
+        for g in goals:
+            gobj = GR.goal_object(g)
+            ah = GR._norm_pred(g.goal_head)
+            ga = str(g.agent_canonical or g.agent or "").lower()
+            for row in ev:
+                si, pos, pl, ea, th, pol = row[0], row[1], row[2], row[3], row[4], row[5]
+                if not pl or pl != ah or not GR.outcome_is_after(g, si, pos):
+                    continue
+                verdict, how = GR.content_verdict(gobj, th, canon, g.sent_idx, si)
+                if how != "anaphoric_theme_identity_unconfirmed":
+                    continue
+                firings += 1
+                pron = th if th in GR.PRONOUNS else gobj
+                p_top, margin, abst = conf.get((str(pron).lower(), int(si)), (None, None, None))
+                if p_top is not None and p_top > 0.5:
+                    n_conf += 1
+                rows.append({"id": it["id"], "gold": it["type"], "goal": g.goal_text, "goal_theme": gobj,
+                             "outcome_theme": th, "pronoun": pron, "p_top": (round(p_top, 4) if p_top else None),
+                             "margin_nats": (round(margin, 4) if margin not in (None, float("inf")) else None),
+                             "abstain_reason": abst,
+                             "would_veto_if_confident": bool(p_top is not None and p_top > 0.5)})
+        del sm
+    return {"n_anaphoric_branch_firings": firings, "n_with_a_confident_pick": n_conf,
+            "rows": rows,
+            "note": "a firing is a closure the theme test can only ABSTAIN on today. If the pick's own "
+                    "confidence licensed the veto, every row with would_veto_if_confident=True would be "
+                    "BLOCKED instead of closed -- score those against the gold column."}
+
+
+# ===================================================================================================
 # THE AUDIT (checklist item 3): every identity/time-constrained query audited for silent broadening
 # ===================================================================================================
 AUDIT = [
@@ -1218,24 +1298,37 @@ AUDIT = [
 # ARM F -- the second copy of the satisfaction rule (goal_hierarchy_graph)
 # ===================================================================================================
 def arm_graph_copy(GR, recs):
-    """How often does the goal GRAPH's own copy of the satisfaction rule (goal_hierarchy_graph._apply_status)
-    disagree with the register's repaired closure on real prose? A disagreement is an internal inconsistency
-    a consumer can read (reinstated_goal / open_superordinate use the graph's status)."""
+    """THE SECOND COPY OF THE RULE, measured the way the READER actually wires it (the first version of this
+    arm handed `build_goal_graph` FRESH, UNTRACKED goals and then compared their default 'active' against the
+    register -- an instrument error that reported 32 of 212 disagreements where the live wire has none).
+
+    `_apply_status` PREFERS the flat register's status for every node whose key matches a goal head, so the
+    GOAL nodes agree by construction (row 1 is the control on this instrument). The second copy is the
+    ACTION-node branch: a bare action node -- the matrix action of a purpose construction -- gets
+    `predicate + agent + strictly-later SENTENCE`, with no irregular-past normalisation, no within-sentence
+    order and no polarity. Those nodes feed `open_superordinate` -> `sm.reinstated_goal`. Row 2 recomputes
+    each action node through the register's own `closing_outcome` and counts what changes."""
     from hdlab.goal_hierarchy_graph import build_goal_graph
     import hdlab.goal_register as GRlive
     disagree = same = 0
-    examples = []
+    act_total = act_changed = act_sat = 0
+    cons_total = cons_changed = 0
+    act_by = defaultdict(int)
+    examples, act_examples, cons_examples = [], [], []
     for r in recs["records"]:
         goals = _mk_goals(GR, r["goals"])
         events = _mk_events(r["events"])
         canon = _canon_fn(r["canon"])
         if not goals:
             continue
-        GR.track_status_thwart(goals, events, sents=[list(s) for s in r["sents"]], canon=canon)
-        gg = build_goal_graph(_mk_goals(GRlive, r["goals"]), causal_links=None, events=events,
-                              link_open_stack=True, sents=[list(s) for s in r["sents"]])
+        sents = [list(x) for x in r["sents"]]
+        GR.track_status_thwart(goals, events, sents=sents, canon=canon)
+        # the reader hands the graph THE SAME TRACKED GOAL OBJECTS
+        gg = build_goal_graph(goals, causal_links=None, events=events, link_open_stack=True, sents=sents)
+        heads = set()
         for g in goals:
             key = "%s::%s" % ((g.agent_canonical or g.agent or "?").lower(), GRlive._lemma(g.goal_head))
+            heads.add(key)
             nd = gg.nodes.get(key)
             if nd is None:
                 continue
@@ -1246,11 +1339,50 @@ def arm_graph_copy(GR, recs):
                                      "graph": nd.status, "evidence": g.status_evidence})
             else:
                 same += 1
-    return {"n_compared": same + disagree, "agree": same, "disagree": disagree,
-            "disagree_rate": round(disagree / (same + disagree), 4) if (same + disagree) else None,
-            "examples": examples,
-            "note": "the graph re-derives satisfaction from predicate+agent+strictly-later-sentence; every "
-                    "disagreement is the register's repaired closure vs that second copy"}
+        # ---- the consumer of those statuses, BEFORE the consolidation ----
+        before = {ag: gg.open_superordinate(ag) for ag in gg.agents()}
+        # ---- the ACTION nodes: the branch that really is a second copy ----
+        ev = GR._ev_tuples(events, GR._norm_pred)
+        for key, nd in gg.nodes.items():
+            if key in heads:
+                continue
+            act_total += 1
+            act_sat += int(nd.status == "satisfied")
+            pseudo = GR.Goal(agent=nd.agent, goal_head=nd.head, goal_text=nd.text, kind="action",
+                             source_verb=nd.head, sent_idx=nd.sent_idx, verb_tok=nd.verb_tok,
+                             to_tok=nd.verb_tok)
+            pseudo.agent_canonical = nd.agent
+            hit = GR.closing_outcome(pseudo, nd.agent, GR._norm_pred(nd.head), ev, canon=canon)
+            new = "satisfied" if hit is not None else "active"
+            if new != nd.status:
+                act_changed += 1
+                act_by["%s->%s" % (nd.status, new)] += 1
+                if len(act_examples) < 10:
+                    act_examples.append({"doc": r["id"], "action": nd.text, "agent": nd.agent,
+                                         "graph": nd.status, "consolidated": new,
+                                         "evidence": (hit[2] if hit else None)})
+            nd.status = new                      # apply the consolidation in place, then re-ask the consumer
+        after = {ag: gg.open_superordinate(ag) for ag in gg.agents()}
+        for ag in before:
+            cons_total += 1
+            if before[ag] != after.get(ag):
+                cons_changed += 1
+                if len(cons_examples) < 10:
+                    cons_examples.append({"doc": r["id"], "agent": ag, "reinstated_before": before[ag],
+                                          "reinstated_after": after.get(ag)})
+    return {"n_goal_nodes_compared": same + disagree, "goal_nodes_agree": same,
+            "goal_nodes_disagree": disagree,
+            "goal_node_disagree_rate": round(disagree / (same + disagree), 4) if (same + disagree) else None,
+            "n_action_nodes": act_total, "action_nodes_satisfied_by_the_graph": act_sat,
+            "action_nodes_changed_by_consolidation": act_changed,
+            "action_node_changes": dict(act_by), "action_examples": act_examples,
+            "consumer_reinstated_goal_queries": cons_total,
+            "consumer_reinstated_goal_changed": cons_changed,
+            "consumer_examples": cons_examples,
+            "goal_node_examples": examples,
+            "note": "row 1 is the CONTROL (the graph copies the register's status for goal nodes, so it must "
+                    "be 0); row 2 is the real second copy -- the action-node branch, which feeds "
+                    "open_superordinate -> sm.reinstated_goal"}
 
 
 # ===================================================================================================
@@ -1328,7 +1460,12 @@ def _print(r):
     print("E OCC gold (n=%s)   : model %s  incumbent %s  (answers changed %d)" % (
         o["n"], o["model_acc"], o["floor_incumbent_acc"], len(o["answers_changed"])))
     g = r["F_graph_second_copy"]
-    print("F graph second copy : compared=%s disagree=%s (%s)" % (g["n_compared"], g["disagree"], g["disagree_rate"]))
+    print("F second copy       : goal nodes %s compared / %s disagree (control) | action nodes %s, %s satisfied by "
+          "the graph, %s change under the register's closure %s | reinstated_goal answers %s of %s change"
+          % (g["n_goal_nodes_compared"], g["goal_nodes_disagree"], g["n_action_nodes"],
+             g["action_nodes_satisfied_by_the_graph"], g["action_nodes_changed_by_consolidation"],
+             g["action_node_changes"], g["consumer_reinstated_goal_changed"],
+             g["consumer_reinstated_goal_queries"]))
     d = r.get("G_candidate_decomposition") or {}
     print("G candidates        : %s incumbent closures, decidable share %s, buckets %s"
           % (d.get("n_incumbent_closure_candidates"), d.get("decidable_share"), d.get("buckets")))
@@ -1520,6 +1657,7 @@ def main():
     ap.add_argument("--levers", action="store_true")
     ap.add_argument("--verify-landed", action="store_true")
     ap.add_argument("--refresh-themes", action="store_true")
+    ap.add_argument("--coref-conf", action="store_true")
     ap.add_argument("--witness", action="append", default=None)
     ap.add_argument("--out", default="metrics_levers.json")
     ap.add_argument("--self-test", action="store_true")
@@ -1538,6 +1676,18 @@ def main():
         return 0
     if a.self_test:
         self_test()
+        return 0
+    if a.coref_conf:
+        GR, landed = load_impl()
+        res = arm_coref_confidence(GR, cap=a.occ_cap)
+        with open(os.path.join(OUT_DIR, "metrics_coref_confidence.json"), "w", encoding="utf-8") as f:
+            json.dump(res, f, indent=2, default=str)
+        print("anaphoric-branch firings %s; with a CONFIDENT pick %s" % (
+            res["n_anaphoric_branch_firings"], res["n_with_a_confident_pick"]))
+        for r_ in res["rows"]:
+            print("  %-7s gold=%-14s goal_theme=%-12r outcome=%-8r pron=%-6r p_top=%-6s margin=%-6s veto=%s"
+                  % (r_["id"], r_["gold"], r_["goal_theme"], r_["outcome_theme"], r_["pronoun"],
+                     r_["p_top"], r_["margin_nats"], r_["would_veto_if_confident"]))
         return 0
     if a.refresh_themes:
         refresh_themes(n=a.n)

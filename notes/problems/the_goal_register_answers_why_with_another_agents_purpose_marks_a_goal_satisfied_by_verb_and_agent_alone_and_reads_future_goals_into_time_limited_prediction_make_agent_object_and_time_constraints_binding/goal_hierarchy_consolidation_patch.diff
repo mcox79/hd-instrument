@@ -1,0 +1,75 @@
+--- a/hdlab/goal_hierarchy_graph.py
++++ b/hdlab/goal_hierarchy_graph.py
+@@ -199,7 +199,7 @@ class GoalGraph:
+ # GRAPH CONSTRUCTION from the flat register's goals + the causal network
+ # ---------------------------------------------------------------------------
+ def build_goal_graph(goals: List[Goal], causal_links=None, events=None,
+-                     link_open_stack: bool = False, sents=None) -> GoalGraph:
++                     link_open_stack: bool = False, sents=None, canon=None) -> GoalGraph:
+     """Build the goal->subgoal graph over the reader's OWN extracted goals.
+ 
+     MOTIVATION edges (PINNED relation; structural for explicit purpose):
+@@ -230,8 +230,9 @@ def build_goal_graph(goals: List[Goal], causal_links=None, events=None,
+             if g.negated:
+                 G.nodes[gk].negated = True
+ 
+-    # 2) status per node from the extracted goals (track_status already ran on the flat register) + events
+-    _apply_status(G, goals, events)
++    # 2) status per node from the extracted goals (track_status already ran on the flat register) + events.
++    #    ONE RULE: the action-node branch now calls the register's own closure predicate (pri 135 phase 7).
++    _apply_status(G, goals, events, canon=canon)
+ 
+     # 3) enablement edges from the causal network (optional, additive)
+     if causal_links:
+@@ -243,10 +244,18 @@ def build_goal_graph(goals: List[Goal], causal_links=None, events=None,
+     return G
+ 
+ 
+-def _apply_status(G: GoalGraph, goals: List[Goal], events) -> None:
++def _apply_status(G: GoalGraph, goals: List[Goal], events, canon=None) -> None:
+     """Set node.status. Prefer the flat register's per-goal status (goal_head match); for a bare ACTION node
+-    with no matching goal, satisfied iff a later same-agent event realizes it (glass-box, same rule as
+-    hdlab.goal_register.track_status)."""
++    with no matching goal, ask THE REGISTER'S OWN CLOSURE PREDICATE (hdlab.goal_register.closing_outcome).
++
++    ONE STRUCTURE, ONE RULE (pri 135 phase 7). This branch used to re-derive realization as
++    `predicate + agent + strictly-later SENTENCE` with the register's plain `_lemma` -- a SECOND, weaker copy
++    of a rule the register now states once: irregular-past normalisation ("won" -> "win"), the THEME where the
++    node states one, (sentence, within-sentence position) order so a realization in the node's own sentence
++    counts, and truth-conditional polarity so a negated outcome does not close it. Those action nodes are read
++    by `open_superordinate` -> `sm.reinstated_goal`, so the two organs must not disagree about what "still
++    open" means. `canon` (the reader's entity resolver, optional) is passed through so the theme comparison
++    sees the same entity files the register sees."""
+     by_head: Dict[str, str] = {}
+     neg: Dict[str, bool] = {}
+     for g in goals:
+@@ -254,18 +263,21 @@ def _apply_status(G: GoalGraph, goals: List[Goal], events) -> None:
+         by_head[f"{ag}::{_lemma(g.goal_head)}"] = g.status
+         if g.negated:
+             neg[f"{ag}::{_lemma(g.goal_head)}"] = True
+-    ev = []
++    rows = []
+     if events:
+-        for e in events:
+-            ev.append((getattr(e, "sent_idx", 0), _lemma(str(getattr(e, "predicate", ""))),
+-                       str(getattr(e, "agent", "") or "").lower()))
++        from hdlab.goal_register import _ev_tuples, _norm_pred
++        rows = _ev_tuples(events, _norm_pred)
+     for key, nd in G.nodes.items():
+         if key in by_head:
+             nd.status = by_head[key]
+-        elif ev:
+-            realized = any(si > nd.sent_idx and pl == nd.head and (ea == nd.agent or nd.agent in ("?", ""))
+-                           for (si, pl, ea) in ev)
+-            nd.status = "satisfied" if realized else "active"
++        elif rows:
++            from hdlab.goal_register import closing_outcome, _norm_pred
++            probe = Goal(agent=nd.agent, goal_head=nd.head, goal_text=nd.text, kind="action",
++                         source_verb=nd.head, sent_idx=nd.sent_idx, verb_tok=nd.verb_tok,
++                         to_tok=nd.verb_tok)
++            probe.agent_canonical = nd.agent
++            hit = closing_outcome(probe, nd.agent, _norm_pred(nd.head), rows, canon=canon)
++            nd.status = "satisfied" if hit is not None else "active"
+         if neg.get(key):
+             nd.negated = True
+             nd.status = "failed"

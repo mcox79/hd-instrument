@@ -3,7 +3,7 @@
   "landed": false,
   "seed": 20260916,
   "n_passages_requested": 400,
-  "utc": "2026-09-16T06:39:35+00:00",
+  "utc": "2026-09-16T07:02:49+00:00",
   "A_fixtures": {
     "impl_under_test": [
       {
@@ -584,69 +584,28 @@
     "ci_sep_over_twin": true
   },
   "F_graph_second_copy": {
-    "n_compared": 212,
-    "agree": 180,
-    "disagree": 32,
-    "disagree_rate": 0.1509,
-    "examples": [
+    "n_goal_nodes_compared": 212,
+    "goal_nodes_agree": 211,
+    "goal_nodes_disagree": 1,
+    "goal_node_disagree_rate": 0.0047,
+    "n_action_nodes": 80,
+    "action_nodes_satisfied_by_the_graph": 1,
+    "action_nodes_changed_by_consolidation": 0,
+    "action_node_changes": {},
+    "action_examples": [],
+    "consumer_reinstated_goal_queries": 179,
+    "consumer_reinstated_goal_changed": 0,
+    "consumer_examples": [],
+    "goal_node_examples": [
       {
-        "doc": "79b0da1f-e460-4173-ba58-8c9e2553c53a",
-        "goal": "go for a long walk",
-        "register": "failed",
-        "graph": "active",
-        "evidence": "thwart:adverse_resultant"
-      },
-      {
-        "doc": "79b0da1f-e460-4173-ba58-8c9e2553c53a",
-        "goal": "propose to her boyfriend",
-        "register": "failed",
-        "graph": "active",
-        "evidence": "thwart:negated_goal_head"
-      },
-      {
-        "doc": "bdceebb0-c6e8-417f-b6ae-741a0a71fcd3",
-        "goal": "go snorkeling on his second day",
+        "doc": "f881c375-b5bf-4872-8964-a73454e5aecf",
+        "goal": "see a good movie",
         "register": "satisfied",
         "graph": "active",
         "evidence": "outcome_theme_unobserved"
-      },
-      {
-        "doc": "a09017e9-0d29-46d6-8078-4ba2853d361c",
-        "goal": "ride lawn mowers",
-        "register": "failed",
-        "graph": "active",
-        "evidence": "thwart:failure_verb"
-      },
-      {
-        "doc": "a09017e9-0d29-46d6-8078-4ba2853d361c",
-        "goal": "using drugs",
-        "register": "failed",
-        "graph": "active",
-        "evidence": "thwart:failure_verb"
-      },
-      {
-        "doc": "28b8045e-0e1b-4884-90b6-fdd99cdee941",
-        "goal": "make sure he",
-        "register": "satisfied",
-        "graph": "active",
-        "evidence": "anaphoric_theme_identity_unconfirmed"
-      },
-      {
-        "doc": "72911750-4577-4954-ba65-d297c21f6030",
-        "goal": "wash her hands",
-        "register": "failed",
-        "graph": "active",
-        "evidence": "thwart:failure_verb"
-      },
-      {
-        "doc": "ba85378d-65c7-4c66-92ac-9491e598afa5",
-        "goal": "save gas so he didn't",
-        "register": "failed",
-        "graph": "active",
-        "evidence": "thwart:adverse_resultant"
       }
     ],
-    "note": "the graph re-derives satisfaction from predicate+agent+strictly-later-sentence; every disagreement is the register's repaired closure vs that second copy"
+    "note": "row 1 is the CONTROL (the graph copies the register's status for goal nodes, so it must be 0); row 2 is the real second copy -- the action-node branch, which feeds open_superordinate -> sm.reinstated_goal"
   },
   "G_candidate_decomposition": {
     "n_goals": 212,
@@ -710,5 +669,5 @@
       "verdict": "NOT an identity constraint (an NP-head type filter that falls back when it empties); graded_role_assigner is pri 134's file. Reported, not touched."
     }
   ],
-  "elapsed_s": 94.4
+  "elapsed_s": 65.2
 }

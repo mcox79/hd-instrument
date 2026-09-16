@@ -1,0 +1,43 @@
+{
+  "n_anaphoric_branch_firings": 3,
+  "n_with_a_confident_pick": 3,
+  "rows": [
+    {
+      "id": "sat01",
+      "gold": "satisfaction",
+      "goal": "win the championship for three long",
+      "goal_theme": "championship",
+      "outcome_theme": "it",
+      "pronoun": "it",
+      "p_top": 0.7199,
+      "margin_nats": 1.7148,
+      "abstain_reason": null,
+      "would_veto_if_confident": true
+    },
+    {
+      "id": "sat02",
+      "gold": "satisfaction",
+      "goal": "pass the bar exam on his",
+      "goal_theme": "exam",
+      "outcome_theme": "he",
+      "pronoun": "he",
+      "p_top": 0.9162,
+      "margin_nats": 3.1313,
+      "abstain_reason": null,
+      "would_veto_if_confident": true
+    },
+    {
+      "id": "sat08",
+      "gold": "satisfaction",
+      "goal": "fix the old",
+      "goal_theme": "old",
+      "outcome_theme": "it",
+      "pronoun": "it",
+      "p_top": 0.6673,
+      "margin_nats": 1.1878,
+      "abstain_reason": null,
+      "would_veto_if_confident": true
+    }
+  ],
+  "note": "a firing is a closure the theme test can only ABSTAIN on today. If the pick's own confidence licensed the veto, every row with would_veto_if_confident=True would be BLOCKED instead of closed -- score those against the gold column."
+}

@@ -5,7 +5,7 @@ bar: "The four review fixtures green as witnesses; the audit list closed; the go
 result: "THE THREE DROPPED CONSTRAINTS ARE BINDING, AND THE ONE DOWNSTREAM COST IS TWO ITEMS, BOTH DIAGNOSED. (1) FIXTURES: 21 of 21 green under the proposal, and the tree as it ships passes only 7 of 21 -- 14 fixtures reproduce the defect, including the three the review named. (2) CONTENT (R03), REAL GOALS from ROC Stories read by the LIVE reader, n=352 items over the 176 goals that state a theme, gold by construction (each goal paired with a matching and a mismatching outcome): model 0.9375 vs the INCUMBENT rule 0.5000, paired +0.4375 CI95 [+0.4119,+0.4631] CI-SEPARATED, with the info-free twin (the outcome themes PERMUTED across items) at 0.5028, beaten +0.4347 CI95 [+0.3920,+0.4801] CI-SEPARATED. (3) ORDER (R03), n=416 items over 208 goals: model 1.0000 vs the incumbent 0.5000 -- the incumbent answers 'active' to BOTH halves of every pair because it cannot see inside a sentence, so its difference is a constant and I report it as a COUNT (208 of 208 same-sentence realizations recovered, 208 of 208 pre-goal outcomes still correctly refused) rather than dressing a degenerate CI as a result; the position-permuted twin scores 0.7885 and is beaten +0.2115 CI95 [+0.1803,+0.2452] CI-SEPARATED. (4) TIME (R04): on 314 (document, t) trials where a goal is stated AFTER t, the incumbent closure hands the forward projector future goal evidence on 268 of them (85.35%) and the repaired closure on 0 (0.00%) -- an identity, so it is reported as a rate with its count. (5) THE FREQUENCY OF THE DEFECT ON REAL PROSE, which the brief marked INFERRED: of the closure candidates where BOTH themes were observable, 1 matched and 5 CONFLICTED -- the predicate+agent rule, wherever it can be checked at all, is wrong 5 times in 6 -- and the arithmetic ceiling is that only 6 of 21 incumbent closures (28.57%) are theme-decidable at all, the residual being 7 anaphoric-identity-unconfirmed (coreference), 3 outcome-theme-unobserved (the patient rung) and 5 goal-states-no-theme (the construction itself). (6) NO REGRESSION on the goal organ's own golds: the authored satisfaction gold 1.0000 (floor 0.3333) and the Suh-Trabasso reinstatement gold 1.0000 (recency floor 0.0000, status-shuffle twin p95 0.8000) are IDENTICAL to the landed metrics, and on 212 real goals wants() changes its answer 0 times. (7) THE DOWNSTREAM COST, NAMED: on the authored OCC appraisal gold (n=50) the incumbent scores 0.90 and the repaired closure 0.86, -0.04 CI95 [-0.10, 0.00] -- NOT CI-separated down, two items, and both are the same understood cause (a theme named twice in different words: 'buy the corner BAKERY' / 'Tomas bought the SHOP'; 'plant an ORCHARD' / 'he planted forty apple TREES'). With the OPT-IN structured type store consulted it is 0.88, -0.02 CI95 [-0.06, 0.00]; against the info-free twin (statuses drawn from the model's own marginal) the repaired closure wins +0.20 CI95 [+0.08,+0.34] CI-SEPARATED. (8) THE BIGGEST SINGLE FINDING WAS A FALSE VETO I BUILT AND THEN LOCATED BY COUNTING: the first build cost 0.90 -> 0.78 on that gold, and the cause was not the content rule but the rung under it -- the entity files resolved 'she finally won IT' to 'weekend', so the goal's own 'championship' read as a DIFFERENT thing. The repair is the brain's: a conflict is evidence only when the rung that produced it was in a position to know -- an identity difference that rests on a PRONOUN is not evidence, and a lexical conflict read off a parse arc the reader itself distrusts (patient_conf 0.27 for 'line' in 'he crossed the line and finished') is not evidence. That took the cost from 6 items to 2. (9) TWO QUALITY LEVERS, BOTH MEASURED, ONE OF THEM FIRST REFUTED AND THEN WON BACK: the goal's THEME now comes from the SAME argument-structure organ that binds every event's patient, composed with the NP head rule -- the organ names the ARGUMENT, the phrase names the HEAD -- coverage 170 of 212 goals, agreeing with the span reading on 143 and disagreeing on 23, and on the discrimination arm 0.9331 -> 0.9375 (+0.0044, one item; shipped for fidelity, not for the delta). Its first form LOST (-0.0392) because the organ reached outside the goal span ('trying to fix the old motorbike ALL SUMMER' bound 'summer'), which is the false-negative audit the protocol asks for. The precision-weighted veto restores 1 closure on real prose and is worth +0.02 on the OCC gold (0.84 -> 0.86). (10) AND A SECOND COPY OF THE RULE, COUNTED: hdlab/goal_hierarchy_graph._apply_status re-derives satisfaction from predicate+agent+strictly-later-sentence and now disagrees with the repaired register on 32 of 212 real goals (15.09%) -- one call would consolidate it, and the file is outside this brief's write list, so it is handed to strategy with the number."
 floor: "Every floor recomputed IN THIS CELL on the arm's own population, so the A/B survives landing. CONTENT + ORDER (ROC Stories, real goals, gold by construction): the INCUMBENT SATISFACTION RULE -- a strictly-later SENTENCE with the same predicate lemma and the same agent, the goal's object and the event's polarity ignored -- 0.5000 on both arms by construction (it answers the same status to both halves of every pair), plus the info-free twins (themes permuted 0.5028; positions permuted 0.7885). TIME: the incumbent closure itself (no t in the goal read) leaks on 268 of 314 trials. STATUS FLIPS + THE DOWNSTREAM OCC GOLD: the STRONGEST floor is the FULL incumbent `track_status_thwart` -- satisfaction rule AND the three thwart cues, all strictly-later-sentence -- reproduced in the cell from the organ's own lexicons; it scores 0.90 on the OCC gold. The weaker satisfaction-only floor (no thwart branch) scores 0.60 and is reported only as a reference: measuring against IT was my own first error and it inflated the result to +0.18 before I corrected it. AUTHORED GOLDS: the always-active floor 0.3333 (satisfaction gold) and the status-blind recency floor 0.0000 (reinstatement gold), both recomputed, both matching the landed metrics.json exactly."
 controls: "(1) AN INFO-FREE TWIN ON EVERY SCORED ARM, shape preserved and pairing destroyed: the outcome THEMES permuted across items (0.5028 vs 0.9375), the outcome POSITIONS permuted (0.7885 vs 1.0000), and on the downstream gold the goal STATUSES drawn from the model's OWN marginal measured on that same population (0.66 vs 0.86). (2) THE FLOOR WAS CORRECTED AGAINST MYSELF: the first OCC A/B used a floor without the thwart branch and reported +0.18; rebuilt against the full incumbent the same arm reads -0.04, and the corrected number is the one in the result. (3) THE DOWNSTREAM COST IS REPORTED WITH ITS CI AND ITS ITEMS, not asserted away: -0.04 CI95 [-0.10,0.00] on n=50, two items, both printed with their gold, floor and model answers. (4) EVERY LEVER RUN ADDED AND REMOVED IN THE SAME PROCESS, by ABLATING THE INPUT SIGNAL rather than changing code: patient_conf -> None is the 'without lever 1' arm (0.84 vs 0.86); the theme source is switched on the same records (span 0.9331 vs composed 0.9375). (5) A NEGATIVE I PUBLISHED AGAINST MYSELF AND THEN UNDERSTOOD: the organ theme's first form lost -0.0392 with 32 disagreements; the disagreement list showed the two channels failing in complementary places (the organ takes compound and possessive modifiers, the span reading takes temporals), which is what produced the composition that wins. (6) THE ARITHMETIC CEILING WAS PROBED BEFORE ANY LIMIT WAS WRITTEN: every (goal, candidate outcome) pair that passes predicate+agent+order is classified by WHY the theme was or was not decidable, with the owning rung named per bucket. (7) THE WITNESS CANNOT PASS VACUOUSLY IN EITHER DIRECTION: it asserts the fixtures green under the implementation being landed AND asserts that the LIVE tree still reproduces the defect while the patch is unlanded (14 of 21) and passes every fixture once it lands. (8) `--verify-landed` runs the goal organ's own downstream witnesses against the PROPOSED modules injected under their real hdlab names, with the compiled code carrying the real hdlab __file__ so every asset path resolves as it will after landing. (9) DETERMINISM: the online accrual is READ ONCE per status pass (a snapshot), so a single pass is internally deterministic while the validity itself stays plastic across passes. (10) MODERN PROSE ONLY (ROC Stories + the authored OCC/goal golds); no 19c text is scored. (11) NO spaCy, no nltk tagger, no supervised parser, no external LLM at inference on the shipped path; the structured type store is OPT-IN (matcher=None by default) and is measured, not shipped on."
-files_changed: "experiments/exp_goal_constraints_v1.py (NEW -- the cell: the 21 fixtures, the four scored arms, the no-regress battery, the flip census, the closure-candidate decomposition, the two levers, the pre-landing verifier, --self-test). verification/test_goal_register_constraints_are_binding.py (NEW -- the witness; tree-aware, asserts the defect's presence before landing and its absence after). notes/problems/<slug>/goal_constraints_patch.diff (PROPOSED, NOT applied -- hdlab/goal_register.py + hdlab/situation_reader.py, 22 hunks, `git apply --check` CLEAN at 63dec8a7f). data/exp_goal_constraints_v1/metrics.json + metrics_levers.json + metrics_verify_landed.json (the cell's own output directory, per Q115). NO hdlab/ or tools/ file was written."
+files_changed: "PHASE 7 ADDS: notes/problems/<slug>/goal_hierarchy_consolidation_patch.diff (PROPOSED, NOT applied -- hdlab/goal_hierarchy_graph.py only, 4 hunks, git apply --check CLEAN standalone; it CALLS the register's closing_outcome, so land the register diff first), plus the cell's corrected arm F (goal nodes + action nodes + the reinstated_goal consumer), --coref-conf and --refresh-themes. experiments/exp_goal_constraints_v1.py (NEW -- the cell: the 21 fixtures, the four scored arms, the no-regress battery, the flip census, the closure-candidate decomposition, the two levers, the pre-landing verifier, --self-test). verification/test_goal_register_constraints_are_binding.py (NEW -- the witness; tree-aware, asserts the defect's presence before landing and its absence after). notes/problems/<slug>/goal_constraints_patch.diff (PROPOSED, NOT applied -- hdlab/goal_register.py + hdlab/situation_reader.py, 22 hunks, `git apply --check` CLEAN at 63dec8a7f). data/exp_goal_constraints_v1/metrics.json + metrics_levers.json + metrics_verify_landed.json (the cell's own output directory, per Q115). NO hdlab/ or tools/ file was written."
 reverify: "1) .venv/Scripts/python.exe experiments/exp_goal_constraints_v1.py --fixtures    # 21/21 under test; the live tree shows 14 reproductions before landing and 21/21 after.  2) .venv/Scripts/python.exe verification/test_goal_register_constraints_are_binding.py    # the witness, 7 groups, ~10s.  3) .venv/Scripts/python.exe experiments/exp_goal_constraints_v1.py --self-test    # fixtures + both authored golds, ~30s.  4) OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 MKL_NUM_THREADS=2 PYTHONHASHSEED=0 HDLAB_EXP_NAME=goal_constraints_v1 .venv/Scripts/python.exe experiments/exp_goal_constraints_v1.py --run --n 400 --boot 2000    # ~10 min cold (the ROC read is cached afterwards, then ~100s); expect B1 0.9375 / floor 0.5 / twin 0.5028, C 1.0000, D 268 incumbent leaks vs 0, W7 1.0, W8 1.0, OCC 0.86 vs 0.90 vs compatibility 0.88.  5) ... --levers --n 400    # the two levers, ~100s on the warm cache.  6) ... --refresh-themes --n 400    # recompute the cached argument-structure themes if the organ rule changes (4.5s).  7) ... --verify-landed    # every goal-organ downstream witness against the proposed modules.  Every command writes only into data/exp_goal_constraints_v1*/."
 ---
 
@@ -254,3 +254,178 @@ The landing-organ witness passing is the load-bearing one for additivity: it re-
 with `track_goals` OFF and ON through the PROPOSED reader and asserts every other situation-model dimension is
 byte-identical, so the wire stays purely additive under this change. Re-run the full set with the command
 above (it writes `data/exp_goal_constraints_v1/metrics_verify_landed.json`).
+
+---
+---
+
+# PHASE 7 (strategy probe)
+
+## E. THE PRE-LANDING VERIFIER -- COMPLETE (6 witnesses, the proposal injected under the real hdlab names)
+
+| witness | verdict | time |
+|---|---|---|
+| `test_goal_register_constraints_are_binding.py` | **PASS** | 2.9s |
+| `test_goal_register_landing_organ.py` | **PASS** | 271.6s |
+| `test_occ_appraisal_landing.py` | **FAIL -- one line** | 497.1s |
+| `test_tom_chain_landing.py` | **PASS** | 169.0s |
+| `test_goal_hierarchy_landing.py` | **PASS** | 84.0s |
+| `test_forward_projection_landing.py` | **PASS** | 20.2s |
+
+**The one red, named: `L2b` -- "LIVE TYPE accuracy reproduces the headline ~0.940 through sm.infer_emotion
+(>= 0.90) -- TYPE acc = 0.860 (43/50)".** It is **the rung, not the witness's method**: the witness's 43/50 is
+the SAME number my own arm measures (0.86 vs the incumbent's 0.90 = 45/50), independently, through a different
+driver -- two instruments agreeing to the item.
+
+**And the break I predicted did NOT happen: `L5a` PASSES** -- "STRICT SUPERSET on the reader path: 0 baseline
+satisfied/failed flipped by track_goal_thwart (7 additions)", and `L5b` "NO wants() REGRESSION" also PASS. The
+earliest-closing-event ordering flips 2 of 212 ROC goals but 0 of the 13 goals on the witness's two LitBank
+documents. So section 6 stands as a CLAIM correction (the strict-superset property is no longer universally
+true) but **no assertion fires today** -- strategy can re-pin the wording without any gate being red.
+
+**What it would take to restore L2b's >= 0.90, measured, not asserted.** The two lost items are `sat10`
+("buy the corner BAKERY" / "Tomas bought the SHOP") and `sat12` ("plant an ORCHARD" / "he planted forty apple
+TREES"). (i) The structured type store recovers sat10 (`is_a(bakery, shop) = True`) -> 44/50 = 0.88, and it is
+already wired to an existing reader flag (`affect_structured_matcher` -> `matcher=` on `track_status_thwart`),
+so it is not a new switch. (ii) For sat12 the store returns `cohyponym` -- a structured NEGATIVE. (iii) I then
+tested the reader's OWN meaning hub (`bridging_inference.relatedness`) as the graded fallback, and it is a
+COVERAGE wall rather than a relatedness failure: `orchard`/`tree`, `bakery`/`shop` and `bread`/`loaf` all
+return **None** (no vector), while `bread`/`car` correctly reads **-0.012** and `championship`/`weekend`
+**0.304** (below the store's 0.35 margin, so the hub would not have rescued the sat01 case either). So **L2b
+cannot be restored by wiring anything that exists today**; it needs either the meaning channel to cover those
+words or the result-state reading (alternate path 2). The honest trade, both sides with numbers: **-2 items on
+a 50-item authored gold against +0.4375 CI-separated on 352 real-goal items**, where the incumbent earns those
+2 items by ignoring the object -- the same blindness that makes it wrong on half of the 352.
+
+## A. ONE ORGAN -- AND MY OWN 32/212 WAS AN INSTRUMENT ERROR
+
+**Correction first.** `_apply_status` PREFERS the flat register's status for every node whose key matches a
+goal head, and only re-derives for bare ACTION nodes. My phase-6 arm handed `build_goal_graph` FRESH,
+UNTRACKED goals (default status "active") and then compared them against the tracked register -- so the
+"32 of 212 disagreements" measured my own harness, not the organ. Re-measured the way the reader actually
+wires it (the same tracked goal objects):
+
+| row | number |
+|---|---|
+| goal nodes compared / disagreeing | 212 / **1** (0.47%) -- and that 1 is a **node-key collision**, not a rule difference: `<agent>::<head lemma>` collapses two distinct goals of one agent with the same head verb ("see a good movie" and "see what is available" both become `jason::see`), and the node keeps whichever status was written last |
+| ACTION nodes (the real second copy) | **80** |
+| action nodes the graph marks satisfied | **1** |
+| action nodes whose status CHANGES under the register's own `closing_outcome` | **0** |
+| consumer: `open_superordinate` -> `sm.reinstated_goal` answers changed | **0 of 179** |
+
+**Verdict on A:** the second copy is real (a weaker rule -- no irregular past, no theme, no within-sentence
+order, no polarity) but on 400 ROC passages it never diverges, because an action node rarely has a later
+same-predicate event at all (1 of 80). The consolidation is therefore a **pure fidelity change with zero
+measured behavioural cost**, shipped as `goal_hierarchy_consolidation_patch.diff` (hdlab/goal_hierarchy_graph.py
+only, 4 hunks, `git apply --check` CLEAN standalone; it CALLS `closing_outcome`, so land the pri 135 register
+diff first). **Consumers of the graph's status, enumerated (not searched):** `open_superordinate` (:180, :186)
+-> `sm.reinstated_goal`; `_apply_status` itself (the setter); and nothing else in `hdlab/` or `tools/` reads
+`GraphNode.status` -- `sm.goal_why_chain` / `superordinate_goal` / `salient_goal` read EDGES and connectivity,
+not status. Outside those, only `verification/test_goal_hierarchy_landing.py` (which smoke-calls the four
+closures) and two experiments cells touch the graph at all.
+
+## B. THE COREFERENCE PRECISION -- BUILT, MEASURED, AND IT IS STRICTLY HARMFUL (with the reason)
+
+The smallest read: let a theme-identity DIFFERENCE veto when the coreference pick is CONFIDENT, where
+confidence is the competition's own posterior -- `p_top = softmax(CorefResolution.candidates activations)`,
+MAP threshold, no tuned constant (pri 131's landed field; pri 136's entity file is NOT needed for this).
+
+**On the OCC gold the anaphoric branch fires 3 times and all 3 picks are confident:**
+
+| item | gold | goal theme | outcome theme | p_top | margin (nats) | would veto? |
+|---|---|---|---|---|---|---|
+| sat01 | satisfaction | championship | it | **0.7199** | 1.7148 | yes |
+| sat02 | satisfaction | exam | he | **0.9162** | 3.1313 | yes |
+| sat08 | satisfaction | old | it | **0.6673** | 1.1878 | yes |
+
+All three are items where the closure MUST fire, so conditioning the veto on the pick's confidence would take
+the OCC gold from 0.86 (43/50) to **0.80 (40/50)**. **The coreference organ is CONFIDENTLY WRONG on exactly
+this class** ("it" -> weekend at p_top 0.72; "it" -> last at 0.67), and one of the three (sat02, "he") is a
+patient-slot error wearing a confident coref answer. On the 212 ROC goals the arithmetic bound is small and
+known: 7 candidate pairs / 4 goals reach this branch at all, so nothing there could rescue it either.
+
+**Why the confidence cannot work, and what would.** The antecedent competition scores ENTITY SALIENCE
+(recency, grammatical role) -- it never asks whether the candidate FITS THE VERB'S THEME SLOT. The substrate
+already computes that signal and ships its asset: `hdlab/predictive_reader.py` +
+`data/frontend_assets/predict_surprisal_predictor_v1.pkl` (the N400 organ behind
+`EventRecord.patient_surprisal`). Queried directly on the three failures it ranks correctly **3 of 3**:
+
+| verb | the goal's theme | the pick's antecedent | verb-role precision |
+|---|---|---|---|
+| win | championship **0.531** | weekend **2.128** (it 1.631) | 0.411 |
+| fix | motorbike **0.612** | summer 0.992, weekend 2.447 | 0.389 |
+| pass | exam **0.631** | result 0.759 | 0.222 |
+
+**The landed form** (not shipped on n=3): an optional `selpref` callable threaded into `content_verdict`, so
+an anaphoric identity difference becomes evidence only when the outcome's own verb PREFERS the pick's
+antecedent as its theme (lower surprisal), weighted by that verb-role's precision -- a parameter-free
+comparison, and the same organ the reader already runs on every event. That is what would convert the 7
+anaphoric candidates from ABSTAIN into decisions and raise the decidable share from 28.57% toward 61.9%.
+Handed to strategy rather than shipped, because the only gold it can be scored on today is 3 items.
+
+## C. THE DECIDABLE SHARE (6 of 21 = 28.57%), PER RESIDUAL CLASS
+
+**7 anaphoric-identity-unconfirmed -- the entity files (pri 131/136).** The rung hands down ONE canonical
+string; the theme test needs the POSTERIOR over candidate entities plus, as B shows, the verb's selectional
+fit for each candidate. With a distribution the comparison becomes
+`P(same) = sum_e P(e | goal theme) * P(e | outcome theme)` instead of a string equality on two argmaxes, and a
+confidently-wrong argmax stops being indistinguishable from a right one. The measured hazard is the point:
+3 of 3 picks in this class were confident and wrong, so confidence alone is not the missing quantity -- the
+missing quantity is the candidate's fit to the theme slot.
+
+**3 outcome-theme-unobserved -- the who-did-what patient rung.** On this corpus **751 of 3,832 events
+(19.6%) carry no patient at all**, and of the 2,229 events that expose a calibrated arc reliability **984
+(44.1%) are at or below 0.5**. The graded signal that rung would have to carry is the patient POSTERIOR over
+the clause's nominals (the Competition Model computes activations; `EventRecord` publishes only the argmax
+plus `patient_conf`), so the theme test could read
+`P(match) = sum_n P(n is the patient) * [n == the goal theme]` -- and an intransitive outcome could be
+represented as "no filler" rather than as the same "?" a parse failure produces.
+
+**5 goal-states-no-theme -- the goal construction itself, and it is largely irreducible.** Of the 212 real
+goals, 179 state a theme and 33 do not: 21 are bare infinitives ("go", "cook", "start"), 5 are particle/PP
+goals whose content is a RESULT STATE rather than an object ("break up", "grow back out"), 4 are indefinite or
+interrogative pro-forms ("make something", "see what is available") and 3 are stopword tails. Only the second
+group is recoverable, and not by a better theme: "get out of his house" is closed by a STATE (the agent is
+outside), which is alternate path 2. For the rest the honest behaviour is what now happens -- close on
+agent+predicate and record `goal_states_no_object` as the evidence.
+
+## D. THE PLASTIC FORM -- WHAT IT WOULD BE, AND WHY 212 GOALS CANNOT SUPPORT IT
+
+The accrued form generalises `ContentMatchAccrual` from one cue to all five: a validity
+`v_c = P(the closure was genuine | cue c fired)` for agent, predicate, theme, order and polarity, learned from
+the reader's OWN confirmed closures and used to WEIGHT the cues instead of conjoining them -- which is what the
+brain does with cue validity (a lifetime statistic, accrued, never frozen).
+
+**The blocker is the confirmation signal, and there is a self-supervised one available**: Suh & Trabasso's
+reinstatement logic says a goal that is RESTATED later was not closed, so a restatement is a negative label the
+reader can read off its own stream with no gold.
+
+**The power, counted, is the reason not to build it now.** On 212 goals the theme cue has **6** decidable
+observations (measured accrual: 1 match / 5 conflicts; a Jeffreys 95% interval on 1/6 spans roughly
+[0.01, 0.53] -- no power), and the restatement signal fires about as rarely (the node-key collision in A found
+**1** same-agent same-head repeat in 212 goals). Scaled from the measured rates, the full ROC corpus
+(**98,161 stories** -> ~52,025 goals at 0.5300 goals/passage) would yield ~**5,153 closure candidates** and
+~**1,472 theme-decidable observations** -- ample. The cost is the corpus read: **~35 hours single-core** at the
+measured 1.3 s/passage, i.e. a BUILD-TIME accrual to be run off this laptop, shipped as a counts asset with the
+online `observe()` path already in the organ. Not built here; sized.
+
+## F. WHAT I STILL DO NOT FULLY UNDERSTAND, AND THE OPPORTUNITIES NOT TAKEN
+
+**Understood, with the mechanism named:** the wins won because three signals the event rung already computes
+(theme, polarity, within-sentence position) were never read, and reading them is worth +0.4375 CI-sep, 208/208
+and 268->0 respectively -- Zwaan & Radvansky's intentionality index updated from the dimension that actually
+carries it, and Trabasso's goal->outcome arc drawn to the node whose CONTENT matches. The losses lost for one
+reason in two dresses: a rung below handed down a point estimate that the closure treated as certainty (a
+confidently wrong antecedent; a 0.27-reliable patient arc).
+
+**Not fully understood, stated as such:** why the ATL hub has no vector for `orchard`, `bakery`, `shop` or
+`loaf` while covering `bread`, `car`, `championship` and `weekend`. That is a coverage question in the
+meaning-foundation asset, not in this organ; I did not chase it because it belongs to the knowledge
+foundation, and I report it as a coverage count (4 of 4 residual-pair words uncovered), not as a ceiling.
+
+**Opportunities not taken, and why:** (1) the selectional-preference tie-break for the anaphoric class --
+prototyped, 3/3 correct, NOT shipped because 3 items is not a population; (2) closing goals on RESULT STATES --
+the correct reading of the goal dimension, and it would make the theme question moot, but the result-state
+organ is not live for arbitrary verbs and a partial map under-closes silently; (3) the node-key collision in
+the goal graph (1 of 212) -- a key-design change in another organ's file; (4) turning the structured type store
+on by default -- it recovers 1 OCC item, but that default belongs to the flag's owner, and my diff simply
+consults the matcher whenever the reader already passes one.
