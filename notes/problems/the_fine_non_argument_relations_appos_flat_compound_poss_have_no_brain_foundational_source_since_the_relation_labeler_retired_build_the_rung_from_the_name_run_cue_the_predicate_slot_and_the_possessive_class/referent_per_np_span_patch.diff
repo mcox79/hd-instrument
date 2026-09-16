@@ -1,0 +1,228 @@
+diff --git a/hdlab/referent_per_np.py b/hdlab/referent_per_np.py
+index 78504fb..3c48dd2 100644
+--- a/hdlab/referent_per_np.py
++++ b/hdlab/referent_per_np.py
+@@ -31,8 +31,9 @@ __bf_verified__ = '2026-09-09 BF-certification pass (reader CATALOG owner-DONE +
+ __bf_note__ = 'Kamp/Heim DRT one-referent-per-NP discourse construction; CAT genuinely-BF'
+ __bf_corrections__ = []
+ 
+ 
++import os
+ from typing import Dict, List, Optional, Sequence, Set
+ 
+ from hdlab.coref import parse_litbank_conll
+ from hdlab.scene_segment import parse_conll_sentences
+@@ -95,14 +96,101 @@ def pronoun_phi(form: Optional[str]) -> Optional[Dict]:
+     cue to retrieve with, which is the honest state, not a reason to drop the referent."""
+     return PRONOUN_PHI.get((form or "").lower().strip(".,\'\"!?;:"))
+ 
+ 
++# ===============================================================================================================
++# THE NP SPAN AND THE GLOBAL TOKEN INDEX (pri 134 phase 7, 2026-09-16).
++#
++# THE DEFECT.  Every mention this organ makes carries `gtok_start = gtok_end = -1` and a ONE-TOKEN,
++# LOWERCASED `span_toks`.  The mention schema this stream claims to implement (`coref.parse_litbank_conll`,
++# documented at coref.py:167) is: `wtok_start` = the SPAN START, `span_toks` = the RAW-CASED span with the
++# HEAD LAST, `gtok_start..gtok_end` = the span's global extent.  A one-token span satisfies that schema only
++# degenerately -- start == head, extent == 0 -- so the violation is invisible until a consumer asks for the
++# extent, and then it abstains or reads a point.  MEASURED consequences on the LIVE default read:
++#   * `crosstype_live_adapter._can_build` rejects 292 of 292 non-pronoun mentions on a GUM document, so the
++#     default-ON crosstype bridge returns its input unchanged on EVERY raw-text read and its predication
++#     detector is never entered (0 of 6 documents, 0 edges).
++#   * `lexical_utils.definiteness` reads the span's FIRST token, which is the head, so it answers "bare" on
++#     100% of mentions -- the definite/indefinite distinction the whole Heim file-change account rests on.
++#   * `lexical_utils.modifiers` is empty by construction (`span[:-1]` of a one-token span).
++#   * `coref.mention_span` returns a POINT, so a pick can only ever align on the head token.
++#   * pri 118's span-level NAME-RUN cue -- the lever that carries its whole +0.0103 -- is inert here, as pri
++#     118's own docstring says: "it is INERT here because this builder stores span_toks=[head]".
++#
++# THE BRAIN.  A referring expression is ONE unit: the determiner phrase is segmented as a chunk and retrieved
++# as a chunk (Heim 1982 file cards are opened by a DP, not by a noun; Kripke 1980 / Semenza 2006 for the name
++# run as a single stored item).  The chunk is read off the category sequence -- determiner, modifiers, head --
++# with no arc needed, which is why it is available at this rung at all.  `heads_fn` is the optional hook for
++# the arc-based projection (the attachment arm's dependents of the head) once a caller can supply heads with
++# no second parse; with none the arc-free chunk stands, and it is what is measured.
++#
++# WHAT CHANGES, EXACTLY, AND THE ONE THING THAT COSTS SOMETHING: this emits the CANONICAL schema, so
++# `wtok_start` moves from the HEAD position to the SPAN START.  That is the field the positional word-order
++# cue reads (`graded_role_assigner.agent_supports`, `situation_reader`'s pre/post-verb splits), so the
++# agent / patient rows can move; the number is in the pri-134 SOLVED and the switch below reverts exactly
++# this block.  `head` stays the lowercased head lemma and `span_toks[-1]` is that head, so every consumer
++# that reads the head is byte-identical.
++# ===============================================================================================================
++RPN_SPAN = os.environ.get("HDLAB_RPN_SPAN", "1") == "1"
++# NP-internal categories the chunk may absorb to the LEFT of its head.  A verb / adposition / conjunction /
++# punctuation closes the chunk, which is the same domain boundary `coref._np_domain` and the attachment arm's
++# NP_SPLIT cue already use.
++_NP_LEFT = ("DET", "ADJ", "NUM", "NOUN", "PROPN", "PART", "PRON", "SYM", "X", "ADV")
++_NP_LEFT_MAX = 8
++
++
++def _np_chunk_start(toks, up, hw, heads_fn=None):
++    """The LEFT EDGE of the referring expression headed by 0-based `hw` -- determiner + modifiers + any
++    name-run / compound members, read off the category sequence.  `heads_fn` (optional) returns 1-based
++    heads for this sentence; when supplied, the chunk is intersected with the head's own arc projection so a
++    modifier the governor attached elsewhere is not absorbed."""
++    a = hw
++    steps = 0
++    while a - 1 >= 0 and steps < _NP_LEFT_MAX:
++        u = up[a - 1] if a - 1 < len(up) else "X"
++        if u not in _NP_LEFT:
++            break
++        if u == "ADV":                       # an adverb only continues the chunk before an adjective
++            if not (a - 2 >= 0 and a < len(up) and up[a] == "ADJ"):
++                break
++        if u == "PRON":                      # a pronoun continues it only in determiner position (possessive)
++            if str(toks[a - 1]).lower() not in _POSS_DET:
++                break
++        a -= 1
++        steps += 1
++    if heads_fn is not None:
++        try:
++            hd = heads_fn()                  # 1-based child -> head; keep only tokens whose path reaches hw
++            if hd:
++                keep = a
++                for k in range(a, hw):
++                    j, depth = k + 1, 0
++                    while j and depth < 6:
++                        if j - 1 == hw:
++                            break
++                        j = int(hd.get(j, 0) or 0)
++                        depth += 1
++                    else:
++                        keep = k + 1
++                        continue
++                    if j - 1 != hw:
++                        keep = k + 1
++                a = keep
++        except Exception:
++            pass
++    return a
++
++
++_POSS_DET = frozenset({"my", "your", "his", "her", "its", "our", "their", "whose"})
++
++
+ def _mk_pronoun_referent(form_low: str, sent_idx: int, wpos: int, cluster: int,
+-                         upos: Optional[str] = None) -> Dict:
++                         upos: Optional[str] = None, gtok: Optional[int] = None) -> Dict:
+     """A DISCOVERED pronoun mention in the parse_litbank_conll schema. `discovered` marks the provenance
+     (this organ, from the category organ's tag) so a consumer can tell it from a column mention."""
+     d = pronoun_phi(form_low) or {}
+-    return {"cluster": cluster, "gtok_start": -1, "gtok_end": -1, "sent_idx": sent_idx,
++    _g = -1 if gtok is None else int(gtok)            # a pronoun IS its own one-token referring expression
++    return {"cluster": cluster, "gtok_start": _g, "gtok_end": _g, "sent_idx": sent_idx,
+             "wtok_start": wpos, "head": form_low, "is_pronoun": True,
+             "gender": d.get("gender"), "number": d.get("number"), "name_gender": None,
+             "span_toks": [form_low], "midx": -1, "span_upos": [upos or "PRON"],
+             "person": d.get("person"), "discovered": True}
+@@ -177,9 +265,10 @@ def _file_card_features(head_low: str, upos: Optional[str], name_gender_map=None
+ 
+ 
+ def _mk_referent(head_low: str, sent_idx: int, wpos: int, cluster: int, midx: int,
+                  upos: Optional[str] = None, tag_post=None, tags=None,
+-                 name_gender_map=None, fill_card: bool = True) -> Dict:
++                 name_gender_map=None, fill_card: bool = True,
++                 span=None, span_upos=None, span_post=None, gtok=None, wstart=None) -> Dict:
+     """A discourse-referent mention dict in the parse_litbank_conll schema (single-token, non-pronoun).
+ 
+     MEASURED DEFECT THIS FIXES (pri-109, 8 LitBank docs): `span_toks` is the LOWERCASED head, and the ten
+     organs that type a mention call `coref.name_content_tokens`, which decides by CAPITALISATION. So on the
+@@ -188,21 +277,33 @@ def _mk_referent(head_low: str, sent_idx: int, wpos: int, cluster: int, midx: in
+     raw-cased coref-column stream. `upos` = the category organ's category for this head, so the name decision
+     becomes the organ's and survives the lowercasing: 150 name mentions typed where there were 0."""
+     _g, _n, _ng = (_file_card_features(head_low, upos, name_gender_map) if fill_card
+                    else (None, None, None))
+-    d = {"cluster": cluster, "gtok_start": -1, "gtok_end": -1, "sent_idx": sent_idx,
+-         "wtok_start": wpos, "head": head_low, "is_pronoun": False,
+-         "gender": _g, "number": _n, "name_gender": _ng, "span_toks": [head_low], "midx": midx}
+-    if upos is not None:
++    # pri 134 phase 7: the CANONICAL schema -- wtok_start is the SPAN START, span_toks is the RAW-CASED span
++    # with the head LAST, and gtok_start..gtok_end is its global extent.  With RPN_SPAN off (or no span
++    # supplied) every field is byte-identical to the pre-2026-09-16 organ.
++    _sp = list(span) if (RPN_SPAN and span) else [head_low]
++    _gs, _ge = ((int(gtok[0]), int(gtok[1])) if (RPN_SPAN and gtok) else (-1, -1))
++    _ws = int(wstart) if (RPN_SPAN and wstart is not None) else wpos
++    d = {"cluster": cluster, "gtok_start": _gs, "gtok_end": _ge, "sent_idx": sent_idx,
++         "wtok_start": _ws, "head": head_low, "is_pronoun": False,
++         "gender": _g, "number": _n, "name_gender": _ng, "span_toks": _sp, "midx": midx}
++    if RPN_SPAN and span and span_upos:
++        d["span_upos"] = list(span_upos)
++    elif upos is not None:
+         d["span_upos"] = [upos]
+     if tag_post is not None:
+         # pri 118: the category organ's POSTERIOR row for this head, so `coref.name_content_tokens` can
+         # marginalise over the type partition instead of branching on the argmax.  MEASURED on the reader's
+         # own stream (16 GUM test documents, 4,059 non-pronoun mentions): it changes 9 typings -- the lever
+         # that carries the gain on the board loader's stream is the SPAN-level name-run cue, and it is INERT
+         # here because this builder stores span_toks=[head], ONE token per mention.  Keeping the NP span is
+         # the next rung and is filed as such.
+-        d["span_post"] = [tag_post]
++        # the posterior travels PER SPAN TOKEN so pri 118's graded head + span-level name-run cue can run
++        # here at all (its own docstring records that they are inert against a one-token span).
++        d["span_post"] = (list(span_post) if (RPN_SPAN and span and span_post
++                                              and len(span_post) == len(d["span_toks"]))
++                          else [tag_post])
+         d["span_tags"] = tags
+     return d
+ 
+ 
+@@ -222,9 +323,9 @@ def _finalize(mentions: List[Dict]) -> List[Dict]:
+     return mentions
+ 
+ 
+ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_frame: bool = True,
+-                          discover_pronouns: bool = True, fill_card: bool = True):
++                          discover_pronouns: bool = True, fill_card: bool = True, heads_fn=None):
+     """THE candidate source: a discourse referent per content-noun-head NP (+ the determiner/name FRAME detector
+     when use_frame), coref pronouns/clusters PRESERVED (coref demoted to a downstream linking pass). REPLACES the
+     coref-column candidate source. Returns (mentions, n_sents) in the parse_litbank_conll schema -- a drop-in for
+     `mentions, n_sents = parse_litbank_conll(...)`. `tagger` = the reader's frontend UPOS PosTagger. VERBATIM to
+@@ -239,8 +340,14 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
+     sents = parse_conll_sentences(conll_path, lower=False)  # pri-116: cased -- +0.4106 PROPN F1 (see scene_segment);
+     # `frame_heads`' mid-sentence-CAPITAL cue can fire again, and `_content_head_positions` opens a referent for
+     # every content noun the organ can now see. MEASURED through the live reader on 16 modern GUM test documents:
+     # entity files 2,459 -> 2,563 (+4.2%), NAME-typed referent mentions 242 -> 599 (2.48x).
++    # pri 134 phase 7: the per-sentence global token offsets, so every mention can carry the GLOBAL span
++    # `crosstype_live_adapter._can_build` (and every other extent consumer) asks for.
++    _offs, _n = [], 0
++    for _s in sents:
++        _offs.append(_n)
++        _n += len(_s)
+     coref_head_wpos: Dict[tuple, int] = {}
+     # REFLEXIVES (himself/herself/itself/themselves) are pronouns too (Binding Principle A; strategy 2026-09-12):
+     # the CoNLL mention stream marks only PRONOUN_SCOPE forms as pronouns, so a reflexive coref mention was dropped
+     # here (neither a pronoun nor a content-noun head). Keep it as a pronoun mention with its form's gender/number.
+@@ -288,9 +395,10 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
+         if discover_pronouns:
+             for wi, w in enumerate(toks):
+                 if wi >= len(up) or up[wi] != "PRON":
+                     continue
+-                pron.append(_mk_pronoun_referent(w.lower(), si, wi, next_cluster, up[wi]))
++                pron.append(_mk_pronoun_referent(w.lower(), si, wi, next_cluster, up[wi],
++                                                 gtok=(_offs[si] + wi) if si < len(_offs) else None))
+                 next_cluster += 1
+                 pron_pos.add(wi)
+         for hw in heads:
+             if (si, hw) in refl_pos or hw in pron_pos:
+@@ -298,11 +406,19 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
+             cl = coref_head_wpos.get((si, hw))
+             if cl is None:
+                 cl = next_cluster
+                 next_cluster += 1
++            _a = _np_chunk_start(toks, up, hw, heads_fn) if RPN_SPAN else hw
++            _base = _offs[si] if si < len(_offs) else None
+             out.append(_mk_referent(toks[hw].lower(), si, hw, cl, -1,
+                                     upos=up[hw] if hw < len(up) else None,
+                                     tag_post=(mat[hw] if (mat is not None and hw < len(mat)
+                                                           and _tags) else None),
+                                     tags=_tags,
+-                                    name_gender_map=name_gender_map, fill_card=fill_card))
++                                    name_gender_map=name_gender_map, fill_card=fill_card,
++                                    span=[toks[k] for k in range(_a, hw + 1)],
++                                    span_upos=[up[k] if k < len(up) else "X" for k in range(_a, hw + 1)],
++                                    span_post=([mat[k] for k in range(_a, hw + 1)]
++                                               if (mat is not None and hw < len(mat) and _tags) else None),
++                                    gtok=((_base + _a, _base + hw) if _base is not None else None),
++                                    wstart=_a))
+     return _finalize(pron + out), n_sents

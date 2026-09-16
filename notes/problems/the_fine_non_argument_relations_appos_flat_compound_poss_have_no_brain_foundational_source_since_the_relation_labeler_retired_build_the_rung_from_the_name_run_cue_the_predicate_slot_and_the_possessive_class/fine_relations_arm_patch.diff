@@ -1,5 +1,5 @@
 diff --git a/hdlab/graded_role_assigner.py b/hdlab/graded_role_assigner.py
-index f3a1134..0815644 100644
+index f3a1134..28a77eb 100644
 --- a/hdlab/graded_role_assigner.py
 +++ b/hdlab/graded_role_assigner.py
 @@ -40,8 +40,12 @@ from __future__ import annotations
@@ -510,3 +510,52 @@ index f3a1134..0815644 100644
      """Is the nominal at 0-based p the object of the passive-agent preposition 'by'? Scan left through
      NP-internal modifiers + coordination; a 'by' before any clause-blocking token -> by-PP member (the demoted
      passive agent). VERBATIM from exp_noncanonical_agent_bymorph_v1.by_governs. `low` = lowercased tokens."""
+@@ -1999,8 +2489,26 @@ _CONSTR_NPMOD = frozenset(("DET", "ADJ", "NUM"))
+ _CONSTR_COORD = frozenset(("and", "or", "nor"))
+ _CONSTR_PP_SKIP = frozenset(("DET", "ADJ", "NUM"))   # NP-internal modifiers, WITHOUT PUNCT (a comma ends a phrase)
+ 
+ 
++def mention_head_wpos(m) -> int:
++    """THE WITHIN-SENTENCE INDEX OF A MENTION'S HEAD (pri 134 phase 7).
++
++    The mention schema (`coref.parse_litbank_conll`, coref.py:167) puts `wtok_start` at the SPAN START and the
++    HEAD LAST, so the head sits at `wtok_start + (gtok_end - gtok_start)`.  Two sites in this module read
++    `wtok_start` itself as the head index -- a CATEGORY test on the head, and the 1-based index handed to
++    `_calibrated_agent_prob` (which calls `is_arg_head` / `coarse_role_posterior` on it).  Both are therefore
++    already reading the DETERMINER on any multi-token mention, i.e. on every gold coref-column mention; the
++    reader's own stream hid it because `referent_per_np` emitted one-token spans.  A one-token mention is the
++    degenerate case where head == start, so this is byte-identical wherever the old reading was right."""
++    ws = int(m.get("wtok_start", 0) or 0)
++    gs, ge = m.get("gtok_start", -1), m.get("gtok_end", -1)
++    if isinstance(gs, int) and isinstance(ge, int) and 0 <= gs <= ge:
++        return ws + (ge - gs)
++    sp = m.get("span_toks")
++    return ws + (len(sp) - 1 if sp else 0)
++
++
+ def _pp_governed_commastop(low, up, p):
+     """Core-argument PP-government detector, comma-STOPPED (the deployable one -- mirrors
+     experiments/exp_board_agent_noncanonical_v1._pp_governed_fixed): STOP the left-scan at any punctuation (a
+     comma closes a fronted constituent), so 'In 2019 , Google launched' does NOT falsely flag the real subject.
+@@ -2065,9 +2573,9 @@ def _existential_agent(toks, pos, v0, cands):
+     lo, hi = clause_bounds(toks, pos, v0)
+     if not any(low[i] == "there" and (pos[i] in ("PRON", "ADV")) for i in range(lo, min(hi, v0 + 1))):
+         return None
+     post = [c for c in cands if v0 < c["wtok_start"] < hi
+-            and (pos[c["wtok_start"]] if c["wtok_start"] < len(pos) else None) in ("NOUN", "PROPN")]
++            and (pos[mention_head_wpos(c)] if mention_head_wpos(c) < len(pos) else None) in ("NOUN", "PROPN")]
+     return min(post, key=lambda c: c["wtok_start"])["head"] if post else None
+ 
+ 
+ def _first_conjunct_agent(toks, pos, v0, cands):
+@@ -2150,9 +2658,9 @@ def agent_override_licensed(toks, pos, heads, v0, cands, cm_head, validities=Non
+     tab = validities or load_coarse_validities()
+     rel = reliability if reliability is not None else load_margin_reliability()
+     from hdlab.thematic_role_labeler import is_passive_predicate
+     want = "BY_AGENT" if is_passive_predicate(list(toks), list(pos), v0 + 1, heads=heads) else "SUBJ"
+-    idx = {str(c["head"]).lower(): c["wtok_start"] + 1 for c in cands}
++    idx = {str(c["head"]).lower(): mention_head_wpos(c) + 1 for c in cands}
+     p_b = _calibrated_agent_prob(toks, pos, heads, idx.get(str(base["head"]).lower(), -1), want, tab, rel)
+     p_c = _calibrated_agent_prob(toks, pos, heads, idx.get(str(cm_head).lower(), -1), want, tab, rel)
+     th = AGENT_OVERRIDE_THETA if theta is None else float(theta)
+     return bool(np.log(max(p_c, 1e-6)) - np.log(max(p_b, 1e-6)) > th)

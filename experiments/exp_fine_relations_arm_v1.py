@@ -1467,11 +1467,221 @@ def verify_landed():
     return 1 if fails else 0
 
 
+
+# ==================================================================================================
+# PHASE 7 ARM: --spans
+# (A) EVERY hdlab READER OF THE MENTION SPAN, enumerated and COUNTED on the live default read.
+# (B) THE PROPER REPAIR AT THE INTRODUCTION ORGAN (referent_per_np_span_patch.diff), measured on the
+#     same A table, on the A/B/C bridge counts, and on the fine-relation tokens.
+# Both arms in ONE process; the patched organ is installed from its own shipped diff, never monkeypatched
+# by hand, so what is measured IS what lands.
+# ==================================================================================================
+SPAN_DIFF = "referent_per_np_span_patch.diff"
+
+
+def _install_rpn_patch():
+    """Compile the shipped referent_per_np diff INTO the live module (the --verify-landed method)."""
+    import hdlab.referent_per_np as RPN
+    rel = "hdlab/referent_per_np.py"
+    patched = _apply_diff_text(rel, os.path.join(DIFF_DIR, SPAN_DIFF))
+    exec(compile(patched, rel, "exec"), RPN.__dict__)
+    return RPN
+
+
+def _span_audit(role_mentions, sents):
+    """THE A TABLE, computed with the REAL consumer functions -- never a re-implementation."""
+    from hdlab.coref import mention_span, name_content_tokens
+    from hdlab.lexical_utils import definiteness, modifiers
+    import hdlab.crosstype_live_adapter as A
+    nonp = [m for m in role_mentions if not m.get("is_pronoun")]
+    ntok = sum(len(s) for s in sents)
+    out = {
+        "mentions": len(role_mentions), "non_pronoun": len(nonp),
+        # coref.mention_span (pri 131 aligns a pronoun pick by this span)
+        "mention_span_extent_gt0": sum(1 for m in nonp
+                                       if (lambda t: t[2] > t[1])(mention_span(m))),
+        # lexical_utils.definiteness (Heim file-change: which determiner opened the file)
+        "definiteness": dict(collections.Counter(definiteness(m) for m in nonp)),
+        # lexical_utils.modifiers (the descriptive content an ACT-R retrieval matches on)
+        "with_modifiers": sum(1 for m in nonp if modifiers(m)),
+        # coref.name_content_tokens (the NAME gate for ten organs; pri 118's span cue rides on it)
+        "name_typed": sum(1 for m in nonp
+                          if name_content_tokens(m.get("span_toks", [m["head"]]),
+                                                 upos=m.get("span_upos"))),
+        "multi_token_span": sum(1 for m in nonp if len(m.get("span_toks") or []) > 1),
+        # crosstype_live_adapter._can_build (the whole bridge abstains if ANY mention fails)
+        "gtok_in_range": sum(1 for m in nonp
+                             if isinstance(m.get("gtok_start"), int)
+                             and isinstance(m.get("gtok_end"), int)
+                             and 0 <= m["gtok_start"] <= m["gtok_end"] < ntok),
+        "can_build": bool(A._can_build(role_mentions, sents)),
+        # space_reader._cluster_covering (wtok_start + len(span) - 1 covers a token)
+        "space_extent_gt0": sum(1 for m in nonp if len(m.get("span_toks") or [m["head"]]) > 1),
+    }
+    return out
+
+
+def arm_spans(args, tab):
+    """A + B: the span-contract audit and the introduction-organ repair, both arms, one process."""
+    t0 = time.time()
+    import experiments.gum_coref as G
+    import hdlab.crosstype_bridge as B
+    import hdlab.crosstype_live_adapter as A
+    from experiments.exp_name_entity_clustering_v1 import load_given_gazetteer
+    from hdlab.situation_reader import SituationReader, _write_temp_conll
+    gaz = load_given_gazetteer()
+    docs = G.load_docs(gum_only=True, limit=args.probe_docs, name_gazetteer=gaz)
+    RPN = _install_rpn_patch()                      # the landed shape; RPN_SPAN switches it off again
+    orig_pc, orig_ps = B.precise_constructs, A._parse_sentence
+    S, cur = {}, {"arm": None}
+
+    def counting_pc(doc, gz):
+        r = orig_pc(doc, gz)
+        t = S[cur["arm"]]
+        t["docs_with_doc"] += 1
+        t["lic_roles"] += len(r[0])
+        t["lic_edges"] += sum(len(v) for v in r[0].values())
+        h = collections.Counter((x.deprel or "") if (x.deprel or "") == "nmod:poss"
+                                else (x.deprel or "").split(":")[0] for x in doc.toks)
+        for k in ("appos", "flat", "compound", "nmod:poss", "cop"):
+            t["rel"][k] += h.get(k, 0)
+        return r
+
+    def bf_parse(forms, reader):
+        pos, heads, deprels = orig_ps(forms, reader)
+        if reader is None:
+            return pos, heads, deprels
+        from hdlab.attachment_arm import predicate_sites
+        from hdlab import lexical_categories as LC
+        mat = reader._cached_tag_matrix(list(forms))
+        try:
+            sites = predicate_sites(list(forms), list(pos), mat, LC.get().tags) if mat is not None else {}
+        except Exception:
+            sites = {}
+        fr = all_relations(list(forms), list(pos), dict(heads), tab, sites=sites, coarse=dict(deprels),
+                           cue_set=tab.get("cue_set"), with_heads=True, mat=mat,
+                           tag_names=(LC.get().tags if mat is not None else None))
+        hd = dict(heads); hd.update({i: int(v[1]) for i, v in fr.items()})
+        return pos, hd, {i: v[0] for i, v in fr.items()}
+
+    orig_merge = A.merge_crosstype_bridge
+
+    def capture_merge(rm, ol, gz, sents, **kw):
+        t = S[cur["arm"]]
+        if t["audit"] is None:
+            t["audit"] = _span_audit(rm, sents)
+        else:
+            a2 = _span_audit(rm, sents)
+            for k, v in a2.items():
+                if isinstance(v, int):
+                    t["audit"][k] += v
+                elif isinstance(v, dict):
+                    for kk, vv in v.items():
+                        t["audit"][k][kk] = t["audit"][k].get(kk, 0) + vv
+                else:
+                    t["audit"][k] = t["audit"][k] and v
+        t["docs_can_build"] += 1 if A._can_build(rm, sents) else 0
+        return orig_merge(rm, ol, gz, sents, **kw)
+
+    orig_ap = A.apply_binds
+
+    def count_binds(rm, ol, binds):
+        t = S[cur["arm"]]
+        t["binds"] += len(binds)
+        merged = orig_ap(rm, ol, binds)
+        t["refiled"] += sum(1 for k, v in merged.items() if ol.get(k) != v)
+        return merged
+
+    B.precise_constructs = counting_pc
+    A.merge_crosstype_bridge = capture_merge
+    A.apply_binds = count_binds
+    try:
+        for arm, span_on, fine_on in (("A_as_shipped", False, False),
+                                      ("B_span_repair_only", True, False),
+                                      ("C_span_repair_plus_fine_arm", True, True)):
+            cur["arm"] = arm
+            S[arm] = {"docs": 0, "docs_can_build": 0, "docs_with_doc": 0, "lic_roles": 0, "lic_edges": 0,
+                      "binds": 0, "refiled": 0, "rel": collections.Counter(), "audit": None, "read_s": 0.0}
+            RPN.RPN_SPAN = span_on
+            A._parse_sentence = bf_parse if fine_on else orig_ps
+            r = SituationReader(); r.gaz = gaz
+            for d in docs:
+                rows, bys = [], collections.defaultdict(list)
+                for tk in d.toks:
+                    bys[tk.sent].append(tk)
+                for si in sorted(bys):
+                    for wi, tk in enumerate(sorted(bys[si], key=lambda x: x.idx), 1):
+                        rows.append((si + 1, wi, tk.form, "-"))
+                p = _write_temp_conll(rows)
+                S[arm]["docs"] += 1
+                t1 = time.time()
+                try:
+                    r.read(p)
+                finally:
+                    S[arm]["read_s"] += time.time() - t1
+                    try:
+                        os.unlink(p)
+                    except Exception:
+                        pass
+    finally:
+        B.precise_constructs, A._parse_sentence = orig_pc, orig_ps
+        A.merge_crosstype_bridge, A.apply_binds = orig_merge, orig_ap
+        RPN.RPN_SPAN = True
+    out = {"n_docs": len(docs), "arms": {}}
+    for a, s in S.items():
+        out["arms"][a] = {k: v for k, v in s.items() if k not in ("rel", "audit")}
+        out["arms"][a]["read_s"] = round(s["read_s"], 1)
+        out["arms"][a]["fine_relation_tokens"] = dict(s["rel"])
+        out["arms"][a]["span_contract_audit"] = s["audit"]
+    out["elapsed_s"] = round(time.time() - t0, 1)
+    return out
+
+
+# ==================================================================================================
+# PHASE 7 ARM: --pronoun
+# THE TWO SOLVERS' FINDINGS MEET IN ONE NUMBER.  pri 136 measures the one-token mention span from the
+# CLUSTERING side (1,331 of 3,689 same-entity cross-file pairs lie inside one gold span; definiteness reads
+# `bare` on 100% of mentions); pri 134 phase 7 repairs it at the INTRODUCTION organ.  The shared instrument
+# is pri 131's own pronoun row -- `experiments/exp_pronoun_pick_identity_contract_v1.row_pronouns`, called
+# here rather than re-implemented -- run with the span repair OFF and ON in ONE process on ONE question set.
+# ==================================================================================================
+def arm_pronoun(args, tab):
+    t0 = time.time()
+    import experiments.exp_pronoun_pick_identity_contract_v1 as PP
+    RPN = _install_rpn_patch()
+    arms = tuple(a for a in args.pron_arms.split(",") if a)
+    out = {"n_docs": args.pron_docs, "arms": arms, "settings": {}}
+    try:
+        for name, on in (("span_repair_OFF", False), ("span_repair_ON", True)):
+            RPN.RPN_SPAN = on
+            print("\n=== pronoun row, %s ===" % name)
+            out["settings"][name] = PP.row_pronouns(n_docs=args.pron_docs, arms=arms, verbose=True)
+    finally:
+        RPN.RPN_SPAN = True
+    a, b = out["settings"]["span_repair_OFF"], out["settings"]["span_repair_ON"]
+    key = arms[-1] if arms else "entity_pb"
+    out["headline"] = {
+        "arm": key,
+        "span_scored_OFF": (a.get("arms", {}).get(key) or {}).get("span"),
+        "span_scored_ON": (b.get("arms", {}).get(key) or {}).get("span"),
+        "head_credit_OFF": (a.get("arms", {}).get(key) or {}).get("head_credit"),
+        "head_credit_ON": (b.get("arms", {}).get(key) or {}).get("head_credit"),
+        "floor_OFF": a.get("floor_nearest_prior_compatible"),
+        "floor_ON": b.get("floor_nearest_prior_compatible"),
+        "purity_OFF": a.get("clustering_purity"), "purity_ON": b.get("clustering_purity"),
+    }
+    out["elapsed_s"] = round(time.time() - t0, 1)
+    return out
+
 # ==================================================================================================
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--self-test", action="store_true")
     ap.add_argument("--verify-landed", action="store_true")
+    ap.add_argument("--spans", action="store_true")
+    ap.add_argument("--pronoun", action="store_true")
+    ap.add_argument("--pron-docs", type=int, default=8, dest="pron_docs")
+    ap.add_argument("--pron-arms", default="entity_pb,twin", dest="pron_arms")
     ap.add_argument("--build", action="store_true")
     ap.add_argument("--probe", action="store_true")
     ap.add_argument("--ud", action="store_true")
@@ -1501,7 +1711,7 @@ def main():
     if args.self_test:
         return self_test()
     os.makedirs(OUT_DIR, exist_ok=True)
-    any_arm = args.build or args.probe or args.ud or args.bridge or args.c3
+    any_arm = args.build or args.probe or args.ud or args.bridge or args.c3 or args.spans or args.pronoun
     if not any_arm:
         args.build = args.ud = args.bridge = args.c3 = args.probe = True
     M = {"anchor": ANCHOR, "seed": SEED, "args": vars(args), "ts": time.strftime("%Y-%m-%dT%H:%M:%S")}
@@ -1518,6 +1728,12 @@ def main():
     if tab is None and (args.ud or args.bridge or args.c3 or args.probe):
         print("NO VALIDITY ASSET -- run --build first (or pass --asset)")
         return 2
+    if args.pronoun:
+        M["pronoun"] = arm_pronoun(args, tab)
+        print("PRONOUN HEADLINE: %s" % json.dumps(M["pronoun"]["headline"], indent=1, default=str))
+    if args.spans:
+        M["spans"] = arm_spans(args, tab)
+        print("SPANS: %s" % json.dumps(M["spans"], indent=1)[:3000])
     if args.probe:
         M["probe"] = arm_probe(args, tab)
         print("PROBE: %s" % json.dumps(M["probe"]["arms"], indent=1)[:1600])
