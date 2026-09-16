@@ -1,7 +1,7 @@
 diff --git a/hdlab/grounded_semantic_graph.py b/hdlab/grounded_semantic_graph.py
 --- a/hdlab/grounded_semantic_graph.py
 +++ b/hdlab/grounded_semantic_graph.py
-@@ -82,21 +82,161 @@
+@@ -82,21 +82,167 @@
          t = "".join(c for c in tok.lower() if c.isalpha())
          if len(t) >= 3 and t not in _STOP:
              out.append(t)
@@ -18,7 +18,13 @@ diff --git a/hdlab/grounded_semantic_graph.py b/hdlab/grounded_semantic_graph.py
 +                            # document that reached the cap), and the read is byte-identical at cap 0, 1 and 128.
 +SEED_MEMO = True            # remember the CUE SET too, not only the activation it settles to (see _sense_ppr):
 +                            # building the seed is one lexicon lookup per context word, and the same two callers
-+                            # ask for the same sentence's cue set twice.  Set False to run the walk-memo alone.
++                            # ask for the same sentence's cue set twice.  Set False to run the walk memo alone.
++                            # MEASURED marginal over the walk memo alone: +2.4 points of read time (3 documents,
++                            # positive on 2, NEGATIVE on 1), i.e. NOT a separated saving -- and byte-identical
++                            # either way (3/3).  It ships ON because it is the same repeat, the same brain claim
++                            # and the same identity certificate.  THIS SWITCH IS A TIMING LEVER, NOT A
++                            # CAPABILITY FLAG: it cannot change an answer, so the project's no-default-off rule
++                            # (which exists for capabilities that are measurably dormant) does not apply to it.
 +_ACTIVE_MEMO = None         # the activation memo of the reading in progress (see SituationReader.read); None
 +                            # outside a read -- module level holds the BINDING, never the activation.
 +
@@ -164,7 +170,7 @@ diff --git a/hdlab/grounded_semantic_graph.py b/hdlab/grounded_semantic_graph.py
  # -- from exp_grounded_semantic_graph_ladder_wsd_v1.py --
  def _synsets_ordered():
      from hdlab.lexicon_foundation import wordnet as wn
-@@ -212,21 +352,44 @@
+@@ -212,21 +358,44 @@
  def _row_stochastic(A):
      A = A.tocsr()
      deg = np.asarray(A.sum(1)).ravel(); deg[deg == 0] = 1.0
@@ -325,7 +331,21 @@ diff --git a/hdlab/lexical_categories.py b/hdlab/lexical_categories.py
 diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
 --- a/hdlab/situation_reader.py
 +++ b/hdlab/situation_reader.py
-@@ -968,36 +968,36 @@
+@@ -63,13 +63,12 @@
+ os.environ.setdefault("OMP_NUM_THREADS", "1")
+ os.environ.setdefault("MKL_NUM_THREADS", "1")
+ os.environ.setdefault("OPENBLAS_NUM_THREADS", "1")
+ 
+ import sys
+ from dataclasses import dataclass, field
+-from functools import lru_cache
+ from typing import Dict, List, Optional, Tuple
+ 
+ _REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+ # ONE FRONTEND, ONE DEFAULT (2026-09-13 21:10, strategy): the category and heads switches are owned by hdlab.frontend
+ # (HDLAB_TAG_SOURCE: "counts" = the BF category organ | "perceptron" = the NOT_BF stand-in; HDLAB_HEADS_SOURCE: "attachment_arm"
+ # = the BF rung, the default since 66edc3ad6 | "arceager" = the supervised stand-in). This module used to re-read the env with
+@@ -968,36 +967,36 @@
      obj_role = None
      if obj_m is not None:
          obj_role = frame_primary_role(true_lemma, toks, pred_idx, int(obj_m["wtok_start"]), "obj")
@@ -383,7 +403,7 @@ diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
      """Grounded-affect wire (2026-08-05): calls the promoted hdlab organ
      (score_context_grounded_valence) on the event's PATIENT head against the sentence text, and
      reports its predicted valence ONLY when the CERTIFIED animacy-axis event override actually
-@@ -4859,12 +4859,29 @@
+@@ -4892,12 +4891,29 @@
              {"midx", "mtype": "name"|"common", "own_ref": int, "resolved_ref": int|None}
          GOLD-FREE (no cluster / eid read in ANY decision). NO external LLM."""
          from hdlab.entity_resolver import EntityResolver

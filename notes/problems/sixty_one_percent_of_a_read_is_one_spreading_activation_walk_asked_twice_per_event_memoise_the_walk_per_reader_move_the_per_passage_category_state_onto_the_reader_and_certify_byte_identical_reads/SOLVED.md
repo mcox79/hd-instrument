@@ -457,3 +457,169 @@ generation counter is gone.
 Read notes/problems/<slug>/SOLVED.md; the change is ppr_memo_patch.diff (271/36, git apply --check clean).
 Reverify: .venv/Scripts/python.exe verification/test_ppr_memo_landing.py   (green before AND after landing)
 ```
+
+---
+---
+
+# PHASE 7 (strategy probe, 2026-09-16) — the negative understood, the gate sized, the scope questions answered
+
+## 7.0 THE THREE ANSWERS STRATEGY ASKED FOR
+
+**Q1 — the cue-set lever ships as it is.** Done, and the reason is now written into the shipped source: the
+`SEED_MEMO` switch is a **timing lever, not a capability flag** — it cannot change an answer (3/3 byte-identical
+either way), so the project's no-default-off rule, which exists for capabilities that turn out to be dormant,
+does not apply to it. The measured marginal (+2.4 points, negative on 1 of 3 documents) is in the comment beside
+the switch, so nobody reads the flag as a proven win.
+
+**Q3 — the dead import is removed by the diff.** `from functools import lru_cache` was `lru_cache`'s only user
+in `hdlab/situation_reader.py` besides the decorator this patch deletes (2 hits, checked), so the import goes
+with it — a dead import left behind is how the next reader of that file concludes the memo is still there. The
+diff is regenerated in bytes: **271 insertions / 36 deletions, `git apply --check` clean, `git diff --stat` ==
+`git diff -w --stat`.**
+
+## 7.1 Q2 — EVERY CONSUMER THAT TOUCHES THE ORGAN'S PASSAGE STATE, AND WHETHER `detach_passage` CHANGES WHAT IT SEES
+
+**Method.** The organ's passage state is reachable exactly five ways: `lexical_categories.get()` (then
+`.posterior` / `.tag` / `.tag_with_posterior`, all of which read `self._reg` and `self._doc_shape`),
+`register_generation()`, `new_document()` / `feed_passage()` / `observe_*`, `update_document_register` /
+`_doc_shape_asof`, and — the one that matters most — **`frontend.tagger()`, whose `Tagger` binds the organ ONCE
+at construction** (`hdlab/frontend.py:66`), so every `tagger().tag(...)` anywhere reads whatever passage happens
+to be installed. Grepped across `hdlab/`, `tools/`, `verification/` and `experiments/`.
+
+**The rule for reading the table:** a site inside a read sees the reader's own passage (**no change**); a site in
+a process that has never read sees no passage either way (**no change**); a site that opens its own passage with
+`new_document()` before asking is self-contained (**no change**); **only a site that asks the organ BETWEEN reads
+changes** — today it sees the previous document's file cards, after the patch it sees no passage.
+
+| site | when it asks | does `detach_passage` change what it sees? |
+|---|---|---|
+| `hdlab/situation_reader.py:2264, 2310, 2518, 4681, 4825, 4872-4883` (`_LC.get()`, `new_document`, `feed_passage`) | inside the read | **No** — this is the reader's own passage |
+| `hdlab/situation_reader.py:994` `_LC.register_generation()` | inside the read | **N/A — this call is DELETED by the patch** (the affect memo moves onto the passage file) |
+| `hdlab/frontend.py:66` `self._lc = LC.get()` | at tagger construction | **No** — it binds the organ *object*; what changes is only what that object's register holds |
+| `hdlab/crosstype_live_adapter.py:115,118` `_LC.get().posterior(...)` / `.tags` | only on the `reader is None` branch (the reader passes `self` on the live path) | **Yes, on that branch only** — a caller that uses the adapter without a reader after a read now sees no passage. No live product path takes it |
+| `experiments/gum_coref.py:204-205` `lc.new_document()` + `lc.feed_passage(...)` — **the board's own loader** | between reads, but it **opens its own passage first** and reads the tags straight out of `feed_passage`'s return | **No** — self-contained by construction |
+| `experiments/exp_board_rows_on_the_reader_v1.py:230, 670` -> `:258 _organ_pron_positions` -> `F.tagger().tag(...)` | **between reads** (document 2 onward inherits document 1's cards today) | **Yes — and measured: the board's 13/13 rows are byte-identical anyway** (section 2b) |
+| `verification/test_predicate_recall_landing_organ.py:142, 145, 163` (`lc.tag`, `lc.posterior`, after reads at :125-126) | **between reads** | **Yes, and measured: 30/30 checks pass in BOTH arms; one printed float moves** — "observe() is a live plastic path (score 0.0012 -> **0.9771** stock / **0.9772** shimmed)". No verdict changes |
+| `verification/test_copular_is_a_binding_landing_organ.py:85` `FE.tagger()` after reads at :52-53 | **between reads** | **Yes in principle, measured byte-identical** (9/9 output lines identical) |
+| `verification/test_lexical_categories.py:33` `LC.get()` | no read in the process | **No** |
+| `tools/**` | — | **No sites at all** (grepped; zero hits) |
+| the other 20 `experiments/` files that touch these accessors | each either opens its own passage or never reads | **No** — none interleaves a reader read with an organ question |
+
+**Method note, and it is a correction of my own first attempt:** I first ran the two exposed witnesses by calling
+their `main()` twice in ONE process; both arms raised, which made the comparison nearly empty and would have been
+reported as "identical". The result above comes from a **fresh process per arm**
+(`scratchpad/p146/exposure_check2.py`), which is what found the 1e-4 flip.
+
+## 7.2 (A) WHY DESTROYING 61% OF THE READ MOVES ~ONE FIELD — THE CHAIN, COUNTED
+
+Traced from code and then counted (`--consumers --docs 12`, `data/exp_ppr_memo_v1/consumers.json`; 12 genres,
+817 sentences, 1,753 events). The walk's answer must survive four gates:
+
+| # | gate, read from code | count | share |
+|---|---|---|---|
+| 0 | walks entering `_blend_pick` = `argmax[ log P_freq + lam*log PPR ]` (`grounded_semantic_graph.py:248`) | **844** | — |
+| 1 | …on which the walk **overturns the frequency resting level's own argmax** | **91** | **10.8%** (0–21.6% per document) |
+| 2 | sense verdicts `(sign, affecting)` from `context_sense_sign` that MOVE when every walk is permuted | 25 / 841 | 3.0% |
+| 2b | `sense_posterior_in_context` argmaxes that move (the *distribution* consumer) | **363 / 864** | **42.0%** |
+| 3 | **recorded affect fields that move** | **5 / 1,753** | **0.29%** |
+
+**So yes — I now fully understand it, and the explanation is structural, not statistical.** Three code facts do
+all the work: (a) the walk is **one term beside the SemCor frequency resting level**, and on 89.2% of occasions
+it cannot overturn it; (b) at `force_dynamics_valence.py:861-867` the chosen sense's sign is used **only as an
+`override`, and only when the WORD-LEVEL cascade has no sign at all** (`endstate_valence_sign(gov_word) is
+None`), while `affecting is False` instead makes the event **abstain**; (c) `situation_reader._assign_affect`
+reports nothing unless the certified animacy-axis override fired (`stage == "event"`). Gate 2b is the interesting
+one: the distribution consumer *is* highly sensitive (42%), and essentially none of it survives
+`harm_help_arithmetic` — a signal-loss finding in its own right, written into the next brief's bar rather than
+asserted here.
+
+**AND THE GATE IS SIZED, which is the point of measuring it** (skip the walk when the frequency barrier
+`log(pf_top1) - log(pf_top2)` already exceeds tau):
+
+| tau | walks skipped | share | argmax changes lost | share of changes lost |
+|---|---|---|---|---|
+| 0.5 | 518 | 61.4% | 5 | 5.5% |
+| **1.0** | **404** | **47.9%** | **0** | **0.0%** |
+| 2.0 | 113 | 13.4% | 0 | 0.0% |
+
+**Every one of the 91 walks that overturned the prior had a barrier below 1.0 nat.** These 12 documents are the
+**TEST** split, so `tau = 1.0` is a **sizing, not a fitted parameter** — the brief sweeps it on TRAIN.
+
+## 7.3 (B) THE GATE-THE-WALK BRIEF
+
+Written as brief-ready text in **`GATE_THE_WALK_BRIEF.md`** beside this file. Headline: *the graph walk that
+costs 61% of a read is one term beside the verb's sense-frequency resting level, and on 89% of the occasions it
+runs it cannot change the answer that level already gives.* **The computation is PINNED, not our invention** —
+reordered access / the subordinate-bias effect (Duffy, Morris & Rayner 1988; Rayner & Frazier 1989; Binder &
+Rayner 1998): a disambiguating context measurably changes the read of a *balanced* ambiguous word and not of a
+*biased* one, i.e. context is recruited where the resting levels are close. **The THRESHOLD is ours and must be
+swept.** The bar is can-fail: byte-identical reads (the pri 146 harness is the certifier); a separate bar for the
+distribution path measured at `harm_help_arithmetic`, not at the argmax; and an info-free twin — a gate that
+skips the same NUMBER of walks at random must lose about 44 of the 91 argmax changes where the real gate loses 0.
+
+## 7.4 (C) DID I RE-IMPLEMENT AN ORGAN THAT EXISTS? — YES, THE COMPUTATION; NO, THE SCOPE
+
+**Honest answer: the computation of my `ActivationMemo` is the same as the 25 module-level content-addressed
+memos pri 142 counted** (`lexicon_foundation._SYNSET_CACHE`, `lexical_utils._MORPHY`, `force_dynamics_valence`'s
+`_SS_CACHE` / `_EV_CACHE` / `_RS_CACHE` / `_AFFECT_CACHE`, `typed_spokes._MFS` / `_ANC_SYN` / …,
+`entity_resolver._TYPE_CACHE`, `state_register._wn_ant_cache`, `@lru_cache _predicate_heads`, and pri 137's own
+`SituationReader._read_parse_cache`) — every one of them is "remember the value of a pure function of this key".
+**By the program's one-structure-one-organ rule that is one mechanism implemented 26 times, and mine is the
+26th.**
+
+**Where mine genuinely differs, and it is not a get-out:** their values are properties of the **frozen lexicon**,
+so process lifetime is *correct* for them and their footprint is bytes; mine is a property of **this passage**,
+one entry is 470,636 bytes, and the cue sets **never recur across documents (0 of 771 — section 7.5)**, so a
+process-lifetime version would be pure leak. The two arms of the one mechanism are therefore *lexicon-addressed*
+(process life, uncapped is defensible) and *passage-addressed* (per read, capacity-bounded).
+
+**The consolidation I propose, and what it costs.** ONE memo organ — say `hdlab/memo.py` with `LexiconMemo`
+(process, uncapped, keyed on the asset's own ids) and `PassageMemo` (per read, LRU-capped, owned by the reader) —
+with the arms being: the PPR activation, the cue set, pri 137's `_read_parse_cache` (tag / tagpost / tagmat /
+parse heads), the passage POS memo, and the 25 lexicon memos migrated one at a time with a byte-identity gate per
+pair. **Cost:** 26 call sites across about 16 modules, each with bespoke key and value handling; two of those
+modules (`situation_reader.py`, `entity_resolver.py`) are being written by landings **right now**, so doing it
+this week would collide. **Value:** nothing caps the 25 today (pri 142 said so explicitly), one place to read hit
+rates, and one place where "is this memo sound?" is argued once instead of 26 times. **Recommendation: file it,
+sequence it AFTER pri 143/144/145, and do not let it block this patch** — my memo is a new *instance* of an
+existing mechanism, and the consolidation brief should absorb it rather than this brief inventing a shared organ
+under two in-flight landings.
+
+## 7.5 (D) THE CROSS-DOCUMENT REPEAT RATE — MEASURED: ZERO
+
+One reader, the 12 documents read in sequence, every key stamped with the document that first asked for it
+(`--crossdoc --docs 12`, `data/exp_ppr_memo_v1/crossdoc.json`):
+
+| | distinct | repeats from an EARLIER document | share |
+|---|---|---|---|
+| activation cue sets (the `_ppr` key) | **771** | **0** | **0.00%** |
+| cue sets (the `_seed_set` key) | **801** | **0** | **0.00%** |
+
+**No design, as instructed — but it settles section 10's alternate path by measurement rather than by argument.**
+The cue set is a whole sentence's content words minus the target, so it is effectively unique to its sentence:
+the 44.1% within-document repeat rate is *entirely* the same sentence being asked twice. **A store that outlived
+the read would hit nothing on this corpus.** Per-read is the correct scope, not a compromise — and section 10's
+"reduced value keyed on (cue set, target set)" idea would not help either, because the *key* is what fails to
+recur.
+
+## 7.6 (E) THE pri 142 CORRECTION IS FOLDED IN
+
+`notes/STRUCTURE_MAP_2026-09-16.md` gains a **dated addendum** immediately after its plasticity paragraph —
+nothing above it rewritten: the plastic state is the reader's, not `lexical_categories`'; two fresh readers agree
+12/12 while one reader twice agrees 4/12; the cause is pinned to the 09:17 pri 136 landing that arrived between
+that probe's two runs; PROBE A's "`_OF_VALIDITIES` did not fire once" is wrong (it fires on every document); and
+the general lesson — **a module-level fingerprint cannot see plasticity that has been moved onto an instance**,
+so the state probe should fingerprint the instance. The 0.00% cross-document figure is recorded there too,
+because it closes a question that section left open.
+
+## 7.7 WHAT PHASE 7 CHANGED IN MY OWN SUBMISSION
+
+1. **Section 10's first alternate path is REFUTED, not deferred** — the cross-document store would hit 0 of 771.
+2. **Section 5's "whether the walk changes intermediates the model does not record is not measured" is now
+   measured** — the sense verdict moves on 3.0% of verdicts and the posterior's argmax on 42.0% of calls, while
+   0.29% of recorded fields move.
+3. **Section 11's next step 2 ("gate the walk") is now a sized brief with a pinned mechanism and a can-fail bar**,
+   not a suggestion.
+4. **Two more exposed consumers were found and measured** (the two witnesses), where section 2b had named only
+   the board's.
+5. **The diff gained the dead-import removal** and the `SEED_MEMO` comment.

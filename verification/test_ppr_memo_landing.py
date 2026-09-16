@@ -247,6 +247,32 @@ def w7_the_recorded_result_agrees_with_itself():
            "deltas %s of %s clean" % ([x["every_walk_permuted"]["affect_fields"] - x["affect_fields_clean"]
                                        for x in r["per_document"]],
                                       [x["affect_fields_clean"] for x in r["per_document"]]))
+    f = os.path.join(_DATA, "consumers.json")
+    if os.path.exists(f):
+        seen += 1
+        r = json.load(open(f, encoding="utf-8"))
+        t = r["totals"]
+        # THE CHAIN IS MONOTONE -- each gate can only drop occasions, never add them.  A record where the
+        # recorded field moved MORE often than the sense verdict did would mean the chain was mis-measured.
+        ck("the walk's consequence shrinks down the chain (blend argmax >= sense verdict >= recorded field)",
+           r["walk_changed_the_argmax_share"] >= r["sense_verdict_moved_share"] >= r["affect_field_moved_share"],
+           "%.4f >= %.4f >= %.4f" % (r["walk_changed_the_argmax_share"], r["sense_verdict_moved_share"],
+                                     r["affect_field_moved_share"]))
+        ck("the walk DOES overturn the frequency resting level sometimes (it is not a no-op term)",
+           t["walk_changed_the_argmax"] > 0, "%d of %d walks" % (t["walk_changed_the_argmax"],
+                                                                 t["blend_calls_with_a_walk"]))
+        lossless = [k for k, v in r["gate_sizing_totals"].items()
+                    if v["argmax_changes_lost"] == 0 and v["share_skipped"] > 1.0 / 3.0]
+        ck("the record supports a LOSSLESS gate that still skips a third of the walks (the next brief's premise)",
+           bool(lossless), "thresholds with zero loss and >1/3 skipped: %s" % (lossless or "none"))
+    f = os.path.join(_DATA, "crossdoc.json")
+    if os.path.exists(f):
+        seen += 1
+        r = json.load(open(f, encoding="utf-8"))
+        ck("the record shows the cue sets do NOT recur across documents (so per-read is the right scope)",
+           r["cross_document_activation_repeats"] == 0 and r["cross_document_cue_set_repeats"] == 0,
+           "%d activation / %d cue-set cross-document repeats over %d documents"
+           % (r["cross_document_activation_repeats"], r["cross_document_cue_set_repeats"], r["n_documents"]))
     f = os.path.join(_DATA, "timing.json")
     if os.path.exists(f):
         seen += 1

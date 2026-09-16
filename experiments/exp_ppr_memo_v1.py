@@ -68,7 +68,13 @@ SRC_GSG_MEMO = '''PPR_MEMO_MAX = 128          # ENTRIES.  One entry is a float32
                             # document that reached the cap), and the read is byte-identical at cap 0, 1 and 128.
 SEED_MEMO = True            # remember the CUE SET too, not only the activation it settles to (see _sense_ppr):
                             # building the seed is one lexicon lookup per context word, and the same two callers
-                            # ask for the same sentence's cue set twice.  Set False to run the walk-memo alone.
+                            # ask for the same sentence's cue set twice.  Set False to run the walk memo alone.
+                            # MEASURED marginal over the walk memo alone: +2.4 points of read time (3 documents,
+                            # positive on 2, NEGATIVE on 1), i.e. NOT a separated saving -- and byte-identical
+                            # either way (3/3).  It ships ON because it is the same repeat, the same brain claim
+                            # and the same identity certificate.  THIS SWITCH IS A TIMING LEVER, NOT A
+                            # CAPABILITY FLAG: it cannot change an answer, so the project's no-default-off rule
+                            # (which exists for capabilities that are measurably dormant) does not apply to it.
 _ACTIVE_MEMO = None         # the activation memo of the reading in progress (see SituationReader.read); None
                             # outside a read -- module level holds the BINDING, never the activation.
 
@@ -427,11 +433,24 @@ OLD_SR_READ = '''    def read(self, conll_path: str) -> SituationModel:
         self._read_parse_cache = {}   # per-read tag/parse memo (bound memory; safe if the reader is reused)
 '''
 
+# The module-level lru_cache this patch removes was `lru_cache`'s only user in the file (checked: 2 hits, the
+# import and the decorator), so the import goes with it -- a dead import left behind is how the next reader of
+# this file concludes the memo is still there.
+OLD_SR_IMPORT = '''from dataclasses import dataclass, field
+from functools import lru_cache
+from typing import Dict, List, Optional, Tuple
+'''
+
+SRC_SR_IMPORT = '''from dataclasses import dataclass, field
+from typing import Dict, List, Optional, Tuple
+'''
+
 PATCH = [
     ("hdlab/grounded_semantic_graph.py", GSG_PATH, [(OLD_GSG_PPR, SRC_GSG_MEMO + "\n\n" + SRC_GSG_PPR),
                                                     (OLD_GSG_SENSE_PPR, SRC_GSG_SENSE_PPR)]),
     ("hdlab/lexical_categories.py", LC_PATH, [(OLD_LC_PASSAGE, SRC_LC_PASSAGE), (OLD_LC_NEWDOC, SRC_LC_NEWDOC)]),
-    ("hdlab/situation_reader.py", SR_PATH, [("@OLD_SR_AFFECT@", SRC_SR_AFFECT_POS), (OLD_SR_READ, SRC_SR_READ)]),
+    ("hdlab/situation_reader.py", SR_PATH, [(OLD_SR_IMPORT, SRC_SR_IMPORT),
+                                            ("@OLD_SR_AFFECT@", SRC_SR_AFFECT_POS), (OLD_SR_READ, SRC_SR_READ)]),
 ]
 
 
@@ -984,6 +1003,242 @@ def timing(n_docs=6, pairs=3, mode="annotated"):
     return res
 
 
+def consumers(n_docs=12, mode="annotated"):
+    """PHASE 7 (A) -- WHY DESTROYING 61% OF THE READ MOVES ~ONE FIELD.  The walk reaches the record through a
+    chain of three gates, and this arm counts the survivors at each one.
+
+    THE CHAIN, read from code (`force_dynamics_valence.force_dynamics_event_type` :844-895):
+      1. `context_sense_sign(verb, toks, gi)` -> `select_sense_blended` -> `_blend_pick`, which is
+         argmax[ log P_freq + lam * log PPR ] (`grounded_semantic_graph.py:248`).  THE WALK IS ONE TERM BESIDE
+         THE FREQUENCY RESTING LEVEL, so it only matters when it overturns that argmax.
+      2. the sign of the chosen synset is used ONLY as `override`, and only when the WORD-LEVEL cascade has no
+         sign (`endstate_valence_sign(gov_word) is None`); `affecting is False` instead ABSTAINS outright.
+      3. `sense_posterior_in_context` (its own blend, lam = affect_lexicon.SENSE_LAM = 4.0) is passed to
+         `harm_help_arithmetic` as one more term, and `situation_reader._assign_affect` then reports nothing
+         unless the certified animacy-axis override fired (`stage == "event"`).
+
+    MEASURED HERE, per document: (a) how often the walk's term changes the argmax it is blended into, with the
+    frequency barrier log(pf_top1) - log(pf_top2) recorded per call so a GATE can be sized; (b) how many chosen
+    SENSE IDS change when every walk is permuted (the intermediate the earlier twin could not see); (c) how many
+    (sign, affecting) verdicts change; (d) how many recorded affect fields change.  The drop from (b) to (d) IS
+    the answer to 'why does destroying the walk move one field'."""
+    import numpy as _np
+    st = install()
+    import hdlab.grounded_semantic_graph as GSG
+    import hdlab.force_dynamics_valence as FDV
+    test, gaz = _docs(n_docs)
+    tmp = tempfile.mkdtemp(prefix="p146_cons_")
+    rows = []
+
+    def _instrument(rec):
+        """Record the blend's inputs and both argmaxes, the sense verdicts, and the posterior's argmax."""
+        base_blend, base_sign, base_post = GSG._blend_pick, FDV.context_sense_sign, FDV.sense_posterior_in_context
+
+        def blend(ppr, prior, lam, alpha=0.1, eps=1e-6):
+            out = base_blend(ppr, prior, lam, alpha, eps)
+            pf = _np.asarray(prior, float) + alpha
+            pf = pf / pf.sum()
+            order = _np.argsort(-pf)
+            barrier = float(_np.log(pf[order[0]]) - _np.log(pf[order[1]])) if len(pf) > 1 else float("inf")
+            rec["blend"].append({"prior_argmax": int(order[0]), "picked": int(out),
+                                 "walk_changed_the_argmax": int(out) != int(order[0]),
+                                 "frequency_barrier": round(barrier, 4), "n_senses": int(len(pf)),
+                                 "had_walk": ppr is not None})
+            return out
+
+        def sign(verb, tokens, gov_idx):
+            out = base_sign(verb, tokens, gov_idx)
+            rec["sign"][(verb, tuple(tokens), gov_idx)] = out
+            return out
+
+        def post(verb, tokens, gov_idx, lam=None):
+            out = base_post(verb, tokens, gov_idx, lam)
+            am = int(_np.argmax(out)) if out else None
+            rec["post"][(verb, tuple(tokens), gov_idx)] = am
+            return out
+
+        GSG._blend_pick = blend
+        FDV.context_sense_sign = sign
+        FDV.sense_posterior_in_context = post
+        return (base_blend, base_sign, base_post)
+
+    def _uninstrument(saved):
+        GSG._blend_pick, FDV.context_sense_sign, FDV.sense_posterior_in_context = saved
+
+    for d in test:
+        path = _conll(d, tmp)
+        clean = {"blend": [], "sign": {}, "post": {}}
+        saved = _instrument(clean)
+        try:
+            _, sm_clean, _ = _read(path, gaz, cap=None)
+        finally:
+            _uninstrument(saved)
+
+        pois = {"blend": [], "sign": {}, "post": {}}
+        base_ppr = GSG._ppr
+        _perm = {}
+
+        def every_walk_permuted(seed_idx, Tt, n, d_=GSG.DAMPING, iters=GSG.PPR_ITERS, _o=base_ppr):
+            r = _o(seed_idx, Tt, n, d_, iters)
+            if r is None:
+                return None
+            p = _perm.get(len(r))
+            if p is None:
+                p = _perm[len(r)] = _np.random.RandomState(20260916).permutation(len(r))
+            return r[p]
+
+        saved = _instrument(pois)
+        GSG._ppr = every_walk_permuted
+        try:
+            _, sm_pois, _ = _read(path, gaz, cap=None)
+        finally:
+            GSG._ppr = base_ppr
+            _uninstrument(saved)
+
+        # (a) the walk's term against the frequency resting level, on the CLEAN read
+        b = clean["blend"]
+        with_walk = [x for x in b if x["had_walk"]]
+        changed = [x for x in with_walk if x["walk_changed_the_argmax"]]
+        # (b)-(c) the intermediates, keyed so a diverging control flow cannot mis-align them
+        keys = set(clean["sign"]) & set(pois["sign"])
+        sign_moved = [k for k in keys if clean["sign"][k] != pois["sign"][k]]
+        pk = set(clean["post"]) & set(pois["post"])
+        post_moved = [k for k in pk if clean["post"][k] != pois["post"][k]]
+        # (d) the record
+        aff_c = {(e.sent_idx, e.idx if hasattr(e, "idx") else e.global_idx, e.predicate): e.affect
+                 for e in sm_clean.events}
+        aff_p = {(e.sent_idx, e.idx if hasattr(e, "idx") else e.global_idx, e.predicate): e.affect
+                 for e in sm_pois.events}
+        shared = set(aff_c) & set(aff_p)
+        aff_moved = [k for k in shared if aff_c[k] != aff_p[k]]
+        row = {"docid": d.docid,
+               "blend_calls": len(b), "blend_calls_with_a_walk": len(with_walk),
+               "walk_changed_the_argmax": len(changed),
+               "walk_changed_share": round(len(changed) / max(len(with_walk), 1), 4),
+               "frequency_barrier_when_changed": sorted(round(x["frequency_barrier"], 3) for x in changed)[:12],
+               "sense_verdicts": len(keys), "sense_verdicts_moved_under_permutation": len(sign_moved),
+               "posterior_argmax_compared": len(pk), "posterior_argmax_moved": len(post_moved),
+               "events_compared": len(shared), "affect_fields_moved": len(aff_moved),
+               "affect_fields_set_clean": sum(1 for k in shared if aff_c[k] is not None)}
+        # THE GATE SIZING: skip the walk when the frequency barrier is already >= tau, and count what is lost.
+        gate = {}
+        for tau in (0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 6.0):
+            skipped = [x for x in with_walk if x["frequency_barrier"] >= tau]
+            lost = [x for x in skipped if x["walk_changed_the_argmax"]]
+            gate["tau_%.1f" % tau] = {"walks_skipped": len(skipped),
+                                      "share_skipped": round(len(skipped) / max(len(with_walk), 1), 4),
+                                      "argmax_changes_lost": len(lost),
+                                      "share_of_changes_lost": round(len(lost) / max(len(changed), 1), 4)}
+        row["gate_sizing"] = gate
+        rows.append(row)
+        print("  %-28s blend %-4d (walk %-4d)  walk flips argmax %-4d (%.1f%%)  sense verdicts moved %-3d/%-4d  "
+              "posterior argmax moved %-3d/%-4d  affect fields moved %d/%d"
+              % (d.docid, len(b), len(with_walk), len(changed), 100 * row["walk_changed_share"],
+                 len(sign_moved), len(keys), len(post_moved), len(pk), len(aff_moved), len(shared)))
+    tot = {k: sum(r[k] for r in rows) for k in
+           ("blend_calls", "blend_calls_with_a_walk", "walk_changed_the_argmax", "sense_verdicts",
+            "sense_verdicts_moved_under_permutation", "posterior_argmax_compared", "posterior_argmax_moved",
+            "events_compared", "affect_fields_moved", "affect_fields_set_clean")}
+    gate_tot = {}
+    for tau in (0.0, 0.5, 1.0, 2.0, 3.0, 4.0, 6.0):
+        k = "tau_%.1f" % tau
+        s = sum(r["gate_sizing"][k]["walks_skipped"] for r in rows)
+        l = sum(r["gate_sizing"][k]["argmax_changes_lost"] for r in rows)
+        gate_tot[k] = {"walks_skipped": s, "share_skipped": round(s / max(tot["blend_calls_with_a_walk"], 1), 4),
+                       "argmax_changes_lost": l,
+                       "share_of_changes_lost": round(l / max(tot["walk_changed_the_argmax"], 1), 4)}
+    res = {"arm": "consumers", "landed_before_install": st, "per_document": rows, "totals": tot,
+           "gate_sizing_totals": gate_tot,
+           "walk_changed_the_argmax_share": round(tot["walk_changed_the_argmax"]
+                                                  / max(tot["blend_calls_with_a_walk"], 1), 4),
+           "sense_verdict_moved_share": round(tot["sense_verdicts_moved_under_permutation"]
+                                              / max(tot["sense_verdicts"], 1), 4),
+           "affect_field_moved_share": round(tot["affect_fields_moved"] / max(tot["events_compared"], 1), 4),
+           "plain": ("the graph walk is one term beside how common each sense of the verb is; this counts how "
+                     "often it actually overturns that, how often destroying it changes the sense the reader "
+                     "picks, and how often that reaches the reading it records")}
+    _write("consumers.json", res)
+    print("\nwalk overturns the frequency argmax on %d of %d walks (%.1f%%); destroying every walk moves the "
+          "sense verdict on %d of %d (%.1f%%), the posterior argmax on %d of %d, and the RECORDED affect field "
+          "on %d of %d events (%.2f%%)"
+          % (tot["walk_changed_the_argmax"], tot["blend_calls_with_a_walk"],
+             100 * res["walk_changed_the_argmax_share"], tot["sense_verdicts_moved_under_permutation"],
+             tot["sense_verdicts"], 100 * res["sense_verdict_moved_share"], tot["posterior_argmax_moved"],
+             tot["posterior_argmax_compared"], tot["affect_fields_moved"], tot["events_compared"],
+             100 * res["affect_field_moved_share"]))
+    return res
+
+
+def crossdoc(n_docs=12, mode="annotated"):
+    """PHASE 7 (D) -- THE CROSS-DOCUMENT REPEAT RATE, measured, no design.  ONE reader reads the 12 documents in
+    sequence; every cue set and every activation key is stamped with the document that first asked for it, so
+    'how much of document k's work was already done in documents 1..k-1' is a count and not an argument."""
+    st = install()
+    import hdlab.grounded_semantic_graph as GSG
+    test, gaz = _docs(n_docs)
+    tmp = tempfile.mkdtemp(prefix="p146_xdoc_")
+    seen_walk, seen_cue = {}, {}
+    base_ppr, base_seed = GSG._ppr, GSG._seed_set
+    cur = {"doc": None}
+    rows = []
+
+    def ppr(seed_idx, Tt, n, d=GSG.DAMPING, iters=GSG.PPR_ITERS, _o=base_ppr):
+        if seed_idx:
+            k = (tuple(seed_idx), n, d, iters)
+            if k in seen_walk:
+                if seen_walk[k] != cur["doc"]:
+                    cur["walk_xdoc"] += 1
+            else:
+                seen_walk[k] = cur["doc"]
+                cur["walk_new"] += 1
+        return _o(seed_idx, Tt, n, d, iters)
+
+    def seed_set(wn, context_words, syn2idx, tgt_names, _o=base_seed):
+        k = (tuple(context_words), tuple(sorted(set(tgt_names))))
+        if k in seen_cue:
+            if seen_cue[k] != cur["doc"]:
+                cur["cue_xdoc"] += 1
+        else:
+            seen_cue[k] = cur["doc"]
+            cur["cue_new"] += 1
+        return _o(wn, context_words, syn2idx, tgt_names)
+
+    GSG._ppr, GSG._seed_set = ppr, seed_set
+    rdr = _reader(gaz)
+    try:
+        for i, d in enumerate(test):
+            path = _conll(d, tmp)
+            cur.update({"doc": i, "walk_new": 0, "walk_xdoc": 0, "cue_new": 0, "cue_xdoc": 0})
+            _read(path, gaz, cap=None, reader=rdr)
+            rows.append({"docid": d.docid, "order": i,
+                         "walk_cue_sets_first_seen_here": cur["walk_new"],
+                         "walk_cue_sets_already_seen_in_an_EARLIER_document": cur["walk_xdoc"],
+                         "cue_sets_first_seen_here": cur["cue_new"],
+                         "cue_sets_already_seen_in_an_EARLIER_document": cur["cue_xdoc"]})
+            print("  %2d %-28s new activation keys %-4d  cross-document repeats %-4d   new cue sets %-4d  "
+                  "cross-document repeats %d"
+                  % (i, d.docid, cur["walk_new"], cur["walk_xdoc"], cur["cue_new"], cur["cue_xdoc"]))
+    finally:
+        GSG._ppr, GSG._seed_set = base_ppr, base_seed
+    nw = sum(r["walk_cue_sets_first_seen_here"] for r in rows)
+    xw = sum(r["walk_cue_sets_already_seen_in_an_EARLIER_document"] for r in rows)
+    nc = sum(r["cue_sets_first_seen_here"] for r in rows)
+    xc = sum(r["cue_sets_already_seen_in_an_EARLIER_document"] for r in rows)
+    res = {"arm": "crossdoc", "landed_before_install": st, "per_document": rows, "n_documents": len(rows),
+           "distinct_activation_keys": nw, "cross_document_activation_repeats": xw,
+           "cross_document_activation_repeat_share": round(xw / max(nw + xw, 1), 4),
+           "distinct_cue_sets": nc, "cross_document_cue_set_repeats": xc,
+           "cross_document_cue_set_repeat_share": round(xc / max(nc + xc, 1), 4),
+           "plain": ("how much of the work one page needs was already done on an earlier page -- the number a "
+                     "store that outlived the reading would have to beat")}
+    _write("crossdoc.json", res)
+    print("\nACROSS 12 documents read in sequence: %d distinct activation cue sets, %d cross-document repeats "
+          "(%.2f%%); %d distinct cue sets, %d cross-document repeats (%.2f%%)"
+          % (nw, xw, 100 * res["cross_document_activation_repeat_share"], nc, xc,
+             100 * res["cross_document_cue_set_repeat_share"]))
+    return res
+
+
 def lever(n_docs=4, pairs=2, mode="annotated"):
     """PHASE 4 -- THE SECOND REPEATED QUESTION ON THE SAME PATH, measured.  Three arms, alternating within one
     process: (A) nothing remembered; (B) the ACTIVATION remembered only; (C) the activation AND THE CUE SET
@@ -1309,6 +1564,8 @@ def main():
     ap.add_argument("--board", action="store_true")
     ap.add_argument("--lever", action="store_true")
     ap.add_argument("--residual", action="store_true")
+    ap.add_argument("--consumers", action="store_true")
+    ap.add_argument("--crossdoc", action="store_true")
     ap.add_argument("--n-boot", type=int, default=200)
     ap.add_argument("--make-diff", action="store_true")
     ap.add_argument("--out", default=None, help="write the diff HERE, in bytes (never shell-redirect it)")
@@ -1340,11 +1597,16 @@ def main():
         twin(a.docs, a.mode)
     if a.timing:
         timing(a.docs, a.pairs, a.mode)
+    if a.consumers:
+        consumers(a.docs, a.mode)
+    if a.crossdoc:
+        crossdoc(a.docs, a.mode)
     if a.lever:
         lever(a.docs, a.pairs, a.mode)
     if a.board:
         board(a.docs, a.n_boot, a.mode)
-    if not any((a.stability, a.identity, a.twin, a.timing, a.board, a.lever, a.residual)):
+    if not any((a.stability, a.identity, a.twin, a.timing, a.board, a.lever, a.residual, a.consumers,
+                a.crossdoc)):
         ap.print_help()
     return 0
 

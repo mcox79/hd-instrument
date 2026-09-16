@@ -805,6 +805,38 @@ validity tables `observe` while they read. That is correct and brain-faithful (�
 experiment may assume a repeated read is a repeated measurement**, and the first version of this very probe
 asserted exactly that and failed. The control is now in the cell.
 
+> ### 🔻 CORRECTION, 2026-09-16 (pri 146 solver; addendum, nothing above rewritten)
+> **The plastic state is the READER'S, not `lexical_categories`', and the table this probe reported as INERT
+> fires on every document.** Three things measured after this section was written
+> (`experiments/exp_ppr_memo_v1.py --stability --docs 12` / `--residual --docs 3`;
+> `data/exp_ppr_memo_v1/{stability,residual}.json`):
+>
+> 1. **Two FRESH readers agree on 12 of 12 GUM TEST documents** (12 genres, 817 sentences, 1,753 events), and a
+>    fresh reader agrees with a reused reader's FIRST read on 12 of 12. **Only ONE reader reading the same
+>    document twice disagrees — on 8 of 12.** So `reader_is_plastic_read_to_read` as measured here was a
+>    property of the *process*, not of the reader: at the time of this probe the accrual went into the
+>    **module-level** `entity_resolver._OF_VALIDITIES`, which fresh readers shared.
+> 2. **The cause is pinned to a line.** `hdlab/entity_resolver.py` + `hdlab/situation_reader.py` were rewritten
+>    at **09:17** on 2026-09-16 — *between this probe's `--cache-probe` (09:05) and its `--state-probe`
+>    (09:24)* — by the pri 136 landing, which gave the reader its own deep copy
+>    (`situation_reader.py:4903-4913` → `self._of_validities`; accrued at `entity_resolver.py:786-798`).
+>    Freezing that one accrual (`HDLAB_OBJECT_FILE_ONLINE=0`) makes one reader read the same document
+>    identically **3 of 3**; with it on, the reader's own table moves **3 of 3** (202,012 → 203,951 → 205,949
+>    counted observations on `GUM_academic_census`). **The identity unit is therefore ONE READER PER DOCUMENT**,
+>    which is what `run_gum`, every board row and every cell already construct.
+> 3. **§8.1's PROBE A conclusion that `_OF_VALIDITIES` "did not fire once on two GUM documents — the
+>    high-margin gate never cleared" is WRONG, and the reason generalises.** It fires on every document measured
+>    (~1,900–2,000 new observations each). The fingerprint watched the *module-level* table, which the 09:17
+>    landing had made incapable of moving two hours earlier. **A module-level fingerprint cannot see plasticity
+>    that has been moved onto an instance** — and this program is moving plastic state onto instances
+>    everywhere, so the state probe should fingerprint the INSTANCE (`reader._of_validities`,
+>    `reader._read_parse_cache`, `reader._lc_passage`), not only the module.
+>
+> *Also measured, and it closes an open question §7.1 left: the cross-document repeat rate of the PPR cue set is
+> **0.00%** — 771 distinct activation cue sets and 801 distinct cue sets over the same 12 documents read in
+> sequence by one reader, zero repeats across documents (`--crossdoc`). A store that outlived the read would hit
+> nothing; per-read is the correct scope, not a compromise.*
+
 **A caution on absolute seconds.** This probe ran when the laptop was quieter than the §6 profile did: the
 same document reads in 15.1 s here and 48.9 s there. **The ratios within one process are the stable
 quantity**; the seconds-per-document figures in §7 apply the measured *percentage* to §6's
