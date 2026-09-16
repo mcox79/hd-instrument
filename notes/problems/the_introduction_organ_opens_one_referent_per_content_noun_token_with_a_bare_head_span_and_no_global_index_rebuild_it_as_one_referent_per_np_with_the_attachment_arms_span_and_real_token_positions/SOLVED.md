@@ -1069,6 +1069,21 @@ the shipped arm untouched** -- the loser term and the `sents` hand-off live in t
 shipped arm does not install, and the board-scorer hunk is an alignment this cell already performed. The
 NP-span and twin arms of this run are the ones to read (see the RESUME POINT below).
 
+## 22f3. A PRE-LANDING CHECK I HAVE NOT RUN, AND IT BLOCKS LANDING
+
+**The loser term changes pri 136's landed organ for EVERY stream, not just the phrase stream.** pri 136
+measured plasticity as a GAIN on the per-token mention stream (+0.0745 plastic against +0.0680 frozen) with
+the one-sided update; adding the `different` observations changes that path too. **I have not measured the
+loser term on the SHIPPED per-token stream, and no-regress there is a landing condition, not a nicety.**
+
+The check is cheap and is specified here so it cannot be skipped: capture 3 GUM TEST documents with the
+SHIPPED organ (one live read each), then replay `competition_cluster` four ways in one process --
+frozen / online without the loser / online with the loser, per-document and shared -- exactly as
+`loser3.log` does for the phrase stream. **Landing condition: the per-token stream's B-cubed and the pronoun
+row must not fall CI-separated with the loser term on.** If it does fall, the loser term ships behind
+`HDLAB_OBJECT_FILE_LOSER` defaulted ON only for the phrase stream, which is a configuration smell and should
+instead send the whole question back to pri 136's organ.
+
 ## 22g. RESUME POINT (this session moves to the desktop)
 
 **Everything is on disk and committed.** A re-dispatch resumes from here with no context from this session.
