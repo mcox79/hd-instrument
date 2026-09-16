@@ -753,7 +753,38 @@ accrued as `same` -- the competition already computes it. **That is a change to 
 pri 136's organ not this one, and it is handed over as the specific board question rather than changed here
 under a running measurement.**
 
-## 23. SECTIONS TO COME
+## 23. THE HONEST SELF-ASSESSMENT
+
+**What I am confident in.** The organ is right and it is made of organs the reader already runs: one referent
+per noun phrase, the boundary from the attachment arm and the category organ, closed at the determiner, head
+by the Right-Hand Head Rule, with no fitted parameter and no second parse. Every mention-level join the brief
+asked for moves and moves a lot (determiner 0 -> 1,036; global extents 0 -> 2,526; cross-file mentions inside
+one gold mention 90 -> 6; bridge binds 0 -> 28). The end-to-end consumer strategy named as the evidence of the
+defect is repaired CI-separated on its own instrument with its own scorer, 13 items fixed and 0 broken, and
+the mechanism is a count rather than a story.
+
+**What I got wrong along the way, and corrected in place.** Three measurement defects of my own (the wrong
+gold map, giving a floor of 0.30 instead of 0.738; a span-scanning alignment that inflated the twin's
+population from 229 to 362; a naming instrument that read a field only the patched tree has) and one wrong
+refutation (I declared the `np` cue innocent on a monkeypatch that never reached the resolver's deep-copied
+table, then overturned it with a direct ablation). All four are in this document with their numbers.
+
+**What I did not finish.** The entity partition regresses through the LIVE read and the twin therefore does
+not lose -- so bars 1, 2 and S9-1 are NOT MET. But the last measurement in this document says the cause is
+NOT this rung: the SAME mention stream clusters at B-cubed 0.7221 offline against 0.2081 live. The organ
+hands down a better stream and something downstream of it -- most likely the plastic table's missing loser
+term (section 22) -- destroys it. **I am not calling that a wall.** It is a located cause in someone else's
+organ with a one-line brain-foundational fix named, and the probe that separates the two candidates was
+still running when this was written.
+
+**If I had one more day** I would (1) run the online-accrual isolation to completion, (2) add the loser term
+to `observe_file_decision` and re-run the 12-document A/B, and (3) re-run the boundary sweep with the
+partition fixed, because the sweep chose `both` against an over-merged instrument and the answer may change.
+
+## 24. THE SUBMISSION PROMPT
+
+(see section 13)
+
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
 check; (6) alternate paths and next steps.
