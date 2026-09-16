@@ -105,6 +105,12 @@ class _Store:
 
     def con(self) -> sqlite3.Connection:
         if self._con is None:
+            with self._lock:                   # one connection per process, even if two consumers race here
+                return self._connect()
+        return self._con
+
+    def _connect(self) -> sqlite3.Connection:
+        if self._con is None:
             if not os.path.exists(self.path):
                 raise LexiconAssetMissing(
                     "frozen lexicon asset not found: %s -- build it once with "
