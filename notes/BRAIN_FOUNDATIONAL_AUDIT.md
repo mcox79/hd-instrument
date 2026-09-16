@@ -64,6 +64,81 @@ We mapped 38 "organs" the brain uses to read, mean, remember and reason, plus th
 ---
 
 ## 2b. AUDIT UPDATES (from integrated solver work + strategy fidelity extensions — newest first)
+
+### 2026-09-16 (pri 142 solver) — THE STRUCTURE MAP: the audit's coverage is 94 of 278, the substrate has 21 structures, and ONE structure holds 28 organs computing one equation five ways
+
+**Full map: `notes/STRUCTURE_MAP_2026-09-16.md`. Registry: `brain_structure` / `fidelity_basis` /
+`computation` are now present on all 339 rows (written through `tools/capability_registry_audit.py`'s locked
+transaction; 75 modules that had no row now have one). No `hdlab/` or `tools/` file was changed.**
+
+- **COVERAGE, RECONCILED.** This document's headline ("5 of 38 organs compute the brain's equation") describes
+  `ORGAN_MAP.md` §4's 38-organ enumeration. On disk there are **278 `.py` modules under `hdlab/`** (not the 155
+  §1 records, and not the ~70 the pri-142 brief assumed). `notes/bf_status_registry.jsonl` rates **94**: 8
+  `BF`, 80 `BF_SPIRIT`, 6 `NOT_BF`. **184 of 278 (66%) carry no brain-foundational rating at all, and 21 of
+  them execute on a live read.** That is the audit's real coverage gap and it is now a brief-ready item
+  (STRUCTURE_MAP §7.2).
+- **THE SUBSTRATE HAS 21 BRAIN STRUCTURES + 2 honest non-brain buckets** (37 instrumentation modules, 9
+  compute-budget primitives). Every module is assigned; zero unmapped.
+- **🔴 THE SELECTION GROUP IS THE AUDIT'S BIGGEST UNRECORDED DEVIATION.** 28 organs compute
+  `A_i = Σ_c w_c·support_c(i)`, argmax. `hdlab/graded_competition.py` IS that engine (McClelland 2013:
+  additive + softmax is the Bayesian posterior, so this is a COPIED operation, not a stand-in) and it has 68
+  importers — **but only `graded_role_assigner` and `graded_coref_pick` feed it their decision.** Read from
+  code: `graded_role_assigner.strengths_from_counts` learns `log P(k|cfg,value) − log P(k|cfg)` from counts,
+  and it is THE one implementation of the Competition-Model strength math — while **`AGENT_VALIDITIES` beside
+  it is eight hand-set constants** (preverbal 3.0, core_arg 2.0, animacy 2.0, salience 2.0, adjacency 1.0,
+  byagent 6.0, structure 2.5, byhead 2.0) with **no `observe` path**, `affected_entity_resolver` uses two
+  hand-swept gammas, `attachment_arm` uses the same equation from a *second* table builder, and
+  **`space_reader`'s ground selection is not a competition at all** — `_pp_ground` / `_dobj_ground` /
+  `_anticipated_ground` are a first-match linear scan with hand-ordered fallbacks, and `_anticipated_ground`
+  fires only when exactly one candidate exists. **AUDIT VERDICT: the agent pick and ground selection are
+  STAND-INS on the live chain**, alongside the two already known (`goal_register`, `belief_timeline`).
+- **🔴 THE REGISTER GROUP IS THREE DATA SHAPES, NOT ONE MECHANISM.** Zwaan & Radvansky's event indexing is ONE
+  structure whose dimensions share one update rule. Read from code: `state_register` and `location_register`
+  are near-identical per-entity interval bookkeeping (`state_register`'s own docstring says so);
+  `world_state_register` is the same shape keyed on the **object**; `goal_register` and `affect_register` are
+  **flat lists with no time index and no update rule**; `belief_timeline` **holds no state and recomputes
+  from the event list on every query**. The consequence, traced from `situation_reader._read_goals`'s AST:
+  the goal register imports no register at all, so **a goal is closed by predicate + agent in a later
+  sentence and never by the result state `state_register` wrote earlier in the same read.** That is the
+  owner's 2026-09-16 coordination concern, located.
+- **🟢 THE LEXICAL-READ GROUP IS DONE AND IS THE MODEL CASE.** pri 127 put every read-time lexical lookup
+  behind ONE content-addressed store; **zero** `hdlab` modules call `nltk` on the read path (`state_register`'s
+  WordNet calls go through `lexicon_foundation.wordnet`). 6.5M reads per 480 sentences through one address
+  space, 4.2% of read time. **pri 143 and 144 should be executed exactly this way: byte-identical per arm
+  first, then the shared repair.** `temporal_model`'s 2026-09-11 three-layer consolidation is the second
+  worked example.
+- **🔴 A COST FACT THE AUDIT HAD NO ROW FOR.** Measured (`experiments/exp_structure_map_cost_v1.py`, 6 GUM TEST
+  documents, 480 sentences, every document re-read for contention, all six stable within 4%): a document takes
+  **44.7 s** to read and **60.6% of that is `grounded_semantic_graph._ppr`** — 30 power iterations of
+  `r = (1−d)p + d·Tᵀr`, **672 runs**, 184.8 s of sparse matrix-vector product, all of it inside
+  `force_dynamics_valence`'s harm/help judgement via `situation_reader._assign_affect`. The organ is the right
+  operation (spreading activation over a content-addressed semantic store); it is re-run per event rather than
+  per distinct question. The affect dimension reads as 0.1% of the cost table **by its own module** because its
+  whole cost is in the organ it calls — a warning that per-module cost hides cross-organ cost.
+- **REDUNDANCY, COUNTED (the brief's INFERRED "~90k re-parses" corrected):** at the reader level the waste is a
+  factor of ~2 — `attachment_arm.arc_scores` 2.17× per sentence, `lexical_categories.posterior` 1.98× per
+  sentence, `scene_segment.parse_conll_sentences` 4× per document. pri 112's one in-order category feed is
+  genuinely one pass per document (`feed_passage` = 6 calls / 6 documents) and the point tag IS served from the
+  cache (0.96×); it is the **posterior** that is recomputed.
+- **PLASTICITY, MEASURED NOT ASSERTED:** two consecutive un-shimmed reads of the same GUM document in one
+  process do **not** return identical situation models — the count organs `observe` while they read. That is
+  correct and brain-faithful, and it is also why a naive memo on the PPR cannot be certified by a
+  before/after comparison. **What is frozen and should not be:** `AGENT_VALIDITIES`,
+  `affected_entity_resolver`'s gammas, `space_reader`'s fallback order, `goal_register` (no learning path of
+  any kind), and `attachment_arm`'s arc validities (learned, but only offline — the online `observe` exists for
+  the role table and not the arc table).
+- **MAP SELF-AUDIT (recorded so the next brief can trust the right rows):** 83 of 278 rows had their
+  computation read from CODE this pass; 195 take the module's own stated computation. Every row load-bearing
+  to the groups, the ranking and the live chain is a code-read row; the docstring rows are concentrated in
+  instrumentation, compute-budget and unwired islands. **A later brief that touches a docstring-sourced row
+  must re-read it from code first.**
+- **23 DEFAULT-ON READER DIMENSIONS, RECONCILED:** 17 literal `track_*` ON + 6 further dimension flags
+  (`timeline_register`, `bind_event_tokens`, `bind_entity_states`, `predict_revise`, `predict_surprisal`,
+  `read_polarity`) = 23; `track_coherence` is the one OFF, with a measured reason. **Four have no consumer at
+  all** (`track_tom_action`, `track_prediction`, `bind_event_tokens`, `read_polarity`); ten are lazy closures
+  costing nothing until invoked — so "N parallel silos" is cheaper at read time than feared and exactly as
+  disconnected in the wiring as feared.
+
 - **2026-09-13 11:15 (strategy, owner-DONE pri 14 landing) `force_dynamics_valence` (BF_SPIRIT):** the landed harm/help arithmetic is now INDEPENDENTLY VALIDATED at 0.928 against a human crowd gold it never consumes (Connotation Frames Effect(o), Rashkin et al. 2016) -- a control the pri-7/pri-14 landings lacked; the superordinate-action read (ATL taxonomic inheritance, consensus-gated) + guarded affectedness admission landed as the remaining-scope arm (0.9323); the decision now consumes three previously UNJOINED BF organs: `polarity_operator` (event realization), the reader's own parse (prevented complement), `grounded_semantic_graph` (sense in context). Open walls (flagged): manner-encoded harm (brutalize/manhandle: intensity lives in the adverb -> grounded channel); complement attachment recall = the heads rung.
 
 ### 2026-09-12 (late) — ATL CONVERGENCE HUB landed as a REPRESENTATION organ (pri-13, PARTIAL); causal store as necessity prior REFUTED (pri-10)
