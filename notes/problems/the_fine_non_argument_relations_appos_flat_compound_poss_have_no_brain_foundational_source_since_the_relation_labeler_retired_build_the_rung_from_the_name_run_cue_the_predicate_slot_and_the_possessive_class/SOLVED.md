@@ -479,8 +479,7 @@ and the possessive class   (priority 134)
 
 STATUS: SOLVED.  Read notes/problems/<slug>/SOLVED.md in full.
 
-WHAT LANDS (two diffs, both `git apply --check --ignore-whitespace` CLEAN at HEAD 1666a7d1a + pri 133's
-applied tree; ship the adapter hunks SEPARATELY, pri 136 is in that file):
+WHAT LANDS (two diffs, both `git apply --check --ignore-whitespace` CLEAN at 99a592a73, i.e. with pri 133 landed; ship the adapter hunks SEPARATELY, pri 136 is in that file):
   notes/problems/<slug>/fine_relations_arm_patch.diff                   -> hdlab/graded_role_assigner.py
   notes/problems/<slug>/crosstype_live_adapter_fine_relations_patch.diff -> hdlab/crosstype_live_adapter.py
   data/frontend_assets/fine_relation_validities_ud_ewt.json             -> the counts asset (already written)
@@ -491,10 +490,17 @@ sit between `roles_with_decisions` and `by_governs`, so both apply.
 
 BEFORE INTEGRATING, RUN:
   .venv/Scripts/python.exe experiments/exp_fine_relations_arm_v1.py --self-test       # 13/13, tree-aware
-  .venv/Scripts/python.exe experiments/exp_fine_relations_arm_v1.py --verify-landed   # 6/6 on the LANDED shape
+  .venv/Scripts/python.exe experiments/exp_fine_relations_arm_v1.py --verify-landed   # 7/7 on the LANDED shape
 AFTER INTEGRATING, RUN:
   verification/test_crosstype_live_wire.py, test_deleak_crosstype_live_adapter.py, test_affect_reroute_landing.py
   and the reader-driven board (pri 122), because 5.1 costs the CORE-ARGUMENT read -0.0072 CI-sep on UD and
   that has to be priced on the reader's own who-did-what rows, which a solver cannot run.
   If it is down: HDLAB_FINE_RUN_MEMBERS=0 reverts exactly that one lever and keeps the rest.
+
+READ SECTION 4 BEFORE ANYTHING ELSE. The adapter diff also carries a COVERAGE repair that is a LIVE BEHAVIOUR
+FLIP: as it ships, `_can_build` rejects 292 of 292 mentions on a raw-text read because `referent_per_np` sets
+gtok_start = -1, so the default-ON crosstype bridge has been returning its input unchanged on EVERY document
+(0 of 6 documents reach the predication detector). With the repair it reaches 6 of 6 -- and licenses 0 edges
+until the relations arm lands too. Both are needed; neither alone does anything. If the board moves the wrong
+way, `_can_build` is the thing to revert (HDLAB_FINE_RELATIONS=0 only turns off the relations arm).
 ```
