@@ -881,6 +881,43 @@ competition computes it; that is now fixed and worth +0.1729. The missing decay 
 are a **DEFECT IN WHAT THE TEACHER SEES**: no biological cue-learning rule accumulates unbounded counts from
 a self-selected confident sample, and fixing that is a change to the learning rule, not to a call site.
 
+## 22d2. PROBE (B) -- THE BOUNDARY AS A LEARNED CUE COMPETITION: the cue set, the teacher, and why I did not prototype it today
+
+**THE DECISION** is binary and local: *is token k inside the phrase headed by h?* -- which is the same shape
+as every other competition in this substrate, so it becomes an arm of `graded_competition` with
+`strengths_from_counts` validities rather than a new organ.
+
+**THE CUE SET** (every value already computed by an organ on the read path, no new input):
+
+| cue | values | who computes it today |
+|---|---|---|
+| `cat` | the category organ's category of k: DET / ADJ / NUM / NOUN / PROPN / ADV / PRON / other | `lexical_categories` (graded posterior available) |
+| `arc` | k's argmax arc path: reaches h / reaches past h / root / elsewhere | `attachment_arm` (graded `P(head\|dep)` available) |
+| `gap` | h - k: 1 / 2 / 3+ | free |
+| `outer` | k is a determiner / possessive / genitive `'s` (the DP's outermost layer) | `entity_resolver._DEF_DET` / `_INDEF_DET`, already on disk |
+| `caps` | k is capitalised mid-sentence (the name-run cue) | pri 118's lever, currently inert on one-token spans |
+| `brk` | a punctuation or coordinator lies between k and h | free |
+
+The competition's score for "inside" is `SUM_cue log P(value | inside) - log P(value | outside)`, the token
+joins on a positive balance, and the phrase is the maximal contiguous run -- identical in form to
+`attachment_arm.arc_scores` and `entity_resolver.file_cues`, which is the point: **one equation, one more
+arm.**
+
+**THE TEACHER, AND IT IS THE HARD HALF.** A treebank chunker is barred. The self-supervised teacher that IS
+admissible, and is the same one the object-file organ already uses: **a boundary is CONFIRMED when the card
+it opened is later re-accessed by a NAME KEY that matches** -- 'the New York Times' cut whole produces a
+canonical alias that a later 'the Times' joins with a high margin, while a boundary that cut 'York | Times'
+produces two keys that never re-meet. Accrue `inside`/`outside` counts from those confirmations over an
+offline corpus read, exactly as `tools/build_*` accrues every other validity table, then keep accruing
+online through `observe_file_decision`.
+
+**WHY I DID NOT PROTOTYPE IT TODAY, and it is not a time excuse.** That teacher's confirmation signal is
+`competition_cluster`'s own high-margin merge -- **the signal this document has just shown to be running
+away** (section 22d). Training a boundary on a teacher whose confirmations are produced by a saturating
+table would fit the boundary to the defect. **The order is forced: fix the learning rule (the decay and the
+margin-gated sample), THEN learn the boundary.** Prototyping it now would have produced a fitted table
+dressed as a learned one, which is the thing the brief forbids.
+
 ## 22e. PROBE (C) -- DID I RE-IMPLEMENT AN ORGAN THAT EXISTS? (named, one by one)
 
 | the organ strategy named | does it compute the phrase span? | reused or duplicated |
