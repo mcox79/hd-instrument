@@ -76,6 +76,9 @@ TAU_SHIPPED = 1.25
 # consumer calls and changes 0 of 541 outputs, and the situation model is byte-identical on 12/12 documents;
 # TEST confirms at 135 of 535 and 0 of 565, 12/12.
 TAU_POST_SHIPPED = 1.25
+# LEVER 3 -- the cheap decisive cue gates the expensive one (see `src_fdv_order`).  Shipped ON only if the
+# identity arm certifies it byte-identical; measured, never assumed.
+ANIMACY_FIRST_SHIPPED = True
 
 
 # =====================================================================================================================
@@ -201,6 +204,44 @@ def sense_posterior_in_context(verb: str, tokens, gov_idx: int, lam: Optional[fl
 ''' % {"tau": tau}
 
 
+def src_fdv_order(on: bool) -> str:
+    """LEVER 3 -- ORGANS TAKE DATA IN ORDER (owner 2026-09-13).  The same mechanism as the barrier gate, one
+    rung up and with a different cue: run the expensive read only where a cheap, decisive cue has NOT already
+    settled the answer."""
+    return '''ANIMACY_FIRST = @ON@      # ORGANS TAKE DATA IN ORDER (pri 147).  `harm_help_arithmetic` answers NA for an
+                           # INANIMATE patient on its FIRST line -- a rock has no welfare to be harmed -- yet both
+                           # sense reads below it, and therefore both spreading-activation walks, ran BEFORE that
+                           # line.  MEASURED on 12 GUM TEST documents (`exp_walk_gate_v1.py --chain`): 863 of 932
+                           # harm/help judgements (92.6%) have an inanimate patient and EVERY one of them returns
+                           # NA, and 495 of the 535 graded sense posteriors computed (92.5%) were computed for one
+                           # of them.  The cheap decisive cue gates the expensive one; it does not replace it, and
+                           # nothing about either read changes.  SENSE_ABSTAIN is the ONE branch that consults the
+                           # sense BEFORE animacy, so the gate stands down whenever it is on.  False = OFF (both
+                           # reads always run), which is the floor arm every identity comparison is made against.
+
+
+def force_dynamics_event_type(item, animacy_map, gov_class_dict):
+'''.replace("@ON@", str(bool(on)))
+
+
+SRC_FDV_ORDER_BODY = '''    if SENSE_CONTEXT and cls != "PREVENT" and sense_can_matter:
+        sgn, affecting = context_sense_sign(gov_word, toks, gi)
+        if affecting is False and SENSE_ABSTAIN:
+            return None, a["category"], gov_word                 # the active sense does not affect a patient -> abstain
+        # the context read ADDS a sign where the verb-level cascade abstains; it never overrides a cascade decision (measured 11:42:
+        # as an override it turned "fired the clerk" into HELP -- the selection among affecting senses is not yet reliable enough)
+        override = sgn if (affecting and endstate_valence_sign(gov_word) is None) else None
+    post = sense_posterior_in_context(gov_word, toks, gi) if (SENSE_POSTERIOR and sense_can_matter) else None
+'''
+
+SRC_FDV_ORDER_GUARD = '''    cls = _lex().get(gov_word)
+    # ORGANS TAKE DATA IN ORDER (pri 147): can either sense read change THIS event's answer at all?  It cannot
+    # when the patient is inanimate, because `harm_help_arithmetic` returns NA before it reads any valence --
+    # unless SENSE_ABSTAIN is on, which is the one branch that consults the sense first.
+    sense_can_matter = (not ANIMACY_FIRST) or SENSE_ABSTAIN or (a["animacy"] != "inanimate")
+'''
+
+
 # =====================================================================================================================
 # 2. THE PATCH  (anchors read from the LIVE files so they cannot drift out of date silently)
 # =====================================================================================================================
@@ -241,6 +282,20 @@ def old_gsg_select(lines):
                   "\ndef _demo():")
 
 
+OLD_FDV_ORDER_HEAD = "def force_dynamics_event_type(item, animacy_map, gov_class_dict):" + chr(10)
+OLD_FDV_ORDER_GUARD = "    cls = _lex().get(gov_word)" + chr(10)
+OLD_FDV_ORDER_BODY = (
+    '''    if SENSE_CONTEXT and cls != "PREVENT":
+        sgn, affecting = context_sense_sign(gov_word, toks, gi)
+        if affecting is False and SENSE_ABSTAIN:
+            return None, a["category"], gov_word                 # the active sense does not affect a patient -> abstain
+        # the context read ADDS a sign where the verb-level cascade abstains; it never overrides a cascade decision (measured 11:42:
+        # as an override it turned "fired the clerk" into HELP -- the selection among affecting senses is not yet reliable enough)
+        override = sgn if (affecting and endstate_valence_sign(gov_word) is None) else None
+    post = sense_posterior_in_context(gov_word, toks, gi) if SENSE_POSTERIOR else None     # pri 100: P(sense | this sentence)
+''')
+
+
 def old_fdv_post(lines):
     return _block(_norm_text(lines), "def sense_posterior_in_context(verb: str, tokens, gov_idx: int,",
                   "\ndef context_sense_sign(")
@@ -266,13 +321,17 @@ def _apply(lines, old, new, path):
     return lines[:i] + new_lines + lines[i + n_old:]
 
 
-def patch_spec(tau=None, tau_post=None):
+def patch_spec(tau=None, tau_post=None, animacy_first=None):
     tau = TAU_SHIPPED if tau is None else tau
     tau_post = TAU_POST_SHIPPED if tau_post is None else tau_post
+    animacy_first = ANIMACY_FIRST_SHIPPED if animacy_first is None else animacy_first
     return [("hdlab/grounded_semantic_graph.py", GSG_PATH,
              [(old_gsg_gate, src_gsg_gate(tau)), (old_gsg_select, SRC_GSG_SELECT)]),
             ("hdlab/force_dynamics_valence.py", FDV_PATH,
-             [(old_fdv_post, src_fdv_post(tau_post))])]
+             [(old_fdv_post, src_fdv_post(tau_post)),
+              (OLD_FDV_ORDER_HEAD, src_fdv_order(animacy_first)),
+              (OLD_FDV_ORDER_GUARD, SRC_FDV_ORDER_GUARD),
+              (OLD_FDV_ORDER_BODY, SRC_FDV_ORDER_BODY)])]
 
 
 def patched_lines(path, edits):
@@ -282,9 +341,21 @@ def patched_lines(path, edits):
     return lines
 
 
-def make_diff(tau=None, tau_post=None) -> str:
+def fdv_order_block(on=True):
+    """The ANIMACY_FIRST constant plus the WHOLE patched `force_dynamics_event_type`, cut out of the patched
+    file text -- so the shim runs exactly the source the diff ships (pri 146's discipline: one source text)."""
+    edits = [(OLD_FDV_ORDER_HEAD, src_fdv_order(on)), (OLD_FDV_ORDER_GUARD, SRC_FDV_ORDER_GUARD),
+             (OLD_FDV_ORDER_BODY, SRC_FDV_ORDER_BODY)]
+    src = _norm_text(patched_lines(FDV_PATH, edits))
+    a = src.index("ANIMACY_FIRST = ")
+    end = '    return (mapped, a["category"], gov_word) if mapped else (None, a["category"], gov_word)'
+    b = src.index(end, a) + len(end)
+    return src[a:b] + chr(10)
+
+
+def make_diff(tau=None, tau_post=None, animacy_first=None) -> str:
     out = []
-    for rel, path, edits in patch_spec(tau, tau_post):
+    for rel, path, edits in patch_spec(tau, tau_post, animacy_first):
         a = _read_lines(path)[1]
         b = patched_lines(path, edits)
         d = list(difflib.unified_diff(a, b, fromfile="a/" + rel, tofile="b/" + rel, n=6))
@@ -295,9 +366,9 @@ def make_diff(tau=None, tau_post=None) -> str:
     return "".join(out)
 
 
-def write_diff(path, tau=None, tau_post=None):
+def write_diff(path, tau=None, tau_post=None, animacy_first=None):
     """IN BYTES.  A shell redirect turns every CRLF into CRCRLF on this box; the cell writes the file itself."""
-    txt = make_diff(tau, tau_post)
+    txt = make_diff(tau, tau_post, animacy_first)
     with open(path, "wb") as fh:
         fh.write(txt.encode("utf-8"))
     return txt
@@ -314,7 +385,8 @@ def landed():
     import hdlab.force_dynamics_valence as FDV
     return {"gate": hasattr(GSG, "WALK_GATE_TAU") and hasattr(GSG, "frequency_barrier")
                     and hasattr(GSG, "_norm_prior"),
-            "post_gate": hasattr(FDV, "SENSE_POSTERIOR_GATE_TAU")}
+            "post_gate": hasattr(FDV, "SENSE_POSTERIOR_GATE_TAU"),
+            "order": hasattr(FDV, "ANIMACY_FIRST")}
 
 
 _SAVED = {}
@@ -342,6 +414,11 @@ def install(tau=None, tau_post=None):
         exec(compile(src_fdv_post(TAU_POST_SHIPPED if tau_post is None else tau_post), FDV_PATH, "exec"),
              FDV.__dict__)
         _SAVED["fdv_added"] = set(FDV.__dict__) - _pre - {"sense_posterior_in_context"}
+    if not st["order"] and "fdv_event_type" not in _SAVED:
+        _SAVED["fdv_event_type"] = FDV.force_dynamics_event_type
+        _pre = set(FDV.__dict__)
+        exec(compile(fdv_order_block(True), FDV_PATH, "exec"), FDV.__dict__)
+        _SAVED["fdv_order_added"] = set(FDV.__dict__) - _pre - {"force_dynamics_event_type"}
     return st
 
 
@@ -358,26 +435,30 @@ def restore():
         FDV.sense_posterior_in_context = _SAVED.pop("fdv_post")
         for nm in _SAVED.pop("fdv_added", ()):
             FDV.__dict__.pop(nm, None)
+    if "fdv_event_type" in _SAVED:
+        FDV.force_dynamics_event_type = _SAVED.pop("fdv_event_type")
+        for nm in _SAVED.pop("fdv_order_added", ()):
+            FDV.__dict__.pop(nm, None)
 
 
 class gate:
     """`with gate(tau, tau_post):` -- select the arm on a tree where the mechanism is present.  0.0 = the gate
     is INERT (every walk runs), which is the floor arm."""
 
-    def __init__(self, tau=0.0, tau_post=0.0):
-        self.tau, self.tau_post = float(tau), float(tau_post)
+    def __init__(self, tau=0.0, tau_post=0.0, animacy_first=False):
+        self.tau, self.tau_post, self.af = float(tau), float(tau_post), bool(animacy_first)
 
     def __enter__(self):
         import hdlab.grounded_semantic_graph as GSG
         import hdlab.force_dynamics_valence as FDV
-        self.prev = (GSG.WALK_GATE_TAU, FDV.SENSE_POSTERIOR_GATE_TAU)
-        GSG.WALK_GATE_TAU, FDV.SENSE_POSTERIOR_GATE_TAU = self.tau, self.tau_post
+        self.prev = (GSG.WALK_GATE_TAU, FDV.SENSE_POSTERIOR_GATE_TAU, getattr(FDV, "ANIMACY_FIRST", False))
+        GSG.WALK_GATE_TAU, FDV.SENSE_POSTERIOR_GATE_TAU, FDV.ANIMACY_FIRST = self.tau, self.tau_post, self.af
         return self
 
     def __exit__(self, *exc):
         import hdlab.grounded_semantic_graph as GSG
         import hdlab.force_dynamics_valence as FDV
-        GSG.WALK_GATE_TAU, FDV.SENSE_POSTERIOR_GATE_TAU = self.prev
+        GSG.WALK_GATE_TAU, FDV.SENSE_POSTERIOR_GATE_TAU, FDV.ANIMACY_FIRST = self.prev
         return False
 
 
@@ -419,10 +500,10 @@ def _reader(gaz):
     return _H()._reader(gaz)
 
 
-def _read(path, gaz, tau=0.0, tau_post=0.0, reader=None):
+def _read(path, gaz, tau=0.0, tau_post=0.0, reader=None, animacy_first=False):
     """One read at one operating point.  Returns (seconds, situation model, memo stats)."""
     rdr = reader if reader is not None else _reader(gaz)
-    with gate(tau, tau_post):
+    with gate(tau, tau_post, animacy_first):
         t0 = time.perf_counter()
         sm = rdr.read(path)
         dt = time.perf_counter() - t0
@@ -754,13 +835,14 @@ def identity(n_docs=12, tau=None, tau_post=None, split="test"):
     for d in docs:
         path = _conll(d, tmp)
         arms = {}
-        for name, tt, tp in (("A_gate_off", 0.0, 0.0), ("B_argmax_gate", tau, 0.0),
-                             ("C_both_gates", tau, tau_post)):
+        for name, tt, tp, af in (("A_gate_off", 0.0, 0.0, False), ("B_argmax_gate", tau, 0.0, False),
+                                 ("C_both_gates", tau, tau_post, False),
+                                 ("D_all_three_with_animacy_first", tau, tau_post, True)):
             if name == "C_both_gates" and tau_post <= 0:
                 continue
             rdr = _reader(gaz)
             with Recorder() as rec:
-                dt, sm, m = _read(path, gaz, tau=tt, tau_post=tp, reader=rdr)
+                dt, sm, m = _read(path, gaz, tau=tt, tau_post=tp, reader=rdr, animacy_first=af)
             arms[name] = {"s": round(dt, 2), "sig": sig_json(sm), "hh": dict(rec.hh),
                           "hh_post": dict(rec.hh_post), "misses": (m or {}).get("misses"),
                           "ppr_calls": len(rec.ppr), "memo": m,
@@ -768,7 +850,7 @@ def identity(n_docs=12, tau=None, tau_post=None, split="test"):
                                                    e.predicate): e.affect for e in sm.events}}
         a = arms["A_gate_off"]
         row = {"docid": d.docid, "n_events": len(a["events"]), "tau": tau, "tau_post": tau_post}
-        for name in ("B_argmax_gate", "C_both_gates"):
+        for name in ("B_argmax_gate", "C_both_gates", "D_all_three_with_animacy_first"):
             if name not in arms:
                 continue
             b = arms[name]
@@ -808,13 +890,17 @@ def identity(n_docs=12, tau=None, tau_post=None, split="test"):
                  row["B_argmax_gate"]["ppr_calls_off"], row["B_argmax_gate"]["ppr_calls_on"],
                  100 * row["B_argmax_gate"]["ppr_calls_removed_share"],
                  row["B_argmax_gate"]["n_harm_help_outputs_that_differ"],
-                 ("   C: identical=%s hh diffs=%d walks -%.1f%%"
+                 ("   C: identical=%s hh diffs=%d walks -%.1f%%   D: identical=%s hh diffs=%d walks -%.1f%%"
                   % (row["C_both_gates"]["situation_model_identical"],
                      row["C_both_gates"]["n_harm_help_outputs_that_differ"],
-                     100 * row["C_both_gates"]["ppr_calls_removed_share"])) if "C_both_gates" in row else ""))
+                     100 * row["C_both_gates"]["ppr_calls_removed_share"],
+                     row["D_all_three_with_animacy_first"]["situation_model_identical"],
+                     row["D_all_three_with_animacy_first"]["n_harm_help_outputs_that_differ"],
+                     100 * row["D_all_three_with_animacy_first"]["ppr_calls_removed_share"]))
+                 if "C_both_gates" in row else ""))
     res = {"arm": "identity", "split": split, "landed_before_install": landed(), "tau": tau,
            "tau_post": tau_post, "n_documents": len(rows), "per_document": rows}
-    for name in ("B_argmax_gate", "C_both_gates"):
+    for name in ("B_argmax_gate", "C_both_gates", "D_all_three_with_animacy_first"):
         got = [r[name] for r in rows if name in r]
         if not got:
             continue
@@ -838,7 +924,7 @@ def identity(n_docs=12, tau=None, tau_post=None, split="test"):
     res["plain"] = ("each page is read with the gate off and with it on and the two readings are compared "
                     "field by field; any difference is the gate's own loss and is listed event by event")
     _write("identity_%s.json" % split, res)
-    for name in ("B_argmax_gate", "C_both_gates"):
+    for name in ("B_argmax_gate", "C_both_gates", "D_all_three_with_animacy_first"):
         if name in res:
             print("\n%s: IDENTICAL on %d of %d documents; walks %d -> %d (-%.1f%%); harm/help outputs that "
                   "differ: %d of %d"
@@ -849,10 +935,17 @@ def identity(n_docs=12, tau=None, tau_post=None, split="test"):
 
 
 def twin(n_docs=3, tau=None, seeds=(11, 22, 33), mode="annotated"):
-    """BAR 4 -- THE INFO-FREE TWIN, RUN LIVE.  A gate that skips the SAME NUMBER of walks AT RANDOM (per
-    document, per seed) must LOSE: the situation model must MOVE where the real gate's is identical.  (The
-    exact per-change accounting over all 12 documents is in `sweep`'s `random_twin`, computed from the
-    recorded barriers; this arm proves the loss reaches the product.)"""
+    """BAR 4 -- THE INFO-FREE TWIN, RUN LIVE THROUGH THE PRODUCT, AT TWO READOUTS.
+
+    A gate that skips the SAME NUMBER of walks AT RANDOM (per document, per seed) must LOSE.  It is compared
+    at BOTH readouts, because they do not have the same resolution and saying so is part of the result:
+
+      (1) THE DECISION THE GATE IS CERTIFIED ON -- the sense `select_sense_blended` picks, per call, compared
+          index by index against the ungated read.  The real gate must change NONE; the twin must change some.
+      (2) THE RECORDED SITUATION MODEL -- the full-field signature.  pri 146 measured that destroying EVERY
+          walk moves 5 of 1,753 recorded affect fields (0.29%), so a twin that destroys ~a third of the
+          walk's decisions has a sub-one-field expectation on a handful of documents: this readout is
+          UNDERPOWERED BY CONSTRUCTION and is reported with that expectation beside it, never as a pass."""
     tau = TAU_SHIPPED if tau is None else tau
     install()
     import hdlab.grounded_semantic_graph as GSG
@@ -861,22 +954,28 @@ def twin(n_docs=3, tau=None, seeds=(11, 22, 33), mode="annotated"):
     rows = []
     for d in docs:
         path = _conll(d, tmp)
-        rdr = _reader(gaz)
-        with Recorder() as rec:
-            _, sm_off, _ = _read(path, gaz, tau=0.0, reader=rdr)
-        w = [x for x in rec.blend if x["had_walk"]]
+        with Recorder() as rec_off:
+            _, sm_off, _ = _read(path, gaz, tau=0.0, reader=_reader(gaz))
+        w = [x for x in rec_off.blend if x["had_walk"]]
         share = sum(1 for x in w if x["frequency_barrier"] >= tau) / max(len(w), 1)
         off_j = sig_json(sm_off)
-        _, sm_real, _ = _read(path, gaz, tau=tau, reader=_reader(gaz))
-        row = {"docid": d.docid, "walks": len(w), "real_gate_skipped_share": round(share, 4),
-               "real_gate_identical": sig_json(sm_real) == off_j, "twin": []}
+        picks_off = [x["picked"] for x in rec_off.blend]
+        with Recorder() as rec_real:
+            _, sm_real, _ = _read(path, gaz, tau=tau, reader=_reader(gaz))
+        picks_real = [x["picked"] for x in rec_real.blend]
+        row = {"docid": d.docid, "walks": len(w), "blend_calls": len(picks_off),
+               "real_gate_skipped_share": round(share, 4),
+               "real_gate_identical": sig_json(sm_real) == off_j,
+               "real_gate_sense_picks_changed": (None if len(picks_real) != len(picks_off) else
+                                                 sum(1 for a, b in zip(picks_off, picks_real) if a != b)),
+               "twin": []}
         base_select = GSG.GroundedSemanticGraph.select_sense_blended
-        for s in seeds:
-            rng = random.Random(s)
+        for s_ in seeds:
+            rng = random.Random(s_)
 
             def rnd_select(self_g, lemma, pos, context_words, lam=0.5, _b=base_select, _r=rng, _p=share):
-                """Same shape, same cost saving, NO information: skip with probability `share` regardless of
-                the barrier."""
+                """Same shape, same number of skips, NO information: skip with probability `share`
+                regardless of the barrier."""
                 from hdlab.lexicon_foundation import wordnet as wn
                 tgt = wn.synsets(lemma, pos=GSG._WNPOS.get(pos)); tn = [x.name() for x in tgt]
                 if not tgt:
@@ -892,30 +991,50 @@ def twin(n_docs=3, tau=None, seeds=(11, 22, 33), mode="annotated"):
 
             GSG.GroundedSemanticGraph.select_sense_blended = rnd_select
             try:
-                _, sm_t, _ = _read(path, gaz, tau=0.0, reader=_reader(gaz))
+                with Recorder() as rec_t:
+                    _, sm_t, _ = _read(path, gaz, tau=0.0, reader=_reader(gaz))
             finally:
                 GSG.GroundedSemanticGraph.select_sense_blended = base_select
-            row["twin"].append({"seed": s, "identical": sig_json(sm_t) == off_j})
+            pt = [x["picked"] for x in rec_t.blend]
+            row["twin"].append({"seed": s_, "identical": sig_json(sm_t) == off_j,
+                                "sense_picks_changed": (None if len(pt) != len(picks_off) else
+                                                        sum(1 for a, b in zip(picks_off, pt) if a != b)),
+                                "blend_calls": len(pt)})
         row["twin_changed_the_read_on_seeds"] = sum(1 for t in row["twin"] if not t["identical"])
+        row["twin_mean_sense_picks_changed"] = round(
+            sum(t["sense_picks_changed"] or 0 for t in row["twin"]) / max(len(seeds), 1), 2)
         rows.append(row)
-        print("  %-30s real gate identical=%-5s (skips %.1f%%)   random twin changed the read on %d of %d seeds"
-              % (d.docid, row["real_gate_identical"], 100 * share, row["twin_changed_the_read_on_seeds"],
-                 len(seeds)))
+        print("  %-30s real gate: identical=%-5s picks changed=%-3s (skips %.1f%%)   random twin: picks "
+              "changed %s (mean %.1f), model changed on %d of %d seeds"
+              % (d.docid, row["real_gate_identical"], row["real_gate_sense_picks_changed"], 100 * share,
+                 [t["sense_picks_changed"] for t in row["twin"]], row["twin_mean_sense_picks_changed"],
+                 row["twin_changed_the_read_on_seeds"], len(seeds)))
+    tot_twin_picks = sum(r["twin_mean_sense_picks_changed"] for r in rows)
     res = {"arm": "twin", "landed_before_install": landed(), "tau": tau, "seeds": list(seeds),
            "per_document": rows, "n_documents": len(rows),
            "n_documents_real_gate_identical": sum(1 for r in rows if r["real_gate_identical"]),
+           "real_gate_sense_picks_changed_total": sum(r["real_gate_sense_picks_changed"] or 0 for r in rows),
+           "twin_sense_picks_changed_mean_total": round(tot_twin_picks, 2),
            "n_seed_runs_twin_changed_the_read": sum(r["twin_changed_the_read_on_seeds"] for r in rows),
            "n_seed_runs": len(rows) * len(seeds),
+           "readout_note": ("the SITUATION-MODEL readout is underpowered for this twin BY CONSTRUCTION: "
+                            "pri 146 measured that destroying EVERY walk moves 5 of 1,753 recorded affect "
+                            "fields (0.29%), so a twin that destroys about a third of the walk's decisions on "
+                            "a handful of documents has a sub-one-field expectation.  The powered readout is "
+                            "the sense pick, which is the decision the gate is certified on."),
            "plain": ("a gate that skips exactly as many spreads but picks them at random is run three times "
-                     "on each page; it must change the reading where the real gate does not")}
+                     "on each page; it must change the meanings the reader picks where the real gate does "
+                     "not")}
     _write("twin.json", res)
-    print("\nREAL GATE identical on %d of %d; RANDOM TWIN changed the read on %d of %d seed-runs"
+    print("\nREAL GATE: identical on %d of %d documents and changed %d sense picks.  RANDOM TWIN: changed "
+          "%.1f sense picks on average and moved the recorded model on %d of %d seed-runs."
           % (res["n_documents_real_gate_identical"], res["n_documents"],
+             res["real_gate_sense_picks_changed_total"], res["twin_sense_picks_changed_mean_total"],
              res["n_seed_runs_twin_changed_the_read"], res["n_seed_runs"]))
     return res
 
 
-def timing(n_docs=6, pairs=2, tau=None, tau_post=0.0, mode="annotated"):
+def timing(n_docs=6, pairs=2, tau=None, tau_post=0.0, animacy_first=False):
     """BAR 5 -- THE SAVING, HONESTLY TIMED, AND THE COMPOSITION WITH THE MEMO.  Four conditions per document,
     ALTERNATING within the pair so a load spike falls on both halves: memo OFF/ON x gate OFF/ON.  A pair whose
     two halves differ by more than 3x, or whose saving is negative, is DISCARDED and reported, and the
@@ -933,7 +1052,8 @@ def timing(n_docs=6, pairs=2, tau=None, tau_post=0.0, mode="annotated"):
         prev = GSG.PPR_MEMO_MAX
         GSG.PPR_MEMO_MAX = cap
         try:
-            dt, _sm, st = _read(path, gaz, tau=tt, tau_post=tau_post)
+            dt, _sm, st = _read(path, gaz, tau=tt, tau_post=tau_post,
+                                animacy_first=(animacy_first and tt > 0.0))
             return dt, (st or {}).get("misses")
         finally:
             GSG.PPR_MEMO_MAX = prev
@@ -976,6 +1096,7 @@ def timing(n_docs=6, pairs=2, tau=None, tau_post=0.0, mode="annotated"):
     def mean(rs, k):
         return round(sum(r[k] for r in rs) / len(rs), 4) if rs else None
     res = {"arm": "timing", "landed_before_install": landed(), "tau": tau, "tau_post": tau_post,
+           "animacy_first": bool(animacy_first),
            "per_document": rows, "n_documents": len(rows), "n_kept": len(ok),
            "kept": {k: mean(ok, k) for k in ("gate_saving_no_memo", "gate_saving_with_memo",
                                              "memo_saving_no_gate", "both_vs_neither")},
@@ -1128,20 +1249,20 @@ def criterion(n_docs=12, split="test", tau_floor=0.5, margin=0.25, warmup=25):
     return res
 
 
-def board(n_docs=3, n_boot=200, tau=None, tau_post=0.0, mode="annotated"):
+def board(n_docs=3, n_boot=200, tau=None, tau_post=0.0, animacy_first=False):
     """BAR 6 -- THE PRODUCT BOARD'S OWN ROWS, byte-identical with the gate on."""
     tau = TAU_SHIPPED if tau is None else tau
     install()
     import experiments.exp_board_rows_on_the_reader_v1 as B
 
-    def _arm(tt, tp):
-        with gate(tt, tp):
+    def _arm(tt, tp, af=False):
+        with gate(tt, tp, af):
             t0 = time.perf_counter()
             rows = B.run_gum(n_docs=n_docs, n_boot=n_boot)
             return time.perf_counter() - t0, rows
 
-    off_t, off_rows = _arm(0.0, 0.0)
-    on_t, on_rows = _arm(tau, tau_post)
+    off_t, off_rows = _arm(0.0, 0.0, False)
+    on_t, on_rows = _arm(tau, tau_post, bool(animacy_first))
 
     def _cmp(a, b):
         out, diff = {}, []
@@ -1164,7 +1285,7 @@ def board(n_docs=3, n_boot=200, tau=None, tau_post=0.0, mode="annotated"):
                               "seconds": {"gate_off": off_t, "gate_on": on_t}})
     cmp_, diff = _cmp(off_rows, on_rows)
     res = {"arm": "board", "landed_before_install": landed(), "tau": tau, "tau_post": tau_post,
-           "n_documents": n_docs, "n_boot": n_boot, "gate_off_s": round(off_t, 1), "gate_on_s": round(on_t, 1),
+           "animacy_first": bool(animacy_first), "n_documents": n_docs, "n_boot": n_boot, "gate_off_s": round(off_t, 1), "gate_on_s": round(on_t, 1),
            "per_row": cmp_, "rows_that_differ": diff, "all_identical": not diff,
            "reader_block_saved_share": round((off_t - on_t) / off_t, 4) if off_t else None,
            "plain": ("the product board's own reading block is run with the gate off and on and every "
@@ -1214,10 +1335,31 @@ def chain(n_docs=12, split="test"):
                 verdict = AFX.sense_endstate_sign(v, post)[1]
         except Exception:
             verdict = None
+        # HOW MUCH OF THE DISTRIBUTION ACTUALLY REACHES THE RUNG THAT READS IT.  The consumer does NOT read
+        # the posterior's ARGMAX: it reads the EXPECTATION  E = SUM_s P(s) v(s)  and then a precision-weighted
+        # fusion with the WORD-FORM norm,  fused = (pw*v_word + E)/(pw+1)  with pw = 2*rho, and only then a
+        # threshold at SENSE_TAU.  So "the posterior's argmax moved" and "the consumer's input moved" are
+        # different claims, and this records both against the SAME call's resting-level counterfactual.
+        dE = dF = None
+        v_changes = None
+        if post is not None and AFX.sense_rows(v):
+            try:
+                ep, er = AFX.sense_expectation(v, post), AFX.sense_expectation(v, None)
+                if ep and er:
+                    dE = abs(float(ep[0]) - float(er[0]))
+                fp, fr = AFX.fused_sense_value(v, post), AFX.fused_sense_value(v, None)
+                if fp is not None and fr is not None:
+                    dF = abs(float(fp) - float(fr))
+                v_changes = AFX.sense_endstate_sign(v, post) != AFX.sense_endstate_sign(v, None)
+            except Exception:
+                pass
         calls.append({"verb": v, "animacy": animacy, "had_posterior": post is not None,
                       "override_present": kw.get("endstate_sign_override") is not None,
                       "rung1_result_state_decides": rung1, "rung2_verdict": verdict,
-                      "in_sense_asset": bool(AFX.sense_rows(v)), "output": out})
+                      "in_sense_asset": bool(AFX.sense_rows(v)), "output": out,
+                      "abs_delta_expectation_vs_resting": dE, "abs_delta_fused_value_vs_resting": dF,
+                      "the_distribution_changes_the_rung_verdict": v_changes,
+                      "rho": (AFX.sense_rho(v) if AFX.sense_rows(v) else None)})
         return out
 
     FDV.harm_help_arithmetic = hh
@@ -1235,7 +1377,50 @@ def chain(n_docs=12, split="test"):
     verdicts = {}
     for c in reach:
         verdicts[str(c["rung2_verdict"])] = verdicts.get(str(c["rung2_verdict"]), 0) + 1
+    dEs = [c["abs_delta_expectation_vs_resting"] for c in withp
+           if c["abs_delta_expectation_vs_resting"] is not None]
+    dFs = [c["abs_delta_fused_value_vs_resting"] for c in withp
+           if c["abs_delta_fused_value_vs_resting"] is not None]
+    vch = [c for c in withp if c["the_distribution_changes_the_rung_verdict"]]
+    import numpy as _np
+    dist = {}
+    if dEs:
+        dist = {"n_compared": len(dEs),
+                "abs_delta_expectation": {"mean": round(float(_np.mean(dEs)), 5),
+                                          "median": round(float(_np.median(dEs)), 5),
+                                          "p90": round(float(_np.percentile(dEs, 90)), 5),
+                                          "max": round(float(max(dEs)), 5)},
+                "abs_delta_fused_value": {"mean": round(float(_np.mean(dFs)), 5) if dFs else None,
+                                          "median": round(float(_np.median(dFs)), 5) if dFs else None,
+                                          "p90": round(float(_np.percentile(dFs, 90)), 5) if dFs else None,
+                                          "max": round(float(max(dFs)), 5) if dFs else None},
+                "calls_where_the_distribution_CHANGES_the_rung_verdict": len(vch),
+                "share": round(len(vch) / max(len(withp), 1), 4),
+                "mean_rho_the_word_norm_precision_weight":
+                    round(float(_np.mean([c["rho"] for c in withp if c["rho"] is not None])), 4)
+                    if any(c["rho"] is not None for c in withp) else None}
+    # ORGANS TAKE DATA IN ORDER (owner 2026-09-13).  `harm_help_arithmetic` returns "NA" for an INANIMATE
+    # patient on its FIRST line, before any valence is read -- but `force_dynamics_event_type` calls BOTH
+    # sense reads (and therefore both walks) BEFORE it.  A rock has no welfare; the brain does not evaluate
+    # harm to one.  This counts how much of the most expensive operation in the read is spent on events whose
+    # answer the cheap, decisive cue has already settled.
+    xtab = {}
+    for c in calls:
+        k = "%s|%s" % (c["animacy"], c["output"])
+        xtab[k] = xtab.get(k, 0) + 1
+    inan = [c for c in calls if c["animacy"] == "inanimate"]
+    inan_post = [c for c in inan if c["had_posterior"]]
+    order = {"consumer_calls": n, "calls_with_an_INANIMATE_patient": len(inan),
+             "share_inanimate": round(len(inan) / max(n, 1), 4),
+             "their_outputs": sorted({str(c["output"]) for c in inan}),
+             "of_the_graded_posteriors_computed_how_many_were_for_an_inanimate_patient": len(inan_post),
+             "graded_posteriors_computed": len(withp),
+             "share_of_the_walk_spent_where_animacy_already_answered":
+                 round(len(inan_post) / max(len(withp), 1), 4),
+             "outputs_by_animacy": xtab}
     res = {"arm": "chain", "split": split, "n_documents": len(docs), "n_consumer_calls": n,
+           "how_much_of_the_distribution_reaches_the_consumer": dist,
+           "the_cheap_cue_that_answers_first": order,
            "calls_handed_a_graded_posterior": len(withp),
            "of_those_decided_by_the_posterior_BLIND_result_state_rung_first": len(pre),
            "of_those_reaching_the_only_rung_that_reads_the_distribution": len(reach),
@@ -1520,6 +1705,7 @@ def main():
     ap.add_argument("--board", action="store_true")
     ap.add_argument("--organs", action="store_true")
     ap.add_argument("--chain", action="store_true")
+    ap.add_argument("--animacy-first", action="store_true")
     ap.add_argument("--make-diff", action="store_true")
     ap.add_argument("--split", default="train", choices=("train", "test"))
     ap.add_argument("--docs", type=int, default=12)
@@ -1548,7 +1734,7 @@ def main():
     if a.twin:
         twin(a.twin_docs, a.tau)
     if a.timing:
-        timing(a.docs, a.pairs, a.tau, a.tau_post or 0.0)
+        timing(a.docs, a.pairs, a.tau, a.tau_post or 0.0, a.animacy_first)
     if a.criterion:
         criterion(a.docs, a.split)
     if a.chain:
@@ -1556,7 +1742,7 @@ def main():
     if a.organs:
         organs()
     if a.board:
-        board(a.board_docs, a.boot, a.tau, a.tau_post or 0.0)
+        board(a.board_docs, a.boot, a.tau, a.tau_post or 0.0, a.animacy_first)
     return 0
 
 

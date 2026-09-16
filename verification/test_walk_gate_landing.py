@@ -233,6 +233,34 @@ def w6_the_skipped_posterior_is_the_resting_level():
        "frequency_barrier(rest" in src and "resting_level(rows)" in src)
 
 
+def w6b_the_cheap_cue_gates_the_expensive_one():
+    """LEVER 3 -- ORGANS TAKE DATA IN ORDER.  `harm_help_arithmetic` answers NA for an inanimate patient on
+    its first line, so neither sense read can change that event's answer; the gate must stand down in the one
+    branch (SENSE_ABSTAIN) that consults the sense BEFORE animacy, and must be inert when switched off."""
+    print("\nW6b  ORGANS TAKE DATA IN ORDER -- the cheap decisive cue gates the expensive one")
+    ck("an inanimate patient is answered NA before any valence is read",
+       FDV.harm_help_arithmetic("destroy", "inanimate") == "NA")
+    ck("...and the answer does not depend on the sense posterior at all",
+       FDV.harm_help_arithmetic("destroy", "inanimate", posterior=[0.5, 0.5]) == "NA")
+    src = E.fdv_order_block(True)
+    ck("the guard stands down when SENSE_ABSTAIN consults the sense first", "or SENSE_ABSTAIN or" in src)
+    ck("the guard is inert when the lever is off", "(not ANIMACY_FIRST) or" in src)
+    ck("both sense reads are behind the same guard",
+       src.count("sense_can_matter") == 3 and "SENSE_POSTERIOR and sense_can_matter" in src)
+    ck("nothing else in the function changed",
+       "context_sense_sign(gov_word, toks, gi)" in src and "harm_help_arithmetic(gov_word," in src)
+    r = _rec("chain_test.json")
+    if r:
+        o = r.get("the_cheap_cue_that_answers_first", {})
+        ck("RECORD: every inanimate-patient judgement really is NA", o.get("their_outputs") == ["NA"],
+           "%d of %d calls" % (o.get("calls_with_an_INANIMATE_patient", 0), o.get("consumer_calls", 0)))
+        ck("RECORD: the walk is being spent where that cue already answered",
+           o.get("share_of_the_walk_spent_where_animacy_already_answered", 0) > 0.5,
+           "%d of %d graded posteriors"
+           % (o.get("of_the_graded_posteriors_computed_how_many_were_for_an_inanimate_patient", 0),
+              o.get("graded_posteriors_computed", 0)))
+
+
 def w7_nothing_is_frozen():
     print("\nW7  NOTHING IS FROZEN -- the criterion has an observe path and is conservative")
     c = E.WalkGateCriterion(tau_floor=0.5, margin=0.25, warmup=3)
@@ -290,9 +318,30 @@ def w8_the_record_agrees_with_itself():
             ck("IDENTITY: the gate actually removed walks", b["walks_on"] < b["walks_off"],
                "%d -> %d (-%.1f%%)" % (b["walks_off"], b["walks_on"], 100 * b["walks_removed_share"]))
         c = idr.get("C_both_gates")
+        # THE COVERAGE CHECK the project's own discipline demands: "no difference" is only evidence if the
+        # gate actually had chances to make one.  Count the graded posteriors it removed.
+        d = idr.get("D_all_three_with_animacy_first")
+        if d:
+            ck("IDENTITY: the cheap-cue ordering is lossless too", d["n_identical"] == d["n_documents"],
+               "identical %d/%d; walks %d -> %d (-%.1f%%); spreads %s -> %s"
+               % (d["n_identical"], d["n_documents"], d["walks_off"], d["walks_on"],
+                  100 * d["walks_removed_share"], d.get("spreads_computed_off"),
+                  d.get("spreads_computed_on")))
+            ck("IDENTITY: and it removed the graded posterior on a real share of the consumer's calls",
+               d["total_calls_that_lost_the_graded_posterior"] > 0,
+               "%d of %d" % (d["total_calls_that_lost_the_graded_posterior"],
+                             d["total_calls_that_had_a_graded_posterior"]))
+            # THE ONE THING THAT COULD BE MISREAD: the consumer-call KEY includes the sign override, which
+            # this lever legitimately stops computing for an inanimate patient -- so a key can "differ"
+            # without any answer differing.  Every such key must be an inanimate-patient call, whose answer
+            # is NA either way, and the situation model must be identical regardless.  Checked, not assumed.
+            keys = [k for r in idr["per_document"]
+                    for k in r["D_all_three_with_animacy_first"]["harm_help_outputs_that_differ"]]
+            ck("IDENTITY: every consumer key the ordering lever moves is an INANIMATE-patient call (answer "
+               "NA either way)", all("|inanimate|" in k for k in keys),
+               "%d keys, %d inanimate" % (len(keys), sum(1 for k in keys if "|inanimate|" in k)))
+            ck("IDENTITY: and no recorded affect field moved", d["total_affect_fields_that_differ"] == 0)
         if c:
-            # THE COVERAGE CHECK the project's own discipline demands: "no difference" is only evidence if the
-            # gate actually had chances to make one.  Count the graded posteriors it removed.
             ck("IDENTITY: the distribution gate REALLY fired (its 'no change' is not a coverage artifact)",
                c["total_calls_that_lost_the_graded_posterior"] > 0,
                "%d of %d consumer calls lost their graded posterior; %d outputs changed"
@@ -332,9 +381,13 @@ def main():
         ck("LANDED: the live module carries the swept threshold", isinstance(GSG.WALK_GATE_TAU, float))
         ck("LANDED: the distribution path carries its own threshold",
            isinstance(FDV.SENSE_POSTERIOR_GATE_TAU, float))
+        ck("LANDED: the live event typer consults animacy before the sense reads",
+           "sense_can_matter" in inspect.getsource(FDV.force_dynamics_event_type))
     else:
         ck("PROPOSED: the defect is PRESENT on the tree (the selector requests the walk unconditionally)",
            "frequency_barrier" not in inspect.getsource(GSG.GroundedSemanticGraph.select_sense_blended))
+        ck("PROPOSED: and the event typer reads the sense before animacy",
+           "sense_can_matter" not in inspect.getsource(FDV.force_dynamics_event_type))
         E.install()
     try:
         w1_the_barrier_reads_the_prior_and_nothing_else()
@@ -343,6 +396,7 @@ def main():
         w4_tau_zero_is_the_floor_and_the_gate_is_monotone()
         w5_the_info_free_twin_loses()
         w6_the_skipped_posterior_is_the_resting_level()
+        w6b_the_cheap_cue_gates_the_expensive_one()
         w7_nothing_is_frozen()
         w8_the_record_agrees_with_itself()
     finally:
