@@ -572,6 +572,62 @@ On one LitBank document through the live read (a cheap isolation, 1 read per arm
   mentions per sentence re-ranks every Centering backward-looking centre). **This is a LOCATED, NOT YET
   FIXED item and it is the one thing that blocks bar 1.**
 
+### 10.8 THE TWIN DOES NOT LOSE -- and that is the clearest statement of the defect
+
+| contrast (12 GUM test documents, document-paired bootstrap) | delta | CI95 | separated |
+|---|---|---|---|
+| NP-span vs shipped, B-cubed (pri 136 alignment) | **-0.4196** | [-0.5033, -0.3331] | **YES, DOWN** |
+| NP-span vs shipped, B-cubed (gold-head alignment) | **-0.4541** | [-0.5267, -0.3697] | **YES, DOWN** |
+| NP-span vs shipped, entity-set row | +0.4294 | [+0.2928, +0.5917] | YES (degenerate -- see 10.6) |
+| NP-span vs shipped, pronoun row (span scorer) | -0.0060 | [-0.0831, +0.0710] | no |
+| NP-span vs shipped, pronoun row (identity scorer) | -0.0988 | [-0.2098, +0.0131] | no |
+| **NP-span vs the RANDOM-BOUNDARY TWIN, B-cubed** | **-0.0035** | [-0.0185, +0.0090] | **NO** |
+| NP-span vs the twin, entity-set row | +0.0082 | [+0.0000, +0.0312] | no |
+
+**THE TWIN DOES NOT LOSE, AND THE REASON IS THE OVER-MERGE, NOT THE BOUNDARY.** The twin's partition is
+B-cubed P 0.1228 / R 0.9610 and the organ's is P 0.1211 / R 0.9739 -- BOTH have collapsed the document into
+a handful of files, and on a collapsed partition the boundary cannot matter, so the control is uninformative
+about the boundary rather than evidence against it. That is the honest reading and it is why bars 1 and 2
+are **NOT MET as this configuration stands**. Two things nevertheless discriminate the organ from its twin
+even here, on counts rather than the partition: the determiner is readable on **1,036** of the organ's
+mentions against **328** of the twin's, and the bridge licenses **28** binds against the twin's **12** -- a
+random left edge does put an article at the span's front sometimes, and the organ does it 3.2x more often.
+
+**THE FLIP TABLE, on the shipped arm's own 448 items** (a mention the collapse drops counts WRONG):
+162 items right-to-wrong -> WRONG-TO-RIGHT, 1 item right-to-wrong-by-merge, **47 items lost because the
+Right-Hand-Head collapse absorbed the gold mention** (plus 34 that were already wrong). So the collapse's
+direct cost on this population is **47 of 448 items (10.5%)**, and it is the number section 7's nested-cards
+path would have to beat.
+
+### 10.9 THE ROOT CAUSE, FOUND BY ABLATION -- AND A CORRECTION TO SECTION 10.7
+
+**I have to correct myself: the earlier "the `np` cue is REFUTED as the cause" was wrong, because the
+monkeypatch I used to make the cue inert did not reach the resolver's own deep-copied table.** Re-run as a
+DIRECT replay -- one live read, then `entity_resolver.competition_cluster` called repeatedly on the captured
+mentions with one cue zeroed at a time -- the answer is unambiguous (one LitBank document, 536 non-pronoun
+mentions):
+
+| cue removed | entity files |
+|---|---|
+| none (the shipped configuration) | **149** |
+| **`np` (the adjacency cue)** | **277** |
+| `cb` (Centering backward-looking centre) | 229 |
+| the criterion (Heim's shift) | 121 |
+| `phi` | 115 |
+| `head` | 95 |
+| `name` | 79 |
+| `etype` | 67 |
+| `predication` | 149 |
+
+**The `np` adjacency cue is the dominant merger on the phrase stream: removing it nearly doubles the number
+of files (149 -> 277, against the shipped stream's 347).** Its re-accrued strengths are still large
+(`gap1_nom` +4.89, `gap2_nom` +4.36, `gap2_x` +6.33) because the TEACHER'S POPULATION IS NOT INFERENCE'S:
+the teacher opens one pseudo-file per GOLD ENTITY, so a *different*-entity file whose last mention ended one
+or two tokens earlier is rare by construction, while at inference the immediately-preceding phrase is always
+some open file and usually a different entity. **So the brief's prediction was right after all -- once the
+span is real, the adjacency cue's job IS done by the span -- and the fix is not to re-accrue it on the gold
+partition but to accrue it over the READER'S OWN open files, or to retire the cue.**
+
 ## 18. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
