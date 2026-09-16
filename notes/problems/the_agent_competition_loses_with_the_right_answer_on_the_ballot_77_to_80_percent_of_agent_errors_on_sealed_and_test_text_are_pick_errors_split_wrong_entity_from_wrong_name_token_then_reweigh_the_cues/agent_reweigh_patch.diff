@@ -1,0 +1,580 @@
+--- a/hdlab/graded_role_assigner.py
++++ b/hdlab/graded_role_assigner.py
+@@ -48,6 +48,7 @@
+ 
+ import json
+ import functools
++import math
+ import os
+ from typing import Dict, List, Optional, Sequence
+ 
+@@ -2439,6 +2440,17 @@
+     This only SURFACES the margin the competition already computed -- the pick is byte-identical, so it is a pure
+     ADDITIVE readout. Returns ("?", None, None) when there is no candidate. twin_seed / subj_before /
+     byhead_agent_cue behave exactly as in agent_competition_pick."""
++    # pri 140 (2026-09-16): THE RE-WEIGHED ARM.  The AGENT cue weights above are HAND-SET; the Competition
++    # Model says a cue's weight is its VALIDITY, accrued from exposure.  When the counts-accrued table is on
++    # disk (`agent_validities()`) and the caller has not supplied its own weights, the competition is decided
++    # by those learned log-odds contrasts instead -- same organ, same additive activation, same argmax, same
++    # (pick, margin, conf) return shape.  HDLAB_AGENT_REWEIGH=0 restores this function byte-identically.
++    if AGENT_REWEIGH and weights is None:
++        _t = agent_validities()
++        if _t is not None:
++            return agent_competition_reweighed(toks, pos, v, cands, cluster_freq=cluster_freq, gaz=gaz,
++                                               table=_t, head_post=agent_head_belief(toks, pos),
++                                               tag_post=agent_category_belief(toks), twin_seed=twin_seed)
+     w = AGENT_VALIDITIES if weights is None else weights
+     c = [(m["wtok_start"], m["head"], m.get("cluster"), m.get("wtok_end", m.get("wtok_start"))) for m in cands]
+     if not c:
+@@ -2703,6 +2715,478 @@
+     return base["head"] if base is not None else None
+ 
+ 
++
++
++# =====================================================================================
++# pri 140 -- THE AGENT CUE VALIDITIES, ACCRUED FROM READING (the re-weighed competition)
++# =====================================================================================
++# The AGENT weights above (`AGENT_VALIDITIES`) are HAND-SET, and the Competition Model says a
++# cue's weight IS its validity -- availability x reliability, accrued from exposure (MacWhinney,
++# Bates & Kliegl 1984).  This block is that accrual, in the SAME form the coarse role table
++# already uses (`strengths_from_counts`): counts in, log-odds contrasts out, one online observe
++# path, no fit.  It is self-gating: with no asset on disk `agent_validities()` returns None and
++# `agent_competition_pick_conf` is byte-identical to the landed competition.
++_AGENT_VALIDITIES_PATH = os.environ.get("HDLAB_AGENT_VALIDITIES") or os.path.join(
++    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "frontend_assets",
++    "agent_cue_validities_ud_ewt_v1.json")
++# HDLAB_AGENT_REWEIGH=0 restores the hand-set AGENT_VALIDITIES competition byte-identically (the A/B switch).
++AGENT_REWEIGH = os.environ.get("HDLAB_AGENT_REWEIGH", "1") != "0"
++AGENT_CUES = ("order", "nearrank", "firstinclause", "case", "govern", "anim", "given",
++              "struct", "scope", "cat", "agree", "vfit", "licensor")
++# TWO CUES BUILT AND REFUTED ON DEV, kept here as named negatives rather than deleted silently:
++#   rsubj   -- the landed role competition's P(SUBJ) marginalised over the head posterior, read graded.
++#              Dev 0.7880 -> 0.7794 (WORSE).  WHY, and it is worth knowing: `coarse_role_posterior` is itself
++#              an additive competition over head-class x order, case and preposition -- the SAME evidence
++#              this competition already reads -- so it is not an independent cue, it is the same evidence
++#              passed through a second softmax, and adding it double-counts.  A cue must be a NEW
++#              measurement of the world, not a re-reading of one already taken.
++#   for_to  -- `for X to VERB` / `with X VERBing` given its own `govern` VALUE (the infinitival subject is
++#              marked by a preposition in English, so the oblique reading is a construction blindness).
++#              The value learned the right sign (-0.10 against prep's -2.45) but the split cost dev
++#              0.7942 -> 0.7880.  Not adopted; the construction is named in SOLVED.md as a live lead.
++AGENT_ALPHA = 0.5
++# THE ACCRUAL RATE.  How much experience a cue VALUE needs before it may outvote its own configuration:
++# `m_shrink` Dirichlet pseudo-counts pull a value's rate to the configuration marginal.  SWEPT on dev, never
++# adopted from anywhere else.
++AGENT_M_SHRINK = float(os.environ.get("HDLAB_AGENT_M_SHRINK", "2.0"))
++AGENT_TEMP = 1.0
++# THE CONFIGURATION.  "voice" = the clause's voice alone (v1); "voice_order" = voice x the candidate's
++# position relative to the predicate, which is what the coarse role table already does (head-class x order)
++# and for the same reason: the two highest-validity cues become the CONFIGURATION and every other cue is
++# read as a CONTRAST WITHIN it, so correlated cues cannot each re-count the majority class.
++AGENT_CONFIG = os.environ.get("HDLAB_AGENT_CONFIG", "voice")
++# THE CUE SET THAT VOTES.  All 12 cues are COMPUTED and ACCRUED (the table stays complete and the online path
++# keeps learning every one of them), but only these VOTE.  Chosen by backward elimination on the UD-EWT TRAIN
++# DEV slice the counts never saw, and the same four survive under all three configurations tried -- they are
++# the DECORRELATED core.  WHY a subset at all: this integrator adds each cue's MARGINAL log-odds, so two cues
++# that carry the same variance each re-count it (the additive form is exact only for conditionally independent
++# cues).  The Competition Model's own connectionist simulations discount that overlap by error-driven weight
++# competition; a COUNTS table cannot, and a fitted classifier is barred here -- so the overlap is handled by
++# which cues enter, decided on dev.  THIS IS THE HONEST LIMIT OF THE COUNT FORM and it is named in SOLVED.md.
++AGENT_CUE_SET = tuple((os.environ.get("HDLAB_AGENT_CUE_SET") or "order,govern,struct,cat").split(","))
++
++
++def _agent_bin(x, edges, names):
++    for e, nm in zip(edges, names):
++        if x < e:
++            return nm
++    return names[-1]
++
++
++def _agent_clause_scope(toks, up, v0, p, lo, hi):
++    """same / rel / outside.  `rel`: the candidate is the RELATIVIZER that heads the relative clause whose verb
++    is v0 -- the clause-boundary scope the landed `clause_bounds` deliberately does NOT cut at (relativizers
++    EMBED), which is why a distant main-clause nominal wins the RC verb's competition (pattern 2)."""
++    low = [t.lower() for t in toks]
++    if lo <= p < hi:
++        if low[p] in _WHREL and p < v0:
++            if not any(low[k] in _WHREL for k in range(p + 1, v0)):
++                return "rel"
++        # a candidate separated from the predicate by an intervening relativizer sits OUTSIDE the embedded
++        # clause the predicate belongs to (the distant-nominal pattern: `... it ... which BROKE`).
++        if p < v0 and any(low[k] in _WHREL for k in range(p + 1, v0)):
++            return "acrossrel"
++        return "same"
++    return "outside"
++
++
++# --- THE TWO PINNED COMPETITION-MODEL CUES THE LANDED COMPETITION NEVER HAD -------------------------
++# Bates & MacWhinney's English cue hierarchy is word order > AGREEMENT > animacy, and the model's cue
++# inventory also carries the VERB'S OWN EXPECTATIONS (subcategorisation / semantic fit).  The landed
++# `agent_supports` has neither.  Both are read here glass-box, from organs already on disk:
++#   agree : subject-verb NUMBER agreement.  The verb's demand comes from its auxiliary chain (is/was/has
++#           vs are/were/have) or its own present 3sg -s; the candidate's number comes from the glass-box
++#           morphology organ (a noun whose WordNet base differs from its surface form is plural) or from
++#           the pronoun's own form.  English marks agreement WEAKLY, so this cue's validity is expected to
++#           be small -- and it is learned, not asserted.
++#   vfit  : how good a SUBJECT this candidate is for THIS verb, from the substrate's own reading-grown
++#           typed selectional-preference store (`typed_selectional_preference_bf_subj_v1`, Resnik 1996
++#           association over supersenses, grown by the substrate's own chain -- no external parser).
++_AGENT_SG_AUX = frozenset(("is", "was", "has", "'s", "does"))
++_AGENT_PL_AUX = frozenset(("are", "were", "have", "do", "'re", "'ve"))
++_AGENT_SG_PRON = frozenset(("he", "she", "it", "this", "that", "him", "her", "one", "who"))
++_AGENT_PL_PRON = frozenset(("they", "we", "these", "those", "them", "us", "both"))
++_AGENT_NUM_CACHE = {}
++
++
++def _agent_number(head, tag):
++    """sg / pl / unk for one candidate -- the glass-box morphology organ, no gold."""
++    h = head.lower()
++    if h in _AGENT_SG_PRON:
++        return "sg"
++    if h in _AGENT_PL_PRON:
++        return "pl"
++    if tag not in ("NOUN", "PROPN"):
++        return "unk"
++    key = (h, tag)
++    hit = _AGENT_NUM_CACHE.get(key)
++    if hit is not None:
++        return hit
++    v = "unk"
++    if h.endswith("s") and len(h) > 2:
++        try:
++            from hdlab.morphology import morphy
++            b = morphy(h, "n")
++            v = "pl" if (b and b != h) else "sg"
++        except Exception:
++            v = "unk"
++    else:
++        v = "sg"
++    if len(_AGENT_NUM_CACHE) > 20000:
++        _AGENT_NUM_CACHE.clear()
++    _AGENT_NUM_CACHE[key] = v
++    return v
++
++
++def _agent_verb_demand(toks, pos, low, v0):
++    """sg / pl / unk -- what number THIS predicate's morphology demands of its subject."""
++    for k in range(max(0, v0 - 3), v0):
++        if low[k] in _AGENT_SG_AUX:
++            return "sg"
++        if low[k] in _AGENT_PL_AUX:
++            return "pl"
++    w = low[v0] if 0 <= v0 < len(low) else ""
++    if w in _AGENT_SG_AUX:
++        return "sg"
++    if w in _AGENT_PL_AUX:
++        return "pl"
++    tag = pos[v0] if 0 <= v0 < len(pos) else None
++    if tag in ("VERB", "AUX") and w.endswith("s") and not w.endswith("ss"):
++        try:
++            from hdlab.morphology import morphy
++            b = morphy(w, "v")
++            if b and b != w:
++                return "sg"
++        except Exception:
++            pass
++    return "unk"
++
++
++_AGENT_TEACHER = [None]
++
++
++def _agent_subject_fit(verb_tok, head):
++    """The verb's own expectation of this candidate as its SUBJECT -- a binned plausibility share from the
++    substrate's reading-grown typed selectional-preference store."""
++    if _AGENT_TEACHER[0] is None:
++        try:
++            import hdlab.attachment_arm as AA
++            _AGENT_TEACHER[0] = (AA._plaus_teacher(), AA._plaus_bin)
++        except Exception:
++            _AGENT_TEACHER[0] = (False, None)
++    t, binf = _AGENT_TEACHER[0]
++    if not t:
++        return "na"
++    try:
++        return binf(t.plausibility_subj(verb_tok, head))
++    except Exception:
++        return "na"
++
++
++def agent_cue_values(toks, pos, v0, cands, gaz=None, cluster_freq=None, head_post=None, tag_post=None):
++    """([per-candidate config], [per-candidate {cue: value}]).  `cands` = [(head_pos, head_string, cluster, span_end), ...]
++    with head_pos the WITHIN-SENTENCE index of the mention's HEAD (span-independent: pri 138 may widen spans).
++    head_post = the attachment arm's graded head belief {dep: {head: p}} (0-based); tag_post = the category
++    organ's per-token posterior [{cat: p}].  Both optional: absent -> the cue takes value "na" and the learned
++    contrast for "na" (~0 after shrinkage) makes it silent."""
++    low = [t.lower() for t in toks]
++    passive = is_passive_predicate(list(toks), list(pos), v0 + 1)
++    cfg = "pass" if passive else "act"
++    lo, hi = clause_bounds(toks, pos, v0)
++    cf = cluster_freq or {}
++    pres = sorted([c[0] for c in cands if c[0] < v0])
++    posts = sorted([c[0] for c in cands if c[0] > v0])
++    inclause = sorted([c[0] for c in cands if lo <= c[0] < hi and c[0] < v0])
++    demand = _agent_verb_demand(toks, pos, low, v0)
++    out = []
++    for cand in cands:
++        p, head, cl = cand[0], str(cand[1]), cand[2]
++        hl = head.lower()
++        tag = pos[p] if 0 <= p < len(pos) else None
++        d = {}
++        d["order"] = "pre" if p < v0 else "post"
++        if p < v0:
++            r = (len(pres) - 1 - pres.index(p)) if p in pres else 9
++            d["nearrank"] = "n0" if r == 0 else ("n1" if r == 1 else "n2+")
++        else:
++            r = posts.index(p) if p in posts else 9
++            d["nearrank"] = "p0" if r == 0 else "p1+"
++        d["firstinclause"] = ("first" if (inclause and p == inclause[0]) else
++                              ("inclause" if p in inclause else "no"))
++        if tag == "PRON" or hl in _AGENT_ANIM_PRON or hl in NOMINATIVE_PRON:
++            d["case"] = "nom" if hl in NOMINATIVE_PRON else ("acc" if hl in _AGENT_ANIM_PRON else "neutral")
++        else:
++            d["case"] = "nonpron"
++        if by_governs(low, pos, p):
++            d["govern"] = "by"
++        elif _agent_pp_governed(low, pos, p):
++            d["govern"] = "prep"
++        else:
++            d["govern"] = "free"
++        a = _agent_is_animate(hl, tag, gaz)
++        d["anim"] = "anim" if a > 0 else ("inanim" if a < 0 else "unk")
++        d["given"] = "given" if cf.get(cl, 0) >= 2 else "new"
++        # STRUCTURE: the attachment arm's GRADED belief that this candidate attaches to THIS predicate --
++        # the arm's subject arc read as a belief, not the incremental parser's binary subject-before flag.
++        if head_post is None:
++            d["struct"] = "na"
++        else:
++            pv = float((head_post.get(p) or {}).get(v0, 0.0))
++            d["struct"] = _agent_bin(pv, (0.05, 0.25, 0.60, 0.85), ("s0", "s1", "s2", "s3", "s4"))
++        d["scope"] = _agent_clause_scope(toks, pos, v0, p, lo, hi)
++        # LICENSOR (pri 108's finding, read as a GRADED cue): a nominal licensed by ANOTHER NOMINAL is a
++        # PROPERTY of that thing, not a participant of the event -- `the people OF FALLUJAH condemn`,
++        # `John Donovan FROM ARGGHHH! has put out`.  The attachment arm already knows: it puts most of this
++        # candidate's head mass on another nominal, not on the predicate.  Read that mass, binned.
++        if head_post is None:
++            d["licensor"] = "na"
++        else:
++            row = head_post.get(p) or {}
++            lic = max([q for h, q in row.items()
++                       if h != v0 and 0 <= h < len(pos) and pos[h] in ("NOUN", "PROPN", "PRON")] or [0.0])
++            d["licensor"] = _agent_bin(lic, (0.05, 0.25, 0.60, 0.85), ("l0", "l1", "l2", "l3", "l4"))
++        # CATEGORY read GRADED: the posterior mass the category organ puts on a NOMINAL category at this
++        # token.  An ADJ-tagged token that wins the competition (pattern 4) is the category rung read as an
++        # argmax; reading it graded lets a confidently-ADJ token lose without a hard filter.
++        if tag_post is None:
++            d["cat"] = "na"
++        else:
++            tp = tag_post[p] if 0 <= p < len(tag_post) else {}
++            m = float(tp.get("NOUN", 0.0) + tp.get("PROPN", 0.0) + tp.get("PRON", 0.0))
++            d["cat"] = _agent_bin(m, (0.25, 0.60, 0.90), ("g0", "g1", "g2", "g3"))
++        d["agree"] = demand + "_" + _agent_number(head, tag)
++        d["vfit"] = _agent_subject_fit(toks[v0] if 0 <= v0 < len(toks) else "", head)
++        out.append(d)
++    if AGENT_CONFIG == "voice_order":
++        cfgs = [cfg + "|" + d["order"] for d in out]
++    elif AGENT_CONFIG == "voice_order_govern":
++        cfgs = [cfg + "|" + d["order"] + "|" + d["govern"] for d in out]
++    else:
++        cfgs = [cfg] * len(out)
++    return cfgs, out
++
++
++def empty_agent_counts():
++    return {"cue_set": "agent_v1", "cues": list(AGENT_CUES), "alpha": AGENT_ALPHA,
++            "m_shrink": AGENT_M_SHRINK, "config": {}}
++
++
++def accrue_agent(counts, cfg, values, is_agent, w=1.0):
++    """Count ONE candidate's outcome.  `values` = {cue: value}; is_agent = did this candidate turn out to be
++    the agent (gold at build time; the reader's own comprehension outcome on the online path)."""
++    g = counts["config"].setdefault(cfg, {"n": [0.0, 0.0], "cue": {}})
++    g["n"][0] += w * (1.0 if is_agent else 0.0)
++    g["n"][1] += w
++    for c, x in values.items():
++        t = g["cue"].setdefault(c, {}).setdefault(str(x), [0.0, 0.0])
++        t[0] += w * (1.0 if is_agent else 0.0)
++        t[1] += w
++
++
++def agent_strengths_from_counts(counts, temp=None):
++    """counts -> {config: {prior, cue: {value: strength}}}.  A PURE FUNCTION of the counts, so the online
++    observe path and the batch build produce the same table from the same experience."""
++    a = float(counts.get("alpha", AGENT_ALPHA))
++    m = float(counts.get("m_shrink", AGENT_M_SHRINK))
++    T = float(AGENT_TEMP if temp is None else temp)
++    out = {}
++    for cfg, g in counts.get("config", {}).items():
++        na, nt = float(g["n"][0]), float(g["n"][1])
++        p0 = (na + a) / (nt + 2.0 * a)
++        lp0 = math.log(max(p0, 1e-12))
++        tab = {}
++        for c, vals in g.get("cue", {}).items():
++            tv = {}
++            for x, kk in vals.items():
++                ka, kt = float(kk[0]), float(kk[1])
++                # Dirichlet shrinkage toward the configuration marginal: availability is built in -- a value
++                # with few observations is pulled to p0 and its contrast goes to 0 (it cannot vote).
++                p = (ka + m * p0 + a) / (kt + m + 2.0 * a)
++                tv[x] = (math.log(max(p, 1e-12)) - lp0) / T
++            tab[c] = tv
++        out[cfg] = {"prior": lp0, "cue": tab}
++    return out
++
++
++def agent_table_from_counts(counts, temp=None):
++    return {"built": _now(), "cue_set": counts.get("cue_set", "agent_v1"), "cues": list(AGENT_CUES),
++            "counts": counts, "strengths": agent_strengths_from_counts(counts, temp),
++            "math": "log P(agent | config, cue=value) - log P(agent | config); add-alpha + Dirichlet shrink"}
++
++
++def agent_activation(table, cfgs, values_list, permute_seed=None, cue_set=None, permute_mode="within"):
++    """Additive log-odds activation per candidate (graded_competition.net_activation's form, with the learned
++    contrast as the per-cue weighted support).
++
++    permute_seed -> THE INFO-FREE TWIN.  Two forms, both reported:
++      "within"  (deployed)  each cue's learned strengths are re-assigned to its OWN values by a random
++                bijection.  Every cue keeps its availability, its number of values and the exact multiset of
++                strengths it earned -- and loses which value means what.  This is the same-shape twin.
++      "across"  (the brief's wording) each cue's table is swapped with another cue's.  Because two cues
++                share no value names this makes EVERY lookup miss, so the activation is identically zero and
++                the twin degenerates to "always the first candidate" -- an info-free arm, but a WEAKER
++                control than "within", so "within" is the one the gate is read against."""
++    S = table["strengths"]
++    if isinstance(cfgs, str):
++        cfgs = [cfgs] * len(values_list)
++    A = np.zeros(len(values_list), dtype=float)
++    for i, vals in enumerate(values_list):
++        g = S.get(cfgs[i])
++        if g is None:                          # an unseen configuration backs off to its voice marginal
++            g = S.get(str(cfgs[i]).split("|")[0]) or {"prior": 0.0, "cue": {}}
++        cue_tab = g["cue"]
++        if cue_set is not None:
++            cue_tab = {k: v for k, v in cue_tab.items() if k in cue_set}
++        if permute_seed is not None:
++            rng = np.random.default_rng(permute_seed)
++            ks = sorted(cue_tab.keys())
++            if permute_mode == "across":
++                perm = list(rng.permutation(len(ks)))
++                cue_tab = {ks[i2]: cue_tab[ks[perm[i2]]] for i2 in range(len(ks))}
++            else:
++                nt = {}
++                for c in ks:
++                    vv = sorted(cue_tab[c].keys())
++                    pp = list(rng.permutation(len(vv)))
++                    nt[c] = {vv[i2]: cue_tab[c][vv[pp[i2]]] for i2 in range(len(vv))}
++                cue_tab = nt
++        # THE CONFIGURATION'S OWN LOG-ODDS is part of the activation: with voice x order as the
++        # configuration, "is this candidate pre-verbal in an active clause" is carried HERE, once, instead
++        # of by several correlated cues each re-counting it.
++        tot = float(g.get("prior", 0.0))
++        for c, x in vals.items():
++            t = cue_tab.get(c)
++            if t is not None:
++                tot += float(t.get(str(x), 0.0))
++        A[i] = tot
++    return A
++
++
++def agent_competition_reweighed(toks, pos, v, cands, cluster_freq=None, gaz=None, table=None,
++                                head_post=None, tag_post=None, twin_seed=None, cue_set=None,
++                                permute_mode="within"):
++    """(pick_head, margin, conf) -- the AGENT by the RE-WEIGHED competition.  Same shape as the landed
++    `agent_competition_pick_conf`, so it is a drop-in arm of the same organ."""
++    c = [(mention_head_wpos(m), m["head"], m.get("cluster"), m.get("wtok_end", m.get("wtok_start")))
++         for m in cands]
++    if not c:
++        return "?", None, None
++    cfgs, vals = agent_cue_values(toks, pos, v, c, gaz=gaz, cluster_freq=cluster_freq,
++                                  head_post=head_post, tag_post=tag_post)
++    A = agent_activation(table, cfgs, vals, permute_seed=(None if twin_seed is None else twin_seed + v),
++                         cue_set=(AGENT_CUE_SET if cue_set is None else cue_set),
++                         permute_mode=permute_mode)
++    pick = c[int(np.argmax(A))][1]
++    As = np.sort(np.asarray(A, dtype=float))[::-1]
++    if len(As) > 1:
++        top2 = float(As[0] - As[1])
++        p = softmax(A)
++        ent = float(-(p * np.log(p + 1e-12)).sum() / np.log(len(A)))
++    else:
++        top2 = float(abs(As[0]) + 1.0)
++        ent = 0.0
++    return pick, float(np.tanh(top2 / 3.0)), float(1.0 - ent)
++
++
++def save_agent_validities(path=None, table=None):
++    p = path or _AGENT_VALIDITIES_PATH
++    os.makedirs(os.path.dirname(p), exist_ok=True)
++    with open(p, "w", encoding="utf-8") as fh:
++        json.dump(table, fh)
++    return p
++
++
++def load_agent_validities(path=None):
++    p = path or _AGENT_VALIDITIES_PATH
++    if not os.path.exists(p):
++        return None
++    with open(p, encoding="utf-8") as fh:
++        doc = json.load(fh)
++    doc["strengths"] = agent_strengths_from_counts(doc["counts"])   # ALWAYS rebuilt from the counts
++    return doc
++
++
++_AGENT_TABLE_CACHE = [False, None]
++
++
++def agent_validities(reload=False):
++    """The live learned table, loaded ONCE per process (and re-loadable).  The competition consults this;
++    `observe_agent_outcome` mutates the very object it returns, so a read that observes keeps learning."""
++    if reload or not _AGENT_TABLE_CACHE[0]:
++        _AGENT_TABLE_CACHE[0] = True
++        _AGENT_TABLE_CACHE[1] = load_agent_validities()
++    return _AGENT_TABLE_CACHE[1]
++
++
++def observe_agent_outcome(toks, pos, v, cands, agent_head, table, gaz=None, cluster_freq=None,
++                          head_post=None, tag_post=None, w=1.0):
++    """THE ONLINE PATH.  One comprehended clause updates the counts and the strengths are recomputed from
++    them -- the table is never frozen.  `agent_head` = the head the reader itself settled on."""
++    c = [(mention_head_wpos(m), m["head"], m.get("cluster"), m.get("wtok_end", m.get("wtok_start")))
++         for m in cands]
++    if not c:
++        return table
++    cfgs, vals = agent_cue_values(toks, pos, v, c, gaz=gaz, cluster_freq=cluster_freq,
++                                  head_post=head_post, tag_post=tag_post)
++    tgt = str(agent_head or "").strip().lower()
++    for k, cd in enumerate(c):
++        accrue_agent(table["counts"], cfgs[k], vals[k], str(cd[1]).strip().lower() == tgt, w=w)
++    table["strengths"] = agent_strengths_from_counts(table["counts"])
++    return table
++
++
++# ===================================================================================================
++# SECTION 2 -- THE GRADED UPSTREAM INPUTS (the attachment arm's head belief, the category posterior)
++# ===================================================================================================
++# Both are computed from toks/POS alone, cached per sentence, so the competition can read them WITHOUT a new
++# argument at any call site in hdlab/ or tools/ (the diff stays inside this one organ).
++_AGENT_HP_CACHE = {}
++_AGENT_TP_CACHE = {}
++_AGENT_ARM_TABLE = [None]
++_AGENT_CACHE_LIMIT = 4096
++
++
++def agent_head_belief(toks, pos):
++    """The attachment arm's graded head posterior {dep0: {head0: p}} (0-based, the arm's own root excluded)."""
++    key = (tuple(toks), tuple(pos))
++    hit = _AGENT_HP_CACHE.get(key)
++    if hit is not None:
++        return hit
++    import hdlab.attachment_arm as AA
++    if _AGENT_ARM_TABLE[0] is None:
++        _AGENT_ARM_TABLE[0] = AA.load_attachment_validities()
++    try:
++        post = AA.head_posterior(list(toks), list(pos), _AGENT_ARM_TABLE[0])
++    except Exception:
++        post = {}
++    # to 0-based on both axes (the arm speaks 1-based dependents with 0 = root)
++    out = {}
++    for j, row in (post or {}).items():
++        out[int(j) - 1] = {int(h) - 1: float(p) for h, p in row.items() if int(h) >= 1}
++    if len(_AGENT_HP_CACHE) > _AGENT_CACHE_LIMIT:
++        _AGENT_HP_CACHE.clear()
++    _AGENT_HP_CACHE[key] = out
++    return out
++
++
++def agent_category_belief(toks):
++    """The category organ's per-token posterior [{cat: p}] from the live front-end tagger."""
++    key = tuple(toks)
++    hit = _AGENT_TP_CACHE.get(key)
++    if hit is not None:
++        return hit
++    import hdlab.frontend as FE
++    try:
++        _tags, post = FE.tagger().tag_with_posterior(list(toks))
++        out = [dict(r) for r in post]
++    except Exception:
++        out = None
++    if len(_AGENT_TP_CACHE) > _AGENT_CACHE_LIMIT:
++        _AGENT_TP_CACHE.clear()
++    _AGENT_TP_CACHE[key] = out
++    return out
++
++
+ __all__ = ["hybrid_role_patient", "competition_pick", "cue_supports", "voice_cues", "robust_passive",
+            "gap_config", "DEFAULT_VALIDITIES", "CUES", "UNACC",
+            "agent_competition_pick", "agent_competition_pick_conf", "agent_supports", "clause_bounds",
+@@ -2714,4 +3198,8 @@
+            "reliability_from_counts", "RELIABILITY_KINDS", "reliability_gain", "roles_with_decisions",
+            "patient_belief", "patient_slot_confidence", "defer_below", "PATIENT_CLASSES",
+            "purpose_cues", "purpose_complement_posterior", "observe_purpose_outcome",
+-           "load_purpose_validities", "save_purpose_validities", "PURPOSE_CLASSES"]
++           "load_purpose_validities", "save_purpose_validities", "PURPOSE_CLASSES",
++           "AGENT_CUES", "AGENT_REWEIGH", "agent_cue_values", "empty_agent_counts", "accrue_agent",
++           "agent_strengths_from_counts", "agent_table_from_counts", "agent_activation",
++           "agent_competition_reweighed", "save_agent_validities", "load_agent_validities",
++           "agent_validities", "observe_agent_outcome", "agent_head_belief", "agent_category_belief"]
+--- a/experiments/exp_board_rows_on_the_reader_v1.py
++++ b/experiments/exp_board_rows_on_the_reader_v1.py
+@@ -730,6 +730,29 @@
+     return (str(x) or "").strip().lower()
+ 
+ 
++_NAME_RUN_DEPS = ("flat", "goeswith", "compound")
++
++
++def _name_run_forms(s, head_id):
++    """The token FORMS of the gold NAME RUN containing `head_id` -- the tokens joined to it by flat /
++    compound / goeswith in either direction, i.e. the other words of the same name.  pri 140 bar 1."""
++    adj = defaultdict(set)
++    for t in s:
++        d = (t.get("deprel") or t.get("dep") or "").split(":")[0]
++        if d in _NAME_RUN_DEPS and t["head"] > 0:
++            adj[t["head"]].add(t["id"])
++            adj[t["id"]].add(t["head"])
++    seen, stack = set(), [head_id]
++    while stack:
++        x = stack.pop()
++        if x in seen:
++            continue
++        seen.add(x)
++        stack.extend(adj.get(x, ()))
++    by = {t["id"]: t for t in s}
++    return set(_norm(by[i]["form"]) for i in seen if i in by)
++
++
+ def _subtree_forms(s, root_id):
+     """Every token form in the gold dependency subtree of `root_id` (1-based). Used ONLY by the instrument's
+     own SPAN-CREDIT slice: a reader that answers "the house" where the gold head is `house` has named the same
+@@ -783,6 +806,14 @@
+             diag["agent_unbound_" + kind] += int(bool(evs) and model in ("?", ""))
+             diag["agent_span_credit"] += int(bool(model) and model not in ("?",)
+                                              and model in _subtree_forms(s, ag))
++            # pri 140 bar 1: THE ENTITY-LEVEL COLUMN.  UD heads a multi-word name on its FIRST token, so a
++            # reader that answers `Schulman` for `Kori Schulman` has named the RIGHT INDIVIDUAL and the
++            # head-string match calls it wrong.  This counts the gold agent's own NAME RUN (flat / compound /
++            # goeswith, in either direction) as right.  It is a SCORING CONVENTION column reported BESIDE the
++            # gate, never instead of it -- and it deliberately does NOT credit an NP-internal MODIFIER
++            # (`the South Korean company` -> `Korean`), which is a real misread of which token names the thing.
++            diag["agent_entity_credit"] += int(bool(model) and model not in ("?",)
++                                               and model in _name_run_forms(s, ag))
+             out["who_did_what_agent"]["model"][0] += hit
+             out["who_did_what_agent"]["model"][1] += 1
+             pre = [i for i in noms if i < v - 1]                       # FLOOR nearest PRE-verbal nominal
+@@ -924,6 +955,15 @@
+                         _r4(d.get(key + "_span_credit", 0) / max(1, d.get(key + "_items", 1))),
+                     "note": "an UPPER BOUND on what a bare head-string match costs the instrument; the row's "
+                             "model_acc is the strict head match."}
++                if key == "agent":
++                    extra["entity_level_credit"] = {
++                        "acc_if_any_token_of_the_gold_agent_NAME_RUN_counts":
++                            _r4(d.get("agent_entity_credit", 0) / max(1, d.get("agent_items", 1))),
++                        "note": "pri 140 bar 1. The UD convention heads a multi-word name on its FIRST token, "
++                                "so `Schulman` for `Kori Schulman` names the right individual and the strict "
++                                "head match scores it wrong. This column credits the gold agent's own NAME RUN "
++                                "and NOTHING else -- an NP-internal modifier is still counted wrong. The "
++                                "row's model_acc (the strict head match) REMAINS THE GATE."}
+                 extra["by_gold_head_category"] = {
+                     "pronoun": {"n": d.get("%s_gold_pron" % key, 0),
+                                 "acc": _r4(d.get("%s_hit_pron" % key, 0) / max(1, d.get("%s_gold_pron" % key, 1)))},
