@@ -10,5 +10,12 @@
   "license": "CC BY-SA 3.0 (UD_English-PUD LICENSE.txt)",
   "modern": "2016-17 newswire + Wikipedia (CoNLL-2017 shared-task parallel test data). NOT 19c.",
   "why_this_corpus": "the enumeration found NO unread document in GUM (301/301 read; master == our pinned commit) and none in UD-EWT (train/dev/test all read, dev via the second on-disk copy under experiments/data/). A corpus absent from disk cannot have been read.",
-  "note": "STATIC OFFLINE FOUNDATION ASSET (an eval gold, acquired once, never used at inference). Placed under data/corpora/holdout/ -- a directory NO existing loader globs -- so no builder can reach it by the paths it already walks. data/ is gitignored; this file is re-acquirable from the pinned commit above."
+  "note": "STATIC OFFLINE FOUNDATION ASSET (an eval gold, acquired once, never used at inference). Placed under data/corpora/holdout/ -- a directory NO existing loader globs -- so no builder can reach it by the paths it already walks. data/ is gitignored; this file is re-acquirable from the pinned commit above.",
+  "retirement_policy": {
+    "read_budget": "ONE read per LANDING, where a landing is a commit that changes the reader's path. tools/land.py runs the board arm once and REFUSES a second read at the same git HEAD (see notes/problems/<slug>/landing_board_hook_patch.diff).",
+    "reserve_stays_unread_until": "HOLDOUT_V1 has been read 20 times, OR the scorer changes (its SHA-256 no longer matches the one recorded at the seal) -- WHICHEVER COMES FIRST. RESERVE_V2 is not read before that, by anything, including the instrument itself.",
+    "on_trigger": "promote RESERVE_V2 to the scored holdout, bump the manifest version, and retire HOLDOUT_V1 to diagnostics -- its numbers stay quotable as a read split, never again as a sealed measurement.",
+    "how_to_check": "the read count is the line count of data/exp_sealed_modern_holdout_v1/board_landings.jsonl; the scorer condition is the scorer_moved_since_seal field on the latest record. verification/test_sealed_holdout_is_unread.py asserts both.",
+    "why_a_number_and_not_a_judgement": "a holdout read once per landing becomes a dev set by ordinary selection pressure; naming the threshold in advance is the same discipline as naming the scorer in advance"
+  }
 }

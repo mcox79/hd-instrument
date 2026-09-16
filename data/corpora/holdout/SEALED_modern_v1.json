@@ -9429,5 +9429,12 @@
   "rows_this_corpus_cannot_carry": {
     "coref / salience / common_noun_coref": "UD_English-PUD has no coreference layer. The only modern coref gold on disk is GUM/OntoGUM, and the enumeration shows all 301 of its documents are read. Proposed next sealed source in SOLVED.md.",
     "wic": "a lexical-sense benchmark, not a document corpus; sealing it is a separate draw."
+  },
+  "retirement_policy": {
+    "read_budget": "ONE read per LANDING, where a landing is a commit that changes the reader's path. tools/land.py runs the board arm once and REFUSES a second read at the same git HEAD (see notes/problems/<slug>/landing_board_hook_patch.diff).",
+    "reserve_stays_unread_until": "HOLDOUT_V1 has been read 20 times, OR the scorer changes (its SHA-256 no longer matches the one recorded at the seal) -- WHICHEVER COMES FIRST. RESERVE_V2 is not read before that, by anything, including the instrument itself.",
+    "on_trigger": "promote RESERVE_V2 to the scored holdout, bump the manifest version, and retire HOLDOUT_V1 to diagnostics -- its numbers stay quotable as a read split, never again as a sealed measurement.",
+    "how_to_check": "the read count is the line count of data/exp_sealed_modern_holdout_v1/board_landings.jsonl; the scorer condition is the scorer_moved_since_seal field on the latest record. verification/test_sealed_holdout_is_unread.py asserts both.",
+    "why_a_number_and_not_a_judgement": "a holdout read once per landing becomes a dev set by ordinary selection pressure; naming the threshold in advance is the same discipline as naming the scorer in advance"
   }
 }

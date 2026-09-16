@@ -113,6 +113,8 @@ def main():
         lp = os.path.join(S.OUT_DIR, "board_landings.jsonl")
         reads = 0
         touched_reserve = False
+        heads = []
+        scorer_moved_latest = False
         if os.path.exists(lp):
             for ln in open(lp, encoding="utf-8"):
                 try:
@@ -120,10 +122,31 @@ def main():
                 except ValueError:
                     continue
                 reads += 1
-                if r.get("which") == "reserve_v2" or "reserve" in json.dumps(r.get("rows", {}))[:0]:
+                heads.append(r.get("head_sha"))
+                scorer_moved_latest = bool(r.get("scorer_moved_since_seal"))
+                if r.get("which") == "reserve_v2":
                     touched_reserve = True
         check("W5 RESERVE_V2 has never been read (it is the rolling second seal)", not touched_reserve,
               "%d landing reads of HOLDOUT_V1 so far" % reads)
+
+        # ---- W8: THE RETIREMENT POLICY -- the seal's budget is a number, not a judgement call ----
+        pol = man.get("retirement_policy") or {}
+        check("W8a the manifest carries a retirement policy",
+              all(k in pol for k in ("read_budget", "reserve_stays_unread_until", "on_trigger")))
+        check("W8b the policy names the 20-read / scorer-change trigger",
+              "20" in str(pol.get("reserve_stays_unread_until", ""))
+              and "scorer" in str(pol.get("reserve_stays_unread_until", "")).lower(),
+              pol.get("reserve_stays_unread_until", "")[:90])
+        stamped = [h for h in heads if h]
+        check("W8c one read per landing: no git HEAD appears twice in the landing log",
+              len(stamped) == len(set(stamped)),
+              ("%d reads, %d HEAD-stamped, %d distinct" % (reads, len(stamped), len(set(stamped))))
+              + ("   <-- VACUOUS until landing_board_hook_patch.diff lands: no record carries a head_sha "
+                 "yet, so this check currently excludes nothing" if not stamped else ""))
+        trig_reads = reads >= 20
+        check("W8d HOLDOUT_V1 has NOT yet hit its retirement trigger (else promote RESERVE_V2)",
+              not trig_reads and not scorer_moved_latest,
+              "reads=%d/20  scorer_moved_since_seal=%s" % (reads, scorer_moved_latest))
 
         sp = os.path.join(_REPO, man["scorer"]["module"])
         check("W6a the declared scorer still exists", os.path.exists(sp), man["scorer"]["module"])

@@ -114,9 +114,29 @@ DRAW_RULE = {
              "is RESERVE_V2 and is never read by anything, including this cell"),
     "seed": 20260916,
     "holdout_fraction": 0.70,
-    "reserve_purpose": ("RESERVE_V2 is the rolling second seal: when HOLDOUT_V1 has been read on enough "
-                        "landings to have steered a decision, RESERVE_V2 replaces it and V1 is retired to "
-                        "diagnostics"),
+    "reserve_purpose": ("RESERVE_V2 is the rolling second seal: when HOLDOUT_V1 retires under the policy "
+                        "below, RESERVE_V2 replaces it and V1 is retired to diagnostics"),
+}
+
+# THE RETIREMENT POLICY -- strategy ruling, 2026-09-16 (phase 7).  Written down so that "the holdout decayed
+# into a dev set" is a condition a machine can check, not a judgement call made after the fact.
+RETIREMENT_POLICY = {
+    "read_budget": ("ONE read per LANDING, where a landing is a commit that changes the reader's path. "
+                    "tools/land.py runs the board arm once and REFUSES a second read at the same git HEAD "
+                    "(see notes/problems/<slug>/landing_board_hook_patch.diff)."),
+    "reserve_stays_unread_until": ("HOLDOUT_V1 has been read 20 times, OR the scorer changes (its SHA-256 "
+                                   "no longer matches the one recorded at the seal) -- WHICHEVER COMES "
+                                   "FIRST. RESERVE_V2 is not read before that, by anything, including the "
+                                   "instrument itself."),
+    "on_trigger": ("promote RESERVE_V2 to the scored holdout, bump the manifest version, and retire "
+                   "HOLDOUT_V1 to diagnostics -- its numbers stay quotable as a read split, never again as "
+                   "a sealed measurement."),
+    "how_to_check": ("the read count is the line count of data/exp_sealed_modern_holdout_v1/"
+                     "board_landings.jsonl; the scorer condition is the scorer_moved_since_seal field on "
+                     "the latest record. verification/test_sealed_holdout_is_unread.py asserts both."),
+    "why_a_number_and_not_a_judgement": ("a holdout read once per landing becomes a dev set by ordinary "
+                                         "selection pressure; naming the threshold in advance is the same "
+                                         "discipline as naming the scorer in advance"),
 }
 
 # THE SCORER -- declared before the first answer is examined; fixed by import + file hash.
@@ -492,6 +512,7 @@ def seal(verbose=True):
                        n_documents=len(docs), n_sentences=sum(d["n_sents"] for d in docs),
                        n_tokens=sum(d["n_toks"] for d in docs)),
         "rule": DRAW_RULE,
+        "retirement_policy": RETIREMENT_POLICY,
         "holdout_v1": {"n_docs": len(hold), "n_sents": sum(by[i]["n_sents"] for i in hold),
                        "n_toks": sum(by[i]["n_toks"] for i in hold),
                        "by_genre": dict(Counter(by[i]["genre"] for i in hold)), "docs": rec(hold)},
@@ -527,6 +548,39 @@ def seal(verbose=True):
                  man["reserve_v2"]["by_genre"]))
         print("\nSEALED -> %s" % os.path.relpath(MANIFEST_PATH, _REPO))
         print("COMMIT THIS MANIFEST BEFORE RUNNING --score.")
+    return man
+
+
+def write_policy():
+    """Add the RETIREMENT POLICY to the already-sealed manifest and to the corpus provenance, and PROVE that
+    no sealed field moved.  A seal may gain a policy; it may not gain, lose or alter a document, the rule,
+    the seed, the scorer or the configuration."""
+    man = load_manifest()
+    SEALED_FIELDS = ("created_utc", "declared_before_first_answer", "corpus", "rule", "scorer",
+                     "configuration", "enumeration", "overlap_audit", "holdout_v1", "reserve_v2")
+    before = {k: hashlib.sha256(json.dumps(man.get(k), sort_keys=True).encode()).hexdigest()
+              for k in SEALED_FIELDS}
+    man["retirement_policy"] = RETIREMENT_POLICY
+    after = {k: hashlib.sha256(json.dumps(man.get(k), sort_keys=True).encode()).hexdigest()
+             for k in SEALED_FIELDS}
+    moved = [k for k in SEALED_FIELDS if before[k] != after[k]]
+    if moved:
+        print("REFUSING: a sealed field would change -> %s" % moved)
+        return None
+    with open(MANIFEST_PATH, "w", encoding="utf-8") as fh:
+        json.dump(man, fh, indent=2, sort_keys=False)
+    pp = os.path.join(CORPUS_DIR, "PROVENANCE.json")
+    if os.path.exists(pp):
+        prov = json.load(open(pp, encoding="utf-8"))
+        prov["retirement_policy"] = RETIREMENT_POLICY
+        with open(pp, "w", encoding="utf-8") as fh:
+            json.dump(prov, fh, indent=2)
+    print("RETIREMENT POLICY written into the manifest and the corpus provenance.")
+    print("  read budget : %s" % RETIREMENT_POLICY["read_budget"])
+    print("  reserve     : %s" % RETIREMENT_POLICY["reserve_stays_unread_until"])
+    print("  PROOF -- every sealed field is byte-identical (SHA-256 unchanged):")
+    for k in SEALED_FIELDS:
+        print("    %-28s %s" % (k, before[k][:16]))
     return man
 
 
@@ -810,6 +864,211 @@ def board(n_boot=None, progress=True):
 
 
 # ===================================================================================================
+# PHASE 7 (A) -- THE AGENT RUNG, BROKEN DOWN BY A CAUSE THE READER CAN NAME.
+#
+# The sealed read put who_did_what_agent BELOW its positional floor on BOTH populations (sealed -0.0844,
+# UD-EWT test -0.0535) at 0.969 / 0.995 coverage, so it is not abstention.  This mode splits every gold
+# agent item into causes the reader itself can be held to:
+#   no_event            the reader fired NO event at the gold verb -- it never answered
+#   no_agent_emitted    an event fired with an empty agent slot
+#   candidate_set_miss  the gold agent's own token was NEVER in the competition's candidate stream
+#                       (`reader._coref_mentions`, what `_cm_agent_candidates` reads) -- the right answer
+#                       was not on the ballot.  LOCATED item 1 lives here.
+#   pick_error          the gold agent WAS on the ballot and a different candidate won
+# Gold is read only to CLASSIFY, after the reader has answered.  Nothing here changes a published number.
+# ===================================================================================================
+def _norm_tok(s):
+    return str(s or "").strip().lower()
+
+
+def _by_phrase_tokens(sent, v):
+    """Token ids (1-based) of the by-phrase attached to verb v, and the id of its nominal head, off GOLD
+    deprels -- used ONLY to label an error, never to make one."""
+    head, toks = None, set()
+    for d in sent:
+        if d["head"] == v and d["deprel"].startswith("obl:agent"):
+            head = d["id"]
+    if head is None:
+        return set(), None
+    stack, seen = [head], set()
+    while stack:
+        x = stack.pop()
+        if x in seen:
+            continue
+        seen.add(x)
+        toks.add(x)
+        for d in sent:
+            if d["head"] == x:
+                stack.append(d["id"])
+    return toks, head
+
+
+def agent_anatomy(pop="sealed", cap=None, chunk=20, progress=True, max_examples=3):
+    """pop='sealed' -> the sealed holdout documents; pop='udtest' -> UD-EWT test in the board's own chunks."""
+    import experiments.exp_board_rows_on_the_reader_v1 as B
+    from hdlab.situation_reader import SituationReader
+    from experiments.exp_name_entity_clustering_v1 import load_given_gazetteer
+    if pop == "sealed":
+        man = load_manifest()
+        v = verify_seal(man, verbose=False)
+        if not v["ok"]:
+            print("REFUSING: the seal does not hold -> %s" % v["problems"])
+            return None
+        by = {d["docid"]: d for d in parse_pud()}
+        units = [(r["docid"], list(by[r["docid"]]["sents"])) for r in man["holdout_v1"]["docs"]]
+        label = "SEALED HOLDOUT_V1 (UD_English-PUD, %d documents)" % len(units)
+    else:
+        from experiments.exp_whodidwhat_ud_structural_v1 import load_ud
+        sents = load_ud(os.path.join(_REPO, "data/corpora/ud_english_ewt/en_ewt-ud-test.conllu"))
+        if cap:
+            sents = sents[:cap]
+        # NB (bug found and fixed 2026-09-16, phase 7): this line previously sliced with the ENUMERATE
+        # index instead of the range value, so the 36 "chunks" were overlapping windows over the first ~55
+        # sentences, scored repeatedly.  The first UD-EWT anatomy run was discarded because of it.  The
+        # assertion below is what makes that class of error impossible to repeat silently.
+        units = [("udewt%04d" % (k // chunk), sents[k:k + chunk]) for k in range(0, len(sents), chunk)]
+        units = [(u, s) for (u, s) in units if s]
+        _flat = [s for _, ss in units for s in ss]
+        assert len(_flat) == len(sents), (
+            "the chunking must PARTITION the sentence list: %d sentences in, %d scored"
+            % (len(sents), len(_flat)))
+        assert len(set(id(s) for s in _flat)) == len(sents), "a sentence is scored twice"
+        label = "UD-EWT TEST (the board's own read split, %d sentences in %d chunks)" % (len(sents), len(units))
+
+    gaz = load_given_gazetteer()
+    C = Counter()
+    PAT = Counter()
+    EX = defaultdict(list)
+    passive_by = {"items": 0, "model_in_by_phrase_not_head": 0, "model_is_by": 0, "gold_head_missing": 0}
+    tmp = tempfile.mkdtemp(prefix="anat_")
+    t0 = time.time()
+    try:
+        for ui, (uid, sents) in enumerate(units):
+            path = os.path.join(tmp, "u%04d.conll" % ui)
+            B._ud_write_chunk(sents, path, "anat%04d" % ui, discover_pronouns=False)
+            rdr = SituationReader(gaz=gaz)
+            sm = rdr.read(path)
+            ments = list(getattr(rdr, "_coref_mentions", []) or [])
+            cand_by_sent = defaultdict(set)
+            cand_n = defaultdict(int)
+            for m in ments:
+                cand_by_sent[m.get("sent_idx", -1)].add(_norm_tok(m.get("head")))
+                cand_n[m.get("sent_idx", -1)] += 1
+            ev_by = defaultdict(list)
+            for e in sm.events:
+                ev_by[(e.sent_idx, e.pred_idx)].append(e)
+            for si, s in enumerate(sents):
+                toks = [t["form"] for t in s]
+                try:
+                    up = list(rdr._cached_tag(list(toks)))
+                except Exception:
+                    up = ["X"] * len(toks)
+                for (v, ag, passive) in B._gold_agent_items(s):
+                    gold = _norm_tok(toks[ag - 1])
+                    C["items"] += 1
+                    C["passive" if passive else "active"] += 1
+                    evs = ev_by.get((si, v - 1), [])
+                    if not evs:
+                        C["no_event"] += 1
+                        if len(EX["no_event"]) < max_examples:
+                            EX["no_event"].append("v=%r gold_agent=%r | %s" % (toks[v - 1], toks[ag - 1],
+                                                                              " ".join(toks)[:150]))
+                        continue
+                    model = _norm_tok(evs[0].agent)
+                    if model == gold:
+                        C["correct"] += 1
+                        continue
+                    C["wrong"] += 1
+                    on_ballot = gold in cand_by_sent.get(si, set())
+                    if not model:
+                        C["no_agent_emitted"] += 1
+                        cause = "no_agent_emitted"
+                    elif not on_ballot:
+                        C["candidate_set_miss"] += 1
+                        cause = "candidate_set_miss"
+                    else:
+                        C["pick_error"] += 1
+                        cause = "pick_error"
+                    C["cand_stream_empty_sentence"] += int(cand_n.get(si, 0) == 0)
+                    # --- error PATTERNS (labels only; gold read after the answer) ---
+                    mi = [i for i, t in enumerate(toks) if _norm_tok(t) == model]
+                    mtag = up[mi[0]] if mi and mi[0] < len(up) else "?"
+                    gi = ag - 1
+                    gtag = up[gi] if gi < len(up) else "?"
+                    pat = None
+                    if not model:
+                        pat = "empty agent slot"
+                    elif mtag not in ("NOUN", "PROPN", "PRON"):
+                        pat = "picked a non-nominal token (%s)" % mtag
+                    else:
+                        gold_pat = None
+                        for d in s:
+                            if d["head"] == v and d["dep"] in ("obj",):
+                                gold_pat = _norm_tok(toks[d["id"] - 1])
+                        if gold_pat and model == gold_pat:
+                            pat = "picked the gold PATIENT (role swap)"
+                        elif passive:
+                            bys, bh = _by_phrase_tokens(s, v)
+                            passive_by["items"] += 1
+                            if bh is None:
+                                passive_by["gold_head_missing"] += 1
+                            if model == "by":
+                                passive_by["model_is_by"] += 1
+                                pat = "picked the preposition 'by' of the by-phrase"
+                            elif mi and (mi[0] + 1) in bys and bh is not None and (mi[0] + 1) != bh:
+                                passive_by["model_in_by_phrase_not_head"] += 1
+                                pat = "picked a by-phrase token that is not its head (LOCATED item 1)"
+                            else:
+                                pat = "passive: picked outside the by-phrase"
+                        elif mi and abs(mi[0] - gi) > 6:
+                            pat = "picked a distant nominal (>6 tokens from the gold agent)"
+                        elif gtag == "PRON":
+                            pat = "gold agent is a PRONOUN and a non-pronoun won"
+                        else:
+                            pat = "picked a nearby competing nominal"
+                    PAT[(cause, pat)] += 1
+                    if len(EX[(cause, pat)]) < 1:
+                        EX[(cause, pat)].append(
+                            "gold=%r model=%r verb=%r | %s" % (toks[ag - 1], evs[0].agent, toks[v - 1],
+                                                               " ".join(toks)[:150]))
+            del sm, rdr
+            os.remove(path)
+            if progress and (ui + 1) % 25 == 0:
+                print("    ... %d/%d units, %.0fs" % (ui + 1, len(units), time.time() - t0), flush=True)
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
+
+    n = max(1, C["items"])
+    print("\n" + "=" * 100)
+    print("AGENT-RUNG ANATOMY -- %s" % label)
+    print("=" * 100)
+    print("  gold agent items          %5d   (active %d / passive %d)" % (C["items"], C["active"], C["passive"]))
+    print("  correct                   %5d  (%.4f)" % (C["correct"], C["correct"] / n))
+    print("  --- every error, by a cause the reader can be held to ---")
+    for k in ("no_event", "no_agent_emitted", "candidate_set_miss", "pick_error"):
+        print("  %-24s  %5d  (%.4f of all items, %.4f of errors)"
+              % (k, C[k], C[k] / n, C[k] / max(1, C["items"] - C["correct"])))
+    print("  passive by-phrase detail: items %d | model was 'by' %d | model a by-phrase non-head %d"
+          % (passive_by["items"], passive_by["model_is_by"], passive_by["model_in_by_phrase_not_head"]))
+    print("  wrong items in a sentence whose candidate stream was EMPTY: %d" % C["cand_stream_empty_sentence"])
+    print("  --- the most frequent error patterns ---")
+    for (cause, pat), c in PAT.most_common(6):
+        print("  %5d  [%s] %s" % (c, cause, pat))
+        for e in EX[(cause, pat)]:
+            print("           e.g. %s" % e)
+    if EX["no_event"]:
+        print("  --- no_event examples ---")
+        for e in EX["no_event"]:
+            print("           %s" % e)
+    return {"population": label, "counts": dict(C), "passive_by_phrase": passive_by,
+            "patterns": [{"cause": c, "pattern": p, "n": k,
+                          "example": (EX[(c, p)][0] if EX[(c, p)] else "")}
+                         for (c, p), k in PAT.most_common(8)],
+            "no_event_examples": EX["no_event"],
+            "elapsed_s": round(time.time() - t0, 1)}
+
+
+# ===================================================================================================
 # SELF-TEST -- plumbing only, on the ALREADY-READ UD-EWT test split.  It never reads a sealed document.
 # ===================================================================================================
 def self_test():
@@ -915,6 +1174,12 @@ def main():
     ap.add_argument("--board", action="store_true")
     ap.add_argument("--compare", action="store_true")
     ap.add_argument("--controls", action="store_true")
+    ap.add_argument("--write-policy", action="store_true",
+                    help="phase 7 (1): add the retirement policy to the sealed manifest (no sealed field moves)")
+    ap.add_argument("--agent-anatomy", action="store_true",
+                    help="phase 7 (A): every gold agent error by a cause the reader can name, both populations")
+    ap.add_argument("--pop", choices=("sealed", "udtest", "both"), default="both",
+                    help="which population --agent-anatomy runs on")
     ap.add_argument("--n-boot", type=int, default=None)
     ap.add_argument("--ud-cap", type=int, default=None)
     a = ap.parse_args()
@@ -942,6 +1207,15 @@ def main():
         did = True
     if a.compare:
         M["compare"] = compare(ud_cap=a.ud_cap, n_boot=a.n_boot)
+        did = True
+    if a.write_policy:
+        M["policy"] = bool(write_policy())
+        did = True
+    if a.agent_anatomy:
+        if a.pop in ("sealed", "both"):
+            M["agent_anatomy_sealed"] = agent_anatomy("sealed")
+        if a.pop in ("udtest", "both"):
+            M["agent_anatomy_udtest"] = agent_anatomy("udtest", cap=a.ud_cap or 719)
         did = True
     if a.controls:
         M["chunk_matched"] = score(chunk_docs=8, n_boot=a.n_boot,

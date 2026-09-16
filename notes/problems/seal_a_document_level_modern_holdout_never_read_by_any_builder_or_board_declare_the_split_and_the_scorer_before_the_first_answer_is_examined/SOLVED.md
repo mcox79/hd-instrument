@@ -372,6 +372,172 @@ notes/problems/<slug>/SOLVED.md, notes/problems/<slug>/sealed_holdout_patch.diff
 Reverify: .venv/Scripts/python.exe verification/test_sealed_holdout_is_unread.py
 ```
 
+## 10. PHASE 7 (strategy, 2026-09-16) — what was answered and what was built
+
+**Strategy's three rulings, and where each now lives on disk:**
+
+| ruling | where it is enforced |
+|---|---|
+| One read per **landing** (a commit that changes the reader's path) | `landing_board_hook_patch.diff` — `tools/land.py` runs the board arm once and **refuses a second read at the same git HEAD**; witness W8c asserts no HEAD appears twice in the landing log |
+| RESERVE_V2 stays unread until HOLDOUT_V1 has been read **20 times** or the **scorer changes**, whichever first | `RETIREMENT_POLICY` in the cell → written into the manifest and the corpus provenance by `--write-policy`; witness W8a/W8b/W8d assert the policy exists, names the trigger, and that the trigger has not fired (currently **1/20 reads, scorer unmoved**) |
+| The twin patch lands with a scorer-version marker; historical state twins are annotated `v1` | `sealed_holdout_patch.diff` carries the marker in the code comment and states the field contract; the one v1 record on disk is named by file and line |
+
+**The policy was added without breaking the seal, and that is proved rather than asserted:** `--write-policy`
+hashes all ten sealed fields (`created_utc`, `declared_before_first_answer`, `corpus`, `rule`, `scorer`,
+`configuration`, `enumeration`, `overlap_audit`, `holdout_v1`, `reserve_v2`) before and after, refuses to
+write if any moved, and prints the ten unchanged SHA-256 prefixes. A seal may gain a policy; it may not gain,
+lose or alter a document, the rule, the seed, the scorer or the configuration.
+
+### 10a. THE AGENT RUNG, BROKEN DOWN BY CAUSE — brief-ready for pri 140
+
+`experiments/exp_sealed_modern_holdout_v1.py --agent-anatomy`. Every gold agent item is assigned to a cause
+the reader can be held to. The reader is run on raw text (FORM column only); gold is read **after** it has
+answered, to classify. `candidate_set_miss` means the gold agent's own token was never in
+`reader._coref_mentions` — the stream `_cm_agent_candidates` reads — so the right answer was not on the
+ballot; `pick_error` means it **was** on the ballot and a different candidate won.
+
+**SEALED HOLDOUT_V1 (UD_English-PUD, 279 documents):**
+
+| cause | n | of all items | of errors |
+|---|---|---|---|
+| correct | 510 | 0.6328 | — |
+| no_event (the reader never answered) | 25 | 0.0310 | 0.0845 |
+| no_agent_emitted (event fired, empty slot) | **0** | 0.0000 | 0.0000 |
+| candidate_set_miss (not on the ballot) | 42 | 0.0521 | 0.1419 |
+| **pick_error (on the ballot, lost the competition)** | **229** | **0.2841** | **0.7736** |
+
+Total 806 items — **806 active, 0 passive**. Wrong items in a sentence whose candidate stream was empty: **0**.
+
+Most frequent patterns, one example each:
+
+| n | cause | pattern | example |
+|---|---|---|---|
+| 131 | pick_error | picked a nearby competing nominal | gold `Kori`, model `schulman` — *"Obama special assistant Kori Schulman wrote in a blog post"* |
+| 66 | pick_error | picked a distant nominal (>6 tokens away) | gold `which`, model `it` — *"...the NoMa infill Metro station, which opened in 2004"* |
+| 26 | candidate_set_miss | picked a nearby competing nominal | gold `BA`, model `iag` — *"it may be that BA and IAG have cracked it"* |
+| 20 | pick_error | picked a non-nominal token (tagged ADJ) | gold `company`, model `korean` — *"The South Korean company initially thought..."* |
+| 12 | candidate_set_miss | picked a distant nominal | gold `that`, model `this` — *"...the environmental changes that overtook the Earth"* |
+| 8 | pick_error | gold agent is a PRONOUN and a non-pronoun won | gold `everyone`, model `party` — *"not everyone in the party understood the messages"* |
+
+**What this says for pri 140, and what it rules out:**
+
+1. **The agent defect is a WEIGHTING defect, not a supply defect: 77.4% of errors had the right answer on the
+   ballot.** The candidate stream was never empty on a wrong item. Building a better candidate supply cannot
+   recover more than 14.2% of the errors; re-weighting the competition is where the mass is.
+2. **LOCATED item 1 ("every token of a by-phrase as a candidate instead of the attachment arm's head") did
+   not fire once, and cannot be measured on this population: there are ZERO passive-with-agent items in the
+   sealed holdout** (806/806 active). Agentless passives carry no gold agent, so they never enter this
+   population at all. Whatever item 1 costs, it is not visible here — a brief that opens on it would be
+   chasing something the sealed instrument cannot see. *(The UD-EWT arm has a handful of such items; see
+   below.)*
+3. **Two of the top patterns are partly a SCORING CONVENTION, not comprehension, and the brief must
+   separate them before attributing anything.** The scorer compares exact surface head tokens. UD makes the
+   FIRST token of a name the head with the rest `flat` (so *Kori* Schulman is "correct" and *Schulman* is
+   "wrong"), and an NP like *the South Korean company* invites picking the modifier. A gold-only count on
+   the same 806 items — no reader involved — bounds this: **95 items (11.8%) have a gold agent heading a
+   `flat`/`compound` run** (43 of them, 5.3%, headed by a PROPN), and **265 items (32.9%) have an agent NP
+   carrying a pre-head `amod`/`compound`/`nmod`**. Those are **upper bounds on how much could be convention,
+   not measurements of how much is** — most of those items are answered correctly. **Pri 140's first
+   deliverable should be to split the 229 pick errors into "wrong entity" and "right entity, wrong token of
+   its name", because they need opposite fixes.**
+4. **The no-event residual is small and concentrated on copulas and modals** — 25 items, 8.5% of errors, e.g.
+   `v='was'` in *"a battery fault was to blame"* and `v='will'` in *"the Kigali Amendment will..."*. That is
+   the predicate-slot chain (pri 133-adjacent), not the competition.
+
+**UD-EWT TEST, the same breakdown on the board's own read split** (719 sentences, 36 chunks of 20 — the
+board's own chunking):
+
+| cause | sealed holdout (806 items) | UD-EWT test (561 items) |
+|---|---|---|
+| correct | 510 (0.6328) | 424 (**0.7558**) |
+| no_event | 25 (8.45% of errors) | 3 (2.19%) |
+| no_agent_emitted | 0 | 0 |
+| candidate_set_miss | 42 (14.19%) | 25 (18.25%) |
+| **pick_error** | **229 (77.36%)** | **109 (79.56%)** |
+| passive items carrying a gold agent | **0** | 9 |
+| model picked the preposition `by` | — | 0 |
+| **model picked a by-phrase token that is not its head (LOCATED item 1)** | — | **3** |
+| wrong items where the candidate stream was empty | 0 | 2 |
+
+**The corrected arm reproduces the landed board exactly — 424/561 = 0.7558, the same n and the same number
+`--compare` reported through pri 122's own scorer.** That is a cross-check of this harness against the fixed
+scorer, not a new claim.
+
+5. **The weighting diagnosis holds on both populations: 77.4% and 79.6% of agent errors had the right answer
+   on the ballot.** This is the one number pri 140 should be built around, and it is stable across a sealed
+   and a read population.
+6. **LOCATED item 1 is REAL but SMALL, and only visible on UD-EWT: 3 items.** Of 9 passive items carrying a
+   gold agent, 4 reached the by-phrase check and on 3 of them the model picked a by-phrase token that is not
+   its head; it never picked the preposition `by` itself. Three items is **2.2% of UD-EWT agent errors** and
+   **0% of sealed agent errors** (that population has no passive-with-agent items at all). So item 1 is
+   confirmed as a phenomenon and **disconfirmed as the agent rung's problem** — a brief opening on it would
+   be aiming at 3 items while 109 pick errors sit next to it. If it is worth fixing it is worth fixing on its
+   own terms, not as the agent story.
+7. **The no-event residual is a population difference, not a reader difference: 25 sealed (8.5% of errors)
+   against 3 on UD-EWT (2.2%).** Sealed newswire has more copular and modal main verbs (*"a battery fault
+   **was** to blame"*, *"the Kigali Amendment **will**..."*), which is the predicate-slot chain, not the
+   competition.
+
+**A BUG IN MY OWN HARNESS, FOUND AND REPORTED RATHER THAN QUIETLY FIXED.** The FIRST UD-EWT pass sliced its
+chunks with the `enumerate` index instead of the range value, so its "36 chunks of 20 sentences" were
+overlapping windows over the first ~55 sentences, scored repeatedly. Its numbers (**1017 items, 0.7611
+correct — withdrawn, do not quote**) are wrong. The sealed arm was never affected: its units come from the
+manifest's document list, not from a slice. The fix carries an assertion that the chunking **partitions** the
+sentence list (same length in as scored, no sentence scored twice), which is what turned the second run's
+agreement with the landed board into a check rather than a coincidence.
+
+### 10b. BRIEF-READY TEXT FOR THE GAP SEAL (file verbatim)
+
+> **PROBLEM: three of the board's seven rows — pronoun coreference, salience and common-noun coreference —
+> have no sealed counterpart, because the only modern coreference gold on this disk is GUM/OntoGUM and all
+> 301 of its documents are read by 234 files; acquire GAP as a sealed modern coreference source and give
+> those rows a held-out number measured on raw text.**
+>
+> **Why now.** pri 126 sealed a modern holdout for who-did-what and state (UD_English-PUD, 279 unread
+> documents) and proved by enumeration that no unread coreference document exists here: `gum_coref.load_docs`
+> globs every `GUM_*` file, GENTLE is read by five cells and two witnesses, and GENTLE numbers are quoted as
+> calibration evidence inside `hdlab/lexical_categories.py:227-241`. GUM `master` is the commit we already
+> pin, so waiting produces nothing. Meanwhile pri 125 established that the reader has no pronoun discovery on
+> raw text, and the board's 0.62 is a component number given gold mentions — exactly the claim a sealed,
+> annotation-free coreference instrument would settle.
+>
+> **The source.** GAP (Gendered Ambiguous Pronouns), `google-research-datasets/gap-coreference` on GitHub.
+> Three TSV files — `gap-development.tsv`, `gap-validation.tsv`, `gap-test.tsv` — **8,908 pronoun instances**
+> drawn from modern English Wikipedia, released by Google under a free licence (Apache 2.0 repository,
+> CC BY-SA 3.0 text, as Wikipedia). Each row is a text snippet plus a target pronoun with its character
+> offset and two candidate names, each with an offset and a TRUE/FALSE label. Checked live at the time of
+> writing: both the data file and the README return HTTP 206 on a ranged request, so it is acquirable.
+>
+> **Why it is the right sealed source, and not merely an available one.** It ships as **raw text with no
+> annotation column at all** — no CoNLL columns, no gold tags, no gold heads, no coreference brackets. The
+> question "is any gold column readable on the measured path?" is therefore answered by construction rather
+> than by a counter, which is stronger than what pri 126 could achieve on a treebank. And the task is the
+> product's task: find the pronoun in running text and bind it, rather than resolve a mention someone else
+> supplied.
+>
+> **How it is fetched so that no loader can ever glob it.** Exactly as pri 126 did: a `--fetch` mode in the
+> experiment cell pins the repository commit and writes to `data/corpora/holdout/gap_sealed_v1/`. That
+> directory is under `data/corpora/holdout/`, which **no existing loader walks** — the 10,006-file
+> enumeration in pri 126 found two files naming it, both belonging to that instrument. It must NOT be placed
+> under `data/corpora/gap/`, which is the convention every loader's glob pattern would eventually reach.
+> `data/` is gitignored, so the manifest (ids + per-snippet SHA-256 + the draw rule + the seed + the scorer
+> + the configuration) is what gets committed, before the first answer is examined.
+>
+> **Which board rows it gives a sealed counterpart.** `coref (pronoun)` directly — a sealed, text-only
+> pronoun-binding number, the first this project would have. `salience` and `common_noun_coref` only
+> partially: GAP's candidates are always two NAMES, so it seals the name-antecedent case and says nothing
+> about common-noun bridging or about most-mentioned-entity salience. A document-level companion is needed
+> for those, and **WikiCoref** (30 fully coreference-annotated modern Wikipedia documents, freely available)
+> is the candidate — small, but its documents are long, which is the property pri 126's seal measurably
+> lacks: its scrambled-document control moved the agent row by +0.0111 (inside the CI half-width), so the
+> current seal cannot detect a discourse-scale change at all.
+>
+> **The bar.** A committed sealed snippet list with hashes, a committed seeded draw rule dated before the
+> draw, an enumeration proving no builder/witness/board reads those ids, a fixed scorer declared before the
+> first answer, and a held-out pronoun-binding number with the strongest simple floor recomputed in place
+> (nearest preceding candidate name; the majority TRUE/FALSE label), an information-free twin, and
+> snippet-level bootstrap CIs — OR a numbered reason the reader cannot be scored on raw snippets at all.
+
 ## KEY REALIZATIONS
 
 1. **"Unread" is a claim about *every* path, and the second copy is where it dies.** The natural move was
