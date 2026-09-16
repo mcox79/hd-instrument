@@ -810,3 +810,51 @@ against "did the reader's who-did-what answer match" grounds the validities in c
 
 **All three leave the shipped arm untouched**: the table is counts plus a recorded rule, and every one of
 these changes only what target is handed in. Nothing here needs the organ re-opened.
+
+---
+
+## 17. THE REBASE ONTO HEAD, AND THE RE-VERIFICATION ON IT (strategy 12:20)
+
+pri 136 (`7e6f4c625`) and pri 137 (`3d24f41ce`) landed while phase 7 was running, and the diff stopped
+applying at `hdlab/graded_role_assigner.py:48` and `experiments/exp_board_rows_on_the_reader_v1.py:881`.
+
+**The cause was not content drift.** All ELEVEN anchors are still unique at HEAD (checked one by one). It was
+**line endings**: the generator normalised every file to LF and emitted an LF diff that only applied under
+`--ignore-whitespace`, and the three target files are CRLF. That is the standing rule this project already
+paid for once.
+
+**The generator now works in bytes.** Each target is read RAW (`newline=""`); every anchor and every inserted
+block is converted to *that file's own* terminator before matching or splicing; the diff is built from
+`splitlines(keepends=True)` so content lines keep their CRLF while only the `---` / `+++` / `@@` structure
+lines take LF -- which is exactly what `git diff` emits for a CRLF file -- and the patch is written with no
+newline translation.
+
+**Verified on HEAD `8cdf55ddb`:**
+
+| check | result |
+|---|---|
+| `git apply --check <diff>` **bare, no `--ignore-whitespace`** | **OK** |
+| diff shape | 827 lines: **810 ending CRLF** (content), **17 ending LF** (structure) |
+| changed lines | **747** -- hunks only (a whole-file rewrite would be thousands) |
+| applied in a sandbox | `+632` / `+40` / `+61` lines, **LF-only line count unchanged at 0 in every file** -- zero churn |
+| the cell's `--self-test` | **PASS**, and it now proves this rather than trusting it: bare apply, a per-file zero-churn assertion, compile, import, and the can-fail behaviour check (`The company of Fallujah condemned it` -> `company`, hand-set arm -> `Fallujah`) |
+| `verification/test_agent_competition_reweigh_landing.py` | **PASS** |
+
+**The three-arm live gate, re-run once on this tree: BYTE-IDENTICAL.** floor 0.8371 · shipped 0.7893 ·
+re-weighed 0.8378 · twin 0.2191; wrong-entity 164 / 114 / 997; and all six contrasts to four decimals
+(`+0.0485 [+0.0314,+0.0673]`, `-0.0351 [-0.0507,-0.0205]`, `+0.0007 [-0.0136,+0.0152]`, `-0.0478
+[-0.0624,-0.0331]`, `+0.6187 [+0.5901,+0.6485]`, `+0.0407 [+0.0260,+0.0566]`), with patient and state
+`+0.0000 [0.0000,0.0000]`. **pri 136 and pri 137 do not move this row at all.**
+
+**The three adjacent witnesses, re-run ON THE TREE AS LANDED** (the patched organ compiled under its real
+filename and installed as `hdlab.graded_role_assigner`, re-weighed arm confirmed live with configurations
+`act|p0..p2` / `pass|p0..p2`; `hdlab/` never written, no scratch tree, no `git stash`):
+
+| witness | as landed, on the rebased tree |
+|---|---|
+| `test_cmrole_agent_struct_organ` | **ALL CHECKS PASS** (exit 0) |
+| `test_coarse_role_competition` | **37/37** (exit 0) |
+| `test_byhead_agent_cue_landing` | **20/20 PASS** (exit 0), `govern=by` active `[-1.08, -0.51, -0.58]` / passive `[+0.96, +1.36, +0.40]` |
+
+**Apply it with a bare `git apply`** -- if it ever needs `--ignore-whitespace` again, the line endings have
+drifted and the diff should be regenerated (`--emit-patch`) rather than forced.
