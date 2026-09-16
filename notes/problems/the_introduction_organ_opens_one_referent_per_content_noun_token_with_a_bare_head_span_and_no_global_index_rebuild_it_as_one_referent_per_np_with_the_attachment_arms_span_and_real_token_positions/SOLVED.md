@@ -354,7 +354,62 @@ cluster call site passes no `sents`, so every mention answered `bare`), and a re
 inference for the first time -- which is why the validities are re-accrued.
 ```
 
-## 14. SECTIONS TO COME
+## 14. THE PUSH SCRIPT, ANSWERED WITH NUMBERS
+
+**(i) How do we perform against the BRAIN at each rung, and where exactly is signal lost?**
+The brain opens one file per NP and reads the determiner on it. Before this rung the organ opened **1.27
+referents per phrase** (7,168 mentions where the phrases number 5,625 on 28 GUM test documents -- 1,543
+mentions, 21.5%, are members of another mention's phrase) and read the determiner on **0 of 7,168**. Three
+places the signal was lost, each now measured:
+* **the boundary itself** -- the phrase was never drawn, so every span-reading consumer read a point
+  (section 5, rows 1-9);
+* **Heim's criterion** -- landed and INERT at inference; the teacher's `definite` shift of +0.177 was learned
+  on a fallback signal the reader never had, and collapses to **+0.004** when read the way inference reads it
+  (section 10.2);
+* **the `np` adjacency cue** -- a STAND-IN for the boundary, worth **1.34 log-odds** of merge pressure that
+  came entirely from NP-INTERNAL adjacency (gap1_nom +6.229 -> +4.886 once those observations are gone).
+
+**(ii) Research every wall again and PROTOTYPE past it.** Four boundary arms were built and measured, not
+argued (section 3). The one that is NOT the shipped default -- the graded MAP -- was built anyway and
+reported as buying nothing here (+0.0394 vs +0.0429), which is a negative I am reporting against my own
+design. The fifth arm (`post`, the product of the category posterior and the head posterior, section 10.3)
+is the brain-faithful form and is measured rather than assumed.
+
+**(iii) Is the wiring alone sufficient to reach brain level?** No, and the gap has a number: the
+Right-Hand-Head collapse gives up every GOLD mention nested inside a larger phrase (section 10, the
+`gold_heads_absorbed_into_a_phrase` count). A human reader keeps both -- 'the New York Times' and 'New York'
+are both available referents. Closing that needs NESTED cards (section 7), not a looser boundary.
+
+**(iv) Nothing frozen.** The boundary has no fitted parameter. The validity table it feeds is PLASTIC:
+`entity_resolver.observe_file_decision` accrues the reader's own high-margin decisions during every read, and
+the re-accrued asset is the starting equilibrium, not a frozen weight. The boundary RULE itself is not yet
+plastic -- that is next step 2, and I name it as the honest remaining gap.
+
+**(v) The state of the art on this rung, and the glass-box lever.** NP chunking is a solved supervised task
+(F1 ~0.96 with a treebank-trained chunker); this organ uses none, and may use none -- an external parser at
+inference is a defect that blocks. The glass-box lever is that the boundary is ALREADY computed by two organs
+the reader runs anyway (the attachment arm and the category organ); the rung costs no new model and no extra
+parse (the reader's shared per-read parse is served through `_CachedTagShim.parse_heads`).
+
+**(vi) FALSE NEGATIVES, audited.** Two of my own measurements were wrong before they were right, and both are
+recorded rather than quietly fixed: (a) the entity-set row's string-identity floor read 0.30 instead of the
+board's 0.738 because I used the EVERY-TOKEN gold map instead of the board's head-keyed one -- a scorer
+defect that would have made the bar look unreachable; (b) the random-boundary twin's population inflated from
+229 to 362 items because span-scanning alignment gives a longer span more chances to hit a gold head -- the
+twin was being scored on a different population from the organ. Both are fixed and the reason is in the code.
+
+**(vii) Prior work on this rung, already banked.** pri 134 phase 7 built the canonical schema and
+`mention_head_wpos`, and its landed `_mention_gtok` recovery already repaired the bridge's coverage (section
+6) -- I do not re-claim it. pri 136 built the arc grouping inside its cell. pri 118 built the span-level
+name-run cue and recorded that it was inert. This rung promotes all three out of their cells and onto the
+organ; it re-implements none of them.
+
+**Did I re-implement an organ that exists?** Checked against `notes/STRUCTURE_MAP_2026-09-16.md`. `np_groups`
+is the only new computation and no organ on the map computes it; `np_head_reduce` computes the INVERSE
+(reduce a span to its head) and is kept and fed rather than duplicated -- and it is now largely redundant,
+which is filed as next step 5.
+
+## 15. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
 check; (6) alternate paths and next steps.
