@@ -754,7 +754,20 @@ def make_canonicalizer(sm, commonnoun_canonical: bool = False):
                         head2canon.setdefault(_hl(toks[-1]) or toks[-1], canon)    # + its stable lemma: 'men' -> 'man'
     pron_by_sent: Dict[int, list] = defaultdict(list)
     for r in sm.coref_resolutions:
-        canon = names.get(r.resolved_cluster)
+        # THE OWNER IS AN ENTITY, NOT A HEAD STRING OR A SENTINEL (pri 131, deep review D02).  This lookup
+        # was `names.get(r.resolved_cluster)` while the graded pick set `resolved_cluster = -1` for EVERY
+        # successful record -- and -1 is the reader's FIRST live entity (online ids are -(file+1)), so a
+        # graded answer naming any head could canonicalise a goal's owner to the first file in the passage.
+        # The answer is now the ENTITY the retrieval returned (`resolved_entity`); `resolved_cluster` stays
+        # the fallback for the coref-column path, an unresolved reference (None) canonicalises nothing, and
+        # strategy's 2026-09-15 head stopgap below is kept as the LAST resort -- with the entity present it
+        # is reached only when the chosen file has no nameable head.
+        if not getattr(r, "attempted", True):
+            continue
+        _ent = getattr(r, "resolved_entity", None)
+        if _ent is None:
+            _ent = r.resolved_cluster
+        canon = names.get(_ent)
         if not canon and getattr(r, "resolved_head", None):
             # pri 125's graded pick returns the antecedent HEAD and no cluster (resolved_cluster=None since the D02
             # guard; the entity-id contract is pri 131): canonicalise through the head's named cluster, never

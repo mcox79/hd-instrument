@@ -313,38 +313,60 @@ def score_gum_doc(doc, sm, reader, rng):
     # population is gated on a shared GOLD cluster id -- see the SOLVED); when the organ that replaces it
     # lands (`discovered_pronoun_targets`, pri 125), this picks it up WITHOUT an edit here, so the row starts
     # reporting a population the moment the upstream gate is opened instead of silently staying at n=0.
+    # 2026-09-15 (strategy, pri 131 landing; the row's ANSWER KEY was the reader's own fresh singleton id --
+    # exp_board_rows_on_the_reader_v1.py:333 in the landed form -- so model, floors and twin all scored 0 once
+    # pri 125 discovered pronouns): the answer key is the GUM GOLD ENTITY at the target's position, the model's
+    # answer is the gold entity at the picked ANTECEDENT SPAN (pri 131's contract: entity + span, None = abstain),
+    # ABSTENTION = WRONG, and a target with no gold entity at its position is UNSCOREABLE (counted, excluded).
     ms = list(getattr(reader, "_coref_mentions", []) or [])
-    targets = _reader_pronoun_targets(ms, reader)
     res = list(sm.coref_resolutions)
+    eid_at = _gold_eid_by_wpos(doc)
     diag["n_coref_mentions"] = len(ms)
-    diag["n_reader_pronoun_targets"] = len(targets)
     diag["n_reader_resolutions"] = len(res)
-    diag["coref_aligned"] = bool(len(targets) == len(res))
-    if res and len(targets) == len(res):
-        by_midx = {m["midx"]: m for m in ms}
-        order = sorted(by_midx)
-        pos_of = {mx: i for i, mx in enumerate(order)}
-        seq = [by_midx[mx] for mx in order]
-        for tg, r in zip(targets, res):
-            tm = tg["target"]
-            prior = seq[:pos_of[tm["midx"]]]
-            gold = tm["cluster"]
-            out["coref"]["model"][0] += int(r.correct)
-            out["coref"]["model"][1] += 1
-            rec = prior[-1] if prior else None                       # FLOOR recency
-            out["coref"]["recency"][0] += int(rec is not None and rec["cluster"] == gold)
-            out["coref"]["recency"][1] += 1
-            same = [m for m in prior                                  # FLOOR same-surface string identity
-                    if (m.get("head") or "").lower() == (tm.get("head") or "").lower()]
-            out["coref"]["string_identity"][0] += int(bool(same) and same[-1]["cluster"] == gold)
-            out["coref"]["string_identity"][1] += 1
-            g = tm.get("gender") or ""                                # FLOOR agreement-compatible recency
-            comp = [m for m in prior if (not g) or (m.get("gender") in ("", None, g))]
-            out["coref"]["compatible_recency"][0] += int(bool(comp) and comp[-1]["cluster"] == gold)
-            out["coref"]["compatible_recency"][1] += 1
-            tw = rng.choice(prior) if prior else None                 # TWIN info-free
-            out["coref"]["twin"][0] += int(tw is not None and tw["cluster"] == gold)
-            out["coref"]["twin"][1] += 1
+    scoreable = [r for r in res if (r.sent_idx, getattr(r, "target_wpos", -1)) in eid_at]
+    diag["n_coref_scoreable"] = len(scoreable)
+    diag["n_coref_unscoreable"] = len(res) - len(scoreable)
+    diag["coref_aligned"] = bool(scoreable)
+
+    def _span_eid(span):
+        if not span:
+            return None
+        si, a, b = span[0], span[1], span[2] if len(span) > 2 else span[1]
+        for w in range(int(a), int(b) + 1):
+            e = eid_at.get((si, w))
+            if e is not None:
+                return e
+        return None
+
+    for r in scoreable:
+        tpos = (r.sent_idx, r.target_wpos)
+        gold = eid_at[tpos]
+        ans = _span_eid(getattr(r, "antecedent_span", None))
+        out["coref"]["model"][0] += int(ans is not None and ans == gold)
+        out["coref"]["model"][1] += 1
+        # the floors and the twin pick among the reader's OWN prior non-pronoun mentions, mapped to gold ids
+        prior = [m for m in ms if not m.get("is_pronoun") and (m["sent_idx"], m["wtok_start"]) < tpos]
+        prior.sort(key=lambda m: (m["sent_idx"], m["wtok_start"]))
+        meid = lambda m: eid_at.get((m["sent_idx"], m["wtok_start"] + max(0, m.get("gtok_end", 0) - m.get("gtok_start", 0))),
+                                    eid_at.get((m["sent_idx"], m["wtok_start"])))
+        rec = prior[-1] if prior else None                       # FLOOR recency
+        out["coref"]["recency"][0] += int(rec is not None and meid(rec) == gold)
+        out["coref"]["recency"][1] += 1
+        same = [m for m in prior                                  # FLOOR same-surface string identity
+                if (m.get("head") or "").lower() == (r.pronoun or "").lower()]
+        out["coref"]["string_identity"][0] += int(bool(same) and meid(same[-1]) == gold)
+        out["coref"]["string_identity"][1] += 1
+        g = ""                                                    # FLOOR agreement-compatible recency
+        for m in ms:
+            if (m["sent_idx"], m["wtok_start"]) == tpos:
+                g = m.get("gender") or ""
+                break
+        comp = [m for m in prior if (not g) or (m.get("gender") in ("", None, g))]
+        out["coref"]["compatible_recency"][0] += int(bool(comp) and meid(comp[-1]) == gold)
+        out["coref"]["compatible_recency"][1] += 1
+        tw = rng.choice(prior) if prior else None                 # TWIN info-free
+        out["coref"]["twin"][0] += int(tw is not None and meid(tw) == gold)
+        out["coref"]["twin"][1] += 1
 
     # ---------------- salience: the reader's most-mentioned entity ---------------------------------
     gold_counts = defaultdict(int)
@@ -486,10 +508,12 @@ def run_gum(n_docs=None, n_boot=2000, seed=SEED, modes=GUM_MODES):
         rows[mode]["coref"] = _row(
             "coref", per[mode]["coref"], "model",
             ["compatible_recency", "recency", "string_identity"], "twin",
-            "GUM (modern, TEST=odd docs) PRONOUN anaphora, THE READER'S OWN population: every he/she-family "
-            "pronoun mention the live reader opened a target for (hdlab.coref.build_pronoun_targets over the "
-            "reader's coref-column mention stream). model = sm.coref_resolutions[].correct; floors + info-free "
-            "twin recomputed on the IDENTICAL target list; document-paired bootstrap." + cap_note,
+            "GUM (modern, TEST=odd docs) PRONOUN anaphora, THE READER'S OWN population: every pronoun the live "
+            "reader RESOLVED (sm.coref_resolutions; pri 125 discovers the pronouns from text, pri 131 returns the "
+            "entity + antecedent span) whose position carries a GOLD entity -- the answer key is that gold entity, "
+            "the model's answer is the gold entity at its antecedent span, ABSTENTION = WRONG, unscoreable targets "
+            "counted separately; floors + info-free twin recomputed on the IDENTICAL question list over the reader's "
+            "own prior mentions; document-paired bootstrap." + cap_note,
             provenance(mode, "GUM", "sm.coref_resolutions"), n_boot, seed,
             extra={"reader_docs_cap": n_docs, "n_documents": len(test)})
         rows[mode]["salience"] = _row(
@@ -1528,10 +1552,14 @@ def self_test():
            "ents %d/%d events %d/%d" % (len(sm1.entities), len(sm2.entities), len(sm1.events), len(sm2.events)))
         ck("the snapshot is populated", len(getattr(r2, "_role_mentions_snapshot", [])) > 0,
            len(getattr(r2, "_role_mentions_snapshot", [])))
-        from hdlab.coref import build_pronoun_targets
-        tg = build_pronoun_targets(list(r2._coref_mentions))
-        ck("the reader's pronoun targets align 1:1 with sm.coref_resolutions",
-           len(tg) == len(sm2.coref_resolutions), "%d vs %d" % (len(tg), len(sm2.coref_resolutions)))
+        # 2026-09-15 (pri 131 landing): the row no longer aligns a gold target list to the reader's resolutions by
+        # index; each resolution carries its own target position and antecedent span (pri 131's contract) and is
+        # scored against the gold entity at those positions -- the claim is that the records carry them.
+        res2 = list(sm2.coref_resolutions)
+        ck("every resolution carries a target position (pri 131 contract)",
+           bool(res2) and all(getattr(r, "target_wpos", -1) >= 0 for r in res2), "%d records" % len(res2))
+        ck("every resolution carries an antecedent span or abstains (None)",
+           all(getattr(r, "antecedent_span", None) is None or len(r.antecedent_span) >= 2 for r in res2), len(res2))
         sc, dg = score_gum_doc(d, sm2, r2, random.Random(0))
         for rname in ("coref", "salience", "common_noun_coref"):
             arms = sc[rname]

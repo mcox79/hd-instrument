@@ -400,6 +400,16 @@ class CorefResolution:
     # pri 125: the TARGET's own token position, so a consumer/scorer can align the reader's pick to any
     # answer key by POSITION instead of by the gold cluster id the decision path no longer carries.
     target_wpos: int = -1
+    # THE IDENTITY CONTRACT (pri 131, deep review D02/D05).  A pronoun is resolved to a DISCOURSE ENTITY --
+    # a file card (Heim 1982; Kahneman & Treisman 1992 object files) -- never to a word, so the answer is
+    # the reader's OWN online entity id plus the ANTECEDENT SPAN that supplied the evidence, the scored
+    # CANDIDATE SET, and an explicit reason when the referent stays open.  `resolved_entity is None` IS the
+    # unresolved value: no valid id is ever used as a sentinel (-1 is a valid online id, the first file).
+    resolved_entity: Optional[object] = None
+    antecedent_span: Optional[tuple] = None        # (sent_idx, wtok_start, wtok_end) of the picked mention
+    candidates: tuple = ()                          # ((entity id, activation), ...) strongest first
+    abstain_reason: Optional[str] = None            # None | no_candidate | no_compatible | tie
+    scoreable: bool = False                         # is there an answer key for THIS item? (D06)
 
 
 @dataclass
@@ -690,6 +700,14 @@ class SituationModel:
     memory_roundtrip: Dict[str, float] = field(default_factory=dict)
     # per-dimension honest accuracy (coref only; scored vs LitBank gold on this passage)
     coref_acc: Optional[float] = None
+    # THE FOUR COUNTS (pri 131, deep review D06): `n_targets` alone is not the pronoun population.  These
+    # are nullable scoring outcomes that live OUTSIDE the inference result -- abstained, unscoreable and
+    # wrong are three different things.
+    n_pronouns_discovered: int = 0
+    n_coref_attempted: int = 0
+    n_coref_abstained: int = 0
+    n_coref_scoreable: int = 0
+    coref_attempted_acc: Optional[float] = None   # of the attempts it MADE, how many were right
     coref_xsent_acc: Optional[float] = None
     single_sentence_xsent_acc: Optional[float] = None  # the can-fail validity baseline
     n_targets: int = 0
@@ -1023,6 +1041,7 @@ class SituationReader:
                  discover_pronouns: bool = True,
                  fill_card: bool = True,
                  graded_anaphora: bool = True,
+                 pronoun_principle_b: bool = False,
                  pronoun_window: int = 0,
                  cm_agent: bool = True,
                  include_pron_agents: bool = True,
@@ -1690,6 +1709,12 @@ class SituationReader:
         self.discover_pronouns = bool(discover_pronouns)
         self.fill_card = bool(fill_card)
         self.graded_anaphora = bool(graded_anaphora)
+        # pri 131: EXCLUDE the clause-mate CO-ARGUMENT for a plain pronoun (Chomsky 1981 Principle B;
+        # Reinhart 1983, PINNED and categorical), using the real relation from the reader's OWN shared parse
+        # -- not pri 125's rank proxy, which was measured at -0.104 and REFUTED.  DEFAULT OFF because the
+        # relation is only as good as the parse that supplies it (the three measured arms are quoted at the
+        # call site in read()); the mechanism is built, witnessed and ready to flip.
+        self.pronoun_principle_b = bool(pronoun_principle_b)
         self._pronoun_abstentions_extra = []
         self.pronoun_window = int(pronoun_window)
         self._gold_align = None
@@ -1910,7 +1935,7 @@ class SituationReader:
         "predict_surprisal", "track_belief", "bind_event_tokens", "predict_revise", "track_world_state",
         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed",
         "bind_entity_states", "structural_do_recover", "referent_per_np", "discover_pronouns", "fill_card",
-        "graded_anaphora",
+        "graded_anaphora", "pronoun_principle_b",
         "cm_agent", "include_pron_agents",
         "case_filter", "case_cue_marked", "clause_local", "cm_agent_struct", "cm_agent_byhead",
         "agent_hybrid",
@@ -1940,9 +1965,63 @@ class SituationReader:
         cfg.update(overrides)
         return cls(gaz=gaz, **cfg)
 
+    def _coargument_positions(self, sents, want=None):
+        """{(sent_idx, wtok): (the CLAUSE-MATE CO-ARGUMENT positions of that token)}, read off the reader's
+        OWN shared per-read parse: the other dependents of the SAME governing predicate.  That is the real
+        binding domain of Principle B (a plain pronoun may not take its clause-mate co-argument as its
+        antecedent) and Principle A (a reflexive must) -- Chomsky 1981; Reinhart 1983, PINNED.  pri 125 built
+        a RANK-based proxy ("any other core-ranked mention in the sentence"), measured it at -0.104 and
+        REFUTED it; this is the relation itself, and it only becomes usable once the pick scores ENTITIES,
+        because the exclusion is on the co-argument's FILE, not on a head string.  Only the sentences that
+        carry a question are mapped, and the parse is the per-read cached one (a HIT for every sentence the
+        role router already parsed), so the map costs no new parse on the read path."""
+        out: Dict[tuple, tuple] = {}
+        for si, toks in enumerate(sents):
+            if (want is not None and si not in want) or not toks or len(toks) > 120:
+                continue
+            up = self._cached_tag(list(toks))
+            try:
+                heads = self._cached_parse_heads(list(toks), up)
+            except Exception:
+                continue
+            by_gov: Dict[int, list] = {}
+            for i in range(len(toks)):
+                h = heads.get(i + 1) if isinstance(heads, dict) else (
+                    heads[i + 1] if (i + 1) < len(heads) else 0)
+                if not h:
+                    continue
+                gi = int(h) - 1
+                # the governor must be the PREDICATE (a copular predicate nominal is not a co-argument
+                # relation -- "he is the doctor" is predication, and Principle B does not apply to it).
+                if 0 <= gi < len(up) and up[gi] in ("VERB", "AUX"):
+                    by_gov.setdefault(gi, []).append(i)
+            for _gi, kids in by_gov.items():
+                for i in kids:
+                    out[(si, i)] = tuple((si, j) for j in kids if j != i)
+        return out
+
+    @staticmethod
+    def _antecedent_gold(gpos, span):
+        """The answer key's entity for the ANTECEDENT SPAN the reader actually picked (deep review D06.3).
+        Scoring by SPAN is what makes a wrong same-head antecedent score WRONG: the old test asked only
+        whether the picked HEAD STRING names the right gold cluster ANYWHERE in the document, so picking
+        the other doctor was credited."""
+        if not span:
+            return None
+        si, ws, we = span
+        for w in range(int(ws), int(we) + 1):
+            g = gpos.get((si, w))
+            if g is not None:
+                return g
+        return None
+
     # -- ENTITIES + COREF (banked EventCentralityReader recency-centrality, 29516) --
-    def _read_entities(self, mentions, targets, n_sents):
+    def _read_entities(self, mentions, targets, n_sents, coarg=None):
         if getattr(self, "_gold_align", None) is not None:
+            # SCOREABILITY IS A PROPERTY OF THE INPUT, and it is decided in BOTH branches BEFORE any pick
+            # (deep review D06.1: the graded branch returned early, so `coref_acc` reported 0.0 -- "it got
+            # them all wrong" -- on text that carries no answer key at all).
+            self._coref_unscoreable = not self._gold_align["pos"]
             # THE RETRIEVAL ORGAN'S OWN CANDIDATE SET (pri 125): a pronoun probe retrieves over the
             # ACCESSIBLE, cue-compatible referents, not over every NP the introduction organ opened.  This
             # is the 2026-09-03 flood repair kept as a CUE FILTER (the brain's own) rather than as a second
@@ -1952,33 +2031,45 @@ class SituationReader:
                 # is attempted (the shipped pick's six-form gate answered 98 of 334 questions), the
                 # candidates are bounded by accessibility AT RETRIEVAL, and the agreement cue enters as a
                 # GRADED term -- which only became load-bearing once the file card was filled above.
-                recs, ab = graded_pronoun_resolve(mentions, targets, window=self.pronoun_window)
+                recs, ab = graded_pronoun_resolve(mentions, targets, window=self.pronoun_window,
+                                                  coarg=coarg)
                 self._pronoun_abstentions_extra = ab
-                out = []
+                # THE INDEPENDENT SINGLE-SENTENCE COMPARATOR, EXECUTED (deep review D06.2: the branch used
+                # to return the SAME correctness list three times, so `single_sentence_xsent_acc` was the
+                # main result wearing a baseline's name).  Same organ, file store cleared at every sentence
+                # boundary -> structurally blind cross-sentence, and it CAN disagree.
+                ss, _ss_ab = graded_pronoun_resolve(mentions, targets, window=self.pronoun_window,
+                                                    coarg=coarg, single_sentence=True)
+                gpos = self._gold_align["pos"]
+                ss_by = {(r["sent_idx"], r["target_wpos"]): r for r in ss}
+                out, side_ss = [], []
                 for r in recs:
-                    gc = self._gold_align["pos"].get((r["sent_idx"], r["target_wpos"]))
-                    rc = self._gold_align["head"].get(r["resolved_head"].lower(), ())
+                    gc = gpos.get((r["sent_idx"], r["target_wpos"]))
+                    # THE PICK IS SCORED BY THE ANTECEDENT'S POSITION, not by its head string (D06.3).
+                    ac = self._antecedent_gold(gpos, r["antecedent_span"])
+                    sc = bool(gpos) and gc is not None
                     cr = CorefResolution(
                         pronoun=r["pronoun"], sent_idx=r["sent_idx"],
-                        # resolved_cluster=None (strategy 2026-09-15, deep review D02): -1 IS a valid ONLINE entity id
-                        # (-(cluster+1); the first file is 0 -> -1), so it collided with goal canonicalisation
-                        # (names.get) and world-state densify; None is the package's unresolved value (coref.py:1292)
-                        # and every live consumer is None-safe. The entity-id contract is pri 131.
+                        # resolved_cluster stays None on this path: the identity is `resolved_entity`, and
+                        # -1 IS a valid ONLINE entity id (-(cluster+1); the first file is 0 -> -1), so no
+                        # valid id may be used as the unresolved sentinel (deep review D02).
                         gold_cluster=(-1 if gc is None else gc), resolved_cluster=None,
-                        correct=bool(gc is not None and gc in rc), attempted=True,
+                        correct=bool(sc and ac is not None and ac == gc),
+                        attempted=bool(r["resolved_entity"] is not None),
                         bucket=sent_dist_bucket(r["sent_dist"]), sent_dist=r["sent_dist"],
-                        resolved_head=r["resolved_head"])
+                        resolved_head=r["resolved_head"],
+                        resolved_entity=r["resolved_entity"], antecedent_span=r["antecedent_span"],
+                        candidates=r["candidates"], abstain_reason=r["abstain_reason"], scoreable=sc)
                     cr.target_wpos = r["target_wpos"]
                     out.append(cr)
+                    s = ss_by.get((r["sent_idx"], r["target_wpos"]))
+                    sac = self._antecedent_gold(gpos, s["antecedent_span"]) if s else None
+                    side_ss.append({"correct": bool(sc and sac is not None and sac == gc)})
                 side = [{"correct": bool(c.correct)} for c in out]
-                return out, side, side
+                return out, side, side_ss
             pool = retrievable_referents(mentions)
             keep = {m["midx"] for m in pool}
             targets = [t for t in targets if t["target"]["midx"] in keep]
-            # NO ANSWER KEY IN THE INPUT -> `correct` is UNKNOWABLE, not False.  Without this the reader
-            # would report coref_acc 0.0 on annotation-free text, which reads as "it got them all wrong"
-            # when the truth is "there is nothing to score against".
-            self._coref_unscoreable = not self._gold_align["pos"]
             res, recs_ec, recs_ss = self._read_entities_core(pool, targets, n_sents)
             # SCORING ONLY, after the pick: align the reader's own answer (`resolved_head`, its token
             # position) to the answer key by POSITION/HEAD.  No decision above reads `self._gold_align`.
@@ -1989,6 +2080,7 @@ class SituationReader:
                 rc = g["head"].get((r.resolved_head or "").lower(), ())
                 r.gold_cluster = -1 if gc is None else gc
                 r.correct = bool(gc is not None and gc in rc)
+                r.scoreable = bool(g["pos"]) and gc is not None
             return res, recs_ec, recs_ss
         return self._read_entities_core(mentions, targets, n_sents)
 
@@ -2009,11 +2101,14 @@ class SituationReader:
                 pronoun=tgt["target"]["head"],
                 sent_idx=tgt["target"]["sent_idx"],
                 gold_cluster=r["gold_cluster"],
-                resolved_cluster=(-1 if r["resolved_cluster"] is None
-                                  else r["resolved_cluster"]),
+                # NEVER -1 FOR UNRESOLVED (deep review D02): -1 is a valid ONLINE entity id, so the old
+                # `-1 if None` sentinel bound an unresolved pronoun to the reader's FIRST file at every
+                # consumer that looked it up.  None is the unresolved value on every path now.
+                resolved_cluster=r["resolved_cluster"],
                 correct=bool(r["correct"]), attempted=bool(r["attempted"]),
                 bucket=r["bucket"], sent_dist=r["sent_dist"],
-                resolved_head=str(r.get("resolved_head") or "")))
+                resolved_head=str(r.get("resolved_head") or ""),
+                resolved_entity=r["resolved_cluster"], scoreable=True))
         return resolutions, recs_ec, recs_ss
 
     # -- event detection dispatch (stock tense-gated vs opt-in tense-agnostic UPOS==VERB) --
@@ -2991,9 +3086,17 @@ class SituationReader:
                 from hdlab.entity_resolver import EntityResolver as _ER
                 self._ws_binder_mod = _ER
             binder = self._ws_binder_mod().new_stage1_binder()   # unified organ's deictic Stage-1 arm (== EntityBinder, byte-identical)
+            # VALIDITY IS MEMBERSHIP, NOT SIGN (deep review D02).  The reader's own online entity ids are
+            # NEGATIVE (-(file+1)), so the old `rc >= 0` test silently dropped EVERY graded reference link
+            # while accepting the -1 sentinel it should have rejected.  An id is valid iff it names an
+            # entity this read has on file; a constructed model with no entity layer has nothing to check
+            # against, so any non-None id stands there.
+            _ids = {e.cluster for e in (sm.entities or [])}
             for r in (sm.coref_resolutions or []):
-                rc = r.resolved_cluster
-                if rc is not None and rc >= 0:
+                rc = getattr(r, "resolved_entity", None)
+                if rc is None:
+                    rc = r.resolved_cluster
+                if rc is not None and ((rc in _ids) if _ids else True):
                     # the RAW cluster id: EntityBinder.bind_participant formats the "C%s" key itself.
                     he_she_cluster[(r.sent_idx, (r.pronoun or "").lower())] = rc
         reps = []
@@ -4705,6 +4808,8 @@ class SituationReader:
                 self._read_parse_cache[("tagpost", _k)] = [
                     {t: float(_m[i, j]) for j, t in enumerate(_lc.tags) if _m[i, j] >= 0.01} for i in range(len(_s))]
                 self._read_parse_cache[("tagmat", _k)] = _m
+        self._coref_unscoreable = False        # RESET PER READ (deep review D06): scoreability is a
+        #                                        property of THIS input, never of the previous document.
         if self.referent_per_np:
             # DECOUPLE (P5 wire, owner-DONE wire_the_referent_to_coref_linking_pass): referent_per_np swaps ONLY
             # the who-did-what ROLE-candidate + entity source (a discourse referent per content-noun-head NP);
@@ -4827,26 +4932,55 @@ class SituationReader:
             sm.commonnoun_resolution = self._resolve_commonnouns(role_mentions, sents)
 
         if self.referent_per_np and self.discover_pronouns:
-            # THE DISCOVERED QUESTION SET: every third-person pronoun the organ opened that has an
-            # accessible phi-compatible prior referent; the rest are RECORDED as open referents.
-            targets, sm.pronoun_abstentions = discovered_pronoun_targets(
-                coref_mentions, window=self.pronoun_window)
-            self._pronoun_abstentions_extra = []
+            # THE DISCOVERED QUESTION SET: ONE question per third-person pronoun the organ opened.  The
+            # retrieval DEMAND exists whether or not a compatible referent is accessible; whether it is met
+            # is the retrieval's OUTCOME, recorded per question (pri 131), so discovered == attempted +
+            # abstained and every consumer can align its own list to the reader's by index.
+            targets = discovered_pronoun_targets(coref_mentions, window=self.pronoun_window)
         else:
             targets = build_pronoun_targets(coref_mentions)   # the pre-2026-09-15 coref-column source
+        self._pronoun_abstentions_extra = []
+        sm.n_pronouns_discovered = len(targets)
         if targets:
-            resolutions, recs_ec, recs_ss = self._read_entities(coref_mentions, targets, n_sents)
+            # PRINCIPLE B IS PINNED, BUT ITS INPUT IS A PARSE.  Measured on 16 MODERN GUM test documents
+            # (the same fixed questions, span-scored, one code path): no exclusion 0.3797; the exclusion
+            # through the READER'S OWN parse 0.3646 (-0.0152 CI[-0.0487,+0.0136], n.s.); the exclusion
+            # through the TREEBANK parse 0.3848 (+0.0051 vs no exclusion, n.s.; +0.0203 over our own parse,
+            # CI[-0.0035,+0.0552], n.s.).  The rule is neutral when the clause-mate relation is RIGHT and
+            # costs items when it is wrong -- the loss is the PARSE, not the principle -- so it ships BUILT
+            # and DEFAULT-OFF with its number, to be flipped when the attachment rung improves.  The
+            # reflexive (Principle A) fallback is unchanged either way.
+            coarg = (self._coargument_positions(sents, {t["target"]["sent_idx"] for t in targets})
+                     if self.pronoun_principle_b else None)
+            resolutions, recs_ec, recs_ss = self._read_entities(coref_mentions, targets, n_sents,
+                                                                coarg=coarg)
             sm.coref_resolutions = resolutions
             sm.n_targets = len(resolutions)
-            sm.coref_acc = (None if getattr(self, "_coref_unscoreable", False)
-                            else _acc([r.correct for r in resolutions]))
-            sm.pronoun_abstentions = list(sm.pronoun_abstentions) + list(
-                getattr(self, "_pronoun_abstentions_extra", ()) or ())
-            xs = [i for i, r in enumerate(resolutions) if r.sent_dist >= 1]
+            # NULLABLE SCORING OUTCOMES, OUTSIDE THE INFERENCE RESULT (deep review D06): abstained,
+            # unscoreable and wrong are three different things, and each has its own count.
+            _un = bool(getattr(self, "_coref_unscoreable", False))
+            _sco = [r for r in resolutions if getattr(r, "scoreable", False)]
+            _att = [r for r in _sco if r.attempted]
+            sm.n_coref_attempted = sum(1 for r in resolutions if r.attempted)
+            sm.n_coref_abstained = len(resolutions) - sm.n_coref_attempted
+            sm.n_coref_scoreable = len(_sco)
+            # `coref_acc` keeps its FIXED denominator -- every scoreable question, abstention counted
+            # wrong (byte-identical to the historical value on the coref-column path, where every record
+            # is scoreable) -- and the conditional-on-attempted rate the model's own abstentions choose is
+            # published SEPARATELY, so the two can never be confused again (pri 125 SOLVED 6c / E03).
+            sm.coref_acc = (None if (_un or not _sco) else _acc([r.correct for r in _sco]))
+            sm.coref_attempted_acc = (None if (_un or not _att) else _acc([r.correct for r in _att]))
+            sm.pronoun_abstentions = [
+                {"head": r.pronoun, "sent_idx": r.sent_idx, "wtok_start": r.target_wpos,
+                 "reason": getattr(r, "abstain_reason", None) or "unattempted"}
+                for r in resolutions if not r.attempted]
+            xs = [i for i, r in enumerate(resolutions)
+                  if r.sent_dist >= 1 and getattr(r, "scoreable", False)]
             sm.n_xsent_targets = len(xs)
-            sm.coref_xsent_acc = _acc([resolutions[i].correct for i in xs]) if xs else None
+            sm.coref_xsent_acc = (None if (_un or not xs)
+                                  else _acc([resolutions[i].correct for i in xs]))
             sm.single_sentence_xsent_acc = (
-                _acc([bool(recs_ss[i]["correct"]) for i in xs]) if xs else None)
+                None if (_un or not xs) else _acc([bool(recs_ss[i]["correct"]) for i in xs]))
 
         events, focus, codec, role_fillers, suppressed = self._read_events(sents, role_mentions, n_sents)
         sm.events = events

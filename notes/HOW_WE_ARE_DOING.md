@@ -42,6 +42,7 @@ across a passage (right 42 in 100 on he/she/it, honest basis) -- and that second
 | Reasoning on top | IMPROVING | right 24 to 90 in 100 depending on the question | Time, cause, belief and goals. These work well when handed a correct reading of the sentence and slump on real prose, so the wall they hit is the chain below them, not the reasoning itself. Best: how a character feels about an event, 90 in 100. Worst: answering "why" when the cause is several sentences away, 24 in 100. |
 
 ## WHAT MOVED THIS WEEK
+- 2026-09-15 -- Landed: pronouns resolve to the reader's own files with the exact earlier mention; the pronoun scoreboard line reports again on the real answer key; the filing of who-is-who is the numbered next lever (+12 points possible).
 - 2026-09-15 -- Landed: the last non-brain-foundational parts are off the live read (five jobs re-routed to the role competition; board identical; reading 15% faster). Two follow-up review fixes: states carry their time; 'why' keeps to the asked agent.
 - 2026-09-15 -- Landed: 461 of 465 hand-run checks are now visible to the standard test runner, labelled by cost, with a run manifest.
 - 2026-09-15 -- Landed: the reader finds its own pronouns on plain text and files them with gender and number; 'who did it' on plain text 19 -> 75 in 100, pronoun reference 0 -> 27 in 100 (clearly above the simple rule), answers identical with or without the answer key. Product board 'who did it' 15 -> 74 in 100.

@@ -348,18 +348,24 @@ def is_anaphora_target(head: Optional[str]) -> bool:
     return bool(d.get("gender")) or bool(d.get("number"))
 
 
-def discovered_pronoun_targets(mentions: List[dict], window: int = 0):
-    """Schedule an anaphora question for every third-person pronoun in the DISCOVERED mention stream that
-    has an accessible, phi-compatible PRIOR referent.  Returns (targets, abstentions):
-      targets      the `build_pronoun_targets` schema; `antecedent` = the nearest prior compatible referent
-                   (a schema slot and the floor's own pick -- NOT the resolver's answer, which is decided
-                   downstream by cue-based retrieval over the whole accessible pool)
-      abstentions  one {head, sent_idx, wtok_start} per third-person pronoun with NO accessible compatible
-                   prior referent: the referent stays OPEN and the miss is RECORDED
-    `window` = the accessibility window in sentences; 0 = the whole passage read so far (swept, not adopted).
-    """
-    targets: List[dict] = []
-    abstentions: List[dict] = []
+def discovered_pronoun_targets(mentions: List[dict], window: int = 0, reader=None):
+    """THE QUESTION SET: ONE scheduled question for EVERY third-person pronoun in the DISCOVERED mention
+    stream -- the retrieval demand a pronoun opens exists whether or not a compatible referent is accessible,
+    and whether it is met is the RETRIEVAL's outcome, not the scheduler's (pri 131).  Returns a LIST in the
+    `build_pronoun_targets` schema:
+      {target, antecedent, midx_dist, sent_dist, schedule_reason}
+    `antecedent` = the nearest prior accessible phi-compatible referent -- a schema slot and the FLOOR's own
+    pick, NOT the resolver's answer (that is decided downstream by cue-based retrieval over the whole
+    accessible pool).  When there is none, `antecedent` is None and `schedule_reason` = 'no_compatible_prior':
+    the question is still ASKED, and the referent stays open unless the pick finds a file for it.
+    ONE LIST, ONE OUTCOME PER QUESTION: the reader emits exactly one `CorefResolution` per entry here, so
+    discovered == attempted + abstained and a consumer can align the two by index (the pri 122 board row
+    does exactly that).  `window` = the accessibility window in sentences (0 = the whole passage read so
+    far); `reader` supplies it when a caller has the reader rather than the number.
+    Gold cluster ids are not read here; they belong to the scorer."""
+    if reader is not None and not window:
+        window = int(getattr(reader, "pronoun_window", 0) or 0)
+    sched: List[dict] = []
     prior: List[dict] = []
     for m in mentions:
         if m.get("is_pronoun") and is_anaphora_target(m.get("head")):
@@ -369,14 +375,15 @@ def discovered_pronoun_targets(mentions: List[dict], window: int = 0):
                      and phi_compatible(m, p)]
             if cands:
                 nearest = cands[-1]
-                targets.append({"target": m, "antecedent": nearest,
-                                "midx_dist": m["midx"] - nearest["midx"],
-                                "sent_dist": m["sent_idx"] - nearest["sent_idx"]})
+                sched.append({"target": m, "antecedent": nearest,
+                              "midx_dist": m["midx"] - nearest["midx"],
+                              "sent_dist": m["sent_idx"] - nearest["sent_idx"],
+                              "schedule_reason": None})
             else:
-                abstentions.append({"head": m["head"], "sent_idx": m["sent_idx"],
-                                    "wtok_start": m["wtok_start"]})
+                sched.append({"target": m, "antecedent": None, "midx_dist": 0, "sent_dist": 0,
+                              "schedule_reason": "no_compatible_prior"})
         prior.append(m)
-    return targets, abstentions
+    return sched
 
 
 def retrievable_referents(mentions: List[dict]) -> List[dict]:
@@ -437,20 +444,57 @@ def retrievable_referents(mentions: List[dict]) -> List[dict]:
 NUMBER_AMBIGUOUS = frozenset({"they", "them", "their", "theirs", "themselves"})
 
 
+def mention_span(m) -> tuple:
+    """(sent_idx, wtok_start, wtok_end) -- the ANTECEDENT SPAN, so a consumer or a scorer can align the pick
+    by POSITION instead of by a head string.  The discovered referents are single-token (their content head);
+    a coref-column mention carries its own gtok extent."""
+    ws = int(m.get("wtok_start", -1))
+    gs, ge = m.get("gtok_start", -1), m.get("gtok_end", -1)
+    span = 0
+    if isinstance(gs, int) and isinstance(ge, int) and gs >= 0 and ge >= gs:
+        span = ge - gs
+    elif m.get("span_toks"):
+        span = max(0, len(m["span_toks"]) - 1)
+    return (int(m.get("sent_idx", -1)), ws, ws + span)
+
+
+def entity_key(m):
+    """THE IDENTITY BASIS OF THE RETRIEVAL (pri 131): the reader's OWN online entity-file id -- `m['cluster']`,
+    written by `entity_resolver.cluster` as -(file+1) for every non-pronoun mention -- and NEVER the head
+    string.  A pronoun is resolved to a DISCOURSE ENTITY, a file card / object file (Kahneman & Treisman 1992
+    object files; Heim 1982 file-change semantics), so two `doctor` mentions the reader kept apart are TWO
+    candidates with two histories and two cards, and a name plus the alias the reader merged into it are ONE.
+    Falls back to the head string only for a mention with no cluster at all (none on the live path)."""
+    c = m.get("cluster")
+    return c if c is not None else ("head:" + str(m.get("head", "")).lower())
+
+
 def graded_pronoun_resolve(mentions: List[dict], targets: List[dict], window: int = 0,
                            w_gender: float = 4.0, w_number: float = 0.0, w_focus: float = 1.0,
-                           decay: float = 2.0):
-    """ACT-R cue-based antecedent retrieval over a DISCOVERED mention stream, in reading order, one pass.
-    Returns (records, abstentions); each record {pronoun, sent_idx, target_wpos, resolved_head, n_cands,
-    sent_dist}.  `window` = the accessibility bound in sentences (0 = the whole passage read so far; SWEPT
-    0/1/2/3/5 -- 0 reported, and window 2 measurably LOST at scale: 0.2545 vs 0.2784 on 334 questions)."""
+                           decay: float = 2.0, coarg=None, single_sentence: bool = False):
+    """ACT-R cue-based antecedent retrieval over the reader's OWN DISCOURSE ENTITIES, in reading order, one
+    pass.  Returns (records, abstentions) with EXACTLY ONE record per scheduled target:
+      {pronoun, sent_idx, target_wpos, resolved_entity, resolved_head, antecedent_span, candidates,
+       abstain_reason, n_cands, sent_dist}
+    `resolved_entity` is the entity id (or None when the referent stays open -- NEVER a valid id used as a
+    sentinel); `antecedent_span` is (sent_idx, wtok_start, wtok_end) of the mention that supplied the
+    evidence; `candidates` is the scored candidate set (entity id -> activation, strongest first);
+    `abstain_reason` is None | 'no_candidate' | 'no_compatible' | 'tie'.
+    `coarg` = {(sent_idx, wtok): (positions of this token's clause-mate CO-ARGUMENTS)} from the reader's own
+    parse -- Principle B for a plain pronoun, Principle A for a reflexive (Chomsky 1981; Reinhart 1983).
+    `single_sentence` = the independent SINGLE-SENTENCE comparator: the file store is cleared at every
+    sentence boundary, so the arm is structurally blind cross-sentence and can DISAGREE with the discourse
+    resolver on a designed cross-sentence case.
+    `window` = the accessibility bound in sentences (0 = the whole passage read so far; SWEPT 0/1/2/3/5)."""
     from hdlab.salience_binder import actr_activation, ROLE_PROMINENCE
     from hdlab.affected_entity_resolver import is_reflexive
     tgt = {t["target"]["midx"] for t in targets}
-    hist: Dict[str, list] = {}
-    last_sent: Dict[str, int] = {}
-    feats: Dict[str, tuple] = {}
-    rank_in_sent: Dict[int, Dict[str, int]] = {}
+    hist: Dict[object, list] = {}      # entity id -> the FILE's reference history [(order, role), ...]
+    last_sent: Dict[object, int] = {}
+    last_nom: Dict[object, dict] = {}  # entity id -> its most recent NON-pronoun mention (the antecedent)
+    feats: Dict[object, tuple] = {}    # entity id -> (gender, number) ACCRUED over the file's mentions
+    rank_in_sent: Dict[int, Dict[object, int]] = {}
+    ent_at_pos: Dict[tuple, object] = {}
     prev_cb = [None]
     cur = [None]
     recs, abstain = [], []
@@ -461,13 +505,17 @@ def graded_pronoun_resolve(mentions: List[dict], targets: List[dict], window: in
             row = sorted(rank_in_sent.get(cur[0], {}).items(), key=lambda kv: kv[1])
             if row:
                 prev_cb[0] = row[0][0]
+            if single_sentence:
+                hist.clear(); last_sent.clear(); last_nom.clear(); feats.clear()
         cur[0] = si
         rk = m.get("sent_role_rank", 99)
         role = "SUBJECT" if rk == 0 else ("OBJECT" if rk == 1 else "OTHER")
         if not m.get("is_pronoun"):
-            k = m["head"].lower()
+            k = entity_key(m)
+            ent_at_pos[(si, int(m["wtok_start"]))] = k
             hist.setdefault(k, []).append((order, role))
             last_sent[k] = si
+            last_nom[k] = m
             g = m.get("gender") or m.get("name_gender")
             old = feats.get(k, (None, None))
             feats[k] = (g or old[0], m.get("number") or old[1])
@@ -477,13 +525,29 @@ def graded_pronoun_resolve(mentions: List[dict], targets: List[dict], window: in
             continue
         pg, pn = m.get("gender"), m.get("number")
         cands = [k for k, s in last_sent.items() if (not window) or (si - s) <= window]
+        reason = None
+        legal = cands
         if not cands:
-            abstain.append({"head": m["head"], "sent_idx": si, "wtok_start": m["wtok_start"]})
-            continue
-        coarg = [k for k, r in rank_in_sent.get(si, {}).items() if r in (0, 1) and r != rk]
-        legal = ([k for k in cands if k in coarg] or cands) if (is_reflexive(m.get("head")) and coarg) \
-            else cands
-        best, bs = None, -1e18
+            reason = "no_candidate"
+        else:
+            banned = set()
+            if coarg:
+                banned = {ent_at_pos[p] for p in (coarg.get((si, int(m["wtok_start"]))) or ())
+                          if p in ent_at_pos}
+            if is_reflexive(m.get("head")):
+                # PRINCIPLE A: a reflexive is bound BY a clause-mate co-argument (the real relation from the
+                # parse when we have it; the within-sentence core-rank set is the fallback).
+                inside = [k for k in cands if k in banned] if banned else \
+                    [k for k in cands
+                     if k in {kk for kk, r in rank_in_sent.get(si, {}).items() if r in (0, 1) and r != rk}]
+                legal = inside or cands
+            elif banned:
+                # PRINCIPLE B: a PLAIN pronoun may not take its clause-mate CO-ARGUMENT as its antecedent.
+                legal = [k for k in cands if k not in banned]
+                if not legal:
+                    reason = "no_compatible"
+        best, bs, ties = None, -1e18, 0
+        scored = []
         amb = m["head"].lower() in NUMBER_AMBIGUOUS
         for k in legal:
             a = actr_activation(hist.get(k, ()), order, decay=decay, role_prominence=ROLE_PROMINENCE)
@@ -497,16 +561,32 @@ def graded_pronoun_resolve(mentions: List[dict], targets: List[dict], window: in
             if pn and cn and not amb:
                 nm = 1.0 if pn == cn else -1.0
             s = a + w_gender * gm + w_number * nm + w_focus * (1.0 if k == prev_cb[0] else 0.0)
+            scored.append((k, s))
             if s > bs:
-                bs, best = s, k
+                bs, best, ties = s, k, 1
+            elif s == bs:
+                ties += 1
+        if best is not None and ties > 1:
+            best, reason = None, "tie"         # a TIE is an open referent, not a coin flip
         if best is None:
-            abstain.append({"head": m["head"], "sent_idx": si, "wtok_start": m["wtok_start"]})
+            rec = {"pronoun": m["head"], "sent_idx": si, "target_wpos": m["wtok_start"],
+                   "resolved_entity": None, "resolved_head": "", "antecedent_span": None,
+                   "candidates": tuple(sorted(scored, key=lambda kv: -kv[1])[:5]),
+                   "abstain_reason": reason or "no_compatible", "n_cands": len(legal), "sent_dist": 0}
+            recs.append(rec)
+            abstain.append({"head": m["head"], "sent_idx": si, "wtok_start": m["wtok_start"],
+                            "reason": rec["abstain_reason"]})
             continue
         d = max(0, si - last_sent.get(best, si))
+        am = last_nom.get(best)
         hist.setdefault(best, []).append((order, role))    # IMPLETION
         last_sent[best] = si
         recs.append({"pronoun": m["head"], "sent_idx": si, "target_wpos": m["wtok_start"],
-                     "resolved_head": best, "n_cands": len(legal), "sent_dist": d})
+                     "resolved_entity": best,
+                     "resolved_head": (am or {}).get("head", ""),
+                     "antecedent_span": mention_span(am) if am is not None else None,
+                     "candidates": tuple(sorted(scored, key=lambda kv: -kv[1])[:5]),
+                     "abstain_reason": None, "n_cands": len(legal), "sent_dist": d})
     return recs, abstain
 
 
