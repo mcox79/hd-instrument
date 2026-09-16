@@ -1,0 +1,74 @@
+diff --git a/hdlab/belief_reader.py b/hdlab/belief_reader.py
+index 8c45d6a98..8773feb35 100644
+--- a/hdlab/belief_reader.py
++++ b/hdlab/belief_reader.py
+@@ -171,34 +171,47 @@ def extract_status_events(sents, by_sent, fact_cluster: Optional[int], fact_alia
+     # branch was DEAD code in the live path; removing it keeps hdlab spaCy-free + self-contained (spaCy is banned
+     # at inference). The in-substrate copular extractor below IS the live path (byte-identical for the live reader).
+     # `nlp` is retained in the signature for caller compatibility (ignored).
+-    tagger, parser = _frontend()
++    # THE COPULAR-SUBJECT READ (repaired 2026-09-16, pri 139 Phase 7).
++    #
++    # WHAT WAS WRONG.  This branch used to find the copular verb and then ask for ITS dependents:
++    #     subj = [k for k in range(1, len(toks) + 1) if heads.get(k) == v ...]     # v = the copula
++    # The reader's own parser is UD, in which the copula is a DEPENDENT of the predicate, not its head:
++    #     "The lamp was lit ."   upos  The/DET lamp/NOUN was/AUX lit/VERB ./PUNCT
++    #                            heads {1: 2, 2: 4, 3: 4, 4: 0, 5: 4}
++    # `lamp` attaches to `lit`, `was` attaches to `lit`, and NOTHING attaches to `was`.  So `subj` was []
++    # on every copular clause the reader parses and the branch could not fire at all -- 0 of 10 gold
++    # status events.  It was written for a copula-as-head analysis (spaCy's), and the spaCy branch that
++    # the 2026-09-09 promotion removed had been masking the mismatch.
++    #
++    # THE REPAIR IS A REUSE, NOT A NEW MECHANISM.  The reader already owns this computation:
++    # `hdlab.attachment_arm.cop_subject_pairs` returns (predicate, subject) 1-based pairs for every
++    # copular predication, over the merged pri-113 construction set (inverted / fronted / locative / wh /
++    # clause-final / parenthetical) plus the two corrections the pri-117 board A/B paid for (the
++    # right-hand-head rule across a hyphen; a clausal subject is not a nominal subject).  ONE BRAIN
++    # STRUCTURE = ONE ORGAN WITH ARMS -- the private scan is deleted and the organ is called.
++    #
++    # VERIDICALITY GATE (kept from the branch the promotion removed): a state inside a REPORTED clause is
++    # the CONTENT of a report, not asserted reality -- route it through the belief-assertion channel.
++    # FACTIVE verbs (know/realize/discover) are deliberately NOT report cues: their complement entails
++    # truth (Kiparsky & Kiparsky 1970), so "Nell knew the bridge was safe" IS reality.
++    from hdlab.attachment_arm import cop_subject_pairs
++    tagger, _parser = _frontend()
+     out = []
+     for i, toks in enumerate(sents):
+         if not toks or len(toks) > 120:
+             continue
++        if {t.lower() for t in toks} & _REPORT_CUES:
++            continue
+         upos = tagger.tag(list(toks))
+-        heads = parser.parse(list(toks), upos).heads
+         noms = by_sent.get(i, [])
+-        for v in range(1, len(toks) + 1):
+-            if upos[v - 1] != "VERB" and lemma_verb(toks[v - 1]) not in COPULAR:
+-                continue
+-            if lemma_verb(toks[v - 1]) not in COPULAR:
+-                continue
+-            # subject of this verb
+-            subj = [k for k in range(1, len(toks) + 1) if heads.get(k) == v and _norm(toks[k - 1])]
+-            subj_match = False
+-            for k in subj:
+-                if _norm(toks[k - 1]) in fal:
+-                    subj_match = True
+-                    break
+-                cid = _cluster_covering(noms, k - 1)
+-                if fact_cluster is not None and cid == fact_cluster:
+-                    subj_match = True
+-                    break
+-            if not subj_match:
+-                continue
+-            val = _status_value(toks, upos, heads, v, value_vocab)
+-            if val:
++        for (pred, subj) in cop_subject_pairs(list(toks), list(upos)):
++            if _norm(toks[subj - 1]) not in fal:
++                # the tracked entity need not be spelled the same way twice: bind it through the reader's
++                # OWN entity files when the caller supplied a cluster (see situation_reader._read_belief).
++                if fact_cluster is None or _cluster_covering(noms, subj - 1) != fact_cluster:
++                    continue
++            val = _norm(toks[pred - 1])
++            if val in vocab:
+                 out.append((val, i))
+     return out
+ 

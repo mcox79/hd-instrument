@@ -791,6 +791,356 @@ def arm_g_prototype() -> dict:
                      "located repair, measured, for strategy to land as its own change.")}
 
 
+
+
+# ===========================================================================================
+# PHASE 7 (strategy probe, 2026-09-16).  Arms H / I / J.  NOT in the default arm list -- run with
+# `--arms H,I,J`, which writes to data/exp_belief_one_organ_v1_phase7/ and leaves the landed A-G
+# metrics untouched.
+# ===========================================================================================
+
+def _reader_mentions(conll_path):
+    """The mention stream the LIVE reader actually hands downstream, captured exactly.
+
+    Not a reconstruction: `hdlab.situation_reader._build_entities` is wrapped for one read, so what is
+    captured is the list the reader passes it -- after the online entity clustering and the crosstype
+    bridge have rewritten `m["cluster"]`.  Returns (role_mentions, sents, sm).
+    """
+    import hdlab.situation_reader as SR
+    from hdlab.scene_segment import parse_conll_sentences
+    grabbed = {}
+    orig = SR._build_entities
+
+    def spy(role_mentions, *a, **k):
+        grabbed.setdefault("m", role_mentions)
+        return orig(role_mentions, *a, **k)
+
+    SR._build_entities = spy
+    try:
+        sm = SR.SituationReader().read(conll_path)
+    finally:
+        SR._build_entities = orig
+    return grabbed.get("m", []), parse_conll_sentences(conll_path), sm
+
+
+def _by_sent_from(role_mentions):
+    """The hand-off the belief organ never receives: mentions bucketed by sentence, exactly the shape
+    `_cluster_covering` reads (`wtok_start`, `span_toks`, `head`, `cluster`)."""
+    bs = {}
+    for m in role_mentions:
+        si = m.get("sent_idx")
+        if si is None:
+            continue
+        bs.setdefault(int(si), []).append(m)
+    return bs
+
+
+def _csub_status_events(sents, by_sent, fact_cluster, fact_aliases, value_vocab, mod):
+    """STATUS extraction that REUSES THE READER'S OWN COPULAR-SUBJECT ORGAN.
+
+    `hdlab.attachment_arm.cop_subject_pairs(toks, pos)` returns (predicate, subject) 1-based pairs for
+    every copular predication in a sentence.  It is the LIVE, board-validated organ (pri 113/117: the
+    merged construction set -- inverted / fronted / locative / wh / clause-final / parenthetical -- plus
+    the right-hand-head and clausal-subject corrections the pri-117 board A/B paid for).  The belief
+    reader's own status extractor was re-implementing a copular-subject scan and getting it wrong; this
+    arm deletes the re-implementation and calls the organ.  ONE BRAIN STRUCTURE = ONE ORGAN WITH ARMS.
+
+    Same veridicality gate as the organ's removed spaCy branch (a state inside a REPORTED clause is the
+    content of a report, not asserted reality; FACTIVE verbs are deliberately not report cues --
+    Kiparsky & Kiparsky 1970).  Brain-foundational: the reader's own glass-box tagger, no external tool.
+    """
+    from hdlab.attachment_arm import cop_subject_pairs
+    fal = {a.lower() for a in fact_aliases}
+    vocab = {v.lower() for v in value_vocab}
+    tagger, _parser = mod._frontend()
+    out, binds = [], {"by_alias": 0, "by_cluster": 0}
+    for i, toks in enumerate(sents):
+        if not toks or len(toks) > 120:
+            continue
+        if {t.lower() for t in toks} & mod._REPORT_CUES:
+            continue
+        upos = tagger.tag(list(toks))
+        noms = by_sent.get(i, [])
+        for (pred, subj) in cop_subject_pairs(list(toks), list(upos)):
+            hit = None
+            if mod._norm(toks[subj - 1]) in fal:
+                hit = "by_alias"
+            elif fact_cluster is not None and mod._cluster_covering(noms, subj - 1) == fact_cluster:
+                hit = "by_cluster"
+            if hit is None:
+                continue
+            val = mod._norm(toks[pred - 1])
+            if val in vocab:
+                out.append((val, i))
+                binds[hit] += 1
+    return out, binds
+
+
+def _shipped_status_events(sents, by_sent, fact_cluster, fact_aliases, value_vocab, mod):
+    """The organ AS SHIPPED, instrumented to report WHY each subject matched (alias vs cluster) so the
+    mention hand-off's contribution is counted rather than inferred."""
+    from hdlab.thematic_role_labeler import lemma_verb
+    fal = {a.lower() for a in fact_aliases}
+    vocab = {v.lower() for v in value_vocab}
+    tagger, parser = mod._frontend()
+    out, binds = [], {"by_alias": 0, "by_cluster": 0}
+    for i, toks in enumerate(sents):
+        if not toks or len(toks) > 120:
+            continue
+        upos = tagger.tag(list(toks))
+        heads = parser.parse(list(toks), upos).heads
+        noms = by_sent.get(i, [])
+        for v in range(1, len(toks) + 1):
+            if lemma_verb(toks[v - 1]) not in mod.COPULAR:
+                continue
+            subj = [k for k in range(1, len(toks) + 1) if heads.get(k) == v and mod._norm(toks[k - 1])]
+            hit = None
+            for k in subj:
+                if mod._norm(toks[k - 1]) in fal:
+                    hit = "by_alias"; break
+                if fact_cluster is not None and mod._cluster_covering(noms, k - 1) == fact_cluster:
+                    hit = "by_cluster"; break
+            if hit is None:
+                continue
+            val = mod._status_value(toks, upos, heads, v, value_vocab)
+            if val:
+                out.append((val, i)); binds[hit] += 1
+    return out, binds
+
+
+def arm_h_handoff_2x2(n_docs=6):
+    """A x B, measured as a 2x2 so the ORDERING question is answered rather than assumed.
+
+    A = the mention hand-off (situation_reader.py:2965 gives the belief organ an EMPTY stream; :4995
+        gives SPACE `mentions=role_mentions`).
+    B = the copular-subject read (the organ's own scan vs the reader's `cop_subject_pairs` organ).
+
+    Population: GUM narrative documents through the LIVE reader.  The belief instrument's own gold
+    CANNOT be used here and that is itself a finding -- its items are bare sentence lists with no coref
+    column and `fact_cluster` is None on all 19, so neither rung of the hand-off can fire on it.
+    Each document supplies its own tracked facts: every entity FILE the reader built with >= 2 mentions
+    and a nominal head becomes a tracked fact (aliases = that head, fact_cluster = the reader's own
+    cluster id), and the value vocabulary is the document's own copular predicate tokens.
+    """
+    from experiments.exp_board_rows_on_the_reader_v1 import _gum_test_docs, _write_two_conll
+    organ, _ = install_alias()
+    outdir = os.path.join(get_output_dir(), "gum")
+    os.makedirs(outdir, exist_ok=True)
+    docs, _g = _gum_test_docs(n_docs)
+
+    cells = {}          # (mentions_on, extractor) -> {"events": n, "by_alias": n, "by_cluster": n}
+    per_doc = []
+    n_facts = 0
+    for d in docs:
+        p = _write_two_conll(d, outdir)[0]
+        mentions, sents, _sm = _reader_mentions(p)
+        sents = [list(s) for s in sents if s]
+        bs_full = _by_sent_from(mentions)
+        bs_empty = {i: [] for i in range(len(sents))}
+        # THE THIRD MENTION STATE, and the one that turned out to matter.  The reader's raw stream carries
+        # TWO DISJOINT ENTITY-FILE ID SPACES (situation_reader.py:4920-4924): nominal mentions are re-filed
+        # under NEGATIVE online cluster ids while pronoun mentions keep their POSITIVE coref-column ids.
+        # Measured on 3 GUM documents: 744 nominal mentions all negative, 345 pronoun mentions all
+        # non-negative, and 0 of 345 pronoun ids shared with ANY nominal mention.  So binding a tracked
+        # entity across a name -> pronoun boundary through `m["cluster"]` returns nothing BY CONSTRUCTION.
+        # pri 137's proposed `hdlab.situation_reader.unify_entity_files` is the join that bridges them,
+        # using the reader's OWN pronoun resolutions; it is not on the tree yet, so its cell's own copy is
+        # used here and the provenance is reported.
+        from experiments.exp_space_ground_lever_live_v1 import _unify_local, unify_impl
+        _fn, _prov = unify_impl()
+        uni_mentions, _nlinks = _unify_local(mentions, getattr(_sm, "coref_resolutions", None) or [])
+        bs_uni = _by_sent_from(uni_mentions)
+
+        # the document's own copular predicate vocabulary (what a status value could be here)
+        from hdlab.attachment_arm import cop_subject_pairs
+        tagger, _pp = organ._frontend()
+        vocab = set()
+        for toks in sents[:80]:
+            if not toks or len(toks) > 120:
+                continue
+            up = tagger.tag(list(toks))
+            for (pred, _s) in cop_subject_pairs(list(toks), list(up)):
+                vocab.add(organ._norm(toks[pred - 1]))
+        vocab = sorted(vocab)
+
+        # tracked facts = the reader's own entity files with >= 2 mentions and a nominal head
+        byc = {}
+        for m in uni_mentions:                      # tracked facts are named on the UNIFIED files
+            if m.get("cluster") is None:
+                continue
+            byc.setdefault(m["cluster"], []).append(m)
+        facts = []
+        for cid, ms in sorted(byc.items(), key=lambda kv: -len(kv[1]))[:12]:
+            heads = [str(m.get("head", "")).lower() for m in ms if not m.get("is_pronoun")]
+            heads = [h for h in heads if h.isalpha()]
+            if len(ms) < 2 or not heads:
+                continue
+            facts.append((cid, [heads[0]]))
+        n_facts += len(facts)
+
+        dcell = {}
+        for (cid, aliases) in facts:
+            for mon in ("OFF", "RAW", "UNIFIED"):
+                for ex_name, ex in (("shipped", _shipped_status_events), ("csub_organ", _csub_status_events)):
+                    bsx = {"OFF": bs_empty, "RAW": bs_full, "UNIFIED": bs_uni}[mon]
+                    ev, b = ex(sents[:80], bsx, cid, aliases, vocab, organ)
+                    k = (mon, ex_name)
+                    c = cells.setdefault(k, {"events": 0, "by_alias": 0, "by_cluster": 0})
+                    c["events"] += len(ev); c["by_alias"] += b["by_alias"]; c["by_cluster"] += b["by_cluster"]
+                    dcell[str(k)] = dcell.get(str(k), 0) + len(ev)
+        per_doc.append({"doc": d.docid, "n_sents": len(sents), "n_mentions": len(mentions),
+                        "n_facts": len(facts), "n_vocab": len(vocab), "events": dcell})
+
+    out = {"n_docs": len(docs), "n_tracked_facts": n_facts, "per_doc": per_doc,
+           "unify_provenance": _prov,
+           "cells": {("mentions_%s x %s" % (k[0], k[1])): v for k, v in cells.items()}}
+    g = lambda mon, ex: cells.get((mon, ex), {"events": 0, "by_cluster": 0})
+    out["reading"] = {
+        "handoff_RAW_stream (shipped, OFF->RAW)":
+            [g("OFF", "shipped")["events"], g("RAW", "shipped")["events"]],
+        "handoff_UNIFIED_stream (shipped, OFF->UNIFIED)":
+            [g("OFF", "shipped")["events"], g("UNIFIED", "shipped")["events"]],
+        "copular_organ_alone (mentions OFF, shipped->csub)":
+            [g("OFF", "shipped")["events"], g("OFF", "csub_organ")["events"]],
+        "both (UNIFIED + csub organ)": g("UNIFIED", "csub_organ")["events"],
+        "cluster_binds_RAW (shipped / csub)":
+            [g("RAW", "shipped")["by_cluster"], g("RAW", "csub_organ")["by_cluster"]],
+        "cluster_binds_UNIFIED (shipped / csub)":
+            [g("UNIFIED", "shipped")["by_cluster"], g("UNIFIED", "csub_organ")["by_cluster"]],
+    }
+    return out
+
+
+def arm_h2_instrument_end_to_end(smoke=False):
+    """B on the WHOLE belief instrument, not only the 10 gold status events: swap the organ's status
+    extractor for the `cop_subject_pairs` arm and re-run exp_belief_at_t_end_to_end_v1 end to end."""
+    organ, _ = install_alias()
+    saved = organ.extract_status_events
+
+    def run_once():
+        import experiments.exp_belief_at_t_end_to_end_v1 as E
+        for n in [n for n in list(sys.modules) if n.startswith("experiments.exp_belief_at_t")]:
+            sys.modules.pop(n, None)
+        import experiments.exp_belief_at_t_end_to_end_v1 as E
+        return E.run(smoke=smoke, n_boot=(200 if smoke else 2000), write=False)
+
+    def pick(d):
+        """FLATTEN recursively.  A first version of this arm collected only TOP-LEVEL numeric keys and
+        therefore compared `n_items` and `n_queries` and nothing else -- every accuracy number in this
+        cell is nested one or two dicts down, so the arm could not have detected a headline move and a
+        "the headline did not change" reading would have been unfounded.  Flattened, it compares them all.
+        """
+        def flat(x, pre=""):
+            o = {}
+            if isinstance(x, dict):
+                for k in sorted(x, key=str):
+                    o.update(flat(x[k], pre + str(k) + "."))
+            elif isinstance(x, (int, float)) and not isinstance(x, bool):
+                o[pre[:-1]] = x
+            return o
+        return {sl: flat(d.get(sl) or {}) for sl in ("modern", "real")}
+
+    before = pick(run_once())
+    try:
+        def patched(sents, by_sent, fact_cluster, fact_aliases, value_vocab, nlp=None):
+            ev, _b = _csub_status_events(sents, by_sent, fact_cluster, fact_aliases, value_vocab, organ)
+            return ev
+        organ.extract_status_events = patched
+        after = pick(run_once())
+    finally:
+        organ.extract_status_events = saved
+
+    moved = []
+    for sl in sorted(set(before) | set(after)):
+        for k in sorted(set(before.get(sl, {})) | set(after.get(sl, {}))):
+            b, a = before.get(sl, {}).get(k), after.get(sl, {}).get(k)
+            if b != a:
+                moved.append({"slice": sl, "key": k, "before_shipped": b, "after_csub_organ": a,
+                              "delta": (round(a - b, 4) if isinstance(a, (int, float))
+                                        and isinstance(b, (int, float)) else None)})
+    return {"before_shipped": before, "after_csub_organ": after, "moved": moved,
+            "identical": not moved}
+
+
+def arm_i_copula_census():
+    """Who else assumes the copula is the HEAD?  Counted, not guessed."""
+    import re
+    hits, checked = [], 0
+    for sub in ("hdlab", "experiments"):
+        d = os.path.join(_REPO, sub)
+        for f in sorted(os.listdir(d)):
+            if not f.endswith(".py"):
+                continue
+            src = open(os.path.join(d, f), encoding="utf-8", errors="replace").read()
+            checked += 1
+            # the signature of the defect: a COPULAR-verb loop that then asks for that verb's DEPENDENTS
+            if not re.search(r"COPULAR|COP_FORMS|_BE_AUX|copular", src):
+                continue
+            for m in re.finditer(r"heads\.get\((\w+)\)\s*==\s*(\w+)", src):
+                ln = src[:m.start()].count("\n") + 1
+                ctx = src[max(0, m.start() - 900):m.start()]
+                if re.search(r"(COPULAR|COP_FORMS)", ctx):
+                    hits.append({"file": "%s/%s" % (sub, f), "line": ln,
+                                 "code": src.splitlines()[ln - 1].strip()[:100]})
+    return {"files_scanned": checked, "n_sites": len(hits), "sites": hits,
+            "note": ("A site is a `heads.get(k) == v` lookup within ~900 chars after a COPULAR/COP_FORMS "
+                     "reference, i.e. 'find what depends on the copula'. Under UD nothing does.")}
+
+
+def arm_j_track_star_audit(n_docs=6):
+    """E: every dimension computed on the DEFAULT read, whether a board row scores it, and its read cost."""
+    import re
+    import time
+    from experiments.exp_board_rows_on_the_reader_v1 import _gum_test_docs, _write_two_conll
+    from hdlab.situation_reader import SituationReader
+    import inspect
+
+    sig = inspect.signature(SituationReader.__init__)
+    flags = {k: v.default for k, v in sig.parameters.items()
+             if isinstance(v.default, bool) and re.match(r"^(track_|bind_|predict_|resolve_|discover_)", k)}
+    default_on = sorted(k for k, v in flags.items() if v)
+
+    board = open(os.path.join(_REPO, "experiments", "exp_board_rows_on_the_reader_v1.py"),
+                 encoding="utf-8", errors="replace").read()
+    # the situation-model FIELD each flag produces, and whether the board ever reads it
+    field_of = {"track_belief": ("believes", "knows"), "track_space": ("locations",),
+                "track_world_state": ("world_state",), "bind_entity_states": ("entity_states",
+                                                                              "state_register"),
+                "track_goals": ("goals",), "bind_event_tokens": ("event_tokens", "episodic_store"),
+                "track_coherence": ("inferred_coherence_links",),
+                "track_spatial_reasoning": ("spatial_still_at",),
+                "predict_surprisal": ("surprisal",), "resolve_commonnouns": ("commonnoun_resolution",),
+                "discover_pronouns": ("pronoun_abstentions",)}
+    rows = []
+    for f in default_on:
+        fields = field_of.get(f, ())
+        scored = sorted({fl for fl in fields if re.search(r"sm\.%s\b" % fl, board)})
+        rows.append({"flag": f, "fields": list(fields) or ["(unmapped)"],
+                     "board_reads": scored, "scored_by_a_board_row": bool(scored)})
+
+    outdir = os.path.join(get_output_dir(), "gum")
+    os.makedirs(outdir, exist_ok=True)
+    docs, _g = _gum_test_docs(n_docs)
+    paths = [_write_two_conll(d, outdir)[0] for d in docs]
+    t0 = time.time()
+    for p in paths:
+        SituationReader().read(p)
+    t_default = time.time() - t0
+    off = {f: False for f in ("track_belief", "track_space", "track_world_state", "bind_entity_states",
+                              "bind_event_tokens") if f in flags}
+    t1 = time.time()
+    for p in paths:
+        SituationReader(**off).read(p)
+    t_off = time.time() - t1
+    return {"default_on_flags": default_on, "rows": rows,
+            "n_unscored": sum(1 for r in rows if not r["scored_by_a_board_row"]),
+            "unscored": [r["flag"] for r in rows if not r["scored_by_a_board_row"]],
+            "read_time_s": {"n_docs": len(paths), "default": round(t_default, 2),
+                            "five_dimensions_off": round(t_off, 2),
+                            "cost_of_the_five_s": round(t_default - t_off, 2),
+                            "cost_share": (round((t_default - t_off) / t_default, 4) if t_default else None),
+                            "flags_turned_off": sorted(off)}}
+
 # ===========================================================================================
 # run / self-test
 # ===========================================================================================
@@ -813,8 +1163,16 @@ def run(smoke=False, write=True, arms=None) -> dict:
         out["F_no_standin"] = arm_f_poison(n_docs=(1 if smoke else 2))
     if "G" in arms:
         out["G_prototype"] = arm_g_prototype()
+    if "H" in arms:
+        out["H_handoff_2x2"] = arm_h_handoff_2x2(n_docs=(2 if smoke else 6))
+        out["H2_instrument_end_to_end"] = arm_h2_instrument_end_to_end(smoke=smoke)
+    if "I" in arms:
+        out["I_copula_census"] = arm_i_copula_census()
+    if "J" in arms:
+        out["J_track_star_audit"] = arm_j_track_star_audit(n_docs=(2 if smoke else 6))
     if write:
-        d = get_output_dir(ANCHOR + ("_smoke" if smoke else ""))
+        phase7 = any(a in arms for a in ("H", "I", "J"))
+        d = get_output_dir(ANCHOR + ("_phase7" if phase7 else "") + ("_smoke" if smoke else ""))
         os.makedirs(d, exist_ok=True)
         with open(os.path.join(d, "metrics.json"), "w", encoding="utf-8") as f:
             json.dump(out, f, indent=2, default=str)

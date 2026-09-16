@@ -1,0 +1,81 @@
+diff --git a/hdlab/situation_reader.py b/hdlab/situation_reader.py
+index bde63ee5d..53be00c61 100644
+--- a/hdlab/situation_reader.py
++++ b/hdlab/situation_reader.py
+@@ -2941,7 +2941,7 @@ class SituationReader:
+         u = self._cached_tag(toks)
+         return u, self._cached_parse_heads(toks, u)
+ 
+-    def _read_belief(self, sm, sents) -> None:
++    def _read_belief(self, sm, sents, mentions=None) -> None:
+         """Opt-in BELIEF/ToM dimension (default-off; wired 2026-08-31 from the owner-DONE problem
+         the_belief_dimension_is_never_driven_by_the_readers_own_extraction_on_real_prose). Bind two QUERY
+         callables to THIS passage's own sentences: sm.believes(agent_aliases, fact, t) and sm.knows(...).
+@@ -2961,9 +2961,54 @@ class SituationReader:
+             from hdlab.perceptual_access_ledger import PerceptualAccessLedger
+             self._belief_led = PerceptualAccessLedger()   # spaCy lazy-loaded on first perception use
+         led = self._belief_led
++        # THE MENTION HAND-OFF (pri 139 Phase 7).  Until 2026-09-16 this line was
++        #     by_sent = {i: [] for i in range(len(sents))}
++        # -- the belief organ was handed an EMPTY nominal-mention stream, while fifteen lines earlier the
++        # SPACE dimension receives `mentions=role_mentions` (pri 125's hand-off, `_read_space(...)`).
++        # `by_sent` is what `hdlab.belief_reader.extract_status_events` reads to bind the tracked fact by
++        # COREF CLUSTER (`_cluster_covering`) rather than by literal surface form, so with an empty stream
++        # that arm could never fire: the tracked entity had to be spelled the same way every time.
++        # Zwaan & Radvansky's situation model indexes state by the ENTITY, not by the string; the reader
++        # already knows which mentions are the same individual, and was not telling the belief organ.
+         by_sent = {i: [] for i in range(len(sents))}
++        for _m in (mentions or []):
++            _si = _m.get("sent_idx")
++            if _si is not None and int(_si) in by_sent:
++                by_sent[int(_si)].append(_m)
++
++        def _fact_cluster(fact):
++            """Resolve the tracked fact to one of the reader's OWN entity files.
++
++            The SECOND rung of the hand-off, and the one that is easy to miss: handing over the mentions
++            alone changes nothing, because `extract_status_events` only consults them when the fact spec
++            carries a `fact_cluster`, and no caller has ever supplied one (all 19 belief-gold items pass
++            None, and so did this method).  A `fact` is named by its ALIASES; the reader's coref has
++            already filed every mention into an entity file; so the fact IS the file its alias-mentions
++            were filed under (majority file, ties broken by the earliest mention).  Caller-supplied
++            `fact_cluster` always wins.
++            """
++            if fact.get("fact_cluster") is not None:
++                return fact["fact_cluster"]
++            als = {str(a).lower() for a in fact.get("fact_aliases", ())}
++            if not als or not mentions:
++                return None
++            votes = {}
++            for _m in mentions:
++                if _m.get("cluster") is None or str(_m.get("head", "")).lower() not in als:
++                    continue
++                k = _m["cluster"]
++                v = votes.setdefault(k, [0, _m.get("midx", 0)])
++                v[0] += 1
++                v[1] = min(v[1], _m.get("midx", 0))
++            if not votes:
++                return None
++            return sorted(votes.items(), key=lambda kv: (-kv[1][0], kv[1][1]))[0][0]
+ 
+         def _drive(fact, agent_aliases):
++            cid = _fact_cluster(fact)
++            if cid is not None and fact.get("fact_cluster") is None:
++                fact = dict(fact)
++                fact["fact_cluster"] = cid
+             events, observed, agent, _re, _ba, _src = BR.drive(sents, by_sent, fact, agent_aliases, led)
+             return events, observed, agent, str(fact["fact_aliases"][0]).lower()
+ 
+@@ -5007,8 +5052,10 @@ class SituationReader:
+                 foreground_gate=self.causation_foreground_gate,
+                 lexicon=self._causation_lex)
+         if self.track_belief:
+-            # BELIEF/ToM dimension: bind sm.believes / sm.knows query callables to this passage
+-            self._read_belief(sm, sents)
++            # BELIEF/ToM dimension: bind sm.believes / sm.knows query callables to this passage.
++            # pri 139 Phase 7: hand it the reader's OWN mention stream, the way _read_space gets it at
++            # `mentions=role_mentions` above -- without it the organ's entity-file binding cannot fire.
++            self._read_belief(sm, sents, mentions=role_mentions)
+         if self.predict_revise:
+             # PARSE-RECALL drop-fill: recover the DROPPED patient the batch parse missed (runs AFTER
+             # causation/timeline so it only fills genuine '?' drops, and BEFORE the backbone so a bound
