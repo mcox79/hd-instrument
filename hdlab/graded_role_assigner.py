@@ -41,6 +41,10 @@ __bf_status__ = "BF_SPIRIT"   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVER
 __bf_verified__ = "2026-09-09 operation/math audit (VERIFIED_BF_LEDGER)"
 __bf_note__ = "2026-09-14 pri108 NMOD CLASS + CUE SET v4 (self-gated on the asset cue_set key): a nominal licensed by a nominal is a PROPERTY of a thing, not an oblique participant of an event -- UD-EWT test 700, gold heads: gold nmod 0/489 -> 0.7157 CI-sep, gold obl 0.8081 -> 0.8397 CI-sep UP, all expressible nominals 0.6746 -> 0.8528 CI-sep, core arguments +0.0084 n.s.; LIVE frontend Parser heads: nmod 0 -> 0.6667, all expressible 0.5774 -> 0.7061 CI-sep, core +0.0025 n.s.; the ENGLISH GENITIVE as case VALUES, the arc-free LICENSOR cue (Late Closure) read only where a case marker exists, no left-case-marking of a relative pronoun, and the phrasal verb as a stored (lemma+particle) value | 2026-09-13 pri103 CUE SET v3 (self-gated on the asset cue_set key): argument RANK over the verb dependents (precision-gated on the head posterior), the there-BE CONSTRUCTION as a configuration, LEXICAL case with a relativizer-stopped scan, the copula read in both orders, and the ARGUMENT-HEAD population (quantifier/numeral/nominalised-adjective heads) -- UD-EWT test 700 gold heads: core role recall 0.8655 -> 0.9198 CI-sep, previously unlabelled arguments 0.000 -> 0.838 | Competition-Model op pinned; DEFAULT_VALIDITIES gold-FITTED+adopted; agent weights hand-set; UNACC hand-lexicon | 2026-09-12 coarse_roles: argument-role labeler, cue validities LEARNED on UD-EWT train (configuration-conditioned contrasts), live via arc_labeler.COMPETITION_ROLES"
 __bf_corrections__ = []   # append "YYYY-MM-DD <fix>: OLD -> NEW" when a fix RAISES the status
+# 2026-09-16 pri134 NON-ARGUMENT ARM (self-gated on the presence of its counts asset): the name-run chunk (pri 118),
+# the reduced predication (pri 110/117 predicate slot), the genitive case marker (v4) and the copula as tense carrier
+# give appos / flat / compound / nmod:poss / cop with NO supervised labeler -- UD-EWT test 2077 sentences, live chain:
+# the non-argument target population 0.0000 -> 0.7622 (twin 0.1039), the RETIRED perceptron 0.7081 (+0.0541 CI-sep).
 
 import json
 import functools
@@ -1718,6 +1722,495 @@ def roles_with_decisions(toks: Sequence[str], pos: Sequence[str], heads: Dict[in
     return out
 
 
+# ===============================================================================================================
+# THE NON-ARGUMENT ARM OF THE LABELS RUNG (pri 134, 2026-09-16).
+#
+# THE DEFECT IT REPAIRS.  pri 129 retired the frozen supervised relation labeler from the live read and routed
+# `crosstype_live_adapter` here.  `coarse_roles` labels ARGUMENT relations only, over the argument-head
+# population, so on the reader's own parse every non-argument token read `dep`: no `appos`, no `flat`, no
+# `compound`, no `nmod:poss` -- and no `cop`.  The crosstype definite->name bridge's four name-linking cues and
+# its Centering POSSESSIVE role key on exactly those strings, so they could not fire.
+#
+# HOW THE BRAIN DOES THIS, PER RELATION -- none of them needs a classifier:
+#   * A NAME RUN ("Mary Smith") is ONE referring expression stored and retrieved as a unit (Kripke 1980 rigid
+#     designation; Semenza 2006/2009 proper-name anomia, left temporal pole, ABOVE and fed by the category
+#     level).  The relation is the residue of that chunking -- pri 118's span-level NAME-RUN cue.
+#   * An APPOSITION ("Elizabeth, the doctor") is a REDUCED PREDICATION: the same construction as "Elizabeth is
+#     the doctor" without the copula (Pustet 2003 on copula optionality; Maienborn 2005 Kimian states; Bemis &
+#     Pylkkanen 2011 LATL property attribution).  The organ that detects a predication is the PREDICATE SLOT
+#     (pri 110/117, `attachment_arm.predicate_sites`, graded).  The comma is surface: only 24 of 105 UD-EWT
+#     appositions carry one (counted at pri 129).
+#   * A POSSESSIVE ("her brother", "Mary's dog") is CASE MARKING -- the Competition Model's strongest
+#     morphological cue (Bates & MacWhinney 1989) -- and `genitive_value` above already reads it (cue set v4).
+#   * A COPULA is the TENSE CARRIER of a non-verbal predication, the reason English inserts it (Pustet 2003;
+#     Bybee 1994 auxiliation); `attachment_arm.cop_complement` says which token it carries tense FOR.
+#   * The CONVENTION LAYER (det / case / cc / mark / amod / nummod / punct / aux) is not a computation the brain
+#     performs at all; it is the distributional residue of the category rung, so it is learned as counts.
+# Each is a CONSTRUCTION -- a form/GOVERNOR pairing recognised by cues whose VALIDITY is accrued from usage
+# (Goldberg 1995; MacWhinney's Competition Model for the decision rule).  So this is an ARM of this organ, not a
+# new organ: the SAME strength math (`strengths_from_counts`), the same additive activation, a counts asset, an
+# online `observe` path.
+#
+# THE DIVISION OF LABOUR THAT KEEPS THE ARMS DISJOINT.  `coarse_roles` decides ARGUMENT-vs-NOT; where it says
+# OTHER (`dep`) or NMOD (`nmod`) -- "a nominal licensed by a nominal is a PROPERTY of a thing", its own pri-108
+# words -- this arm refines.  The ONE exception is deliberate and measured (RUN_MEMBERS below): a NON-HEAD member
+# of a nominal run was never a separate slot-filler, so the CHUNKING level overrules the per-token argument read
+# there.  Set HDLAB_FINE_RUN_MEMBERS=0 to take even that away and leave every argument decision untouched.
+#
+# ARC-INDEPENDENT CUES (pri 108's lesson, applied here): "a cue whose whole purpose is to survive a WRONG arc
+# must not be looked up INSIDE the arc's configuration".  The name-run chunk, the genitive marker and the
+# predicate slot are read off the surface with no arc, so their strength is the GLOBAL contrast.
+#
+# INERT WITHOUT ITS ASSET: `load_fine_validities()` returns None when the counts file is absent and
+# `fine_relations` returns {} -- the caller then sees exactly the pre-pri-134 behaviour.
+# ===============================================================================================================
+FINE_CLASSES = ["flat", "compound", "appos", "nmod:poss", "nmod", "cop", "det", "case", "amod",
+                "nummod", "advmod", "cc", "mark", "punct", "aux", "acl", "advcl", "xcomp", "ccomp",
+                "conj", "dep"]
+FINE_IDX = {c: k for k, c in enumerate(FINE_CLASSES)}
+FINE_CUES = ("dcat", "gen", "run", "gap", "pslot", "hps", "crs", "runsym", "dist", "typepred", "zcop")
+GLOBAL_FINE_CUES = frozenset({"run", "runsym", "gen", "pslot", "typepred", "zcop"})   # read arc-INDEPENDENTLY ("GLOBAL|value")
+# THE RUN IS ONE UNIT, SO A RUN MEMBER IS NOT A SEPARATE ARGUMENT.  A name phrase / noun compound is ONE referring
+# expression filling ONE slot (Kripke 1980; Semenza 2006 -- the basis of the name-run account).  The ARGUMENT arm
+# decides per TOKEN, so it hands a core role to each NOUN of a run independently; measured on UD-EWT test that claims
+# 211 of 1,108 gold `compound` tokens as nsubj / obj / obl, and they never reach this arm.  With RUN_MEMBERS on, the
+# non-head members of a nominal run are in this population whatever the argument arm said -- the CHUNKING level, not
+# this arm, is what overrules it.  Measured cost to the CORE-ARGUMENT population: see the pri-134 SOLVED.
+RUN_MEMBERS = os.environ.get("HDLAB_FINE_RUN_MEMBERS", "0") == "1"   # 2026-09-16 landing (strategy): OFF. The lever wins the
+#   rung (+0.0126 CI-sep on UD non-argument tokens) but the FULL-corpus consumer run (257 GUM docs, pri 134 phase 7) shows it
+#   costs the bridge (recall/prec 0.2443/0.6515 OFF vs 0.2159/0.6230 ON) and the C3 consumer (0.1880 vs 0.1797); the
+#   consumer is the product. Risk stated: compound recall 0.5352 -> 0.4486 and the UD gain forfeited.
+_SUPERSENSE: Dict[str, str] = {}
+_SUPERSENSE_ASSET = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                                 "data", "frontend_assets", "noun_supersense_mfs_v1.json")
+ARG_DEPS = frozenset({"nsubj", "obj", "nsubj:pass", "obl:agent", "obl", "iobj"})
+_NOMH = ("NOUN", "PROPN")
+_COP_SURFACE = frozenset({"be", "is", "are", "was", "were", "been", "being", "am"})
+_FINE_VALIDITIES_PATHS = tuple([q for q in (os.environ.get("HDLAB_FINE_VALIDITIES"),) if q] +
+                               [os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                                             "data", d, "fine_relation_validities_ud_ewt.json")
+                                for d in ("frontend_assets", "hook_state")])
+_FINE_VALIDITIES_CACHE = None
+_FINE_CACHE_SET = False
+
+
+def fine_of(dep: str) -> str:
+    """A UD deprel folded into the arm's class space.  Used by the OFFLINE learner (the teaching signal) and by
+    any scorer; never read at inference."""
+    full = dep or ""
+    d = full.split(":")[0]
+    if full == "nmod:poss":
+        return "nmod:poss"
+    if full in CONVENTION_SUBTYPES:      # nmod:desc -- the UD-2.16 convention split of a descriptive nominal
+        return "compound"
+    if d == "nmod":
+        return "nmod"
+    if d in FINE_IDX:
+        return d
+    return "dep"
+
+
+def nominal_runs(pos: Sequence[str], toks: Sequence[str]):
+    """Maximal runs of adjacent nominal heads -- a NAME PHRASE or a NOUN COMPOUND read as ONE stored unit; a
+    name-internal function word ("Game OF Thrones") does not break the unit.  (start1, end1, kind)."""
+    from hdlab.coref import NAME_INTERNAL_FUNCTION
+    n = len(pos); runs = []; i = 0
+    while i < n:
+        if pos[i] not in _NOMH:
+            i += 1
+            continue
+        j = i
+        while j + 1 < n:
+            if pos[j + 1] in _NOMH:
+                j += 1
+                continue
+            if (pos[i] == "PROPN" and j + 2 < n and pos[j + 2] == "PROPN"
+                    and str(toks[j + 1]).lower() in NAME_INTERNAL_FUNCTION):
+                j += 2
+                continue
+            break
+        kinds = {pos[k] for k in range(i, j + 1) if pos[k] in _NOMH}
+        runs.append((i + 1, j + 1, "propn" if kinds == {"PROPN"} else ("noun" if kinds == {"NOUN"} else "mixed")))
+        i = j + 1
+    return runs
+
+
+def _run_index(pos: Sequence[str], toks: Sequence[str]) -> Dict[int, tuple]:
+    out = {}
+    for (a, b, k) in nominal_runs(pos, toks):
+        if b > a:
+            for t in range(a, b + 1):
+                out[t] = (a, b, k)
+    return out
+
+
+def _fine_gap(toks: Sequence[str], pos: Sequence[str], i: int, h: int) -> str:
+    """The intervening material between dependent and governor: the surface signature a construction is read
+    off (a comma for the LOOSE appositive, a copular BE for the predication, a determiner for a fresh nominal,
+    an adposition for a case-marked oblique)."""
+    a, b = (i, h) if i < h else (h, i)
+    if b - a <= 1:
+        return "adj"
+    mid = list(range(a + 1, b))
+    if len(mid) > 6:
+        return "far"
+    lows = [str(toks[k - 1]).lower() for k in mid]
+    cats = [pos[k - 1] for k in mid]
+    if any(w in _COP_SURFACE for w in lows) and all(c in ("AUX", "VERB", "ADV", "DET", "ADJ", "NUM", "PART") for c in cats):
+        return "be"
+    if lows[0] == ",":
+        return "comma"
+    if any(w == "," for w in lows):
+        return "comma2"
+    if all(c in ("DET", "ADJ", "NUM", "ADV") for c in cats):
+        return "det"
+    if cats[0] == "ADP" or cats[-1] == "ADP":
+        return "adp"
+    if all(c == "PUNCT" for c in cats):
+        return "punct"
+    return "mix"
+
+
+def _supersense(lemma: str) -> str:
+    """The ANTERIOR-TEMPORAL TYPE READ: the most-frequent-sense noun supersense of a lemma, from the frozen offline
+    asset (no nltk at inference).  This is the hub-level knowledge an apposition USES -- "Elizabeth, the doctor"
+    attributes a noun.person TYPE to a referent (Rogers & McClelland 2004; Patterson, Nestor & Rogers 2007)."""
+    if not _SUPERSENSE:
+        try:
+            with open(_SUPERSENSE_ASSET, encoding="utf-8") as f:
+                _SUPERSENSE.update(json.load(f)["table"])
+        except Exception:
+            _SUPERSENSE["__none__"] = ""
+    return _SUPERSENSE.get(str(lemma).lower().strip(".,'\"!?;:-()[]"), "")
+
+
+def _left_domains(pos, toks, runlist=None) -> Dict[int, object]:
+    """{1-based i: the nearest nominal domain (start1, end1, kind) strictly to the LEFT of i, or None} in ONE
+    pass -- the appositive's antecedent domain, computed once per sentence."""
+    runs = runlist if runlist is not None else nominal_runs(pos, toks)
+    out = {}
+    cur = None
+    k = 0
+    for i in range(1, len(pos) + 1):
+        while k < len(runs) and runs[k][1] < i:
+            cur = runs[k]
+            k += 1
+        out[i] = cur
+    return out
+
+
+def _typepred_value(toks, pos, i, ldom) -> str:
+    """AN APPOSITION IS A TYPE ATTRIBUTION, NOT A COMMA.  An appositive PREDICATES a type of the referent to its
+    left, so the cue is the pair of hub TYPES, not the punctuation between them."""
+    if pos[i - 1] not in _NOMH:
+        return "na"
+    left = (ldom or {}).get(i)
+    if left is None:
+        return "noleft"
+    ss = _supersense(toks[i - 1]) or ("PROPN" if pos[i - 1] == "PROPN" else "unk")
+    lss = _supersense(toks[left[1] - 1]) or ("PROPN" if pos[left[1] - 1] == "PROPN" else "unk")
+    return "%s|%s|%s" % (lss.replace("noun.", ""), ss.replace("noun.", ""),
+                         "same" if (ss and ss == lss) else "diff")
+
+
+def _zcop_strength(toks, pos, i, ldom, mat, tag_names):
+    """QUALITY PUSH 3 -- THE ZERO-COPULA PREDICATE SLOT.  `predicate_sites` opens a slot only at an overt copula,
+    so it is blind to the reduced predication that an apposition IS (measured: on "Elizabeth , the doctor ,
+    arrived" it returns the VERB and nothing for the appositive).  Here the predication organ's OWN functions are
+    asked the counterfactual the construction poses: insert a VIRTUAL copula in the gap to the left of this
+    nominal and read the slot it would open -- (1 - host_belief) * copular_available at that carrier (Pustet 2003:
+    zero-copula predication is the cross-linguistic norm; the appositive is the copula-less form)."""
+    if mat is None or pos[i - 1] not in _NOMH:
+        return None
+    left = (ldom or {}).get(i)
+    if left is None:
+        return None
+    try:
+        from hdlab.attachment_arm import host_belief, copular_available
+    except Exception:
+        return None
+    g = left[1]                                       # insert the virtual carrier right after the left domain
+    t2 = list(toks[:g]) + ["is"] + list(toks[g:])
+    p2 = list(pos[:g]) + ["AUX"] + list(pos[g:])
+    try:
+        ai = list(tag_names).index("AUX")
+    except ValueError:
+        return None
+    row = np.zeros((1, mat.shape[1]), dtype=float)
+    row[0, ai] = 1.0
+    m2 = np.concatenate([mat[:g], row, mat[g:]], axis=0)
+    try:
+        ca = float(copular_available(t2, p2, g))
+        if ca <= 0.0:
+            return 0.0
+        return float((1.0 - host_belief(t2, p2, m2, list(tag_names), g)) * ca)
+    except Exception:
+        return None
+
+
+def _ps_bin(v) -> str:
+    if v is None:
+        return "na"
+    v = float(v)
+    return "ps0" if v <= 0.0 else ("pslo" if v < 0.34 else ("psmid" if v < 0.67 else "pshi"))
+
+
+def fine_relation_cues(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int], i: int,
+                       sites=None, coarse=None, runs=None, ldom=None, mat=None,
+                       tag_names=None) -> Dict[str, str]:
+    """The cue VALUES fired for token i (1-based).  Every value comes from an organ the reader already runs:
+    the category rung (dcat + the configuration), the genitive case marker (`genitive_value`), the name-run
+    chunker (pri 118's `coref.span_caps_symbol`), the predicate slot (pri 110/117), and the ARGUMENT arm's own
+    read (`crs` -- the graded hand-off between the two arms of this organ)."""
+    from hdlab.coref import span_caps_symbol
+    h = int(heads.get(i, 0) or 0)
+    hcat = pos[h - 1] if 1 <= h <= len(pos) else "ROOT"
+    cues = {"config": "%s_%s" % (hcat, "pre" if (h == 0 or i < h) else "post"),
+            "dcat": pos[i - 1] if i - 1 < len(pos) else "X",
+            "gen": genitive_value(toks, pos, i) or "no"}
+    runs = runs if runs is not None else _run_index(pos, toks)
+    r = runs.get(i)
+    if r is None:
+        cues["run"] = "solo" if cues["dcat"] in _NOMH else "na"
+        cues["runsym"] = "na"
+    else:
+        a, b, kind = r
+        cues["run"] = "%s_%s" % (kind, "first" if i == a else ("last" if i == b else "mid"))
+        cues["runsym"] = span_caps_symbol([str(t) for t in toks[a - 1:b]], i - a,
+                                          first_is_sentence_initial=(a == 1))
+    cues["gap"] = _fine_gap(toks, pos, i, h) if h else "root"
+    sites = sites or {}
+    cues["pslot"] = _ps_bin(sites.get(i - 1)) if sites else "na"
+    cues["hps"] = _ps_bin(sites.get(h - 1)) if (sites and h) else "na"
+    cues["crs"] = (coarse or {}).get(i, "none")
+    _ld = ldom if ldom is not None else _left_domains(pos, toks)
+    cues["typepred"] = _typepred_value(toks, pos, i, _ld)
+    cues["zcop"] = _ps_bin(_zcop_strength(toks, pos, i, _ld, mat, tag_names))
+    d = abs(i - h) if h else 0
+    cues["dist"] = "d0" if d == 0 else ("d1" if d == 1 else ("d2" if d == 2 else ("d3_5" if d <= 5 else "d6")))
+    return cues
+
+
+def fine_relation_supports(cues, tab, cue_set=None) -> Dict[str, np.ndarray]:
+    S = {"prior": tab["prior"]}
+    cfg = cues["config"]
+    vec = tab["strength"].get("config", {}).get(cfg)
+    if vec is not None:
+        S["config"] = vec
+    for c in (cue_set if cue_set is not None else (tab.get("cue_set") or FINE_CUES)):
+        v = cues.get(c)
+        if v is None:
+            continue
+        key = ("GLOBAL|" + str(v)) if c in GLOBAL_FINE_CUES else ("%s|%s" % (cfg, v))
+        vec = tab["strength"].get(c, {}).get(key)
+        if vec is not None:
+            S[c] = vec
+    return S
+
+
+def fine_relation_posterior(cues, tab, cue_set=None) -> np.ndarray:
+    """The graded non-argument relation posterior (softmax of the additive cue competition) over FINE_CLASSES."""
+    S = fine_relation_supports(cues, tab, cue_set)
+    return softmax(net_activation(S, {c: 1.0 for c in S}), gain=1.0)
+
+
+def _run_nonhead(runs, i) -> bool:
+    """Is i a NON-HEAD member of a nominal run?  A propn run is headed by its FIRST token (UD `flat`), a noun
+    compound by its LAST (UD `compound`); a mixed run takes the English head-final default."""
+    r = runs.get(i)
+    if r is None:
+        return False
+    a, b, kind = r
+    return i != (a if kind == "propn" else b)
+
+
+def fine_population(toks, pos, heads, coarse, runs=None, run_members=None) -> list:
+    """The arm's population: every non-root token the ARGUMENT arm did not claim (it emitted nothing, `dep`, or
+    `nmod`), PLUS -- with RUN_MEMBERS on -- every non-head member of a nominal run, because a run is ONE referring
+    expression filling ONE slot.  Computable at read time -- no gold, no arc label."""
+    rm = RUN_MEMBERS if run_members is None else run_members
+    if rm and runs is None:
+        runs = _run_index(pos, toks)
+    out = []
+    for i in range(1, len(toks) + 1):
+        if not int(heads.get(i, 0) or 0):
+            continue
+        c = coarse.get(i)
+        if c is None or c in ("dep", "nmod") or (rm and _run_nonhead(runs, i)):
+            out.append(i)
+    return out
+
+
+def _construction_head(toks, pos, heads, i, rel, runs, copmap):
+    """The governor THE CONSTRUCTION ITSELF names -- a construction is a form/governor pairing, so the arm hands
+    both down, and the name-link survives an attachment error on the run member.  None = keep the arm's head."""
+    n = len(toks)
+    r = runs.get(i)
+    if rel == "flat" and r:
+        return r[0] if r[0] != i else None            # a NAME phrase is headed by its FIRST token
+    if rel == "compound" and r:
+        return r[1] if r[1] != i else None            # a NOUN compound by its LAST
+    if rel == "cop":
+        q = copmap.get(i)
+        return q if (q and q != i) else None
+    if rel == "appos":
+        for (_a, b, _k) in reversed(nominal_runs(pos, toks)):
+            if b < i:
+                return b                              # the nearest nominal domain to the left
+        return None
+    if rel in ("nmod:poss", "det", "amod", "nummod", "case"):
+        for j in range(i + 1, n + 1):
+            if pos[j - 1] in _NOMH:
+                k = j
+                while k + 1 <= n and pos[k] in _NOMH:
+                    k += 1
+                return k
+            if pos[j - 1] not in ("DET", "ADJ", "NUM", "ADV", "PART", "PUNCT"):
+                break
+        return None
+    return None
+
+
+def fine_relations(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
+                   validities: Optional[Dict[str, object]] = None, sites=None, coarse=None,
+                   cue_set=None, with_heads: bool = False, tau: float = 0.0, run_members=None,
+                   mat=None, tag_names=None):
+    """{1-based i: dep} (or {i: (dep, head)} with with_heads) over the non-argument population.
+    Returns {} when no validity asset is present -- the caller then sees the pre-pri-134 behaviour exactly."""
+    tab = validities if validities is not None else load_fine_validities()
+    if tab is None:
+        return {}
+    coarse = coarse or {}
+    _rl = nominal_runs(pos, toks)
+    runs = {t: (a, b, k) for (a, b, k) in _rl if b > a for t in range(a, b + 1)}
+    ldom = _left_domains(pos, toks, _rl)
+    copmap = {}
+    if with_heads:
+        try:
+            from hdlab.attachment_arm import cop_complement
+            for k in range(len(toks)):
+                if pos[k] == "AUX":
+                    q = cop_complement(list(toks), list(pos), k)
+                    if q is not None:
+                        copmap[k + 1] = q + 1
+        except Exception:
+            copmap = {}
+    out = {}
+    for i in fine_population(toks, pos, heads, coarse, runs, run_members):
+        cues = fine_relation_cues(toks, pos, heads, i, sites=sites, coarse=coarse, runs=runs,
+                                  ldom=ldom, mat=mat, tag_names=tag_names)
+        p = fine_relation_posterior(cues, tab, cue_set)
+        k = int(np.argmax(p))
+        if tau and float(p[k]) < tau:
+            continue
+        rel = FINE_CLASSES[k]
+        if with_heads:
+            hh = _construction_head(toks, pos, heads, i, rel, runs, copmap)
+            out[i] = (rel, hh if hh else int(heads.get(i, 0) or 0))
+        else:
+            out[i] = rel
+    return out
+
+
+def all_relations(toks: Sequence[str], pos: Sequence[str], heads: Dict[int, int],
+                  validities: Optional[Dict[str, object]] = None, sites=None, coarse=None,
+                  cue_set=None, with_heads: bool = False, run_members=None, mat=None, tag_names=None):
+    """THE LABELS RUNG'S FULL READ: the ARGUMENT arm's decisions, refined by the NON-ARGUMENT arm wherever the
+    argument competition said OTHER / NMOD.  A core argument label never moves, so every argument consumer is
+    byte-identical.  With no fine-validity asset this is exactly `coarse_roles`."""
+    coarse = dict(coarse if coarse is not None else coarse_roles(toks, pos, heads))
+    fine = fine_relations(toks, pos, heads, validities, sites=sites, coarse=coarse,
+                          cue_set=cue_set, with_heads=with_heads, run_members=run_members,
+                          mat=mat, tag_names=tag_names)
+    if with_heads:
+        out = {i: (d, int(heads.get(i, 0) or 0)) for i, d in coarse.items() if d in ARG_DEPS}
+        out.update(fine)
+        return out
+    out = {i: d for i, d in coarse.items() if d in ARG_DEPS}
+    out.update(fine)
+    return out
+
+
+def empty_fine_counts() -> Dict[str, object]:
+    K = len(FINE_CLASSES)
+    return {"prior": [0.0] * K, "config": {}, "cues": {c: {} for c in FINE_CUES}}
+
+
+def accrue_fine(counts, cues, rel, w: float = 1.0) -> None:
+    """ONE understood relation into the counts -- the whole learning rule, OFFLINE and ONLINE alike."""
+    k = FINE_IDX.get(rel)
+    if k is None:
+        return
+    K = len(FINE_CLASSES)
+    counts["prior"][k] += w
+    cfg = cues["config"]
+    counts["config"].setdefault(cfg, [0.0] * K)[k] += w
+    counts["config"].setdefault("GLOBAL", [0.0] * K)[k] += w      # the base the GLOBAL contrasts read against
+    for c in FINE_CUES:
+        v = cues.get(c)
+        if v is None:
+            continue
+        key = ("GLOBAL|" + str(v)) if c in GLOBAL_FINE_CUES else ("%s|%s" % (cfg, v))
+        counts["cues"].setdefault(c, {}).setdefault(key, [0.0] * K)[k] += w
+
+
+def fine_table_from_counts(counts, cue_set=None) -> Dict[str, object]:
+    built = strengths_from_counts(counts, 0.0)                    # THE ONE implementation of the math
+    return {"prior": built["prior"], "strength": built["strength"], "counts": counts,
+            "cue_set": tuple(cue_set) if cue_set else None}
+
+
+def observe_fine_relation_outcome(toks, pos, heads, i, rel, table=None, sites=None, coarse=None, w=1.0):
+    """PLASTICITY -- the brain is never frozen.  Accrue one understood relation into the SAME counts the
+    strengths are a pure function of, and rebuild them.  Persist with `save_fine_validities`."""
+    tab = table if table is not None else load_fine_validities()
+    if tab is None:
+        return None
+    cues = fine_relation_cues(toks, pos, heads, i, sites=sites, coarse=coarse)
+    accrue_fine(tab["counts"], cues, rel, w)
+    built = strengths_from_counts(tab["counts"], 0.0)
+    tab["prior"] = built["prior"]
+    tab["strength"] = built["strength"]
+    return tab
+
+
+def save_fine_validities(path: Optional[str] = None, table: Optional[Dict[str, object]] = None) -> str:
+    tab = table if table is not None else load_fine_validities()
+    p = path or _FINE_VALIDITIES_PATHS[0]
+    doc = {"source": "Competition-Model cue validities for the NON-ARGUMENT arm of the labels rung: counts "
+                     "accrued from the teaching corpus through the LIVE chain; strengths = "
+                     "strengths_from_counts(counts). Plastic: observe_fine_relation_outcome accrues one "
+                     "understood relation into the same counts.",
+           "classes": FINE_CLASSES, "cues": list(FINE_CUES), "counts": tab["counts"],
+           "cue_set": list(tab.get("cue_set") or FINE_CUES)}
+    os.makedirs(os.path.dirname(p), exist_ok=True)
+    with open(p, "w", encoding="ascii", newline="\n") as f:
+        json.dump(doc, f, indent=1)
+    return p
+
+
+def load_fine_validities(path: Optional[str] = None) -> Optional[Dict[str, object]]:
+    """The learned non-argument validity table, or None when no asset is on disk (the arm then abstains and
+    every caller is byte-identical to the pre-pri-134 organ)."""
+    global _FINE_VALIDITIES_CACHE, _FINE_CACHE_SET
+    if path is None and _FINE_CACHE_SET:
+        return _FINE_VALIDITIES_CACHE
+    paths = (path,) if path else _FINE_VALIDITIES_PATHS
+    tab = None
+    for p in paths:
+        try:
+            with open(p, encoding="ascii") as f:
+                doc = json.load(f)
+        except Exception:
+            continue
+        tab = fine_table_from_counts(doc["counts"], doc.get("cue_set"))
+        tab["classes"] = doc.get("classes", FINE_CLASSES)
+        break
+    if path is None:
+        _FINE_VALIDITIES_CACHE = tab
+        _FINE_CACHE_SET = True
+    return tab
+
 def by_governs(low, pos, p, maxscan=8):
     """Is the nominal at 0-based p the object of the passive-agent preposition 'by'? Scan left through
     NP-internal modifiers + coordination; a 'by' before any clause-blocking token -> by-PP member (the demoted
@@ -2000,6 +2493,24 @@ _CONSTR_COORD = frozenset(("and", "or", "nor"))
 _CONSTR_PP_SKIP = frozenset(("DET", "ADJ", "NUM"))   # NP-internal modifiers, WITHOUT PUNCT (a comma ends a phrase)
 
 
+def mention_head_wpos(m) -> int:
+    """THE WITHIN-SENTENCE INDEX OF A MENTION'S HEAD (pri 134 phase 7).
+
+    The mention schema (`coref.parse_litbank_conll`, coref.py:167) puts `wtok_start` at the SPAN START and the
+    HEAD LAST, so the head sits at `wtok_start + (gtok_end - gtok_start)`.  Two sites in this module read
+    `wtok_start` itself as the head index -- a CATEGORY test on the head, and the 1-based index handed to
+    `_calibrated_agent_prob` (which calls `is_arg_head` / `coarse_role_posterior` on it).  Both are therefore
+    already reading the DETERMINER on any multi-token mention, i.e. on every gold coref-column mention; the
+    reader's own stream hid it because `referent_per_np` emitted one-token spans.  A one-token mention is the
+    degenerate case where head == start, so this is byte-identical wherever the old reading was right."""
+    ws = int(m.get("wtok_start", 0) or 0)
+    gs, ge = m.get("gtok_start", -1), m.get("gtok_end", -1)
+    if isinstance(gs, int) and isinstance(ge, int) and 0 <= gs <= ge:
+        return ws + (ge - gs)
+    sp = m.get("span_toks")
+    return ws + (len(sp) - 1 if sp else 0)
+
+
 def _pp_governed_commastop(low, up, p):
     """Core-argument PP-government detector, comma-STOPPED (the deployable one -- mirrors
     experiments/exp_board_agent_noncanonical_v1._pp_governed_fixed): STOP the left-scan at any punctuation (a
@@ -2066,7 +2577,7 @@ def _existential_agent(toks, pos, v0, cands):
     if not any(low[i] == "there" and (pos[i] in ("PRON", "ADV")) for i in range(lo, min(hi, v0 + 1))):
         return None
     post = [c for c in cands if v0 < c["wtok_start"] < hi
-            and (pos[c["wtok_start"]] if c["wtok_start"] < len(pos) else None) in ("NOUN", "PROPN")]
+            and (pos[mention_head_wpos(c)] if mention_head_wpos(c) < len(pos) else None) in ("NOUN", "PROPN")]
     return min(post, key=lambda c: c["wtok_start"])["head"] if post else None
 
 
@@ -2151,7 +2662,7 @@ def agent_override_licensed(toks, pos, heads, v0, cands, cm_head, validities=Non
     rel = reliability if reliability is not None else load_margin_reliability()
     from hdlab.thematic_role_labeler import is_passive_predicate
     want = "BY_AGENT" if is_passive_predicate(list(toks), list(pos), v0 + 1, heads=heads) else "SUBJ"
-    idx = {str(c["head"]).lower(): c["wtok_start"] + 1 for c in cands}
+    idx = {str(c["head"]).lower(): mention_head_wpos(c) + 1 for c in cands}
     p_b = _calibrated_agent_prob(toks, pos, heads, idx.get(str(base["head"]).lower(), -1), want, tab, rel)
     p_c = _calibrated_agent_prob(toks, pos, heads, idx.get(str(cm_head).lower(), -1), want, tab, rel)
     th = AGENT_OVERRIDE_THETA if theta is None else float(theta)

@@ -928,3 +928,5 @@ head index (both already wrong on the gold path — §B). `HDLAB_RPN_SPAN=0` rev
 4. **MY OWN CUE HAD A DEAD BRANCH AND THE COUNT FOUND IT.** `same_chunk` could never fire (runs are disjoint,
    so the previous run can never overlap this one); fixing it moved 251 gold appositions into the bucket that
    explains them. *A cue with an unreachable value is a cue you have not read.*
+
+INTEGRATED_BY_STRATEGY 2026-09-16 03:32 local -- DONE by strategy: both diffs APPLIED (graded_role_assigner + crosstype_live_adapter; asset placed); reverify on the landed tree: cell --self-test 14/14 on the landed tree (S9 [landed]), test_affect_reroute_landing, test_crosstype_live_wire (corpus tier), test_deleak_crosstype_live_adapter (corpus tier) all green; the reader-driven board with run-members OFF (the consumer figures; the ON arm is the rung's own gain) (pri134a vs pri127a: headline 0.5088 == 0.5088, component 0.6201 == 0.6201, every model row byte-identical; run-members OFF). The coverage repair (_can_build accepts the reader's own mentions) is a live behaviour flip priced on the same board.
