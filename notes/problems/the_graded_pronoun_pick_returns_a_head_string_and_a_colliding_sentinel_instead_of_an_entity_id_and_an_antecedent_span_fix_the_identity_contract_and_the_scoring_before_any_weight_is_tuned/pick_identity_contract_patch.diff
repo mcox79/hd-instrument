@@ -1,0 +1,559 @@
+--- a/hdlab/coref.py
++++ b/hdlab/coref.py
+@@ -348,18 +348,24 @@
+     return bool(d.get("gender")) or bool(d.get("number"))
+ 
+ 
+-def discovered_pronoun_targets(mentions: List[dict], window: int = 0):
+-    """Schedule an anaphora question for every third-person pronoun in the DISCOVERED mention stream that
+-    has an accessible, phi-compatible PRIOR referent.  Returns (targets, abstentions):
+-      targets      the `build_pronoun_targets` schema; `antecedent` = the nearest prior compatible referent
+-                   (a schema slot and the floor's own pick -- NOT the resolver's answer, which is decided
+-                   downstream by cue-based retrieval over the whole accessible pool)
+-      abstentions  one {head, sent_idx, wtok_start} per third-person pronoun with NO accessible compatible
+-                   prior referent: the referent stays OPEN and the miss is RECORDED
+-    `window` = the accessibility window in sentences; 0 = the whole passage read so far (swept, not adopted).
+-    """
+-    targets: List[dict] = []
+-    abstentions: List[dict] = []
++def discovered_pronoun_targets(mentions: List[dict], window: int = 0, reader=None):
++    """THE QUESTION SET: ONE scheduled question for EVERY third-person pronoun in the DISCOVERED mention
++    stream -- the retrieval demand a pronoun opens exists whether or not a compatible referent is accessible,
++    and whether it is met is the RETRIEVAL's outcome, not the scheduler's (pri 131).  Returns a LIST in the
++    `build_pronoun_targets` schema:
++      {target, antecedent, midx_dist, sent_dist, schedule_reason}
++    `antecedent` = the nearest prior accessible phi-compatible referent -- a schema slot and the FLOOR's own
++    pick, NOT the resolver's answer (that is decided downstream by cue-based retrieval over the whole
++    accessible pool).  When there is none, `antecedent` is None and `schedule_reason` = 'no_compatible_prior':
++    the question is still ASKED, and the referent stays open unless the pick finds a file for it.
++    ONE LIST, ONE OUTCOME PER QUESTION: the reader emits exactly one `CorefResolution` per entry here, so
++    discovered == attempted + abstained and a consumer can align the two by index (the pri 122 board row
++    does exactly that).  `window` = the accessibility window in sentences (0 = the whole passage read so
++    far); `reader` supplies it when a caller has the reader rather than the number.
++    Gold cluster ids are not read here; they belong to the scorer."""
++    if reader is not None and not window:
++        window = int(getattr(reader, "pronoun_window", 0) or 0)
++    sched: List[dict] = []
+     prior: List[dict] = []
+     for m in mentions:
+         if m.get("is_pronoun") and is_anaphora_target(m.get("head")):
+@@ -369,14 +375,15 @@
+                      and phi_compatible(m, p)]
+             if cands:
+                 nearest = cands[-1]
+-                targets.append({"target": m, "antecedent": nearest,
+-                                "midx_dist": m["midx"] - nearest["midx"],
+-                                "sent_dist": m["sent_idx"] - nearest["sent_idx"]})
++                sched.append({"target": m, "antecedent": nearest,
++                              "midx_dist": m["midx"] - nearest["midx"],
++                              "sent_dist": m["sent_idx"] - nearest["sent_idx"],
++                              "schedule_reason": None})
+             else:
+-                abstentions.append({"head": m["head"], "sent_idx": m["sent_idx"],
+-                                    "wtok_start": m["wtok_start"]})
++                sched.append({"target": m, "antecedent": None, "midx_dist": 0, "sent_dist": 0,
++                              "schedule_reason": "no_compatible_prior"})
+         prior.append(m)
+-    return targets, abstentions
++    return sched
+ 
+ 
+ def retrievable_referents(mentions: List[dict]) -> List[dict]:
+@@ -437,20 +444,57 @@
+ NUMBER_AMBIGUOUS = frozenset({"they", "them", "their", "theirs", "themselves"})
+ 
+ 
++def mention_span(m) -> tuple:
++    """(sent_idx, wtok_start, wtok_end) -- the ANTECEDENT SPAN, so a consumer or a scorer can align the pick
++    by POSITION instead of by a head string.  The discovered referents are single-token (their content head);
++    a coref-column mention carries its own gtok extent."""
++    ws = int(m.get("wtok_start", -1))
++    gs, ge = m.get("gtok_start", -1), m.get("gtok_end", -1)
++    span = 0
++    if isinstance(gs, int) and isinstance(ge, int) and gs >= 0 and ge >= gs:
++        span = ge - gs
++    elif m.get("span_toks"):
++        span = max(0, len(m["span_toks"]) - 1)
++    return (int(m.get("sent_idx", -1)), ws, ws + span)
++
++
++def entity_key(m):
++    """THE IDENTITY BASIS OF THE RETRIEVAL (pri 131): the reader's OWN online entity-file id -- `m['cluster']`,
++    written by `entity_resolver.cluster` as -(file+1) for every non-pronoun mention -- and NEVER the head
++    string.  A pronoun is resolved to a DISCOURSE ENTITY, a file card / object file (Kahneman & Treisman 1992
++    object files; Heim 1982 file-change semantics), so two `doctor` mentions the reader kept apart are TWO
++    candidates with two histories and two cards, and a name plus the alias the reader merged into it are ONE.
++    Falls back to the head string only for a mention with no cluster at all (none on the live path)."""
++    c = m.get("cluster")
++    return c if c is not None else ("head:" + str(m.get("head", "")).lower())
++
++
+ def graded_pronoun_resolve(mentions: List[dict], targets: List[dict], window: int = 0,
+                            w_gender: float = 4.0, w_number: float = 0.0, w_focus: float = 1.0,
+-                           decay: float = 2.0):
+-    """ACT-R cue-based antecedent retrieval over a DISCOVERED mention stream, in reading order, one pass.
+-    Returns (records, abstentions); each record {pronoun, sent_idx, target_wpos, resolved_head, n_cands,
+-    sent_dist}.  `window` = the accessibility bound in sentences (0 = the whole passage read so far; SWEPT
+-    0/1/2/3/5 -- 0 reported, and window 2 measurably LOST at scale: 0.2545 vs 0.2784 on 334 questions)."""
++                           decay: float = 2.0, coarg=None, single_sentence: bool = False):
++    """ACT-R cue-based antecedent retrieval over the reader's OWN DISCOURSE ENTITIES, in reading order, one
++    pass.  Returns (records, abstentions) with EXACTLY ONE record per scheduled target:
++      {pronoun, sent_idx, target_wpos, resolved_entity, resolved_head, antecedent_span, candidates,
++       abstain_reason, n_cands, sent_dist}
++    `resolved_entity` is the entity id (or None when the referent stays open -- NEVER a valid id used as a
++    sentinel); `antecedent_span` is (sent_idx, wtok_start, wtok_end) of the mention that supplied the
++    evidence; `candidates` is the scored candidate set (entity id -> activation, strongest first);
++    `abstain_reason` is None | 'no_candidate' | 'no_compatible' | 'tie'.
++    `coarg` = {(sent_idx, wtok): (positions of this token's clause-mate CO-ARGUMENTS)} from the reader's own
++    parse -- Principle B for a plain pronoun, Principle A for a reflexive (Chomsky 1981; Reinhart 1983).
++    `single_sentence` = the independent SINGLE-SENTENCE comparator: the file store is cleared at every
++    sentence boundary, so the arm is structurally blind cross-sentence and can DISAGREE with the discourse
++    resolver on a designed cross-sentence case.
++    `window` = the accessibility bound in sentences (0 = the whole passage read so far; SWEPT 0/1/2/3/5)."""
+     from hdlab.salience_binder import actr_activation, ROLE_PROMINENCE
+     from hdlab.affected_entity_resolver import is_reflexive
+     tgt = {t["target"]["midx"] for t in targets}
+-    hist: Dict[str, list] = {}
+-    last_sent: Dict[str, int] = {}
+-    feats: Dict[str, tuple] = {}
+-    rank_in_sent: Dict[int, Dict[str, int]] = {}
++    hist: Dict[object, list] = {}      # entity id -> the FILE's reference history [(order, role), ...]
++    last_sent: Dict[object, int] = {}
++    last_nom: Dict[object, dict] = {}  # entity id -> its most recent NON-pronoun mention (the antecedent)
++    feats: Dict[object, tuple] = {}    # entity id -> (gender, number) ACCRUED over the file's mentions
++    rank_in_sent: Dict[int, Dict[object, int]] = {}
++    ent_at_pos: Dict[tuple, object] = {}
+     prev_cb = [None]
+     cur = [None]
+     recs, abstain = [], []
+@@ -461,13 +505,17 @@
+             row = sorted(rank_in_sent.get(cur[0], {}).items(), key=lambda kv: kv[1])
+             if row:
+                 prev_cb[0] = row[0][0]
++            if single_sentence:
++                hist.clear(); last_sent.clear(); last_nom.clear(); feats.clear()
+         cur[0] = si
+         rk = m.get("sent_role_rank", 99)
+         role = "SUBJECT" if rk == 0 else ("OBJECT" if rk == 1 else "OTHER")
+         if not m.get("is_pronoun"):
+-            k = m["head"].lower()
++            k = entity_key(m)
++            ent_at_pos[(si, int(m["wtok_start"]))] = k
+             hist.setdefault(k, []).append((order, role))
+             last_sent[k] = si
++            last_nom[k] = m
+             g = m.get("gender") or m.get("name_gender")
+             old = feats.get(k, (None, None))
+             feats[k] = (g or old[0], m.get("number") or old[1])
+@@ -477,13 +525,29 @@
+             continue
+         pg, pn = m.get("gender"), m.get("number")
+         cands = [k for k, s in last_sent.items() if (not window) or (si - s) <= window]
++        reason = None
++        legal = cands
+         if not cands:
+-            abstain.append({"head": m["head"], "sent_idx": si, "wtok_start": m["wtok_start"]})
+-            continue
+-        coarg = [k for k, r in rank_in_sent.get(si, {}).items() if r in (0, 1) and r != rk]
+-        legal = ([k for k in cands if k in coarg] or cands) if (is_reflexive(m.get("head")) and coarg) \
+-            else cands
+-        best, bs = None, -1e18
++            reason = "no_candidate"
++        else:
++            banned = set()
++            if coarg:
++                banned = {ent_at_pos[p] for p in (coarg.get((si, int(m["wtok_start"]))) or ())
++                          if p in ent_at_pos}
++            if is_reflexive(m.get("head")):
++                # PRINCIPLE A: a reflexive is bound BY a clause-mate co-argument (the real relation from the
++                # parse when we have it; the within-sentence core-rank set is the fallback).
++                inside = [k for k in cands if k in banned] if banned else \
++                    [k for k in cands
++                     if k in {kk for kk, r in rank_in_sent.get(si, {}).items() if r in (0, 1) and r != rk}]
++                legal = inside or cands
++            elif banned:
++                # PRINCIPLE B: a PLAIN pronoun may not take its clause-mate CO-ARGUMENT as its antecedent.
++                legal = [k for k in cands if k not in banned]
++                if not legal:
++                    reason = "no_compatible"
++        best, bs, ties = None, -1e18, 0
++        scored = []
+         amb = m["head"].lower() in NUMBER_AMBIGUOUS
+         for k in legal:
+             a = actr_activation(hist.get(k, ()), order, decay=decay, role_prominence=ROLE_PROMINENCE)
+@@ -497,16 +561,32 @@
+             if pn and cn and not amb:
+                 nm = 1.0 if pn == cn else -1.0
+             s = a + w_gender * gm + w_number * nm + w_focus * (1.0 if k == prev_cb[0] else 0.0)
++            scored.append((k, s))
+             if s > bs:
+-                bs, best = s, k
++                bs, best, ties = s, k, 1
++            elif s == bs:
++                ties += 1
++        if best is not None and ties > 1:
++            best, reason = None, "tie"         # a TIE is an open referent, not a coin flip
+         if best is None:
+-            abstain.append({"head": m["head"], "sent_idx": si, "wtok_start": m["wtok_start"]})
++            rec = {"pronoun": m["head"], "sent_idx": si, "target_wpos": m["wtok_start"],
++                   "resolved_entity": None, "resolved_head": "", "antecedent_span": None,
++                   "candidates": tuple(sorted(scored, key=lambda kv: -kv[1])[:5]),
++                   "abstain_reason": reason or "no_compatible", "n_cands": len(legal), "sent_dist": 0}
++            recs.append(rec)
++            abstain.append({"head": m["head"], "sent_idx": si, "wtok_start": m["wtok_start"],
++                            "reason": rec["abstain_reason"]})
+             continue
+         d = max(0, si - last_sent.get(best, si))
++        am = last_nom.get(best)
+         hist.setdefault(best, []).append((order, role))    # IMPLETION
+         last_sent[best] = si
+         recs.append({"pronoun": m["head"], "sent_idx": si, "target_wpos": m["wtok_start"],
+-                     "resolved_head": best, "n_cands": len(legal), "sent_dist": d})
++                     "resolved_entity": best,
++                     "resolved_head": (am or {}).get("head", ""),
++                     "antecedent_span": mention_span(am) if am is not None else None,
++                     "candidates": tuple(sorted(scored, key=lambda kv: -kv[1])[:5]),
++                     "abstain_reason": None, "n_cands": len(legal), "sent_dist": d})
+     return recs, abstain
+ 
+ 
+--- a/hdlab/situation_reader.py
++++ b/hdlab/situation_reader.py
+@@ -400,6 +400,16 @@
+     # pri 125: the TARGET's own token position, so a consumer/scorer can align the reader's pick to any
+     # answer key by POSITION instead of by the gold cluster id the decision path no longer carries.
+     target_wpos: int = -1
++    # THE IDENTITY CONTRACT (pri 131, deep review D02/D05).  A pronoun is resolved to a DISCOURSE ENTITY --
++    # a file card (Heim 1982; Kahneman & Treisman 1992 object files) -- never to a word, so the answer is
++    # the reader's OWN online entity id plus the ANTECEDENT SPAN that supplied the evidence, the scored
++    # CANDIDATE SET, and an explicit reason when the referent stays open.  `resolved_entity is None` IS the
++    # unresolved value: no valid id is ever used as a sentinel (-1 is a valid online id, the first file).
++    resolved_entity: Optional[object] = None
++    antecedent_span: Optional[tuple] = None        # (sent_idx, wtok_start, wtok_end) of the picked mention
++    candidates: tuple = ()                          # ((entity id, activation), ...) strongest first
++    abstain_reason: Optional[str] = None            # None | no_candidate | no_compatible | tie
++    scoreable: bool = False                         # is there an answer key for THIS item? (D06)
+ 
+ 
+ @dataclass
+@@ -689,7 +699,15 @@
+     entails: Optional[object] = None
+     memory_roundtrip: Dict[str, float] = field(default_factory=dict)
+     # per-dimension honest accuracy (coref only; scored vs LitBank gold on this passage)
+-    coref_acc: Optional[float] = None
++    coref_acc: Optional[float] = None
++    # THE FOUR COUNTS (pri 131, deep review D06): `n_targets` alone is not the pronoun population.  These
++    # are nullable scoring outcomes that live OUTSIDE the inference result -- abstained, unscoreable and
++    # wrong are three different things.
++    n_pronouns_discovered: int = 0
++    n_coref_attempted: int = 0
++    n_coref_abstained: int = 0
++    n_coref_scoreable: int = 0
++    coref_attempted_acc: Optional[float] = None   # of the attempts it MADE, how many were right
+     coref_xsent_acc: Optional[float] = None
+     single_sentence_xsent_acc: Optional[float] = None  # the can-fail validity baseline
+     n_targets: int = 0
+@@ -1023,6 +1041,7 @@
+                  discover_pronouns: bool = True,
+                  fill_card: bool = True,
+                  graded_anaphora: bool = True,
++                 pronoun_principle_b: bool = False,
+                  pronoun_window: int = 0,
+                  cm_agent: bool = True,
+                  include_pron_agents: bool = True,
+@@ -1690,6 +1709,12 @@
+         self.discover_pronouns = bool(discover_pronouns)
+         self.fill_card = bool(fill_card)
+         self.graded_anaphora = bool(graded_anaphora)
++        # pri 131: EXCLUDE the clause-mate CO-ARGUMENT for a plain pronoun (Chomsky 1981 Principle B;
++        # Reinhart 1983, PINNED and categorical), using the real relation from the reader's OWN shared parse
++        # -- not pri 125's rank proxy, which was measured at -0.104 and REFUTED.  DEFAULT OFF because the
++        # relation is only as good as the parse that supplies it (the three measured arms are quoted at the
++        # call site in read()); the mechanism is built, witnessed and ready to flip.
++        self.pronoun_principle_b = bool(pronoun_principle_b)
+         self._pronoun_abstentions_extra = []
+         self.pronoun_window = int(pronoun_window)
+         self._gold_align = None
+@@ -1910,7 +1935,7 @@
+         "predict_surprisal", "track_belief", "bind_event_tokens", "predict_revise", "track_world_state",
+         "densify_world_state", "np_head_reduce", "parser_arceager", "causation_typed",
+         "bind_entity_states", "structural_do_recover", "referent_per_np", "discover_pronouns", "fill_card",
+-        "graded_anaphora",
++        "graded_anaphora", "pronoun_principle_b",
+         "cm_agent", "include_pron_agents",
+         "case_filter", "case_cue_marked", "clause_local", "cm_agent_struct", "cm_agent_byhead",
+         "agent_hybrid",
+@@ -1940,9 +1965,63 @@
+         cfg.update(overrides)
+         return cls(gaz=gaz, **cfg)
+ 
++    def _coargument_positions(self, sents, want=None):
++        """{(sent_idx, wtok): (the CLAUSE-MATE CO-ARGUMENT positions of that token)}, read off the reader's
++        OWN shared per-read parse: the other dependents of the SAME governing predicate.  That is the real
++        binding domain of Principle B (a plain pronoun may not take its clause-mate co-argument as its
++        antecedent) and Principle A (a reflexive must) -- Chomsky 1981; Reinhart 1983, PINNED.  pri 125 built
++        a RANK-based proxy ("any other core-ranked mention in the sentence"), measured it at -0.104 and
++        REFUTED it; this is the relation itself, and it only becomes usable once the pick scores ENTITIES,
++        because the exclusion is on the co-argument's FILE, not on a head string.  Only the sentences that
++        carry a question are mapped, and the parse is the per-read cached one (a HIT for every sentence the
++        role router already parsed), so the map costs no new parse on the read path."""
++        out: Dict[tuple, tuple] = {}
++        for si, toks in enumerate(sents):
++            if (want is not None and si not in want) or not toks or len(toks) > 120:
++                continue
++            up = self._cached_tag(list(toks))
++            try:
++                heads = self._cached_parse_heads(list(toks), up)
++            except Exception:
++                continue
++            by_gov: Dict[int, list] = {}
++            for i in range(len(toks)):
++                h = heads.get(i + 1) if isinstance(heads, dict) else (
++                    heads[i + 1] if (i + 1) < len(heads) else 0)
++                if not h:
++                    continue
++                gi = int(h) - 1
++                # the governor must be the PREDICATE (a copular predicate nominal is not a co-argument
++                # relation -- "he is the doctor" is predication, and Principle B does not apply to it).
++                if 0 <= gi < len(up) and up[gi] in ("VERB", "AUX"):
++                    by_gov.setdefault(gi, []).append(i)
++            for _gi, kids in by_gov.items():
++                for i in kids:
++                    out[(si, i)] = tuple((si, j) for j in kids if j != i)
++        return out
++
++    @staticmethod
++    def _antecedent_gold(gpos, span):
++        """The answer key's entity for the ANTECEDENT SPAN the reader actually picked (deep review D06.3).
++        Scoring by SPAN is what makes a wrong same-head antecedent score WRONG: the old test asked only
++        whether the picked HEAD STRING names the right gold cluster ANYWHERE in the document, so picking
++        the other doctor was credited."""
++        if not span:
++            return None
++        si, ws, we = span
++        for w in range(int(ws), int(we) + 1):
++            g = gpos.get((si, w))
++            if g is not None:
++                return g
++        return None
++
+     # -- ENTITIES + COREF (banked EventCentralityReader recency-centrality, 29516) --
+-    def _read_entities(self, mentions, targets, n_sents):
++    def _read_entities(self, mentions, targets, n_sents, coarg=None):
+         if getattr(self, "_gold_align", None) is not None:
++            # SCOREABILITY IS A PROPERTY OF THE INPUT, and it is decided in BOTH branches BEFORE any pick
++            # (deep review D06.1: the graded branch returned early, so `coref_acc` reported 0.0 -- "it got
++            # them all wrong" -- on text that carries no answer key at all).
++            self._coref_unscoreable = not self._gold_align["pos"]
+             # THE RETRIEVAL ORGAN'S OWN CANDIDATE SET (pri 125): a pronoun probe retrieves over the
+             # ACCESSIBLE, cue-compatible referents, not over every NP the introduction organ opened.  This
+             # is the 2026-09-03 flood repair kept as a CUE FILTER (the brain's own) rather than as a second
+@@ -1952,33 +2031,45 @@
+                 # is attempted (the shipped pick's six-form gate answered 98 of 334 questions), the
+                 # candidates are bounded by accessibility AT RETRIEVAL, and the agreement cue enters as a
+                 # GRADED term -- which only became load-bearing once the file card was filled above.
+-                recs, ab = graded_pronoun_resolve(mentions, targets, window=self.pronoun_window)
++                recs, ab = graded_pronoun_resolve(mentions, targets, window=self.pronoun_window,
++                                                  coarg=coarg)
+                 self._pronoun_abstentions_extra = ab
+-                out = []
++                # THE INDEPENDENT SINGLE-SENTENCE COMPARATOR, EXECUTED (deep review D06.2: the branch used
++                # to return the SAME correctness list three times, so `single_sentence_xsent_acc` was the
++                # main result wearing a baseline's name).  Same organ, file store cleared at every sentence
++                # boundary -> structurally blind cross-sentence, and it CAN disagree.
++                ss, _ss_ab = graded_pronoun_resolve(mentions, targets, window=self.pronoun_window,
++                                                    coarg=coarg, single_sentence=True)
++                gpos = self._gold_align["pos"]
++                ss_by = {(r["sent_idx"], r["target_wpos"]): r for r in ss}
++                out, side_ss = [], []
+                 for r in recs:
+-                    gc = self._gold_align["pos"].get((r["sent_idx"], r["target_wpos"]))
+-                    rc = self._gold_align["head"].get(r["resolved_head"].lower(), ())
++                    gc = gpos.get((r["sent_idx"], r["target_wpos"]))
++                    # THE PICK IS SCORED BY THE ANTECEDENT'S POSITION, not by its head string (D06.3).
++                    ac = self._antecedent_gold(gpos, r["antecedent_span"])
++                    sc = bool(gpos) and gc is not None
+                     cr = CorefResolution(
+                         pronoun=r["pronoun"], sent_idx=r["sent_idx"],
+-                        # resolved_cluster=None (strategy 2026-09-15, deep review D02): -1 IS a valid ONLINE entity id
+-                        # (-(cluster+1); the first file is 0 -> -1), so it collided with goal canonicalisation
+-                        # (names.get) and world-state densify; None is the package's unresolved value (coref.py:1292)
+-                        # and every live consumer is None-safe. The entity-id contract is pri 131.
++                        # resolved_cluster stays None on this path: the identity is `resolved_entity`, and
++                        # -1 IS a valid ONLINE entity id (-(cluster+1); the first file is 0 -> -1), so no
++                        # valid id may be used as the unresolved sentinel (deep review D02).
+                         gold_cluster=(-1 if gc is None else gc), resolved_cluster=None,
+-                        correct=bool(gc is not None and gc in rc), attempted=True,
++                        correct=bool(sc and ac is not None and ac == gc),
++                        attempted=bool(r["resolved_entity"] is not None),
+                         bucket=sent_dist_bucket(r["sent_dist"]), sent_dist=r["sent_dist"],
+-                        resolved_head=r["resolved_head"])
++                        resolved_head=r["resolved_head"],
++                        resolved_entity=r["resolved_entity"], antecedent_span=r["antecedent_span"],
++                        candidates=r["candidates"], abstain_reason=r["abstain_reason"], scoreable=sc)
+                     cr.target_wpos = r["target_wpos"]
+                     out.append(cr)
++                    s = ss_by.get((r["sent_idx"], r["target_wpos"]))
++                    sac = self._antecedent_gold(gpos, s["antecedent_span"]) if s else None
++                    side_ss.append({"correct": bool(sc and sac is not None and sac == gc)})
+                 side = [{"correct": bool(c.correct)} for c in out]
+-                return out, side, side
++                return out, side, side_ss
+             pool = retrievable_referents(mentions)
+             keep = {m["midx"] for m in pool}
+             targets = [t for t in targets if t["target"]["midx"] in keep]
+-            # NO ANSWER KEY IN THE INPUT -> `correct` is UNKNOWABLE, not False.  Without this the reader
+-            # would report coref_acc 0.0 on annotation-free text, which reads as "it got them all wrong"
+-            # when the truth is "there is nothing to score against".
+-            self._coref_unscoreable = not self._gold_align["pos"]
+             res, recs_ec, recs_ss = self._read_entities_core(pool, targets, n_sents)
+             # SCORING ONLY, after the pick: align the reader's own answer (`resolved_head`, its token
+             # position) to the answer key by POSITION/HEAD.  No decision above reads `self._gold_align`.
+@@ -1989,6 +2080,7 @@
+                 rc = g["head"].get((r.resolved_head or "").lower(), ())
+                 r.gold_cluster = -1 if gc is None else gc
+                 r.correct = bool(gc is not None and gc in rc)
++                r.scoreable = bool(g["pos"]) and gc is not None
+             return res, recs_ec, recs_ss
+         return self._read_entities_core(mentions, targets, n_sents)
+ 
+@@ -2009,11 +2101,14 @@
+                 pronoun=tgt["target"]["head"],
+                 sent_idx=tgt["target"]["sent_idx"],
+                 gold_cluster=r["gold_cluster"],
+-                resolved_cluster=(-1 if r["resolved_cluster"] is None
+-                                  else r["resolved_cluster"]),
++                # NEVER -1 FOR UNRESOLVED (deep review D02): -1 is a valid ONLINE entity id, so the old
++                # `-1 if None` sentinel bound an unresolved pronoun to the reader's FIRST file at every
++                # consumer that looked it up.  None is the unresolved value on every path now.
++                resolved_cluster=r["resolved_cluster"],
+                 correct=bool(r["correct"]), attempted=bool(r["attempted"]),
+                 bucket=r["bucket"], sent_dist=r["sent_dist"],
+-                resolved_head=str(r.get("resolved_head") or "")))
++                resolved_head=str(r.get("resolved_head") or ""),
++                resolved_entity=r["resolved_cluster"], scoreable=True))
+         return resolutions, recs_ec, recs_ss
+ 
+     # -- event detection dispatch (stock tense-gated vs opt-in tense-agnostic UPOS==VERB) --
+@@ -2991,9 +3086,17 @@
+                 from hdlab.entity_resolver import EntityResolver as _ER
+                 self._ws_binder_mod = _ER
+             binder = self._ws_binder_mod().new_stage1_binder()   # unified organ's deictic Stage-1 arm (== EntityBinder, byte-identical)
++            # VALIDITY IS MEMBERSHIP, NOT SIGN (deep review D02).  The reader's own online entity ids are
++            # NEGATIVE (-(file+1)), so the old `rc >= 0` test silently dropped EVERY graded reference link
++            # while accepting the -1 sentinel it should have rejected.  An id is valid iff it names an
++            # entity this read has on file; a constructed model with no entity layer has nothing to check
++            # against, so any non-None id stands there.
++            _ids = {e.cluster for e in (sm.entities or [])}
+             for r in (sm.coref_resolutions or []):
+-                rc = r.resolved_cluster
+-                if rc is not None and rc >= 0:
++                rc = getattr(r, "resolved_entity", None)
++                if rc is None:
++                    rc = r.resolved_cluster
++                if rc is not None and ((rc in _ids) if _ids else True):
+                     # the RAW cluster id: EntityBinder.bind_participant formats the "C%s" key itself.
+                     he_she_cluster[(r.sent_idx, (r.pronoun or "").lower())] = rc
+         reps = []
+@@ -4705,6 +4808,8 @@
+                 self._read_parse_cache[("tagpost", _k)] = [
+                     {t: float(_m[i, j]) for j, t in enumerate(_lc.tags) if _m[i, j] >= 0.01} for i in range(len(_s))]
+                 self._read_parse_cache[("tagmat", _k)] = _m
++        self._coref_unscoreable = False        # RESET PER READ (deep review D06): scoreability is a
++        #                                        property of THIS input, never of the previous document.
+         if self.referent_per_np:
+             # DECOUPLE (P5 wire, owner-DONE wire_the_referent_to_coref_linking_pass): referent_per_np swaps ONLY
+             # the who-did-what ROLE-candidate + entity source (a discourse referent per content-noun-head NP);
+@@ -4827,26 +4932,55 @@
+             sm.commonnoun_resolution = self._resolve_commonnouns(role_mentions, sents)
+ 
+         if self.referent_per_np and self.discover_pronouns:
+-            # THE DISCOVERED QUESTION SET: every third-person pronoun the organ opened that has an
+-            # accessible phi-compatible prior referent; the rest are RECORDED as open referents.
+-            targets, sm.pronoun_abstentions = discovered_pronoun_targets(
+-                coref_mentions, window=self.pronoun_window)
+-            self._pronoun_abstentions_extra = []
++            # THE DISCOVERED QUESTION SET: ONE question per third-person pronoun the organ opened.  The
++            # retrieval DEMAND exists whether or not a compatible referent is accessible; whether it is met
++            # is the retrieval's OUTCOME, recorded per question (pri 131), so discovered == attempted +
++            # abstained and every consumer can align its own list to the reader's by index.
++            targets = discovered_pronoun_targets(coref_mentions, window=self.pronoun_window)
+         else:
+             targets = build_pronoun_targets(coref_mentions)   # the pre-2026-09-15 coref-column source
++        self._pronoun_abstentions_extra = []
++        sm.n_pronouns_discovered = len(targets)
+         if targets:
+-            resolutions, recs_ec, recs_ss = self._read_entities(coref_mentions, targets, n_sents)
++            # PRINCIPLE B IS PINNED, BUT ITS INPUT IS A PARSE.  Measured on 16 MODERN GUM test documents
++            # (the same fixed questions, span-scored, one code path): no exclusion 0.3797; the exclusion
++            # through the READER'S OWN parse 0.3646 (-0.0152 CI[-0.0487,+0.0136], n.s.); the exclusion
++            # through the TREEBANK parse 0.3848 (+0.0051 vs no exclusion, n.s.; +0.0203 over our own parse,
++            # CI[-0.0035,+0.0552], n.s.).  The rule is neutral when the clause-mate relation is RIGHT and
++            # costs items when it is wrong -- the loss is the PARSE, not the principle -- so it ships BUILT
++            # and DEFAULT-OFF with its number, to be flipped when the attachment rung improves.  The
++            # reflexive (Principle A) fallback is unchanged either way.
++            coarg = (self._coargument_positions(sents, {t["target"]["sent_idx"] for t in targets})
++                     if self.pronoun_principle_b else None)
++            resolutions, recs_ec, recs_ss = self._read_entities(coref_mentions, targets, n_sents,
++                                                                coarg=coarg)
+             sm.coref_resolutions = resolutions
+             sm.n_targets = len(resolutions)
+-            sm.coref_acc = (None if getattr(self, "_coref_unscoreable", False)
+-                            else _acc([r.correct for r in resolutions]))
+-            sm.pronoun_abstentions = list(sm.pronoun_abstentions) + list(
+-                getattr(self, "_pronoun_abstentions_extra", ()) or ())
+-            xs = [i for i, r in enumerate(resolutions) if r.sent_dist >= 1]
++            # NULLABLE SCORING OUTCOMES, OUTSIDE THE INFERENCE RESULT (deep review D06): abstained,
++            # unscoreable and wrong are three different things, and each has its own count.
++            _un = bool(getattr(self, "_coref_unscoreable", False))
++            _sco = [r for r in resolutions if getattr(r, "scoreable", False)]
++            _att = [r for r in _sco if r.attempted]
++            sm.n_coref_attempted = sum(1 for r in resolutions if r.attempted)
++            sm.n_coref_abstained = len(resolutions) - sm.n_coref_attempted
++            sm.n_coref_scoreable = len(_sco)
++            # `coref_acc` keeps its FIXED denominator -- every scoreable question, abstention counted
++            # wrong (byte-identical to the historical value on the coref-column path, where every record
++            # is scoreable) -- and the conditional-on-attempted rate the model's own abstentions choose is
++            # published SEPARATELY, so the two can never be confused again (pri 125 SOLVED 6c / E03).
++            sm.coref_acc = (None if (_un or not _sco) else _acc([r.correct for r in _sco]))
++            sm.coref_attempted_acc = (None if (_un or not _att) else _acc([r.correct for r in _att]))
++            sm.pronoun_abstentions = [
++                {"head": r.pronoun, "sent_idx": r.sent_idx, "wtok_start": r.target_wpos,
++                 "reason": getattr(r, "abstain_reason", None) or "unattempted"}
++                for r in resolutions if not r.attempted]
++            xs = [i for i, r in enumerate(resolutions)
++                  if r.sent_dist >= 1 and getattr(r, "scoreable", False)]
+             sm.n_xsent_targets = len(xs)
+-            sm.coref_xsent_acc = _acc([resolutions[i].correct for i in xs]) if xs else None
++            sm.coref_xsent_acc = (None if (_un or not xs)
++                                  else _acc([resolutions[i].correct for i in xs]))
+             sm.single_sentence_xsent_acc = (
+-                _acc([bool(recs_ss[i]["correct"]) for i in xs]) if xs else None)
++                None if (_un or not xs) else _acc([bool(recs_ss[i]["correct"]) for i in xs]))
+ 
+         events, focus, codec, role_fillers, suppressed = self._read_events(sents, role_mentions, n_sents)
+         sm.events = events
+--- a/hdlab/goal_register.py
++++ b/hdlab/goal_register.py
+@@ -754,7 +754,20 @@
+                         head2canon.setdefault(_hl(toks[-1]) or toks[-1], canon)    # + its stable lemma: 'men' -> 'man'
+     pron_by_sent: Dict[int, list] = defaultdict(list)
+     for r in sm.coref_resolutions:
+-        canon = names.get(r.resolved_cluster)
++        # THE OWNER IS AN ENTITY, NOT A HEAD STRING OR A SENTINEL (pri 131, deep review D02).  This lookup
++        # was `names.get(r.resolved_cluster)` while the graded pick set `resolved_cluster = -1` for EVERY
++        # successful record -- and -1 is the reader's FIRST live entity (online ids are -(file+1)), so a
++        # graded answer naming any head could canonicalise a goal's owner to the first file in the passage.
++        # The answer is now the ENTITY the retrieval returned (`resolved_entity`); `resolved_cluster` stays
++        # the fallback for the coref-column path, an unresolved reference (None) canonicalises nothing, and
++        # strategy's 2026-09-15 head stopgap below is kept as the LAST resort -- with the entity present it
++        # is reached only when the chosen file has no nameable head.
++        if not getattr(r, "attempted", True):
++            continue
++        _ent = getattr(r, "resolved_entity", None)
++        if _ent is None:
++            _ent = r.resolved_cluster
++        canon = names.get(_ent)
+         if not canon and getattr(r, "resolved_head", None):
+             # pri 125's graded pick returns the antecedent HEAD and no cluster (resolved_cluster=None since the D02
+             # guard; the entity-id contract is pri 131): canonicalise through the head's named cluster, never
