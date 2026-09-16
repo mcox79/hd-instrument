@@ -381,7 +381,24 @@ def _fingerprint_module_state(names):
             elif v is None:
                 key = "None"
             else:
-                key = "obj:%s:%s" % (type(v).__name__, repr(getattr(v, "__dict__", v))[:4000])
+                # NO TRUNCATION.  The first version of this probe hashed repr(obj.__dict__)[:4000] and
+                # reported hdlab.entity_resolver._OF_VALIDITIES as STABLE -- a FALSE NEGATIVE: that object's
+                # accrued counts live deep inside a large nested dict, past the cut.  Hash the whole repr,
+                # and fold in a numeric digest of any `counts`/`crit` table so an in-place accrual of floats
+                # cannot hide behind an unchanged key set.
+                d = getattr(v, "__dict__", None)
+                key = "obj:%s:%s" % (type(v).__name__, repr(d if d is not None else v))
+                for tab in ("counts", "crit"):
+                    t = getattr(v, tab, None)
+                    if isinstance(t, dict):
+                        tot = 0.0
+                        for sub in t.values():
+                            if isinstance(sub, dict):
+                                for x in sub.values():
+                                    tot += sum(x) if isinstance(x, (list, tuple)) else float(x or 0)
+                            elif isinstance(sub, (list, tuple)):
+                                tot += sum(sub)
+                        key += "|%s_sum=%.6f" % (tab, tot)
         except Exception as e:
             key = "unfingerprintable:%s" % type(e).__name__
         out["%s.%s" % (mod_name, attr)] = hashlib.sha1(key.encode("utf-8", "replace")).hexdigest()[:12]

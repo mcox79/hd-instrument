@@ -186,3 +186,96 @@ REVERIFY: the seven commands in the SOLVED.md frontmatter's `reverify` field.
 > **ENTRY POINTS:** `hdlab/grounded_semantic_graph.py:88,218,414`; `hdlab/force_dynamics_valence.py:688,718`;
 > `hdlab/situation_reader.py::_assign_affect`; the measurement cell
 > `experiments/exp_structure_map_cost_v1.py --cache-probe` and its `data/exp_structure_map_cost_v1/cache_probe.json`.
+
+## P7.3 — PROBE B: the method behind the two coordination numbers, so pri 144 can reproduce them
+
+### B1. "16 of 26 goals already share a key with the state register"
+
+**Cell:** `experiments/exp_structure_map_cost_v1.py --coord-probe --docs 6` →
+`data/exp_structure_map_cost_v1/coord_probe.json`.
+
+| what | exactly |
+|---|---|
+| **population** | 6 GUM **TEST** documents (odd document index, evenly spaced across genres by `_gum_test_docs`), **annotated** input contract, 480 sentences. ONE `SituationReader(gaz=gaz).read(path)` per document — live defaults, nothing switched. |
+| **the goal set** | `sm.goal_register.goals` — every `Goal` the register holds after `_read_goals`. **n = 26** (2 / 1 / 12 / 2 / 7 / 2 per document). |
+| **the state set** | `sm.state_register.tracks` — the `Dict[str, EntityStateTrack]` written by `_read_entity_states`. **n = 74 keys, and all 74 have a non-empty `spans` or `occurrences`**, so "has a state" never filtered anything on this sample. |
+| **THE JOIN KEY** | for each goal, `{g.agent_canonical, g.agent}` **lower-cased**, intersected with the lower-cased `tracks` keys. **This is a SURFACE AGENT HEAD STRING join** — `goal_register` keys on the syntactic-subject head (`Goal.agent`, optionally canonicalised by `bind_agents`), and `state_register` keys on the entity string `_read_entity_states` passed to `apply_state`. |
+| **the count** | goals with a non-empty intersection = **16 of 26 (62%)**; goals whose matched track also has a state = **16** (identical, since all 74 tracks have one). |
+| **per document** | academic_census 2/2, conversation_family 0/1, fiction_frankenstein 9/12, letter_marcie3 0/2, podcast_multitasking 3/7, vlog_mermaid 2/2. |
+
+**THE CAVEAT PRI 144 MUST NOT SKIP: this is a STRING join, not an entity-id join.** It measures whether the
+two registers *happen* to spell the agent the same way, which is the weakest possible form of the
+coordination. A shared object-file id (pri 132's one id space) is the correct key and **could move this
+number in either direction** — up, because "she" and "Elizabeth" would unify; down, because two different
+people sharing a surface head would stop colliding. **Reproduce it on pri 135's own 212-goal population
+before sizing any repair**: 26 goals on 6 documents is this sample's number, not the goal register's.
+
+### B2. "coref does not read the foreground that `affected_entity_resolver` computes" — and what bounds it
+
+**The traced fact (not a number):** `situation_reader._read_entities` imports `coref` and nothing else;
+`hdlab/affected_entity_resolver.py::foreground` (candidates `C_fg = {X : t_sent − last_ref_sent(X) <= W}`,
+falling back to all when empty) is reached only from `_read_affected_entity`. Two consumers of the same
+discourse, one with an availability window and one without.
+
+**THE NUMBER IT IS *NOT* BOUNDED BY, stated so nobody quotes it wrongly.** `BRAIN_MATH_REFERENCE` section A
+records the foreground at **+0.0084 alone, CI-separated in combination, window-scramble twin collapsing to
+0.216 (−0.28), and flat across W in {1,2,3,5}** — but **that is measured on `affected_entity_resolver`'s OWN
+population (THIRD pronouns in the affected-entity instrument), not on the board's coref row.** It licenses
+"the mechanism is real and is not a fitted window". It does **not** license any prediction about the coref
+row, and it must not be quoted as one.
+
+**THE NUMBER IT IS BOUNDED BY.** The coref row's own headroom on its own population: the reader scores
+**24 in 100 on plain text (805 items)** against a compatible-recency rule at 13 and a twin at 3, while **the
+same reader given answer-key spans scores 42 in 100**. So the envelope any upstream candidate-selection cue
+can act inside — foreground included — is the **18-point gap between 24 and 42**; above 42 the binding
+constraint is mention discovery (pri 125), not candidate selection. **A foreground arm on the coref row is
+worth running, and worth running with that ceiling stated, so that a +1 is not mistaken for a small effect
+when it is a eighteenth of everything available.**
+
+## P7.4 — PROBE C: the rows pri 143 and pri 144 must re-read from code before touching
+
+My section 9(vi) audit: 83 of 278 rows were read from CODE this pass, 195 take the module's own stated
+computation. Inside the two consolidations' scope that splits as follows — **these are the rows whose
+computation I have NOT verified against the code, listed so they are re-read rather than trusted.**
+
+**pri 143 (selection engine + parse sources): 44 rows, 29 DOC-sourced.** The **8 that are LIVE on a read**
+are the ones that matter first:
+
+| row | importers | why it matters to pri 143 |
+|---|---|---|
+| `thematic_role_labeler` | **229** | I called it "a third cue table for the same decision" **from its docstring**. If that is right it is a third member to fold; if it is a wrapper over `graded_role_assigner`, it is not. **Re-read first — it has the most importers of any row in the group.** |
+| `predicate_argument_frontend` | 84 | the shared shallow-SRL front end the agent/patient rows run through |
+| `relcl_resolver` | 61 | claimed "cue-based retrieval of the filler, no arc graph" — if true it is a selection-group member with no competition, like `space_reader` |
+| `incremental_parser` | 31 | claimed to be "the noise->0 limit of graded competition" — that is a *relationship to the engine*, and it is asserted, not verified |
+| `crosstype_bridge` | 15 | supplies the definite->name arm |
+| `verb_subcat` | 15 | a threshold veto sitting on top of the patient decision |
+| `predicate_detector` | 7 | decides the population the whole group then runs on |
+| `crosstype_live_adapter` | 6 | the live, gold-free path of the bridge |
+
+The other 21 DOC rows in pri 143's scope are **not live on a read** and can be re-read when reached:
+`arc_parser` (183 importers), `graded_parser` (81), `candidate_generator` (76), `coreference_resolver` (36),
+`typed_coref` (31), `goal_owner_select` (25), `event_centrality_coref` (25), `commonnoun_binder` (22),
+`np_head_reduce` (14), `joint_relation_frontend` (11), `crf_tagger` (10), `verb_role_exemplar_selector` (9),
+`verb_subcat_frames` (6), `world_state_entity_binding` (5), `entity_world_model_resolver` (4),
+`intent_classifier` (3), `selection_weighted_sharded_typer` (3), `structural_do` (2), `gated_fusion` (1),
+`semantic_parser` (1), `verb_role_integrated` (0).
+
+**pri 144 (one register): 15 rows, 7 DOC-sourced**, of which **4 are LIVE**:
+
+| row | importers | why it matters to pri 144 |
+|---|---|---|
+| `state_of_mind` | **81** | despite the name it is an entity tracker / working-memory overlay, and it is the highest-importer row in the register group. Whether it is a *fifth* register or an upstream cue-producer decides whether pri 144's scope is four dimensions or five. **Re-read first.** |
+| `referent_per_np` | 14 | opens the referents every register then keys on — the id-space question lives here |
+| `copular_binding` | 11 | writes into `state_register`; if it holds its own state the register count changes |
+| `polarity_operator` | 4 | a negated outcome must not satisfy a goal (pri 135's D01) — whether it *has* state matters |
+
+Not live: `possession_operators` (13), `situation_model_multibank` (12), `unified_referent` (6).
+
+**The rows pri 143/144 can trust without re-reading** are the MATH rows: `graded_competition`,
+`graded_role_assigner` (including `strengths_from_counts`, `agent_supports`, `agent_competition_pick`),
+`attachment_arm` (`arc_scores`), `affected_entity_resolver` (`score_and_pick`, `foreground`),
+`entity_resolver` (`_retrieve`), `graded_coref_pick`, `salience_binder` (`actr_activation`), `coref`,
+`online_entity_cluster`, `lexical_categories`, `pos_tagger`, `arc_labeler`, `arceager_parser`,
+`convergent_cue_reader`, `frontend`, `space_reader` (the three ground finders), and for pri 144
+`state_register`, `location_register`, `world_state_register`, `goal_register`, `affect_register`,
+`belief_timeline`, `situation_model_accumulate`, `situation_reader`.
