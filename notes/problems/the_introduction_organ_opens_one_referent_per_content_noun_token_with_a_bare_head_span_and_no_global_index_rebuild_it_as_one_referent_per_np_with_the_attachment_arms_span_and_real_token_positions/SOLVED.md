@@ -204,7 +204,20 @@ number rather than assumed.
    which is what the collapse does at the source. Measure it off and delete it if it is inert (the
    dormant-flag discipline).
 
-## 10. SECTIONS TO COME
+## 10. THE MEASURED RESULT
+
+### 10.1 THE INFERRED-EMOTION BAR (strategy's bar 2), 50 constructed modern items, the cell's OWN scorer
+
+The consumer strategy named as the live evidence of the defect. `experiments/exp_occ_appraisal_emotion_v1`'s
+own driver (`extract_all`) and own scorer (`arm_type_correct` / `arm_val_correct`) are CALLED, not
+re-implemented, so the number here is the number the board reports. Both arms in ONE process, the shipped
+arm first, on the pristine tree.
+
+**THE SHIPPED ARM REPRODUCES STRATEGY'S NUMBER EXACTLY: `occ_appraisal` TYPE 0.6400 on 50 items, with 17 of
+50 items answering "no goal found".** That is the 0.90 -> 0.64 fall recorded at the pri 136 landing, standing
+on this tree. (Lastword floor 0.2000 on the same items.)
+
+## 11. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
 check; (6) alternate paths and next steps.
