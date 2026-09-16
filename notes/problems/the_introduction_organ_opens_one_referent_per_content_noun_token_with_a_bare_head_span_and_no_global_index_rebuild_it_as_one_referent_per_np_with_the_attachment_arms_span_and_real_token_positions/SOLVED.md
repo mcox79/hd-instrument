@@ -364,7 +364,22 @@ fix is to accrue the RUNNER-UP's cue vector as `different` -- a cue validity is 
 evidence -- and it belongs to pri 136's organ, so it is handed over rather than changed here.  Bars 1, 2 and
 S9-1 cannot be scored until it lands.
 
-THREE THINGS THAT MUST LAND WITH IT, all named in the SOLVED: (0) that one-line loser term; (1) the board's own entity-set scorer
+PHASE 7 PUT THE UPSTREAM-CHAIN FIX IN THE DIFF rather than handing it over: (a) THE LOSER TERM in
+entity_resolver's online branch -- a confident MERGE now accrues the runner-up's cue vector as `different`
+and a confident OPEN accrues the rejected best's, because the rule the organ claims is a log-odds CONTRAST
+and the competition already computes the loser; no contrast is invented when there is no candidate, and
+Heim's criterion is untouched (it was always two-sided).  MEASURED on 3 documents: per document the phrase
+stream goes 33 files / B-cubed 0.3562 -> 135 / 0.5291 against the frozen target 171 / 0.6585, precision
+0.2487 -> 0.5448 -- 57% of the gap, and NOTHING across documents (5 files either way).  THE RESIDUAL IS
+NAMED WITH COUNTS: the update has no forgetting (1,128 same vs 20,438 different at build, monotone
+thereafter) and fires only above a margin, so it learns from a self-confirming sample -- the missing piece
+is a LEAKY integrator on the counts (ACT-R decay / Rescorla-Wagner), which is a change to the learning rule
+and not to a call site.  (b) the cluster call site now hands over `sents`, so Heim's criterion is live on
+either mention stream (it was LANDED AND INERT before -- every mention answered `bare`).  (c) the board's
+own entity-set scorer aligns on mention_head_wpos.  THE EMOTION BAR IS UNCHANGED BY ALL THREE: 0.9000,
+13 fixed / 0 broken, +0.2600 CI[+0.1400,+0.3805].
+
+ALSO NAMED, all in the SOLVED: (0) the decay on the counts; (1) the board's own entity-set scorer
 (exp_board_rows_on_the_reader_v1.score_entity_set) aligns a reader mention at (sent_idx, m["wtok_start"]),
 which after this rung is the phrase's FIRST token -- it must key on graded_role_assigner.mention_head_wpos(m)
 or the board row will align on determiners; (2) Heim's criterion was LANDED AND INERT on the live read (the
