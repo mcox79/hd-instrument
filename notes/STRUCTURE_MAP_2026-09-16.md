@@ -565,7 +565,18 @@ difficulty = normalised entropy of P                 (Levy 2008)
 | `graded_competition` | supplied by the caller | supplied by the caller | **none — this IS the engine**; 68 importers, but only two organs actually feed it their decision |
 | `graded_role_assigner.coarse_roles` | `strengths_from_counts`: `log P(k｜cfg,value) − log P(k｜cfg)`, Dirichlet-shrunk, **learned by counting the organ's own perceived heads** | per-cue value indicator within a configuration | **none — this is the reference member.** THE ONE implementation of the strength math. |
 | `attachment_arm.arc_scores` | the same log-odds contrast form, but built by **`tools/build_attachment_validities.py`**, a separate builder | one dense/sparse cue table per cue family, indexed by (config, value) | **same equation, second table builder.** It does not call `strengths_from_counts`. |
-| `graded_role_assigner.agent_competition_pick` | **hand-set constants** `AGENT_VALIDITIES` (3.0 / 2.0 / 2.0 / 2.0 / 1.0 / 6.0 / 2.5 / 2.0), "validity-seeded, swept, not adopted" | 0/1 and 1/(1+distance) indicators | **THE DEVIATION THAT MATTERS: the weights are not counted from reading.** Pri 140 owns this. |
+| `graded_role_assigner.agent_competition_pick` | **hand-set constants** `AGENT_VALIDITIES` (3.0 / 2.0 / 2.0 / 2.0 / 1.0 / 6.0 / 2.5 / 2.0), "validity-seeded, swept, not adopted" | 0/1 and 1/(1+distance) indicators | **THE DEVIATION THAT MATTERS: the weights are not counted from reading.** Pri 140 owns this — **see the note below; it landed while this map was being written.** |
+
+> **⏱️ LANDING IN FLIGHT, CHECKED AGAINST THE DISK AT 2026-09-16 09:10.** Pri 140 committed
+> (`b14a34d3e`, 09:07) under the headline *"the agent cue validities are ACCRUED FROM READING, not
+> hand-set"*. **That commit did not change `hdlab/`.** It shipped a proposed patch
+> (`…/agent_reweigh_patch.diff`), a learned asset
+> (`data/frontend_assets/agent_cue_validities_ud_ewt_v1.json`, 07:50), a cell and a witness.
+> `hdlab/graded_role_assigner.py:269-271` on disk still reads the eight hand-set constants, so **the row
+> above is the tree as it stands** — and it is about to stop being true. When pri 140's diff lands, this row
+> becomes "learned, like its sibling", and **the selection group loses one of its two hand-set members**;
+> `affected_entity_resolver`'s two gammas and `space_reader`'s absent competition remain. Pri 143 should read
+> pri 140's SOLVED.md before assuming this row.
 | `affected_entity_resolver.score_and_pick` | hand-swept `gamma_g`, `gamma_t` | `ln`(ACT-R salience) + role-match + patient indicators | same additive-log-evidence argmax, **hand-set gammas**; Principle-B filter applied before the argmax |
 | `entity_resolver._retrieve` | per-arm cue weights, **mention-type routed** (Ariel accessibility) | `salience_binder.actr_activation` base + phi / type / predication match | **none in form — this is the consolidation MODEL CASE** (pri 136: six resolvers became one core with arms) |
 | `graded_coref_pick` | supplied | ACT-R + phi supports | **none — routes through `graded_competition.graded_pick`** |
