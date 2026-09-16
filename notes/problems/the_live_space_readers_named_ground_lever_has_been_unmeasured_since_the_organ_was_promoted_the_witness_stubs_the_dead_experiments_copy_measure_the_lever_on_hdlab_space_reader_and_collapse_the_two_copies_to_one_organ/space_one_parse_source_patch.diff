@@ -1,0 +1,31 @@
+--- a/hdlab/space_reader.py
++++ b/hdlab/space_reader.py
+@@ -220,9 +220,26 @@
+ 
+ 
+ def _frontend():
++    """The tagger/parser this organ uses when the CALLER supplies no parse_provider.
++
++    ONE ORGAN, ONE PARSE SOURCE (pri 137, 2026-09-16). This used to load a PRIVATE copy of the batch
++    assets -- `PosTagger.load(_POS_ASSET)` + `ArcParser.load(_ARC_ASSET)` -- while the live reader has parsed
++    with the brain-foundational attachment arm since the 2026-09-13 heads-source flip
++    (`hdlab.frontend.HEADS_SOURCE == "attachment_arm"`; `situation_reader._cached_parse_heads`). MEASURED on one
++    40-sentence LitBank document: the TAGS agree on 1433 of 1433 tokens, but 533 of 1433 HEADS differ (37.2%,
++    all 39 sentences) -- and feeding this organ's own tags to the private parser leaves all 533, which isolates
++    the stage as the PARSER, not the tagger and not the reader's cache. So every cell that called this organ
++    without a provider was measuring a parser the reader no longer runs.
++
++    What the swap costs, measured: on the modern named-ground gold the ARM is UNCHANGED (0.4255 either way --
++    the ground pass reads the preposition and the noun run, not the tree, so it is parser-robust), the BASE
++    chain without the ground pass falls 0.3617 -> 0.2553, and motion-event precision RISES 0.6000 -> 0.6316
++    (current) / 0.7308 -> 0.7609 (arm). Every assertion of W2 (verification/test_space_ground_binding) and all
++    13 checks of verification/test_space_where_is_end_to_end_organ stay green under it."""
+     if "t" not in _frontend_cache:
+-        _frontend_cache["t"] = PosTagger.load(_POS_ASSET)
+-        _frontend_cache["p"] = ArcParser.load(_ARC_ASSET)
++        from hdlab import frontend as _F
++        _frontend_cache["t"] = _F.tagger()
++        _frontend_cache["p"] = _F.parser()
+     return _frontend_cache["t"], _frontend_cache["p"]
+ 
+ 

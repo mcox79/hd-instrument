@@ -5,7 +5,7 @@ bar: "1. The live lever measured where it runs (W4's measurement with the stub o
 result: "BRANCH A, and the lever is ALIVE where it runs. Stub on hdlab.space_reader.ground_bind_events, through the full live read (SituationReader.all_capabilities_off(track_space=True).read(cp).locations), 8 modern passages / n=47 items: OFF 0.1915 -> ON 0.3830, delta +0.1915, item-paired bootstrap CI[+0.0213,+0.3404], timeline-paired CI[+0.0599,+0.3261], both CI-SEPARATED. The lever fires 8 calls / 53 clauses / 27 events. W4 AS WRITTEN is 0.3830 == 0.3830 and is RED TODAY (its `assert on > off` fails) -- the defect reproduced first-hand. AND THE PRODUCT READER IS A DIFFERENT STORY, which is the real finding: with SituationReader() default flags (what the board runs), the space dimension receives a mention stream in which the protagonist is spread over 6-14 ENTITY FILES per passage (mean 8.9), so where-is scores 0.0426 and the lever is worth -0.0426 there (CI[-0.1064,+0.0000], n.s.) -- a correctly bound named place lands on a throwaway card. Applying the reader's OWN pronoun resolutions to that stream before the hand-off (hdlab.situation_reader.unify_entity_files, one file per referent) takes the product reader's where-is 0.0426 -> 0.4043 (+0.3617, item CI[+0.2340,+0.5106], timeline CI[+0.2292,+0.5000]) and makes the named-ground lever worth +0.2128 (item CI[+0.0851,+0.3617], timeline CI[+0.0800,+0.3600]); files per protagonist 8.9 -> 2.6. The historical-weak reader goes 0.3830 -> 0.4255, exactly reproducing the 0.4255 its own standalone driver measures (W2's ARM). ONE ORGAN: experiments/_space_reader.py becomes a sys.modules ALIAS of hdlab.space_reader; 32 real importers (28 experiments, 4 verification) all reach the ONE organ; equivalence proven on 9 documents (identical backbone, identical event lists, identical where_is tables, no module-level name lost). TWO WITNESSES REPAIRED: W4 (repinned + a structural assert that the stub target IS the module the reader runs) and verification/test_track_space_landing_organ.py, WHICH WAS ALREADY RED ON HEAD (633 of 1040 (entity,t) cells differ) for the same root cause."
 floor: "STRONGEST REAL FLOOR = the stateless last-mention place floor (floor_lastment, the modern cell's own strongest floor), recomputed on THIS population: 0.1489 on the same 47 items. Live lever ON 0.3830 beats it by +0.2340, item CI[+0.0638,+0.4043], CI-separated. Product reader with the one-file hand-off 0.4043 beats it by +0.2553, item CI[+0.0851,+0.4261], CI-separated. The forced-OFF arm (0.1915 weak / 0.1915 product-at-one-file) is the second floor and is beaten CI-separated in both configs."
 controls: "(1) SHUFFLED-GROUND TWIN on the LIVE module (the landed twin, ground_bind_events(shuffle_rng=...)): keeps every firing, destroys the ground content -- 0.1277 on the weak reader (loses by +0.2553, CI[+0.1277,+0.3830]) and 0.1915 on the product reader at one-file (loses by +0.2128, CI[+0.0851,+0.3617]). It scores BELOW the lever-OFF arm, i.e. a scrambled named ground is worse than no named ground -- the content, not the firing, is what pays. (2) RANDOM-MERGE TWIN for the hand-off repair: the same number of unions, each target file chosen at random, so 'fewer files' alone cannot explain the gain -- 0.2553 vs the real join's 0.4043, loses by +0.1489 CI[+0.0207,+0.2979] (and it only reaches 8.9 -> 6.0 files per protagonist, against the real join's 2.6). (3) DEFECT-PRESENCE / DEFECT-ABSENCE control in the cell's --self-test: stubbing experiments._space_reader must be a NO-OP before the patch (it is: 0.3077 == 0.3077) and must switch the live lever OFF after it (it does: 0.1538 < 0.3077). The check asserts the state it detects, so it cannot pass vacuously in either direction. (4) SHIM-EQUIVALENCE control: the promoted-away copy and the organ compared on 9 documents (8 modern + 1 LitBank) -- identical sents, identical mentions except the additive span_upos key, identical cluster names, identical person_clusters, identical event lists, identical where_is tables (0 of 9 documents mismatch), and set(dir(COPY)) - set(dir(ORGAN)) is empty. (5) pri-127 PARITY control: the uncommitted nltk -> hdlab.lexicon_foundation rewire is NOT the cause of anything measured here -- swapping the foundation back to nltk in-process gives 0.3830 on the same 47 items, identical. (6) PARSE-PROVIDER isolation on the repaired landing witness: mentions=None 633/1040 cells differ, the reader's stream + the standalone frontend 23/960 differ, the reader's stream + the reader's provider 0/960 -- which attributes the residual to a named upstream gap instead of hiding it. (7) LANDED-STATE control: every arm re-run with the patch emulated in-process (--as-landed) returns byte-identical numbers to the pre-patch run, so the shipped path is what was measured."
-files_changed: "experiments/exp_space_ground_lever_live_v1.py (NEW cell: the lever on the live module x the entity-file hand-off, weak and PRODUCT reader arms, floor, two twins, paired bootstraps, --self-test, --as-landed), notes/problems/<slug>/{SOLVED.md, space_ground_lever_patch.diff}. NO existing hdlab/ or tracked verification file was edited: the proposed change to 4 files (hdlab/situation_reader.py, experiments/_space_reader.py, verification/test_space_ground_binding.py, verification/test_track_space_landing_organ.py; 1,017 diff lines, 702 of them the deleted copy) is space_ground_lever_patch.diff and `git apply --check` is clean."
+files_changed: "experiments/exp_space_ground_lever_live_v1.py (NEW cell: the lever on the live module x the entity-file hand-off, weak and PRODUCT reader arms, floor, two twins, paired bootstraps, --self-test, --as-landed), notes/problems/<slug>/{SOLVED.md, space_ground_lever_patch.diff, where_is_row_patch.diff, target_wpos_both_paths_patch.diff, space_one_parse_source_patch.diff}. NO existing hdlab/ or tracked verification/experiments file was edited -- FOUR proposed diffs, each `git apply --check` clean at HEAD: (1) space_ground_lever_patch.diff = the landing (hdlab/situation_reader.py, experiments/_space_reader.py, verification/test_space_ground_binding.py, verification/test_track_space_landing_organ.py; 1,017 lines, 702 of them the deleted copy); (2) where_is_row_patch.diff = the WHERE-IS board row (experiments/exp_board_rows_on_the_reader_v1.py, 198 lines); (3) target_wpos_both_paths_patch.diff = target_wpos on the coref-column path (hdlab/situation_reader.py, 15 lines -- APPLY AFTER pri 136); (4) space_one_parse_source_patch.diff = ONE parse source for the space organ (hdlab/space_reader.py, 31 lines). NOT VERIFIED (the check was DENIED, see the Phase 7 banner): that (1) and (3) apply IN SEQUENCE -- both touch hdlab/situation_reader.py at non-adjacent hunks."
 reverify: ".venv/Scripts/python.exe experiments/exp_space_ground_lever_live_v1.py --self-test    # then, with the diff applied: .venv/Scripts/python.exe verification/test_space_ground_binding.py"
 ---
 
@@ -304,6 +304,190 @@ directory mtime proves the entry already existed; the last-modified time before 
 Its compiled form survives untouched at `<scratchpad>/patched/hdlab/__pycache__/situation_reader.cpython-312.pyc`
 if its owner needs to recover it. All of my own work moved to `<scratchpad>/pri137/` immediately afterwards.
 Nothing in the repository was affected.
+
+---
+
+# PHASE 7 (strategy's probe, 2026-09-16) -- answers with numbers
+
+Three deliverables shipped on strategy's instruction: the where-is board row (`where_is_row_patch.diff`), the
+`target_wpos` two-liner as its OWN diff (`target_wpos_both_paths_patch.diff`, to be applied after pri 136), and --
+found by probe B and measured green -- a third diff that gives the space organ ONE parse source
+(`space_one_parse_source_patch.diff`).
+
+> ⚠️ **ONE CHECK WAS DENIED AND IS LEFT UNDONE.** The command that would have applied all four diffs IN SEQUENCE
+> to scratch copies and compiled them (`patch -p1` x4 + `py_compile`) was denied:
+> *"Permission to use Bash with command S=... patch -p1 --silent < .../$f.diff ... has been denied."*
+> Each of the four applies cleanly to HEAD on its own (`git apply --check` green for all four). **The main diff and
+> the `target_wpos` diff both touch `hdlab/situation_reader.py`** (non-adjacent hunks: ~line 732 / ~2920 / ~4994
+> vs ~2111), so their sequence is expected to be fine on context matching -- but I did not verify it, and say so.
+
+## A. GROUND SELECTION -- the brief-ready finding, and the prototype that did NOT pay
+
+**The line.** `hdlab/space_reader.py:717-731`, inside `ground_bind_events`: a LINEAR scan for a preposition in the
+hard-coded `SPATIAL_PREP` list; `_pp_ground` takes the first NOUN run after it; `goal_grounds[0]` -- **the first
+goal ground in linear order** -- wins. It never reads which PP *attaches* to the motion verb, and it never reads
+the role router's own goal/source/path assignment (`decide_motion` uses those in the BASE chain; the ground pass
+does not).
+
+**What the brain's selection reads.** The Ground is an argument the motion predicate SELECTS (Talmy's
+Figure/Ground; Rappaport Hovav & Levin 2008 argument structure), with GOAL-over-SOURCE (Lakusta & Landau 2005) and
+the path's ENDPOINT winning. The graded cue already exists in this substrate: the attachment arm's per-dependent
+marginals `P(head | dep)` -- the probability that this PP attaches to the motion verb.
+
+**Measured (26 gold change points with a named ground, 8 modern passages, per-clause selection accuracy):**
+
+| selection | correct | note |
+|---|---|---|
+| **linear (shipped)** | **14/26 = 0.538** | the first goal ground in the sentence |
+| attach (discrete: the PP whose head IS the motion verb) | 14/26 | no change |
+| **graded (argmax of the attachment arm's own marginal)** | **14/26** | **no change -- the parse is not what is failing** |
+| frame (clause-scoped + path ENDPOINT) | 14/26 | fixes one item, breaks one |
+
+*(The end-to-end ladder's 18/26 counts the tracker's persistence, which covers 6 of my 12 per-clause misses.)*
+
+**The error anatomy (12 per-clause misses):** 6 = no ground fired at that clause (persistence covers them);
+**2 = compound-head loss** (`the meeting room.` -> `meeting`, `a conference room.` -> `conference`) -- a FALSE
+NEGATIVE, see A2; 2 = clause-boundary leak (`came back to the living room, someone had taken her spot` -> `spot`;
+`After class he walked over to the library` -> `class`); 2 = place-typing false positives on abstract/temporal
+nouns (`until it got dark` -> `dark`).
+
+➡️ **VERDICT: the graded read of the role competition is the right SHAPE and buys nothing on this population
+(+0.0000). What the residual needs is clause scoping and place-typing PRECISION -- and not a longer preposition
+list.** The brief-ready lead keeps its +0.1915 oracle value (the ladder), but its cause is re-attributed away from
+"the parser" by this measurement.
+
+## A2. THE FALSE-NEGATIVE AUDIT -- 2 of the 12 misses are the INSTRUMENT, not the reader
+
+`exp_space_where_is_modern_v1._tok` splits on **whitespace only**, so **64 of 615 tokens (10.4%)** reach the
+reader as `word.` -- and the category organ correctly calls that PUNCT, which stops the compound-head walk
+(`the meeting room.` -> ground `meeting`). Every real corpus on disk (GUM / UD / LitBank) tokenizes the period
+separately. Splitting it off:
+
+| | as shipped | punctuation split off |
+|---|---|---|
+| weak reader, union+lever ON | 0.4255 | **0.5319** (+0.1064, CI[+0.0213,+0.1915], CI-sep) |
+| product reader, union+lever ON | 0.4043 | 0.4043 (+0.0000, CI[-0.1277,+0.1064]) |
+| **BAR 1** (weak, lever ON vs OFF) | +0.1915 CI[+0.0213,+0.3404] | **+0.2128 CI[+0.0426,+0.3830]** |
+| product lever at one-file | +0.2128 CI[+0.0851,+0.3617] | **+0.1277 CI[-0.0426,+0.2979]** |
+
+**Bar 1 is ROBUST to the instrument (and bigger on the corrected tokens). The caveat I must state against
+myself: the PRODUCT-reader lever is CI-separated on the instrument as shipped and NOT CI-separated (same sign,
++0.1277) once the tokenizer is corrected** -- n=47 is simply small. The instrument repair is recorded in the new
+board row's `instrument_note`; I did not change the gold cell (it is not in this brief's write list, and changing
+a gold's tokenizer is a strategy decision, not a solver's).
+
+## B. THE 23/960 CELLS -- cause located, fix measured and shipped
+
+**Not the tags, not the cache: a DIFFERENT PARSER.** On the 40-sentence LitBank document
+(`verification/test_track_space_landing_organ.py`'s own input, 39 parsed sentences / 1,433 tokens):
+
+* TAG disagreements between the reader's provider and the standalone frontend: **0 of 1,433 (0.000%)**.
+* HEAD disagreements: **533 of 1,433 (37.2%), in all 39 sentences**.
+* Feeding the READER'S OWN TAGS to the standalone parser leaves **533** -- which isolates the stage as the PARSER.
+
+`hdlab/space_reader.py::_frontend()` loaded a PRIVATE `PosTagger.load(_POS_ASSET)` + `ArcParser.load(_ARC_ASSET)`
+(the batch hashed UD-EWT asset) while the reader has parsed with the brain-foundational **attachment arm** since
+the 2026-09-13 heads-source flip (`hdlab.frontend.HEADS_SOURCE`). **There were THREE parse sources for one
+organ:** the reader (attachment arm), `_frontend()` (batch ArcParser), and the W2/W3 measurement cells
+(`_ae_provider` -> arc-eager). **The live path is the one to keep** -- it is the landed BF rung.
+
+**Shipped as `space_one_parse_source_patch.diff`** (`_frontend()` returns `hdlab.frontend.tagger()/parser()`).
+Measured cost: the modern named-ground **ARM is UNCHANGED at 0.4255** (the ground pass reads a preposition and a
+noun run, not the tree -- it is parser-robust across a 37%-different parse), the BASE chain falls 0.3617 ->
+0.2553, motion-event precision RISES (current 0.6000 -> 0.6316; arm 0.7308 -> 0.7609), **every W2 assertion holds**
+and **all 13 checks of `verification/test_space_where_is_end_to_end_organ` are green under it** (71s).
+
+## C. THE PLASTIC FORM -- and the finding that the gates are INERT where they can be scored
+
+**Ablation (8 modern passages, union ON):** removing the irrealis gate, the discovery gate, or both changes
+**nothing**: weak 0.4255 -> 0.4255, product 0.4043 -> 0.4043, the same 27 (weak) / 29 (product) ground events,
+delta **+0.0000 CI[+0.0000,+0.0000]** in every arm. **Firing counts:** modern = 86 verbs considered, irrealis fires
+**3**, discovery **3** -- and none of those 6 would have produced a ground event; 19c LitBank (1 document) = 254
+verbs, irrealis fires **82 (32%)**, discovery 7. So the rule-shaped gates are load-bearing **only on the banned
+19c register** and are untested on modern text. What actually decides is `is_motion x goal_ground`.
+
+**THE LEARNED FORM.** A validity per cue accrued from reading, exactly like
+`attachment_arm.load_attachment_validities()`: `P(this clause relocates the mover | cue)` over the cues
+{motion-verb class, goal preposition, dobj-of-destination-verb, modal child, negation child, subordinator,
+cognition governor, discovery particle}; the gate becomes a log-odds sum and the emitted `conf` becomes that
+posterior instead of the hand-set 3/2/1. **The consumer already reads `conf`** -- `fold_tracker(prior_fold=True)`
+suppresses a `conf<=1` departure when the entity sits at a named place -- so a graded confidence needs NO new
+plumbing. **What it needs is an outcome signal, and one exists that is gold-free:** the tracker's own
+revise-on-surprise -- a later clause that places the mover somewhere inconsistent with the bound ground is
+evidence the binding was wrong (Sinclair 2021; the prior-fold already implements the suppression half).
+
+**Why it is not measured here:** on the only population where it can be scored the gates never bind (delta exactly
+0.0000), so a learned weighting would have nothing to learn; it needs a modern narrative corpus with where-is
+gold, which is not on disk. **The number it must beat: 0.4043 product / 0.4255 weak, twin 0.1915.**
+
+## D. THE ANIMACY TEST -- a rigorous negative; the veto is NOT shipped
+
+* **8 modern passages, product reader with the union: 20 person files, ALL 20 admitted by a personal pronoun.**
+  The bare gender-cue route (the `gray.` path) contributes **0 of 20** -- and the union already fixes the `dana`
+  false negative for free, because animacy is computed per FILE and the name now shares a file with `she/her`.
+* **6 GUM narrative documents (bio genre, TEST half), union ON: 153 person files = 91 by pronoun / 18 by a
+  gender cue on a common noun / 44 by name-gender.** The reader's own animacy organ
+  (`hdlab.animacy_lexicon.lookup_animacy`) types exactly **1 of those 62** non-pronoun admissions inanimate --
+  and that one is **`men`, which IS animate**: the organ is wrong there, so the veto would DELETE a true person.
+* **Measured veto arm: 0.4043 -> 0.4043, delta +0.0000 CI[+0.0000,+0.0000].**
+
+➡️ **Not shipped.** A read of the reader's own animacy belief is the right shape, but on this evidence it changes
+nothing where it can be scored and misfires where it fires. **The residual is not the mover test -- it is coref
+PRECISION**: the junk person files are ones where the reader bound a pronoun to a non-person head (`reminder.`,
+`scan`, `membership.`, `level.`, `hall.`, `spot`). That is pri 131/136, and it is where the next where-is point
+comes from.
+
+## E. CONSUMERS -- enumerated, and nothing else sees the unified files
+
+**Every consumer of `sm.locations` in `hdlab/` (enumeration, not a search):**
+1. `hdlab/situation_reader.py:2997` -- `bind_event_tokens` (**default-ON**) passes it to
+   `BoundEventBackbone.build(sm.events, sm.locations)`; `hdlab/bound_event_backbone.py:230-238` states that
+   `locations` is **accepted for the wire signature and NOT bound in** ("RESERVED"), so it reads nothing.
+2. `hdlab/situation_reader.py:5126-5136` -- `track_spatial_reasoning`'s lazy `spatial_still_at` / `where_after`
+   readouts over `hdlab/spatial_relational_model.py`; the code declares it a NEW ISLAND with no downstream
+   consumer, and it is read-only over the register.
+3. Nothing else. (`hdlab/situation_reader.py:4076-4117` is the same island's docstring.)
+
+**The unified files are LOCAL TO THE HAND-OFF**: `unify_entity_files` rebinds the `mentions` parameter to NEW
+dicts, so `role_mentions` -- what goals / who-has-what / affect / salience / events / coref read -- is untouched.
+**Measured on 6 GUM narrative documents, union OFF vs ON:** the sha256 digest of entities, events, coref
+resolutions, timeline frames, causal links, entity states, common-noun resolution, the coref accuracies and the
+event-token count is **BYTE-IDENTICAL on 6 of 6 documents**. What changes is only the space stream: mention files
+**1,472 -> 1,181**, person files (the movers the tracker opens) **357 -> 153**, and the register's own named
+where-is cells per document (64->55, 32->81, 53->53, 121->135, 107->47, 42->43). **No downstream flip to repair.**
+
+## F. THE TWO PRE-EXISTING RED WITNESSES, pinned to their lines (for strategy to file)
+
+1. **`verification/test_belief_at_t_end_to_end_organ.py` -- RED on HEAD, a BF landing whose consumer was never
+   repaired.** `hdlab/perceptual_access_ledger.py:267-271` correctly RETIRED spaCy from the ledger (`self._nlp =
+   None`, with a comment saying consumers should route to the in-substrate fallback), but
+   `experiments/exp_belief_at_t_end_to_end_v1.py:121-122` still calls
+   `spacy_reality_events(led._nlp, ...)` unconditionally, so `experiments/exp_belief_extraction_drill_v1.py:53`
+   raises `TypeError: 'NoneType' object is not callable`. (spaCy 3.8.14 and `en_core_web_sm` ARE installed here --
+   the failure is the retired arm, not a missing package, and the repair is a `if led._nlp is not None` gate plus
+   the in-substrate reality path.)
+2. **`verification/test_audit_live_standins.py:58-59` -- RED on HEAD, a stale source-regex.** It asserts the
+   reader's source still contains `commonnoun_situation_gate: bool = True`; the flag was RETIRED to `False` on
+   2026-09-11 (`hdlab/situation_reader.py:1062`). The check now fails for the opposite of its own reason.
+
+## PHASE 7 FILES
+
+* `notes/problems/<slug>/where_is_row_patch.diff` -- the WHERE-IS board row on
+  `experiments/exp_board_rows_on_the_reader_v1.py` (`run_where_is`, `--where-is`, published on its OWN
+  `per_dimension_where_is` key and deliberately NOT folded into the seven-row aggregate). Measured as landed:
+  **model 0.4043, strongest floor (last-mention place) 0.1489, +0.2553 CI[+0.0667,+0.4392] CI-separated, twin
+  0.1915 and losing, n=47 over 8 passages, files/protagonist [4,2,7,2,1,2,2,1]**. `reader_annotated` and
+  `reader_textonly` are **identical (0.4043)** -- unlike the coref row, **the space dimension is annotation-free
+  on the product reader**, which is the pri-122 property the board exists to expose. On a tree WITHOUT the main
+  diff the row reports 0.0000 and labels itself `alignment: GOLD ID FALLBACK ... a LOWER BOUND` (it cannot ask by
+  the reader's own file), so the number can never travel without that caveat.
+* `notes/problems/<slug>/target_wpos_both_paths_patch.diff` -- `target_wpos=int(tgt["target"]["wtok_start"])` on
+  the coref-column path of `_read_entities_core`. Verified: compiles, and every target on that path carries
+  `wtok_start` (7 targets on the worked passage, two of them in one sentence at positions 2 and 7 -- exactly the
+  case the head fall-back cannot separate). Apply AFTER pri 136, as instructed.
+* `notes/problems/<slug>/space_one_parse_source_patch.diff` -- ONE parse source for the space organ (probe B).
+
+---
 
 ## SUBMISSION PROMPT
 

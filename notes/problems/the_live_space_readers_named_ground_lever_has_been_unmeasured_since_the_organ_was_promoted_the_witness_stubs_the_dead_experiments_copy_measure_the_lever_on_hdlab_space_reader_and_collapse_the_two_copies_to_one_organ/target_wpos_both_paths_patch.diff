@@ -1,0 +1,15 @@
+--- a/hdlab/situation_reader.py
++++ b/hdlab/situation_reader.py
+@@ -2108,6 +2108,12 @@
+                 correct=bool(r["correct"]), attempted=bool(r["attempted"]),
+                 bucket=r["bucket"], sent_dist=r["sent_dist"],
+                 resolved_head=str(r.get("resolved_head") or ""),
++                # THE TARGET'S OWN POSITION, ON THIS PATH TOO (pri 137, 2026-09-16). `target_wpos` was
++                # filled only on the discovered-pronoun path above, so every consumer that joins a
++                # resolution back to a mention had to fall back to (sent_idx, pronoun-head) matching --
++                # which cannot separate two occurrences of the same pronoun in one sentence. The target IS
++                # a mention dict here (`build_pronoun_targets` puts it there), so the position is free.
++                target_wpos=int(tgt["target"].get("wtok_start", -1)),
+                 resolved_entity=r["resolved_cluster"], scoreable=True))
+         return resolutions, recs_ec, recs_ss
+ 

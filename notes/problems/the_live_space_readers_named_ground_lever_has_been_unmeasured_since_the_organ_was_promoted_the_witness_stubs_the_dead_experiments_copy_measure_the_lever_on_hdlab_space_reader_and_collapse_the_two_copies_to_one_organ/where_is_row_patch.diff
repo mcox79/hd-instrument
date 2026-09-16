@@ -1,0 +1,198 @@
+--- a/experiments/exp_board_rows_on_the_reader_v1.py
++++ b/experiments/exp_board_rows_on_the_reader_v1.py
+@@ -540,6 +540,157 @@
+ 
+ 
+ # ===================================================================================================
++# PART A2 -- WHERE-IS through the live reader:  the SPACE dimension's own row (pri 137, 2026-09-16)
++# ===================================================================================================
++# WHY THIS ROW EXISTS. `track_space` is DEFAULT-ON, so the reader builds a per-entity location register on every
++# read -- and NOTHING on the board scored it. The board's two spatial rows (`spatial_relational`,
++# `spatial_extraction_precision`) run a DIFFERENT organ (spatial_relation_extractor / joint_relation_frontend) on
++# SpartQA/SpaceEval; neither touches `sm.locations`. A regression in the where-is chain was therefore invisible,
++# which is how pri 137's defect survived a week: its only end-to-end check switched the lever off in a module the
++# reader no longer ran, so ON == OFF by construction (0.3830 both arms, 2026-09-16).
++#
++# HONEST SCOPE, STATED IN THE ROW'S OWN PROVENANCE: the only where-is gold on disk is the 8 AUTHOR-CONSTRUCTED
++# modern passages of `exp_space_where_is_modern_v1` (n=47 query items over 8 character timelines). That is a
++# WEAKER instrument than a found corpus and is labelled as such -- a corpus-age control, not a found modern
++# corpus. It is still the only row that scores the space dimension end-to-end through `SituationReader.read`.
++#
++# THE QUESTION IS ASKED BY THE READER'S OWN FILE (the pri 131 identity contract): the register's track keys are
++# the reader's own entity ids, so gold cluster ids align the question to the file the reader put the
++# protagonist's mentions in, AFTER every decision. `reader._space_stream` (pri 137) is that stream; on a tree
++# without it the row falls back to the gold id, which is the same answer whenever the reader has not re-filed
++# the protagonist.
++def _where_is_file(reader, gold_mentions):
++    """The register key to ask: the file the reader itself put the protagonist's mentions in (majority over the
++    answer key's own mention positions). Gold is read AFTER the read, never inside a decision."""
++    stream = getattr(reader, "_space_stream", None)
++    if not stream:
++        # NO READER FILE ON THIS TREE (pri 137 not landed): fall back to the gold id and SAY SO -- the
++        # register's keys are the reader's OWN files, so a gold-keyed question can answer None for a reason
++        # that has nothing to do with the space chain. nfiles=0 marks the row as a LOWER BOUND.
++        return "0", 0
++    pos = {(m["sent_idx"], m["wtok_start"]): m["cluster"] for m in stream}
++    cand = {}
++    for m in gold_mentions:
++        if m["cluster"] == 0:
++            c = pos.get((m["sent_idx"], m["wtok_start"]))
++            if c is not None:
++                cand[c] = cand.get(c, 0) + 1
++    if not cand:
++        return "0", 0
++    return str(max(cand.items(), key=lambda kv: (kv[1], -abs(kv[0])))[0]), len(cand)
++
++
++def _blank_coref_column(src, dst):
++    """The identical token stream with the coref column blanked -- annotation-free prose."""
++    with open(src, encoding="utf-8") as fh, open(dst, "w", encoding="utf-8") as out:
++        for ln in fh:
++            t = ln.rstrip("\n")
++            if t.startswith("#") or not t.strip():
++                out.write(t + "\n")
++                continue
++            c = t.split("\t")
++            c[-1] = "_"
++            out.write("\t".join(c) + "\n")
++    return dst
++
++
++def run_where_is(n_boot=2000, seed=SEED, modes=("reader_annotated", "reader_textonly")):
++    """The SPACE dimension scored through the live reader: where is the protagonist at clause t?"""
++    import numpy as _np
++    from hdlab.situation_reader import SituationReader
++    from hdlab.coref import parse_litbank_conll
++    from hdlab.scene_segment import parse_conll_sentences
++    from hdlab import space_reader as _SP
++    import experiments.exp_space_where_is_modern_v1 as MOD
++    from experiments.exp_space_where_is_end_to_end_v1 import (
++        gold_at, correct, floor_lastment, _place_positions, _mention_gidx)
++    from experiments.exp_name_entity_clustering_v1 import load_given_gazetteer
++    t0 = time.time()
++    gaz = load_given_gazetteer()
++    tmp = tempfile.mkdtemp(prefix="brotr_wi_")
++    per = {m: defaultdict(dict) for m in modes}
++    files_per_protagonist = {m: [] for m in modes}
++    _ORIG_GB = _SP.ground_bind_events
++    try:
++        for mode in modes:
++            for arm in ("model", "twin", "lastment", "abstain"):
++                # the INFO-FREE TWIN keeps every firing of the named-ground pass and scrambles the ground
++                # content (the landed twin: ground_bind_events(shuffle_rng=...)).
++                if arm == "twin":
++                    _SP.ground_bind_events = (lambda *a, **k: _ORIG_GB(
++                        *a, **dict(k, shuffle_rng=_np.random.default_rng(seed))))
++                else:
++                    _SP.ground_bind_events = _ORIG_GB
++                for p in MOD.PASSAGES:
++                    cp = MOD.write_conll(p, tmp)
++                    path = cp if mode == "reader_annotated" else _blank_coref_column(
++                        cp, os.path.join(tmp, p[0] + ".txt.conll"))
++                    rows = sorted(MOD.build_gold(p), key=lambda r: r["t"])
++                    gold_m, _ = parse_litbank_conll(cp)      # the ANSWER KEY, read after the decision
++                    hits = tot = 0
++                    reg = key = sents = places = None
++                    if arm in ("model", "twin"):
++                        rdr = SituationReader(gaz=gaz, **READER_KW)
++                        sm = rdr.read(path)
++                        reg = sm.locations
++                        key, nfiles = _where_is_file(rdr, gold_m)
++                        if arm == "model":
++                            files_per_protagonist[mode].append(nfiles)
++                    else:
++                        sents = parse_conll_sentences(cp, lower=False)
++                        places = _place_positions(sents)
++                    f, l = rows[0]["t"], rows[-1]["t"] + 20
++                    for t in sorted({m["sent_idx"] for m in gold_m
++                                     if m["cluster"] == 0 and f <= m["sent_idx"] <= l}):
++                        g = gold_at(rows, t)
++                        if g is None:
++                            continue
++                        if arm in ("model", "twin"):
++                            pred = reg.where_is(key, t) if reg is not None else None
++                        elif arm == "lastment":
++                            pred = floor_lastment(places, _mention_gidx(sents, gold_m, 0, t), t)
++                        else:
++                            pred = None
++                        hits += correct(pred, g[0])
++                        tot += 1
++                    per[mode][arm][p[0]] = (hits, tot)
++                    if arm in ("model", "twin"):
++                        del sm, rdr
++    finally:
++        _SP.ground_bind_events = _ORIG_GB
++        shutil.rmtree(tmp, ignore_errors=True)
++    rows_out = {}
++    for mode in modes:
++        rows_out[mode] = {"where_is": _row(
++            "where_is", per[mode], "model", ["lastment", "abstain"], "twin",
++            "WHERE-IS: the protagonist's location node at clause t, read off the live reader's own "
++            "sm.locations (the Zwaan & Radvansky SPACE dimension; track_space is default-ON). One item per "
++            "clause at which the answer key places the protagonist and the reader has seen a mention of them; "
++            "8 AUTHOR-CONSTRUCTED modern passages (the corpus-age control of exp_space_where_is_modern_v1 -- a "
++            "WEAKER instrument than a found corpus, and the only where-is gold on disk), n=47 items over 8 "
++            "character timelines; the question is asked BY THE READER'S OWN ENTITY FILE (gold ids align the "
++            "question after the read, never inside a decision); strongest simple floor = the stateless "
++            "last-mention place noun, second floor = abstain; info-free twin = the named-ground pass firing "
++            "exactly as often with its ground content scrambled; passage-paired bootstrap.",
++            provenance(mode, "modern where-is passages (author-constructed)", "sm.locations.where_is"),
++            n_boot, seed,
++            extra={"n_documents": len(MOD.PASSAGES),
++                   "files_per_protagonist": files_per_protagonist[mode],
++                   "alignment": ("the entity file the reader itself used (pri 137 _space_stream)"
++                                 if any(files_per_protagonist[mode]) else
++                                 "GOLD ID FALLBACK: the reader file is not exposed on this tree, so a "
++                                 "protagonist the reader re-filed answers None and the model number is "
++                                 "a LOWER BOUND"),
++                   "instrument_note": "the passage tokenizer splits on WHITESPACE ONLY, so 64 of 615 tokens "
++                                      "(10.4%) reach the reader with attached punctuation ('room.'), which the "
++                                      "category organ correctly calls PUNCT; splitting it off is worth +0.1064 "
++                                      "CI[+0.0213,+0.1915] on this row (pri 137 probe A2) -- an INSTRUMENT "
++                                      "repair, not a reader repair."})}
++    return {"rows": rows_out, "n_passages": len(MOD.PASSAGES),
++            "elapsed_s": round(time.time() - t0, 1)}
++
++
++# ===================================================================================================
+ # PART B -- UD-EWT through the live reader:  who_did_what_agent / who_did_what_patient / state
+ # ===================================================================================================
+ NOMINAL = ("NOUN", "PROPN", "PRON")
+@@ -1472,6 +1623,15 @@
+         reader_rows[mode].update(w["rows"])
+     res["per_dimension_reader_driven"] = reader_rows
+     res["aggregate_reader_driven"] = {m: aggregate(r) for m, r in reader_rows.items()}
++    # THE WHERE-IS ROW (pri 137) is published on its OWN key and is deliberately NOT folded into the seven-row
++    # aggregate: its gold is author-constructed rather than found, and adding a row to an aggregate silently
++    # changes every historical comparison. Strategy decides whether it joins ROWS7.
++    try:
++        wi = run_where_is(n_boot=n_boot, seed=seed)
++        res["per_dimension_where_is"] = wi["rows"]
++        res["where_is_detail"] = {k: v for k, v in wi.items() if k != "rows"}
++    except Exception as _e:                                   # a new row must never take the board down
++        res["per_dimension_where_is"] = {"error": "%s: %s" % (type(_e).__name__, _e)}
+     res["gum_detail"] = {"n_docs": g["n_docs"], "n_toks": g["n_toks"], "elapsed_s": g["elapsed_s"],
+                          "per_doc": g["diag"]}
+     res["ud_detail"] = {k: v for k, v in u.items() if k != "rows"}
+@@ -1602,6 +1762,8 @@
+     ap.add_argument("--gum", action="store_true")
+     ap.add_argument("--ud", action="store_true")
+     ap.add_argument("--wic", action="store_true")
++    ap.add_argument("--where-is", action="store_true", dest="where_is",
++                    help="pri 137: the SPACE dimension's own row (sm.locations.where_is) through the live reader")
+     ap.add_argument("--landings", action="store_true",
+                     help="A/B the last three landings (pri 113/116/117) ON the reader-driven rows")
+     ap.add_argument("--rebuilt", action="store_true",
+@@ -1641,6 +1803,12 @@
+         with open(os.path.join(OUT_DIR, "wic%s.json" % a.tag), "w", encoding="ascii") as fh:
+             json.dump(r, fh, indent=2, default=str)
+         return
++    if a.where_is:
++        r = run_where_is(n_boot=a.n_boot)
++        print(json.dumps(r, indent=2, default=str))
++        with open(os.path.join(OUT_DIR, "where_is%s.json" % a.tag), "w", encoding="ascii") as fh:
++            json.dump(r, fh, indent=2, default=str)
++        return
+     if a.attrib:
+         cc = candidate_composition(cap=(a.ud_cap or 200))
+         pa = patient_attribution(cap=(a.ud_cap or 600), n_boot=a.n_boot)
