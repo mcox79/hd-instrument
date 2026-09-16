@@ -836,6 +836,51 @@ identical on a one-token mention, so the pre-phrase board row is unchanged.
 
 `git apply --check` CLEAN on all six files; self-test 20/20; witness 22/22.
 
+## 22d. THE LOSER TERM, MEASURED -- it recovers most of the per-document gap and NONE of the cross-document one
+
+Same 3 GUM TEST documents, same NP-span mention stream captured once, clustered six ways in one process
+(`data/exp_np_span_introduction_v1/loser3.log`):
+
+| configuration | entity files | B-cubed | P | R |
+|---|---|---|---|---|
+| **replay FROZEN** (`online=False`) -- the target | **171** | **0.6585** | 0.6732 | 0.6796 |
+| replay online, NO loser, table per document | 33 | 0.3562 | 0.2487 | 0.9262 |
+| **replay online + LOSER, table per document** | **135** | **0.5291** | **0.5448** | 0.7418 |
+| replay online, NO loser, table SHARED across documents | **5** | 0.2208 | 0.1247 | 0.9742 |
+| **replay online + LOSER, table SHARED across documents** | **5** | **0.2208** | 0.1247 | 0.9742 |
+| the LIVE read with the loser term on (per-reader table) | 135 | 0.5291 | 0.5448 | 0.7418 |
+
+**IT CLOSES 57% OF THE GAP AND I AM REPORTING THE REST.** Per document the loser term takes the partition
+from 33 files / B-cubed 0.3562 to **135 files / 0.5291** against the frozen target of 171 / 0.6585 -- it
+recovers **+0.1729 of the +0.3023 that plasticity was destroying**, and precision more than doubles
+(0.2487 -> 0.5448). **Across documents it changes NOTHING** (5 files / 0.2208 either way).
+
+### WHICH OBSERVATION IS STILL MISSING, AND WHY -- with counts
+
+1. **THE UPDATE HAS NO FORGETTING, AND COUNTS CANNOT SATURATE.** `Validities.observe` only ever INCREMENTS;
+   `strength` is recomputed from totals that grow without bound. The offline asset starts at **1,128 `same`
+   against 20,438 `different`** pair observations; a read adds thousands more, monotonically, in one
+   direction or the other. A counts table with no decay cannot track a changing environment -- it can only
+   saturate -- which is why the loser term (a correction to the DIRECTION of the update) fixes the
+   per-document case and cannot fix the accumulated one. **The brain's form here is a LEAKY integrator**:
+   ACT-R's own base level decays, and Rescorla-Wagner cue learning moves the association TOWARD a target
+   rather than accumulating evidence for ever. The missing line is a decay on `counts` (or an update that is
+   a step toward the observed log-odds rather than a tally).
+2. **THE SAMPLE IS SELF-CONFIRMING.** The branch fires only when `best_a - runner >= online_margin` (1.0) --
+   so the organ learns ONLY from decisions it was already confident about, and never from the low-margin
+   decisions where its errors live. That is a biased sample in exactly the direction that feeds a runaway.
+   A correct self-supervised update needs the low-margin cases too, carried by a LATER agreement check
+   (the pronoun that later agrees, the name that later matches) rather than by the decision's own margin.
+3. **THERE IS NO REVISION PATH** (already named in 22c): the organ commits forward and never revisits a
+   file, so a correction can never reach these counts.
+
+**So: is the one-sided update a bug in the code path or in what the brain's teacher would see?** *Both, and
+the distinction matters.* The missing `different` on a merge is a **BUG IN THE CODE PATH** -- the rule the
+organ's own docstring claims is a log-odds CONTRAST and the loser was being discarded even though the
+competition computes it; that is now fixed and worth +0.1729. The missing decay and the margin-gated sample
+are a **DEFECT IN WHAT THE TEACHER SEES**: no biological cue-learning rule accumulates unbounded counts from
+a self-selected confident sample, and fixing that is a change to the learning rule, not to a call site.
+
 ## 22e. PROBE (C) -- DID I RE-IMPLEMENT AN ORGAN THAT EXISTS? (named, one by one)
 
 | the organ strategy named | does it compute the phrase span? | reused or duplicated |
