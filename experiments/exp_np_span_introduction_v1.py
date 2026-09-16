@@ -796,7 +796,13 @@ def build_validities(n_docs=24, verbose=True, out_path=None, cue_set="v1"):
                     key=lambda m: (m["sent_idx"], m["wtok_start"], m["midx"]))
         prev_cb = None
         for order, m in enumerate(ms):
-            e = gold_at(c["goldh"], m)
+            # THE TEACHER'S ALIGNMENT IS pri 136's, NOT THE BOARD ROW'S.  `goldh` (a gold mention's own head)
+            # is the right key for the board's entity-set row, but as SUPERVISION it is far too sparse on the
+            # phrase stream -- measured: 492 of 3,133 mentions on 12 TRAIN documents, against pri 136's
+            # teacher which counts a mention whenever its head falls anywhere inside a gold mention.  The
+            # cue validities are counted on the SAME alignment pri 136 used, so the two tables are
+            # comparable and the only thing that changed is the mention stream.
+            e = gold_at(c["gold"], m)
             if e is None:
                 continue
             span = m.get("span_toks", [m["head"]])
@@ -860,11 +866,23 @@ def build_validities(n_docs=24, verbose=True, out_path=None, cue_set="v1"):
 # 7.  THE THREE BARS strategy ADDED AT THE pri 136 LANDING
 # =====================================================================================================
 def row_bars(verbose=True, smoke=False):
-    """(1) the inferred-emotion arm (occ_appraisal, 50 constructed modern items, two sentences each) with
-    the object-file competition ON, and (2) the goal register's NAMING: does the register name a file by its
-    PROPER NAME when the card holds one?  Both arms in ONE process, the shipped arm first."""
+    """BAR 2 (strategy, at the pri 136 landing): the inferred-emotion arm `occ_appraisal` -- 50 constructed
+    modern items, two sentences each -- was 0.90 on 22 consecutive boards and fell to 0.64 when the object-file
+    competition went on, because the character's file absorbed its neighbouring nominal run and the goal
+    register then named the goal's owner by the wrong head.  The nominal-run cue is the STAND-IN for the
+    phrase boundary this rung draws, so this arm is the consumer that says whether the rung repaired it.
+
+    The cell's OWN driver and scorer are CALLED, never re-implemented (`extract_all`, `arm_type_correct`,
+    `arm_val_correct`, `_mft`, `_majority_type_of_valence`): the number reported here is exactly the number
+    the board reports.  Both arms in ONE process, the shipped arm first."""
+    import numpy as _np
     from experiments import exp_occ_appraisal_emotion_v1 as OCCX
-    out = {"arms": {}}
+    from experiments._occ_probe import load_gold
+    gold = load_gold()
+    if smoke:
+        gold = gold[:12]
+    out = {"n_items": len(gold), "arms": {}}
+    rowsets = {}
     for arm in ("shipped", "npspan"):
         if arm == "shipped":
             if landed():
@@ -872,39 +890,53 @@ def row_bars(verbose=True, smoke=False):
                 set_organ(span=False, collapse=False)
         else:
             install_patch(verbose=verbose)
-            if os.path.exists(NPSPAN_ASSET):
-                use_asset(NPSPAN_ASSET)
+            use_asset(NPSPAN_ASSET if os.path.exists(NPSPAN_ASSET) else V1_ASSET)
             set_organ(span=True, collapse=True)
-        gold = OCCX.load_gold() if hasattr(OCCX, "load_gold") else None
-        recs = OCCX.extract_all(gold, smoke=smoke) if gold is not None else OCCX.extract_all(smoke=smoke)
-        got = _occ_score(recs, gold)
-        out["arms"][arm] = got
+        twin_on(False)
+        rows = OCCX.extract_all(gold, smoke=smoke)
+        rowsets[arm] = rows
+        mft = OCCX._mft(rows)
+        majtype = OCCX._majority_type_of_valence(rows)
+        mfv = Counter(r["gold_val"] for r in rows).most_common(1)[0][0]
+        T = OCCX.arm_type_correct(rows, "APPRAISAL", mft=mft, majtype=majtype, twin_perm=None)
+        V = OCCX.arm_val_correct(rows, "APPRAISAL", mfv=mfv, twin_perm=None)
+        Tf = OCCX.arm_type_correct(rows, "FLOOR_LASTWORD", mft=mft, majtype=majtype, twin_perm=None)
+        out["arms"][arm] = {
+            "occ_appraisal_type_acc": round(float(_np.mean(T)), 4),
+            "occ_appraisal_val_acc": round(float(_np.mean(V)), 4),
+            "floor_lastword_type_acc": round(float(_np.mean(Tf)), 4),
+            "no_goal_found": sum(1 for r in rows if r["pred_type"] is None),
+            "pred_src": dict(Counter(str(r.get("pred_src")) for r in rows)),
+            "_items": [int(x) for x in T]}
         if verbose:
-            print("    %-9s occ_appraisal %s (n=%d)  goal owner named %d/%d  owner is a NAME %d"
-                  % (arm, _p(got["acc"]), got["n"], got["owner_found"], got["n"], got["owner_is_name"]))
+            o = out["arms"][arm]
+            print("    %-9s occ_appraisal TYPE %s  VALENCE %s  (lastword floor %s)  no-goal-found %d/%d"
+                  % (arm, _p(o["occ_appraisal_type_acc"]), _p(o["occ_appraisal_val_acc"]),
+                     _p(o["floor_lastword_type_acc"]), o["no_goal_found"], len(rows)))
     a, b = out["arms"].get("shipped"), out["arms"].get("npspan")
     if a and b:
-        out["contrast"] = paired_boot([a["items"]], [b["items"]])
+        out["contrast"] = paired_boot([a.pop("_items")], [b.pop("_items")])
+        # ITEM-BY-ITEM: which items the phrase stream fixed, and which it broke
+        A, B = rowsets["shipped"], rowsets["npspan"]
+        flips = {"fixed": [], "broken": []}
+        for ra, rb in zip(A, B):
+            oka = ra["pred_type"] == ra["gold_type"]
+            okb = rb["pred_type"] == rb["gold_type"]
+            if okb and not oka:
+                flips["fixed"].append({"id": ra["id"], "was": ra["pred_type"], "now": rb["pred_type"],
+                                       "gold": ra["gold_type"], "src": rb.get("pred_src")})
+            elif oka and not okb:
+                flips["broken"].append({"id": ra["id"], "was": ra["pred_type"], "now": rb["pred_type"],
+                                        "gold": ra["gold_type"], "src": rb.get("pred_src")})
+        out["flips"] = flips
+        if verbose:
+            print("    items FIXED by the phrase stream %d, BROKEN %d"
+                  % (len(flips["fixed"]), len(flips["broken"])))
+            if out["contrast"]:
+                v = out["contrast"]
+                print("      occ_appraisal npspan - shipped  d=%+.4f CI[%+.4f,%+.4f] sep=%s"
+                      % (v["delta"], v["ci"][0], v["ci"][1], v["sep"]))
     return out
-
-
-def _occ_score(recs, gold):
-    """Score the appraisal records against the constructed gold, and COUNT the goal register's naming."""
-    n = ok = own = nm = 0
-    items = []
-    for r in (recs or []):
-        n += 1
-        pred = (r.get("pred") if isinstance(r, dict) else getattr(r, "pred", None))
-        g = (r.get("gold") if isinstance(r, dict) else getattr(r, "gold", None))
-        items.append(int(pred is not None and g is not None and pred == g))
-        ok += items[-1]
-        owner = (r.get("goal_owner") if isinstance(r, dict) else getattr(r, "goal_owner", None))
-        if owner:
-            own += 1
-            nm += int(str(owner).strip()[:1].isupper() or str(owner).lower() in
-                      {"maya", "leo", "ana", "sam", "tom", "mia", "noah", "ivy"})
-    return {"n": n, "acc": round(ok / n, 4) if n else None, "owner_found": own,
-            "owner_is_name": nm, "items": items}
 
 
 def row_goal_naming(n_docs=6, verbose=True):
