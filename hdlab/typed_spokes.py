@@ -95,7 +95,7 @@ def _wordnet():
     global _WN, _WN_MISSING
     if _WN is None and not _WN_MISSING:
         try:
-            from nltk.corpus import wordnet as wn
+            from hdlab.lexicon_foundation import wordnet as wn
             wn.synsets("test", pos=wn.NOUN)  # force lazy corpus load now so later calls cannot raise
             _WN = wn
         except Exception:

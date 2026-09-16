@@ -25,7 +25,7 @@ from __future__ import annotations
 
 from typing import Optional
 
-from nltk.corpus import wordnet as wn
+from hdlab.lexicon_foundation import wordnet as wn
 
 _ADJ_POS = ("a", "s")                # WordNet adjective (a) + satellite adjective (s)
 _ADJ_TAGS = {"ADJ", "JJ", "JJR", "JJS", "a", "s", "adj"}

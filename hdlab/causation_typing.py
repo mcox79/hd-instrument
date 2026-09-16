@@ -111,7 +111,7 @@ _ABSTRACT_LEX = {"noun.act", "noun.cognition", "noun.communication", "noun.attri
 
 def _wn_lexname(noun):
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
     except Exception:
         return None
     n = (noun or "").strip().lower()
@@ -132,7 +132,7 @@ _NULL_PRON = {"nothing", "none", "anything", "everything", "something", "all"}
 
 def _wn_noun_roots(noun):
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
     except Exception:
         return set()
     roots = set()
@@ -606,7 +606,7 @@ def _lemma(word: str, upos: str) -> str:
             return w
     if upos in ("NOUN", "PROPN"):
         try:
-            from nltk.corpus import wordnet as wn
+            from hdlab.lexicon_foundation import wordnet as wn
             m = _gbm.morphy(w, "n")
             return m if m else w
         except Exception:
@@ -666,7 +666,7 @@ def _penn(word: str, upos: str) -> str:
 # spaCy-token-compatible ADAPTER over the in-substrate UD parse.
 # ---------------------------------------------------------------------------
 try:
-    from nltk.corpus import stopwords as _nltk_sw
+    from hdlab.lexicon_foundation import stopwords as _nltk_sw
     _STOP = set(_nltk_sw.words("english"))
 except Exception:
     _STOP = {"the", "a", "an", "of", "to", "in", "on", "at", "for", "with", "by", "and", "or", "but",

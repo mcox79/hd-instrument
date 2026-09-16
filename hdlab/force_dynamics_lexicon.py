@@ -125,7 +125,7 @@ def build_force_lexicon(use_cache: bool = True, cause_frames=None, prevent_frame
         with open(CACHE_PATH, "r", encoding="utf-8") as f:
             return json.load(f)["lexicon"]
 
-    from nltk.corpus import framenet as fn  # local import (heavy; remote has no need to parse)
+    from hdlab.lexicon_foundation import framenet as fn  # local import (heavy; remote has no need to parse)
 
     cause: Dict[str, None] = {}
     enable: Dict[str, None] = {}

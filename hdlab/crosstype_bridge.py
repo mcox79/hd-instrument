@@ -94,7 +94,7 @@ def is_person_role(L):
     out = False
     if L not in _LEGAL_ORG_ROLE:
         try:
-            from nltk.corpus import wordnet as wn
+            from hdlab.lexicon_foundation import wordnet as wn
             ss = wn.synsets(L, pos="n")
             out = bool(ss) and ss[0].lexname() == "noun.person"
         except Exception:

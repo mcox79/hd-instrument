@@ -106,7 +106,7 @@ def _lemma(w: str) -> str:
     if hit is not None:
         return hit
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         lem = _gbm.morphy(w, "v")
     except Exception:
         lem = None

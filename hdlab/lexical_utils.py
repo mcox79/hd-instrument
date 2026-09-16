@@ -134,7 +134,7 @@ _person_cache: Dict[str, object] = {}
 def _wn():
     global _WN, _PERSON_SYN
     if _WN is None:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         _WN = wn
         _PERSON_SYN = wn.synset("person.n.01")
     return _WN

@@ -65,7 +65,7 @@ def lemmatize_verb(verb: str) -> str:
     if not v:
         return v
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         lem = _gbm.morphy(v, "v")
         if lem:
             return lem
@@ -123,7 +123,7 @@ def derive_ambiguous_verbs(use_cache: bool = True) -> Set[str]:
             pass
     verbs = set(_AMBIGUOUS_SEED) | set(_FLOW_GRAVITY_VERBS)
     try:
-        from nltk.corpus import verbnet as vn
+        from hdlab.lexicon_foundation import verbnet as vn
         vc = vn.vnclass("roll-51.3.1")
         for lu in vn.lemmas(vc):
             lem = lu.split("-")[0].split("_")[0].lower()
@@ -260,7 +260,7 @@ def _wordnet_props(patient: str) -> Set[str]:
     the core lexicon. Measured weak (category != disposition) -- used only as a backstop, and the cell
     reports the WordNet-only score to show a lexical resource alone cannot supply this term."""
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
     except Exception:
         return set()
     LAB = {"round": "rollable", "circular": "rollable", "spherical": "rollable", "cylindrical": "rollable",
@@ -339,7 +339,7 @@ def _is_spatial_ground(noun: str) -> bool:
     if noun in SPATIAL_GROUNDS:
         return True
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
     except Exception:
         return False
     roots = set()

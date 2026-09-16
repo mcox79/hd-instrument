@@ -86,7 +86,7 @@ class StructuredMatcher:
     # ---------- assets ----------
     def _wordnet(self):
         if self._wn is None:
-            from nltk.corpus import wordnet as wn
+            from hdlab.lexicon_foundation import wordnet as wn
             self._wn = wn
         return self._wn
 
@@ -130,7 +130,7 @@ class StructuredMatcher:
             return self._fn_conv
         conv: Dict[str, Set[str]] = {}
         try:
-            from nltk.corpus import framenet as fn
+            from hdlab.lexicon_foundation import framenet as fn
             groups: Dict[str, list] = {}
             for fr in fn.frame_relations():
                 tname = ""

@@ -99,7 +99,7 @@ def _ppr(seed_idx: List[int], Tt: sp.csr_matrix, n: int, d: float = DAMPING, ite
 
 # -- from exp_grounded_semantic_graph_ladder_wsd_v1.py --
 def _synsets_ordered():
-    from nltk.corpus import wordnet as wn
+    from hdlab.lexicon_foundation import wordnet as wn
     return sorted(wn.all_synsets(), key=lambda s: s.name())
 
 
@@ -111,7 +111,7 @@ def _rels(s):
 
 
 def _relation_gloss_edges(syns, syn2idx, gloss_cap):
-    from nltk.corpus import wordnet as wn
+    from hdlab.lexicon_foundation import wordnet as wn
     rows, cols = [], []
     for s in syns:
         i = syn2idx[s.name()]
@@ -130,7 +130,7 @@ def _relation_gloss_edges(syns, syn2idx, gloss_cap):
 def _conceptnet_edges(syn2idx, cn_cap=1):
     """Map ConceptNet (lemma-level) assertions to WordNet synset edges, MFS-disambiguated (sense-1 of
     each endpoint, cn_cap=1 -- same principle as g1 gloss edges). Returns symmetric edge rows/cols."""
-    from nltk.corpus import wordnet as wn
+    from hdlab.lexicon_foundation import wordnet as wn
     rows, cols = [], []
     n_kept = 0
     if not os.path.exists(CN_PATH):
@@ -174,7 +174,7 @@ def _syntagnet_edges(syn2idx):
     syntagmatic (co-occurrence) edges between WordNet 3.0 synsets. Each line: off1+pos off2+pos w1 p1 w2 p2.
     These are already sense-specific (no MFS mapping needed) -- the field's proven 'sharpen the context
     edges' lever (SyntagRank 71.7 vs UKB 67.3 all-words). Returns symmetric edge rows/cols."""
-    from nltk.corpus import wordnet as wn
+    from hdlab.lexicon_foundation import wordnet as wn
     rows, cols = [], []
     n_kept = 0
     if not os.path.exists(SYNTAGNET_PATH):
@@ -260,7 +260,7 @@ def _learn_cooc_edges(syn2idx, max_sents, shuffle_seed=None):
     import glob
     import re
     from collections import Counter
-    from nltk.corpus import wordnet as wn
+    from hdlab.lexicon_foundation import wordnet as wn
     files = sorted(glob.glob(os.path.join(LITBANK_DIR, "*.txt")))
     syn_cache = {}
 
@@ -318,6 +318,16 @@ _SOURCE_EDGES = {
 }
 
 
+# THE SEMANTIC GRAPH IS A STATIC STRUCTURE; BUILDING IT IS DEVELOPMENT, NOT READING (pri 127). Rebuilding
+# it at read time walked every relation of all 117,659 synsets through the library on the FIRST document
+# of every process (measured: 1,988,867 of the read's 2,006,404 unique library queries came from this
+# module). The edge list is now frozen once offline (data/frontend_assets/lexicon_foundation_graph_v1.npz,
+# 1,025,488 edges, 3.3 MB) and LOADED -- the identical matrix, checked by CSR bytes in the witness.
+# HDLAB_GSG_FROZEN=0 rebuilds from the lexicon organ instead (the baseline arm). A MISSING asset RAISES:
+# a silent rebuild is the degradation this problem exists to remove.
+FROZEN_GRAPH = os.environ.get("HDLAB_GSG_FROZEN", "1") == "1"
+
+
 class GroundedSemanticGraph:
     """A grounded relational semantic graph (WordNet++ synset nodes) read by personalized-PageRank
     spreading activation. Augmentable (add_edges) and learnable (learn_from_text)."""
@@ -333,6 +343,16 @@ class GroundedSemanticGraph:
 
     # ---- BUILD (static foundation) -------------------------------------------------------------
     def build(self):
+        """LOAD the frozen edge list (default) or rebuild it from the lexicon store (HDLAB_GSG_FROZEN=0).
+        Same node order (synsets sorted by name), same per-source edge concatenation order, so the
+        row-stochastic matrix is identical -- the witness compares its CSR bytes."""
+        if FROZEN_GRAPH:
+            from hdlab.lexicon_foundation import graph_edges
+            names, rows, cols = graph_edges(self.sources)
+            self.syn2idx = {n: i for i, n in enumerate(names)}
+            self._base_rows, self._base_cols = rows, cols
+            self._rebuild()
+            return self
         syns = _synsets_ordered()
         self.syn2idx = {s.name(): i for i, s in enumerate(syns)}
         rows, cols = [], []
@@ -373,7 +393,7 @@ class GroundedSemanticGraph:
     def select_sense(self, lemma, pos, context_words):
         """Pick the target's WordNet synset with max settled spreading activation seeded by the context
         (ppr_w2w). pos in {'N','V'}. Returns a synset name (or None if the word is unknown)."""
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         tgt = wn.synsets(lemma, pos=_WNPOS.get(pos)); tn = [s.name() for s in tgt]
         if not tgt:
             return None
@@ -385,7 +405,7 @@ class GroundedSemanticGraph:
     def select_sense_blended(self, lemma, pos, context_words, lam=0.5):
         """Read + the frequency resting-level prior via the log-linear blend (log P_freq + lam*log PPR) --
         the brain's ambiguity gate == the field's UKB combination. Best for all-words WSD where the prior matters."""
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         tgt = wn.synsets(lemma, pos=_WNPOS.get(pos)); tn = [s.name() for s in tgt]
         if not tgt:
             return None

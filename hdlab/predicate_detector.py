@@ -61,7 +61,7 @@ def has_verb_reading(tok: str) -> bool:
     (verbatim from exp_whodidwhat_verb_id_recoverable_v1.has_verb_reading)"""
     global _WN
     if _WN is None:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         _WN = wn
     low = tok.lower()
     if _WN.synsets(low, pos="v"):

@@ -117,7 +117,7 @@ def _lemma_candidates(word: str) -> List[str]:
     own code never calls morphy explicitly. lexical_similarity.CONCEPT_FEATURES is a literal
     string-keyed dict with no such built-in normalization, so this module must do it explicitly to
     stay at parity on inflected outcome tokens."""
-    from nltk.corpus import wordnet as _wn
+    from hdlab.lexicon_foundation import wordnet as _wn
     cands = [word]
     for pos in (_wn.VERB, _wn.NOUN, _wn.ADJ):
         m = _gbm.morphy(word, pos)
@@ -267,7 +267,7 @@ def _engagement_disengage_scan(outcome: str) -> Optional[dict]:
                 "axis_value": _qr.AXIS_WORDS["engagement"]["turn_the_other_cheek"],
                 "span_kind": "discontinuous_idiom"}
 
-    from nltk.corpus import wordnet as _wn
+    from hdlab.lexicon_foundation import wordnet as _wn
     toks = _gt._tokens(outcome)
     n = len(toks)
     for width in (4, 3, 2, 1):

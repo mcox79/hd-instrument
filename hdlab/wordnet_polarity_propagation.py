@@ -48,7 +48,7 @@ from __future__ import annotations
 
 from typing import Dict, FrozenSet, NamedTuple, Optional
 
-from nltk.corpus import wordnet as wn
+from hdlab.lexicon_foundation import wordnet as wn
 
 from hdlab.consequence_learning_loop import MIN_CONFIRM
 from hdlab.verb_lexical_similarity import (

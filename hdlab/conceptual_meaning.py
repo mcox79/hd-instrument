@@ -50,7 +50,7 @@ import os
 from collections import Counter
 from typing import Dict, List, Optional, Tuple
 
-from nltk.corpus import wordnet as wn  # lazy LazyCorpusLoader -- import is cheap, data hit deferred to first use
+from hdlab.lexicon_foundation import wordnet as wn  # lazy LazyCorpusLoader -- import is cheap, data hit deferred to first use
 
 _REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DEFAULT_IDF_CACHE = os.path.join(_REPO, "data", "hdlab_conceptual_idf", "global_idf.json")

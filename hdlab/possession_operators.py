@@ -83,7 +83,7 @@ def build_lexicon(use_cache: bool = True) -> Dict[str, dict]:
     if use_cache and os.path.exists(CACHE):
         with open(CACHE, "r", encoding="utf-8") as f:
             return json.load(f)
-    from nltk.corpus import framenet as fn  # local import (heavy; FrameNet is the static asset)
+    from hdlab.lexicon_foundation import framenet as fn  # local import (heavy; FrameNet is the static asset)
     lex: Dict[str, dict] = {}
     for frame, (op, roles) in FRAME_OPS.items():
         try:

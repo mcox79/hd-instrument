@@ -125,7 +125,7 @@ RELATION_POLARITY = {"INSTANTIATES": "POS", "CONTRADICTS": "NEG"}  # NEITHER nev
 # hdlab/result_type_induction.py's own established convention for the identical reason.
 # ---------------------------------------------------------------------------------------------
 def _primary_synonyms(word: str, pos) -> frozenset:
-    from nltk.corpus import wordnet as _wn
+    from hdlab.lexicon_foundation import wordnet as _wn
     syn = {word}
     syns = _wn.synsets(word, pos=pos)
     if syns:
@@ -135,7 +135,7 @@ def _primary_synonyms(word: str, pos) -> frozenset:
 
 
 def _pool_related(word: str, pool) -> bool:
-    from nltk.corpus import wordnet as _wn
+    from hdlab.lexicon_foundation import wordnet as _wn
     if word in pool:
         return True
     for pos in (_wn.VERB, _wn.ADJ, _wn.NOUN):
@@ -432,7 +432,7 @@ def _wn_verb_gloss_disengage(lemma_form: str, width: int = 2) -> Tuple[Optional[
     see module docstring's MWE-DISENGAGE-SCAN MECHANISM note for why that is appropriate here
     (coverage measurement of a whole-gloss keyword match, not a fine polarity vote). `width=1` uses
     the STRICTER `_DISENGAGE_GLOSS_KEYWORDS_WIDTH1` subset (see that constant's docstring)."""
-    from nltk.corpus import wordnet as _wn
+    from hdlab.lexicon_foundation import wordnet as _wn
     keywords = _DISENGAGE_GLOSS_KEYWORDS_WIDTH1 if width == 1 else DISENGAGE_GLOSS_KEYWORDS
     for syn in _wn.synsets(lemma_form, pos=_wn.VERB):
         gloss = syn.definition().lower()
@@ -451,7 +451,7 @@ def mwe_disengage_scan(outcome: str) -> Optional[dict]:
         return {"lemma": "put_the_kibosh_on", "synset": "kibosh.v (via stop.v.03)",
                 "gloss": "stop from happening or developing",
                 "span_kind": "discontinuous_light_verb_frame"}
-    from nltk.corpus import wordnet as _wn
+    from hdlab.lexicon_foundation import wordnet as _wn
     toks = _gt._tokens(outcome)
     n = len(toks)
     for width in (4, 3, 2, 1):

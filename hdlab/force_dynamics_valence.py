@@ -140,7 +140,7 @@ def verb_first_supersense(verb: str) -> Optional[str]:
         return _SS_CACHE[v]
     ss = None
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         syn = wn.synsets(v, pos=wn.VERB)
         if syn:
             ss = syn[0].lexname().split(".")[1]
@@ -156,7 +156,7 @@ def _verb_all_supersenses(verb: str) -> set:
         return _ALLSS_CACHE[v]
     out: set = set()
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         out = {s.lexname().split(".")[1] for s in wn.synsets(v, pos=wn.VERB)}
     except Exception:
         out = set()
@@ -172,7 +172,7 @@ def affectedness_score(verb: str) -> float:
         return _AFFECT_CACHE[v]
     num = den = 0.0
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         for s in wn.synsets(v, pos=wn.VERB):
             ss = s.lexname().split(".")[1]
             cnt = 1.0
@@ -282,7 +282,7 @@ def result_state_evidence(verb: str, states: Optional[Dict[str, list]] = None) -
     if not table:
         return out
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         for ss in wn.synsets(v, pos=wn.VERB):
             if ss.lexname().split(".")[1] not in AFFECTING_SUPERSENSES:
                 continue
@@ -372,7 +372,7 @@ def hyper_state_value(verb: str, afx: Optional[AffectLexicon] = None) -> Optiona
     afx = _afx() if afx is None else afx
     v = lemmatize_verb(verb)
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
     except Exception:
         return None
     per_sense = []
@@ -581,7 +581,7 @@ def _adverb_stem(word: str) -> Optional[str]:
     lexical check; Pinker-Ullman dual route). Verb particles ('put down', 'take off') fail both routes."""
     w = word.lower()
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         for s in wn.synsets(w, "r"):
             for lm in s.lemmas():
                 if lm.name().lower() == w:
@@ -654,7 +654,7 @@ def synset_endstate_sign(synset_name: Optional[str], afx: Optional[AffectLexicon
     if synset_name is None:
         return None, None
     afx = _afx() if afx is None else afx
-    from nltk.corpus import wordnet as wn
+    from hdlab.lexicon_foundation import wordnet as wn
     ss = wn.synset(synset_name)
     if ss.lexname().split(".")[1] not in AFFECTING_SUPERSENSES or not (set(ss.frame_ids()) & ANIMATE_OBJECT_FRAMES):
         return None, False
@@ -692,7 +692,7 @@ def sense_posterior_in_context(verb: str, tokens, gov_idx: int, lam: Optional[fl
     try:
         from hdlab.affect_lexicon import sense_rows, resting_level, SENSE_LAM
         import numpy as np
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         from hdlab.grounded_semantic_graph import _sense_ppr
         lam = SENSE_LAM if lam is None else lam
         lem = lemmatize_verb(verb)

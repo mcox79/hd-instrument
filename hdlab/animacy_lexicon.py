@@ -49,7 +49,7 @@ import random
 from collections import Counter
 from typing import Iterable, Optional
 
-from nltk.corpus import wordnet as wn
+from hdlab.lexicon_foundation import wordnet as wn
 
 # ---------------------------------------------------------------------------
 # 1) PRONOUN TABLE (checked first; guards the I->iodine / He->helium WordNet collision).

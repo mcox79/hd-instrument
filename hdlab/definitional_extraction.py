@@ -180,7 +180,7 @@ def is_nominal_lemma(lemma: str) -> bool:
     if not lemma:
         return False
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
     except Exception:                        # noqa: BLE001 - degraded mode, do not block
         return True
     if wn.synsets(lemma, pos="n"):
@@ -288,7 +288,7 @@ def _is_nominal_or_unknown(lemma: str) -> bool:
     """True if `lemma` can head a noun phrase, or is not in WordNet at all (technical terms and
     proper nouns must pass -- they are precisely the words a reader needs defined)."""
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
     except Exception:                       # noqa: BLE001 - degraded mode, do not block
         return True
     if wn.synsets(lemma, pos="n"):
@@ -535,7 +535,7 @@ def _is_shared_head_modifier(tok: str) -> bool:
         return True
     lem = lemma_verb(tok)
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
     except Exception:                        # noqa: BLE001 - degraded mode, do not block
         return False
     if wn.synsets(lem, pos="n"):
@@ -977,7 +977,7 @@ class PredicateFact:
 
 def _wn():
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
     except Exception:                            # noqa: BLE001 - degraded mode, do not block
         return None
     return wn

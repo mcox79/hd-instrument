@@ -32,7 +32,7 @@ from typing import Optional, Tuple
 
 from hdlab import goal_typing as _gt
 from hdlab import wordnet_polarity_propagation as _wpp
-from nltk.corpus import wordnet as _wn
+from hdlab.lexicon_foundation import wordnet as _wn
 from hdlab import morphology as _gbm   # glass-box morphy (byte-identical; no nltk on the lemma path)
 
 MAJORITY_CLASS = "Fulfilled"
@@ -57,7 +57,7 @@ def _opinion() -> Tuple[frozenset, frozenset]:
     global _opinion_cache
     if _opinion_cache is None:
         try:
-            from nltk.corpus import opinion_lexicon
+            from hdlab.lexicon_foundation import opinion_lexicon
             _opinion_cache = (frozenset(opinion_lexicon.positive()), frozenset(opinion_lexicon.negative()))
         except Exception:
             _opinion_cache = (frozenset(), frozenset())

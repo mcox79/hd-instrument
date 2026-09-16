@@ -104,7 +104,7 @@ class DPHeadCategoryCorrection:
         if w in self._noun_reading:
             return self._noun_reading[w]
         try:
-            from nltk.corpus import wordnet as wn
+            from hdlab.lexicon_foundation import wordnet as wn
             ok = len(wn.synsets(w, pos=wn.NOUN)) >= 1
         except Exception:
             ok = True
@@ -121,7 +121,7 @@ class DPHeadCategoryCorrection:
         if c and (c[0] + c[1]) >= self.min_evidence:
             return n / a
         try:
-            from nltk.corpus import wordnet as wn
+            from hdlab.lexicon_foundation import wordnet as wn
             return (len(wn.synsets(w, pos=wn.NOUN)) + 1.0) / (len(wn.synsets(w, pos=wn.ADJ)) + 1.0)
         except Exception:
             return n / a

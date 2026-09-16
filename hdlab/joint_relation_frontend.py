@@ -79,7 +79,7 @@ def _is_event_noun(word, wordnet_gated=True):
     if w in _wn_event_cache:
         return _wn_event_cache[w]
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
     except Exception:
         _wn_event_cache[w] = False
         return False

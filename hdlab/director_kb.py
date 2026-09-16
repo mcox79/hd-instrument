@@ -364,7 +364,7 @@ def _extract_triples_api(
 def _extract_triples_wordnet(class_def: dict, schema: dict, repo_root: Path, max_items: int | None) -> list[dict]:
     """WordNet via NLTK. Sorted-by-synset-name walk for determinism."""
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
     except ImportError:
         return []
     out: list[dict] = []
@@ -413,7 +413,7 @@ def _extract_triples_wordnet(class_def: dict, schema: dict, repo_root: Path, max
 def _extract_triples_verbnet(class_def: dict, schema: dict, repo_root: Path, max_items: int | None) -> list[dict]:
     """VerbNet (Levin classes) via NLTK. Sorted-by-classid for determinism."""
     try:
-        from nltk.corpus import verbnet as vn
+        from hdlab.lexicon_foundation import verbnet as vn
     except ImportError:
         return []
     out: list[dict] = []
@@ -483,7 +483,7 @@ def _extract_triples_verbnet(class_def: dict, schema: dict, repo_root: Path, max
 def _extract_triples_framenet(class_def: dict, schema: dict, repo_root: Path, max_items: int | None) -> list[dict]:
     """FrameNet via NLTK. Sorted-by-frame-name for determinism."""
     try:
-        from nltk.corpus import framenet as fn
+        from hdlab.lexicon_foundation import framenet as fn
     except ImportError:
         return []
     out: list[dict] = []

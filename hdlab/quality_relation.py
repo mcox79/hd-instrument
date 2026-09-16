@@ -91,14 +91,8 @@ def _get_wn():
     global _wn
     if _wn is not None:
         return _wn
-    from nltk.corpus import wordnet as wn_mod
-    try:
-        wn_mod.synsets("test")
-    except LookupError:
-        import nltk
-        nltk.download("wordnet", quiet=True)
-        nltk.download("omw-1.4", quiet=True)
-    _wn = wn_mod
+    from hdlab.lexicon_foundation import wordnet as wn_mod   # frozen offline store: no download path,
+    _wn = wn_mod                                            # and a missing asset raises, never degrades
     return _wn
 
 

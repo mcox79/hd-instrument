@@ -152,7 +152,7 @@ def _wn_synonyms(word: str) -> frozenset:
         return _wn_syn_cache[word]
     out = set()
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         for syn in wn.synsets(word)[:4]:
             for lm in syn.lemmas():
                 out.add(lm.name().replace("_", " ").lower())
@@ -179,7 +179,7 @@ def _wn_adj_antonyms(word: str) -> frozenset:
         return _wn_ant_cache[word]
     out = set()
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         for syn in [s for s in wn.synsets(word) if s.pos() == "a"][:1]:
             for lm in syn.lemmas():
                 for a in lm.antonyms():
@@ -195,7 +195,7 @@ def _wn_hypernym_entails(specific: str, general: str) -> bool:
     """True iff NOUN `specific` is a hyponym of `general` within 3 steps (so 'specific' entails 'general':
     a soldier is-a serviceman). Nouns/verbs only -- adjectives have no hypernymy (use _SCALAR_ENTAILS)."""
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         gens = set(wn.synsets(general, "n")) | set(wn.synsets(general, "v"))
         if not gens:
             return False

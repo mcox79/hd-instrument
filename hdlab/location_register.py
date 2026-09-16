@@ -84,7 +84,7 @@ def spatial_region(node: Optional[str]) -> Optional[str]:
         ans = OUTDOORS
     else:
         try:
-            from nltk.corpus import wordnet as wn
+            from hdlab.lexicon_foundation import wordnet as wn
             hol, hyp = set(), set()
             for syn in wn.synsets(node, "n")[:2]:
                 hol |= {h.name().split(".")[0] for h in syn.part_holonyms() + syn.member_holonyms()}

@@ -126,7 +126,9 @@ _ORC_TAGGER = None
 def _perceptron_tagger():
     global _ORC_TAGGER
     if _ORC_TAGGER is None:
-        from nltk.tag import PerceptronTagger
+        from hdlab.lexicon_foundation import standin_nltk
+        PerceptronTagger = standin_nltk("nltk.tag", "PerceptronTagger",   # OFF the live path:
+                                        reason="supervised stand-in; the live tagger is the category organ's Penn arm")
         _ORC_TAGGER = PerceptronTagger()
     return _ORC_TAGGER
 
@@ -457,7 +459,61 @@ order anterior events among themselves using explicit temporal markers, not tens
 ASCII-only. Deterministic given a fixed codebook seed. Substrate-only (no LLM at runtime).
 """
 
-_tagger = _perceptron_tagger   # multiframe's historical alias for the shared in-substrate tagger
+class _PennArmTagger:
+    """(word, Penn-tag) pairs from the category organ's Penn arm, in the shape the punctuation-preserving
+    stream expects -- read GRADED for the ONE distinction this stream depends on.
+
+    WHY THE GRADED READ (pri 127, measured). Swapping the supervised stand-in for the organ's point
+    estimate costs the timeline EVENTS: on 40 GUM test documents the two taggers make the SAME number of
+    errors on gold VBD/VBN tokens (organ 276, stand-in 277) but not the same KIND -- the organ reads a
+    VBD as VBN 97 times (stand-in: 31), and `extract_events_punct` SKIPS a bare VBN that has no `had` /
+    COPULA_BE licenser in its 3-word lookback, so each of those is an event the timeline never sees
+    (event recall 0.7168 -> 0.6674, F1 0.8017 -> 0.7748, CI-separated). A past participle REQUIRES an
+    auxiliary licenser; an -ed form without one is a simple past. So when the argmax is VBN, the
+    EXTRACTOR'S OWN licensing condition fails, and the posterior still holds VBD, read VBD. Cue
+    competition over the organ's own graded posterior -- no new table, no new word list (the licensers
+    ARE `{had} | COPULA_BE`), and REL is a swept operating point chosen on the DEV half (even doc index):
+    TEST F1 0.8126 vs the point estimate's 0.7748 (+0.0378) and the supervised stand-in's 0.8017
+    (+0.0110, CI [-0.0036, +0.0269] -- at parity, no longer a CI-separated regression).
+    """
+
+    LICENSERS = frozenset({"had"} | set(COPULA_BE))
+    REL = float(os.environ.get("HDLAB_PUNCT_VBN_REL", "0.05"))   # swept on DEV; 0 disables the read
+
+    def tag(self, words):
+        ws = list(words)
+        if not ws:
+            return []
+        if self.REL <= 0:
+            return list(zip(ws, _penn_arm().tag(ws)))
+        tags, dist = _penn_arm().tag_with_posterior(ws)
+        lows = [w.lower() for w in ws]
+        out = []
+        for i, (t, d) in enumerate(zip(tags, dist)):
+            if t == "VBN" and not any(lows[j] in self.LICENSERS for j in range(max(0, i - 3), i)):
+                vbd, vbn = d.get("VBD", 0.0), d.get("VBN", 0.0)
+                if vbn > 0 and vbd >= self.REL * vbn:
+                    t = "VBD"
+            out.append(t)
+        return list(zip(ws, out))
+
+
+# THE PUNCTUATION-PRESERVING STREAM'S TAGGER (pri 127). Until 2026-09-15 this alias pointed STRAIGHT at the
+# NLTK PerceptronTagger, so the 2026-09-13 flip to the category organ's Penn arm reached `default_tagger`
+# and NOT the timeline register -- `situation_reader._read_timeline_register` -> `extract_passage` ->
+# `extract_events_punct` -> `tag_punct` -> `_tagger()` ran the supervised stand-in on EVERY default read
+# (measured: the poisoned-import witness crashes here at HEAD). It now honours the same switch, with its
+# own name so the OLD behaviour is exactly reproducible for a baseline.
+PUNCT_TAGGER = os.environ.get("HDLAB_TEMPORAL_PUNCT_TAGGER", TEMPORAL_TAGGER)
+if PUNCT_TAGGER not in TEMPORAL_TAGGERS:
+    raise ValueError("unknown HDLAB_TEMPORAL_PUNCT_TAGGER %r (allowed: %s)"
+                     % (PUNCT_TAGGER, sorted(TEMPORAL_TAGGERS)))
+_PENN_PUNCT_TAGGER = _PennArmTagger()
+
+
+def _tagger():
+    """The shared tagger for the punctuation-preserving stream; the organ's Penn arm by default."""
+    return _PENN_PUNCT_TAGGER if PUNCT_TAGGER == "counts_penn" else _perceptron_tagger()
 
 
 

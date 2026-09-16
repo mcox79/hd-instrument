@@ -104,7 +104,7 @@ def is_motion_verb(lemma: str) -> bool:
     ans = w in _MOTION_VERBS
     if not ans:
         try:
-            from nltk.corpus import wordnet as wn
+            from hdlab.lexicon_foundation import wordnet as wn
             ss = wn.synsets(w, "v")
             if ss:
                 seen, stack = set(), [ss[0]]     # FIRST (most frequent) sense only -> low polysemy noise
@@ -536,7 +536,7 @@ def is_place_wn(noun):
     if w in _PLACE_CACHE:
         return _PLACE_CACHE[w]
     if _WN is None:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         _WN = wn
     roots = {"location.n.01", "structure.n.01", "room.n.01", "way.n.06", "geological_formation.n.01",
              "body_of_water.n.01", "tract.n.01"}

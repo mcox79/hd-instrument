@@ -25,11 +25,23 @@ control specifically.
 """
 import os
 
-try:                                                    # optional; the prefix/substring rules below
-    from nltk.stem import PorterStemmer                 # carry the test on their own without it
-    _STEMMER = PorterStemmer()
+# THE STEM CLAUSE IS THE SUBSTRATE'S OWN MORPHOLOGY ORGAN (pri 127). Porter is an outside tool and it is
+# OFF by default; hdlab.morphology is the glass-box decomposition organ (exception store + detachment
+# rules + lexical check) this project already landed. MEASURED cost of the swap on WordNet vocabulary:
+# 0 of 200,000 random lemma pairs change verdict (the four surrounding rules already cover them), and
+# 2 of 80 pairs constructed to share a Porter stem lose the catch (adz/adze, nogging/nog -- not the
+# run/running class this helper exists for). Porter stays reachable via HDLAB_ALLOW_NLTK_STANDIN=1.
+_STEMMER = None
+try:
+    from hdlab.morphology import morphy as _organ_lemma
 except Exception:                                       # noqa: BLE001
-    _STEMMER = None
+    _organ_lemma = None
+if os.environ.get("HDLAB_ALLOW_NLTK_STANDIN", "0") == "1":   # deliberate baseline only
+    try:
+        from hdlab.lexicon_foundation import standin_nltk
+        _STEMMER = standin_nltk("nltk.stem", "PorterStemmer", reason="leakage-strip baseline")()
+    except Exception:                                   # noqa: BLE001
+        _STEMMER = None
 
 try:
     from hdlab.lemma_norm import normalize_lemma
@@ -50,6 +62,10 @@ def shares_stem(a: str, b: str) -> bool:
         return True
     if _STEMMER is not None and _STEMMER.stem(a) == _STEMMER.stem(b):
         return True
+    if _organ_lemma is not None:                        # the organ's lemma, both sides non-None
+        la, lb = _organ_lemma(a), _organ_lemma(b)
+        if la and lb and la == lb:
+            return True
     p = os.path.commonprefix([a, b])
     if len(p) >= 4 and min(len(a), len(b)) >= 4:
         return True

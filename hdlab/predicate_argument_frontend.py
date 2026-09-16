@@ -107,7 +107,7 @@ def get_event_classes(lemma: str) -> FrozenSet[str]:
     if lemma in _verbnet_class_cache:
         return _verbnet_class_cache[lemma]
     try:
-        from nltk.corpus import verbnet as vn
+        from hdlab.lexicon_foundation import verbnet as vn
         classids = vn.classids(lemma)
     except Exception:
         classids = []
@@ -138,7 +138,7 @@ def _classify_by_patterns(lemma: str, patterns: Tuple[str, ...], cache: Dict[str
     if lemma in cache:
         return cache[lemma]
     try:
-        from nltk.corpus import verbnet as vn
+        from hdlab.lexicon_foundation import verbnet as vn
         classids = vn.classids(lemma)
     except Exception:
         classids = []
@@ -187,7 +187,7 @@ def is_place_ground(word: Optional[str]) -> bool:
         return _place_cache[w]
     ans = False
     try:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         for syn in wn.synsets(w, "n"):
             for path in syn.hypernym_paths():
                 if {s.name() for s in path} & _LOC_HYPERNYM_ROOTS:

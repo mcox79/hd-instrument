@@ -61,7 +61,7 @@ def coarse_cluster(synset_name: str) -> str:
     """The shared-core cluster of a synset = its WordNet lexicographer file (supersense). This is the brain's
     graded-shared-core grain (Rodd 2002); over-split fine synsets collapse to the sense the brain distinguishes.
     (A finer OntoNotes/CoarseWSD grouping can be dropped in here later; lexname is the always-available default.)"""
-    from nltk.corpus import wordnet as wn
+    from hdlab.lexicon_foundation import wordnet as wn
     try:
         return wn.synset(synset_name).lexname()
     except Exception:
@@ -98,7 +98,7 @@ def select_sense(context_words: Sequence[str], vec_lookup: Callable[[str], Optio
        "n_fine": <#fine candidates>, "n_coarse": <#clusters>, "distribution": {label: prob}}
     The DEFAULT committed sense is `coarse` (underspecified); `fine` is retained for on-demand elaboration.
     """
-    from nltk.corpus import wordnet as wn
+    from hdlab.lexicon_foundation import wordnet as wn
     if candidate_synsets is None:
         if lemma is None:
             raise ValueError("select_sense needs candidate_synsets or lemma")

@@ -137,7 +137,7 @@ def _mfnd_unit(word: str) -> Optional[np.ndarray]:
     v = None
     try:
         from hdlab.meaning_foundation import sense_signature
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         ss = wn.synsets(word)
         if ss:
             sig = sense_signature(ss[0].name())

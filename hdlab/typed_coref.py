@@ -118,7 +118,7 @@ def _wn_related(h1, h2):
     v = _SYN.get(k)
     if v is not None:
         return v
-    from nltk.corpus import wordnet as wn
+    from hdlab.lexicon_foundation import wordnet as wn
     s1 = wn.synsets(h1, pos="n"); s2 = wn.synsets(h2, pos="n")
     r = False
     if s1 and s2:

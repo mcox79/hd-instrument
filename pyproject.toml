@@ -21,6 +21,12 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
+# BUILD-TIME ONLY (pri 127): nltk is needed to BUILD the frozen lexicon asset
+# (tools/build_lexicon_foundation_index.py), never to read. The runtime dependency list above must
+# NOT contain it -- verification/test_no_nltk_on_the_live_path.py fails if hdlab/ imports it.
+foundation-build = [
+    "nltk>=3.9",
+]
 dashboard = [
     "streamlit>=1.32",
     "plotly>=5.20",

@@ -136,7 +136,7 @@ CONSTRUCTION_ATOMS = ["comm_verb", "give_verb", "achieve_verb", "fail_verb",
 # resulttype-grounded utility channel), so importing goal_achievement from here would be circular.
 # ---------------------------------------------------------------------------------------------
 def _primary_synonyms(word: str, pos) -> frozenset:
-    from nltk.corpus import wordnet as _wn
+    from hdlab.lexicon_foundation import wordnet as _wn
     syn = {word}
     syns = _wn.synsets(word, pos=pos)
     if syns:
@@ -146,7 +146,7 @@ def _primary_synonyms(word: str, pos) -> frozenset:
 
 
 def _pool_related(word: str, pool) -> bool:
-    from nltk.corpus import wordnet as _wn
+    from hdlab.lexicon_foundation import wordnet as _wn
     if word in pool:
         return True
     for pos in (_wn.VERB, _wn.ADJ, _wn.NOUN):

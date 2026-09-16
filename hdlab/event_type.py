@@ -53,7 +53,7 @@ _LEXCACHE = {}
 def _wn():
     global _WN
     if _WN is None:
-        from nltk.corpus import wordnet as wn
+        from hdlab.lexicon_foundation import wordnet as wn
         _WN = wn
     return _WN
 
