@@ -1,0 +1,714 @@
+{
+  "anchor": "goal_constraints_v1",
+  "landed": false,
+  "seed": 20260916,
+  "n_passages_requested": 400,
+  "utc": "2026-09-16T06:39:35+00:00",
+  "A_fixtures": {
+    "impl_under_test": [
+      {
+        "name": "F1a why(work,bob) is bob purpose",
+        "got": "bob",
+        "want": "bob",
+        "ok": true
+      },
+      {
+        "name": "F1b why(work,alice) is not bob purpose",
+        "got": null,
+        "want": null,
+        "ok": true
+      },
+      {
+        "name": "F2 track_status: buy bread + bought bread -> satisfied",
+        "got": "satisfied",
+        "want": "satisfied",
+        "ok": true
+      },
+      {
+        "name": "F2 track_status_thwart: buy bread + bought bread -> satisfied",
+        "got": "satisfied",
+        "want": "satisfied",
+        "ok": true
+      },
+      {
+        "name": "F2 track_status: buy bread + bought car -> active",
+        "got": "active",
+        "want": "active",
+        "ok": true
+      },
+      {
+        "name": "F2 track_status_thwart: buy bread + bought car -> active",
+        "got": "active",
+        "want": "active",
+        "ok": true
+      },
+      {
+        "name": "F3 track_status: same-sentence later buy bread -> satisfied",
+        "got": "satisfied",
+        "want": "satisfied",
+        "ok": true
+      },
+      {
+        "name": "F3 track_status_thwart: same-sentence later buy bread -> satisfied",
+        "got": "satisfied",
+        "want": "satisfied",
+        "ok": true
+      },
+      {
+        "name": "F3b an outcome BEFORE the goal span does not close it",
+        "got": "active",
+        "want": "active",
+        "ok": true
+      },
+      {
+        "name": "F4a wants(alice, t=0) with a goal stated at s5",
+        "got": null,
+        "want": null,
+        "ok": true
+      },
+      {
+        "name": "F4b wants(alice) unbounded still sees it",
+        "got": "buy yacht",
+        "want": "buy yacht",
+        "ok": true
+      },
+      {
+        "name": "F4c status at t=1 of a goal closed at s3",
+        "got": "active",
+        "want": "active",
+        "ok": true
+      },
+      {
+        "name": "F4d status at t=3 of a goal closed at s3",
+        "got": "satisfied",
+        "want": "satisfied",
+        "ok": true
+      },
+      {
+        "name": "F4e achieved(t=1) of a goal closed at s3",
+        "got": "active",
+        "want": "active",
+        "ok": true
+      },
+      {
+        "name": "F5 a negated outcome (she did not buy the bread) does not close the goal",
+        "got": "active",
+        "want": "active",
+        "ok": true
+      },
+      {
+        "name": "F6 why() provenance labels the same-agent fallback",
+        "got": "same_agent_current_goal_fallback",
+        "want": "same_agent_current_goal_fallback",
+        "ok": true
+      },
+      {
+        "name": "F6b why() provenance says unavailable for an agent with nothing",
+        "got": "unavailable",
+        "want": "unavailable",
+        "ok": true
+      },
+      {
+        "name": "F7 an anaphoric theme the files resolve elsewhere does NOT veto the closure",
+        "got": "satisfied",
+        "want": "satisfied",
+        "ok": true
+      },
+      {
+        "name": "F7b ... and the record SAYS the identity was unconfirmed, never a match",
+        "got": "anaphoric_theme_identity_unconfirmed",
+        "want": "anaphoric_theme_identity_unconfirmed",
+        "ok": true
+      },
+      {
+        "name": "F8 a conflicting theme on a LOW-precision arc does not veto",
+        "got": "satisfied",
+        "want": "satisfied",
+        "ok": true
+      },
+      {
+        "name": "F8b the same conflict on a TRUSTED arc still vetoes",
+        "got": "active",
+        "want": "active",
+        "ok": true
+      }
+    ],
+    "live_tree": [
+      {
+        "name": "F1a why(work,bob) is bob purpose",
+        "got": "bob",
+        "want": "bob",
+        "ok": true
+      },
+      {
+        "name": "F1b why(work,alice) is not bob purpose",
+        "got": null,
+        "want": null,
+        "ok": true
+      },
+      {
+        "name": "F2 track_status: buy bread + bought bread -> satisfied",
+        "got": "satisfied",
+        "want": "satisfied",
+        "ok": true
+      },
+      {
+        "name": "F2 track_status_thwart: buy bread + bought bread -> satisfied",
+        "got": "satisfied",
+        "want": "satisfied",
+        "ok": true
+      },
+      {
+        "name": "F2 track_status: buy bread + bought car -> active",
+        "got": "satisfied",
+        "want": "active",
+        "ok": false
+      },
+      {
+        "name": "F2 track_status_thwart: buy bread + bought car -> active",
+        "got": "satisfied",
+        "want": "active",
+        "ok": false
+      },
+      {
+        "name": "F3 track_status: same-sentence later buy bread -> satisfied",
+        "got": "active",
+        "want": "satisfied",
+        "ok": false
+      },
+      {
+        "name": "F3 track_status_thwart: same-sentence later buy bread -> satisfied",
+        "got": "active",
+        "want": "satisfied",
+        "ok": false
+      },
+      {
+        "name": "F3b an outcome BEFORE the goal span does not close it",
+        "got": "active",
+        "want": "active",
+        "ok": true
+      },
+      {
+        "name": "F4a wants(alice, t=0) with a goal stated at s5",
+        "got": "UNSUPPORTED:TypeError",
+        "want": null,
+        "ok": false
+      },
+      {
+        "name": "F4b wants(alice) unbounded still sees it",
+        "got": "buy yacht",
+        "want": "buy yacht",
+        "ok": true
+      },
+      {
+        "name": "F4c status at t=1 of a goal closed at s3",
+        "got": "UNSUPPORTED:AttributeError",
+        "want": "active",
+        "ok": false
+      },
+      {
+        "name": "F4d status at t=3 of a goal closed at s3",
+        "got": "UNSUPPORTED:AttributeError",
+        "want": "satisfied",
+        "ok": false
+      },
+      {
+        "name": "F4e achieved(t=1) of a goal closed at s3",
+        "got": "UNSUPPORTED:TypeError",
+        "want": "active",
+        "ok": false
+      },
+      {
+        "name": "F5 a negated outcome (she did not buy the bread) does not close the goal",
+        "got": "satisfied",
+        "want": "active",
+        "ok": false
+      },
+      {
+        "name": "F6 why() provenance labels the same-agent fallback",
+        "got": "UNSUPPORTED:TypeError",
+        "want": "same_agent_current_goal_fallback",
+        "ok": false
+      },
+      {
+        "name": "F6b why() provenance says unavailable for an agent with nothing",
+        "got": "UNSUPPORTED:TypeError",
+        "want": "unavailable",
+        "ok": false
+      },
+      {
+        "name": "F7 an anaphoric theme the files resolve elsewhere does NOT veto the closure",
+        "got": "UNSUPPORTED:TypeError",
+        "want": "satisfied",
+        "ok": false
+      },
+      {
+        "name": "F7b ... and the record SAYS the identity was unconfirmed, never a match",
+        "got": "UNSUPPORTED:AttributeError",
+        "want": "anaphoric_theme_identity_unconfirmed",
+        "ok": false
+      },
+      {
+        "name": "F8 a conflicting theme on a LOW-precision arc does not veto",
+        "got": "satisfied",
+        "want": "satisfied",
+        "ok": true
+      },
+      {
+        "name": "F8b the same conflict on a TRUSTED arc still vetoes",
+        "got": "satisfied",
+        "want": "active",
+        "ok": false
+      }
+    ],
+    "all_green_under_test": true,
+    "live_tree_green": false
+  },
+  "corpus": {
+    "n_passages": 400,
+    "read_s": 520.2,
+    "n_goals": 212,
+    "n_events": 3832
+  },
+  "B1_content_lexical": {
+    "n_items": 352,
+    "n_goals_with_theme": 176,
+    "model_acc": 0.9375,
+    "floor_incumbent_acc": 0.5,
+    "twin_permuted_theme_acc": 0.5028,
+    "model_minus_floor": [
+      0.4375,
+      0.4119,
+      0.4631
+    ],
+    "model_minus_twin": [
+      0.4347,
+      0.392,
+      0.4801
+    ],
+    "evidence_histogram": {
+      "head_lemma": 137,
+      "None": 154,
+      "entity_identity": 13,
+      "unresolved_pronoun_theme": 47,
+      "anaphoric_theme_identity_unconfirmed": 1
+    },
+    "population": "REAL goals extracted by the live reader from ROC Stories; each goal contributes a matching and a mismatching outcome, gold by construction",
+    "ci_sep_over_floor": true,
+    "ci_sep_over_twin": true
+  },
+  "B2_content_anaphoric": {
+    "n_items": 352,
+    "n_goals_with_theme": 176,
+    "model_acc": 0.9375,
+    "floor_incumbent_acc": 0.5,
+    "twin_permuted_theme_acc": 0.5341,
+    "model_minus_floor": [
+      0.4375,
+      0.4119,
+      0.4631
+    ],
+    "model_minus_twin": [
+      0.4034,
+      0.3494,
+      0.4602
+    ],
+    "evidence_histogram": {
+      "unresolved_pronoun_theme": 190,
+      "None": 154,
+      "entity_identity": 1,
+      "anaphoric_theme_identity_unconfirmed": 7
+    },
+    "population": "REAL goals extracted by the live reader from ROC Stories; each goal contributes a matching and a mismatching outcome, gold by construction (the matching theme is the ANAPHOR 'it', so only the entity files can decide)",
+    "ci_sep_over_floor": true,
+    "ci_sep_over_twin": true
+  },
+  "C_order": {
+    "n_items": 416,
+    "n_goals": 208,
+    "model_acc": 1.0,
+    "floor_incumbent_acc": 0.5,
+    "twin_permuted_position_acc": 0.7885,
+    "model_minus_floor": [
+      0.5,
+      0.5,
+      0.5
+    ],
+    "model_minus_twin": [
+      0.2115,
+      0.1803,
+      0.2452
+    ],
+    "population": "REAL goals from ROC Stories; an outcome after the goal span vs before it, same sentence",
+    "ci_sep_over_floor": true,
+    "ci_sep_over_twin": true
+  },
+  "D_time_prefix_invariance": {
+    "n_trials": 314,
+    "model_leaks": 0,
+    "floor_incumbent_leaks": 268,
+    "model_leak_rate": 0.0,
+    "floor_leak_rate": 0.8535,
+    "examples": [
+      {
+        "doc": "9a51198e-96f1-42c3-b09d-a3e1e067d803",
+        "t": 0,
+        "floor_full": [
+          "make a change"
+        ],
+        "floor_prefix": [],
+        "model_full": [],
+        "model_prefix": []
+      },
+      {
+        "doc": "9a51198e-96f1-42c3-b09d-a3e1e067d803",
+        "t": 1,
+        "floor_full": [
+          "make a change"
+        ],
+        "floor_prefix": [],
+        "model_full": [],
+        "model_prefix": []
+      },
+      {
+        "doc": "9a51198e-96f1-42c3-b09d-a3e1e067d803",
+        "t": 2,
+        "floor_full": [
+          "make a change"
+        ],
+        "floor_prefix": [],
+        "model_full": [],
+        "model_prefix": []
+      },
+      {
+        "doc": "79b0da1f-e460-4173-ba58-8c9e2553c53a",
+        "t": 0,
+        "floor_full": [
+          "propose to her boyfriend"
+        ],
+        "floor_prefix": [],
+        "model_full": [],
+        "model_prefix": []
+      },
+      {
+        "doc": "79b0da1f-e460-4173-ba58-8c9e2553c53a",
+        "t": 1,
+        "floor_full": [
+          "propose to her boyfriend"
+        ],
+        "floor_prefix": [
+          "go for a long walk"
+        ],
+        "model_full": [
+          "long",
+          "walk"
+        ],
+        "model_prefix": [
+          "long",
+          "walk"
+        ]
+      }
+    ],
+    "population": "every (ROC document, t) for which a goal is stated AFTER t -- the only trials on which the leak can show; the check is an IDENTITY (prefix-invariance), not an accuracy, so it is reported as a rate with its count, not with a CI"
+  },
+  "E_authored_goldens": {
+    "authored_satisfaction_W7": {
+      "n": 12,
+      "model_acc": 1.0,
+      "floor_always_active_acc": 0.3333,
+      "by_status": {
+        "satisfied": {
+          "n": 5,
+          "ok": 5
+        },
+        "active": {
+          "n": 4,
+          "ok": 4
+        },
+        "failed": {
+          "n": 3,
+          "ok": 3
+        }
+      },
+      "witness_bar_model_acc_ge_0.9": true
+    },
+    "authored_reinstatement_W8": {
+      "n": 10,
+      "model_reinstatement_acc": 1.0,
+      "floor_recency_acc": 0.0,
+      "twin_status_shuffle_p95": 0.8,
+      "witness_bar_model_ge_0.9_floor_le_0.1": true
+    }
+  },
+  "E_flip_census": {
+    "n_goals": 212,
+    "n_goals_stating_a_theme": 179,
+    "n_closures_decided_on_an_observed_theme": 0,
+    "status_flips_vs_incumbent": {
+      "satisfied->failed": 2,
+      "satisfied->active": 3
+    },
+    "status_flips_vs_satisfaction_only_floor": {
+      "active->failed": 19,
+      "active->satisfied": 11,
+      "satisfied->active": 1
+    },
+    "evidence_histogram": {
+      "None": 176,
+      "thwart:adverse_resultant": 13,
+      "thwart:negated_goal_head": 3,
+      "outcome_theme_unobserved": 3,
+      "thwart:failure_verb": 3,
+      "anaphoric_theme_identity_unconfirmed": 4,
+      "goal_states_no_object": 5,
+      "low_precision_theme_conflict": 1,
+      "negated_construction": 4
+    },
+    "wants_answers_changed": 0,
+    "wants_added": 0,
+    "wants_removed": 0,
+    "wants_swapped": 0,
+    "content_accrual": {
+      "n_match": 1,
+      "n_mismatch": 5,
+      "p_match": 0.25
+    },
+    "examples": [
+      {
+        "doc": "79b0da1f-e460-4173-ba58-8c9e2553c53a",
+        "goal": "propose to her boyfriend",
+        "agent": "morgan",
+        "floor": "satisfied",
+        "model": "failed",
+        "evidence": "thwart:negated_goal_head",
+        "theme": "boyfriend"
+      },
+      {
+        "doc": "f881c375-b5bf-4872-8964-a73454e5aecf",
+        "goal": "see what is available",
+        "agent": "jason",
+        "floor": "satisfied",
+        "model": "active",
+        "evidence": null,
+        "theme": "available"
+      },
+      {
+        "doc": "da58c1d7-0f4c-460a-9506-14398e8c736e",
+        "goal": "get out of his house",
+        "agent": "jonas",
+        "floor": "satisfied",
+        "model": "active",
+        "evidence": null,
+        "theme": "house"
+      },
+      {
+        "doc": "0a688c1c-38cc-422c-a3a0-d34965504f33",
+        "goal": "drive home under the influence of",
+        "agent": "bob",
+        "floor": "satisfied",
+        "model": "failed",
+        "evidence": "thwart:negated_goal_head",
+        "theme": "influence"
+      },
+      {
+        "doc": "818aac2a-94f0-4002-9d89-642fd3e4bf34",
+        "goal": "start a business",
+        "agent": "susan",
+        "floor": "satisfied",
+        "model": "active",
+        "evidence": null,
+        "theme": "business"
+      }
+    ],
+    "population": "every goal the live reader extracted from the ROC passages read"
+  },
+  "E_occ_gold_downstream": {
+    "n": 50,
+    "goal_themes_bound_by_the_organ": 24,
+    "theme_source": "organ",
+    "answers_changed": [
+      {
+        "id": "sat10",
+        "gold": "satisfaction",
+        "floor": "satisfaction",
+        "model": null,
+        "model_no_precision": null
+      },
+      {
+        "id": "sat12",
+        "gold": "satisfaction",
+        "floor": "satisfaction",
+        "model": null,
+        "model_no_precision": null
+      }
+    ],
+    "model_status_marginal": {
+      "active": 9,
+      "failed": 11,
+      "satisfied": 4
+    },
+    "population": "the authored OCC appraisal gold (n=50), read by the LIVE reader; only the goal STATUS function differs between the arms",
+    "floor_incumbent_acc": 0.9,
+    "floor_abstains": 5,
+    "model_acc": 0.86,
+    "model_abstains": 7,
+    "model_no_precision_acc": 0.84,
+    "model_no_precision_abstains": 8,
+    "floor_satisfaction_only_acc": 0.6,
+    "floor_satisfaction_only_abstains": 19,
+    "twin_acc": 0.66,
+    "twin_abstains": 8,
+    "model_with_compatibility_acc": 0.88,
+    "model_with_compatibility_abstains": 6,
+    "compatibility_minus_model": [
+      0.02,
+      0.0,
+      0.06
+    ],
+    "compatibility_minus_floor": [
+      -0.02,
+      -0.06,
+      0.0
+    ],
+    "model_minus_floor": [
+      -0.04,
+      -0.1,
+      0.0
+    ],
+    "model_minus_twin": [
+      0.2,
+      0.08,
+      0.34
+    ],
+    "ci_sep_over_floor": false,
+    "ci_sep_over_twin": true
+  },
+  "F_graph_second_copy": {
+    "n_compared": 212,
+    "agree": 180,
+    "disagree": 32,
+    "disagree_rate": 0.1509,
+    "examples": [
+      {
+        "doc": "79b0da1f-e460-4173-ba58-8c9e2553c53a",
+        "goal": "go for a long walk",
+        "register": "failed",
+        "graph": "active",
+        "evidence": "thwart:adverse_resultant"
+      },
+      {
+        "doc": "79b0da1f-e460-4173-ba58-8c9e2553c53a",
+        "goal": "propose to her boyfriend",
+        "register": "failed",
+        "graph": "active",
+        "evidence": "thwart:negated_goal_head"
+      },
+      {
+        "doc": "bdceebb0-c6e8-417f-b6ae-741a0a71fcd3",
+        "goal": "go snorkeling on his second day",
+        "register": "satisfied",
+        "graph": "active",
+        "evidence": "outcome_theme_unobserved"
+      },
+      {
+        "doc": "a09017e9-0d29-46d6-8078-4ba2853d361c",
+        "goal": "ride lawn mowers",
+        "register": "failed",
+        "graph": "active",
+        "evidence": "thwart:failure_verb"
+      },
+      {
+        "doc": "a09017e9-0d29-46d6-8078-4ba2853d361c",
+        "goal": "using drugs",
+        "register": "failed",
+        "graph": "active",
+        "evidence": "thwart:failure_verb"
+      },
+      {
+        "doc": "28b8045e-0e1b-4884-90b6-fdd99cdee941",
+        "goal": "make sure he",
+        "register": "satisfied",
+        "graph": "active",
+        "evidence": "anaphoric_theme_identity_unconfirmed"
+      },
+      {
+        "doc": "72911750-4577-4954-ba65-d297c21f6030",
+        "goal": "wash her hands",
+        "register": "failed",
+        "graph": "active",
+        "evidence": "thwart:failure_verb"
+      },
+      {
+        "doc": "ba85378d-65c7-4c66-92ac-9491e598afa5",
+        "goal": "save gas so he didn't",
+        "register": "failed",
+        "graph": "active",
+        "evidence": "thwart:adverse_resultant"
+      }
+    ],
+    "note": "the graph re-derives satisfaction from predicate+agent+strictly-later-sentence; every disagreement is the register's repaired closure vs that second copy"
+  },
+  "G_candidate_decomposition": {
+    "n_goals": 212,
+    "n_incumbent_closure_candidates": 21,
+    "buckets": {
+      "anaphoric_theme_identity_unconfirmed": 7,
+      "outcome_theme_unobserved": 3,
+      "goal_states_no_theme": 5,
+      "decided_entity_identity": 5,
+      "decided_head_lemma": 1
+    },
+    "decidable_share": 0.2857,
+    "rung_that_owns_each_residual": {
+      "decided_entity_identity": "this organ (the theme is an entity in the reader files)",
+      "decided_head_lemma": "this organ (the theme lemmas are comparable)",
+      "goal_states_no_theme": "goal extraction (the construction states no object)",
+      "outcome_theme_unobserved": "the who-did-what PATIENT rung (no patient bound on the outcome)",
+      "pronoun_theme_unresolved": "the entity files / coref clustering (pri 131, pri 136)"
+    },
+    "note": "the ceiling on the CONTENT constraint: a closure whose theme is unobservable can only be graded, never adjudicated, so the residual buckets name the upstream rung to repair next"
+  },
+  "audit_checklist_3": [
+    {
+      "site": "hdlab/goal_register.py:why",
+      "pattern": "filtered cands or all cands",
+      "verdict": "FIXED at the pri 129 landing; fixture F1 keeps it, and the same-agent fallback is now LABELLED (why(..., with_provenance=True))"
+    },
+    {
+      "site": "hdlab/goal_register.py:track_status / track_status_thwart",
+      "pattern": "predicate+agent only",
+      "verdict": "FIXED here: content + (sentence, position) + polarity, with the evidence recorded"
+    },
+    {
+      "site": "hdlab/situation_reader.py:_read_prediction/_goal_lemmas",
+      "pattern": "t ignored for goals",
+      "verdict": "FIXED here: t threads through the agent population and every goal read"
+    },
+    {
+      "site": "hdlab/situation_reader.py:_read_tom_action/_desired_value",
+      "pattern": "untimed wants() while accepting t for belief",
+      "verdict": "FIXED here: the desire is read AS OF t"
+    },
+    {
+      "site": "hdlab/situation_reader.py:sm.wants/why/achieved",
+      "pattern": "no time parameter at all",
+      "verdict": "FIXED here: every goal closure accepts t"
+    },
+    {
+      "site": "hdlab/goal_hierarchy_graph.py:_apply_status:266",
+      "pattern": "a SECOND copy of the predicate+agent+strictly-later rule",
+      "verdict": "REPORTED, not fixed here: the graph re-derives satisfaction instead of calling the register's closure predicate. Measured in this cell (arm F) and handed to strategy as a one-call consolidation (hdlab/goal_hierarchy_graph.py is outside this brief's write list)"
+    },
+    {
+      "site": "hdlab/coref.py:543 'legal = inside or cands'",
+      "pattern": "filter-or-all",
+      "verdict": "NOT the same defect class and NOT this solver's file (pri 136 holds it): it broadens a STRUCTURAL legality filter when it empties, it does not drop a constraint the question states. Reported for the record."
+    },
+    {
+      "site": "hdlab/graded_role_assigner.py:176,195 / hdlab/relcl_resolver.py:152",
+      "pattern": "filter-or-all",
+      "verdict": "NOT an identity constraint (an NP-head type filter that falls back when it empties); graded_role_assigner is pri 134's file. Reported, not touched."
+    }
+  ],
+  "elapsed_s": 94.4
+}

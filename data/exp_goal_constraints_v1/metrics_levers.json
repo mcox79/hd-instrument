@@ -1,0 +1,223 @@
+{
+  "anchor": "goal_constraints_v1",
+  "landed": false,
+  "seed": 20260916,
+  "phase": "quality_push",
+  "utc": "2026-09-16T06:34:26+00:00",
+  "corpus": {
+    "n_passages": 400,
+    "n_goals": 212
+  },
+  "L2_theme_from_argument_structure_organ": {
+    "n_goals": 212,
+    "organ_bound_a_theme": 170,
+    "organ_coverage": 0.8019,
+    "agree_with_span_head": 143,
+    "disagree": 23,
+    "organ_only": 4,
+    "disagreement_examples": [
+      {
+        "goal": "help her mom this Thanksgiving",
+        "span": "thanksgiving",
+        "organ": "mom"
+      },
+      {
+        "goal": "do it properly",
+        "span": "properly",
+        "organ": "it"
+      },
+      {
+        "goal": "land some interviews soon",
+        "span": "soon",
+        "organ": "interviews"
+      },
+      {
+        "goal": "see if Kyle's shirt qualified",
+        "span": "qualified",
+        "organ": "shirt"
+      },
+      {
+        "goal": "drive home under the influence of",
+        "span": "home",
+        "organ": "influence"
+      },
+      {
+        "goal": "find her mom's cousin Sherry was",
+        "span": "was",
+        "organ": "sherry"
+      },
+      {
+        "goal": "buy all of the ingredients",
+        "span": "all",
+        "organ": "ingredients"
+      },
+      {
+        "goal": "make dinner herself",
+        "span": "herself",
+        "organ": "dinner"
+      },
+      {
+        "goal": "push it back home",
+        "span": "home",
+        "organ": "it"
+      },
+      {
+        "goal": "discover ants had",
+        "span": "had",
+        "organ": "ants"
+      },
+      {
+        "goal": "have a friend like Jadon",
+        "span": "jadon",
+        "organ": "friend"
+      },
+      {
+        "goal": "give her Mom something special for",
+        "span": "special",
+        "organ": "mom"
+      }
+    ],
+    "B1_span_theme_acc": 0.9331,
+    "B1_organ_theme_acc": 0.9375,
+    "B1_organ_minus_span": 0.0044,
+    "B1_span_n_items": 344,
+    "B1_organ_n_items": 352,
+    "B1_span_full": {
+      "n_items": 344,
+      "n_goals_with_theme": 172,
+      "model_acc": 0.9331,
+      "floor_incumbent_acc": 0.5,
+      "twin_permuted_theme_acc": 0.5058,
+      "model_minus_floor": [
+        0.4331,
+        0.407,
+        0.4593
+      ],
+      "model_minus_twin": [
+        0.4273,
+        0.3866,
+        0.468
+      ],
+      "evidence_histogram": {
+        "head_lemma": 139,
+        "None": 149,
+        "entity_identity": 12,
+        "unresolved_pronoun_theme": 41,
+        "anaphoric_theme_identity_unconfirmed": 3
+      },
+      "population": "REAL goals extracted by the live reader from ROC Stories; each goal contributes a matching and a mismatching outcome, gold by construction",
+      "ci_sep_over_floor": true,
+      "ci_sep_over_twin": true
+    },
+    "B1_organ_full": {
+      "n_items": 352,
+      "n_goals_with_theme": 176,
+      "model_acc": 0.9375,
+      "floor_incumbent_acc": 0.5,
+      "twin_permuted_theme_acc": 0.5028,
+      "model_minus_floor": [
+        0.4375,
+        0.4119,
+        0.4631
+      ],
+      "model_minus_twin": [
+        0.4347,
+        0.392,
+        0.4801
+      ],
+      "evidence_histogram": {
+        "head_lemma": 137,
+        "None": 154,
+        "entity_identity": 13,
+        "unresolved_pronoun_theme": 47,
+        "anaphoric_theme_identity_unconfirmed": 1
+      },
+      "population": "REAL goals extracted by the live reader from ROC Stories; each goal contributes a matching and a mismatching outcome, gold by construction",
+      "ci_sep_over_floor": true,
+      "ci_sep_over_twin": true
+    },
+    "note": "the organ theme is injected on the goal record exactly as the landed extractor sets it; the span reading is the fallback rung. Both arms score the SAME construction."
+  },
+  "L1_precision_weighted_veto": {
+    "with_precision": {
+      "satisfied": 13,
+      "active": 176,
+      "flips_vs_incumbent": {
+        "active->failed": 19,
+        "active->satisfied": 11,
+        "satisfied->active": 1
+      },
+      "closures_restored_by_precision": 1,
+      "accrual": {
+        "n_match": 1,
+        "n_mismatch": 5,
+        "p_match": 0.25
+      }
+    },
+    "without_precision": {
+      "satisfied": 12,
+      "active": 177,
+      "flips_vs_incumbent": {
+        "active->failed": 19,
+        "active->satisfied": 10,
+        "satisfied->active": 1
+      },
+      "closures_restored_by_precision": 0,
+      "accrual": {
+        "n_match": 1,
+        "n_mismatch": 5,
+        "p_match": 0.25
+      }
+    }
+  },
+  "L_occ_gold_three_arms": {
+    "n": 50,
+    "goal_themes_bound_by_the_organ": 24,
+    "theme_source": "organ",
+    "answers_changed": [
+      {
+        "id": "sat10",
+        "gold": "satisfaction",
+        "floor": "satisfaction",
+        "model": null,
+        "model_no_precision": null
+      },
+      {
+        "id": "sat12",
+        "gold": "satisfaction",
+        "floor": "satisfaction",
+        "model": null,
+        "model_no_precision": null
+      }
+    ],
+    "model_status_marginal": {
+      "active": 9,
+      "failed": 11,
+      "satisfied": 4
+    },
+    "population": "the authored OCC appraisal gold (n=50), read by the LIVE reader; only the goal STATUS function differs between the arms",
+    "floor_incumbent_acc": 0.9,
+    "floor_abstains": 5,
+    "model_acc": 0.86,
+    "model_abstains": 7,
+    "model_no_precision_acc": 0.84,
+    "model_no_precision_abstains": 8,
+    "floor_satisfaction_only_acc": 0.6,
+    "floor_satisfaction_only_abstains": 19,
+    "twin_acc": 0.66,
+    "twin_abstains": 8,
+    "model_minus_floor": [
+      -0.04,
+      -0.1,
+      0.0
+    ],
+    "model_minus_twin": [
+      0.2,
+      0.08,
+      0.34
+    ],
+    "ci_sep_over_floor": false,
+    "ci_sep_over_twin": true
+  },
+  "elapsed_s": 97.8
+}

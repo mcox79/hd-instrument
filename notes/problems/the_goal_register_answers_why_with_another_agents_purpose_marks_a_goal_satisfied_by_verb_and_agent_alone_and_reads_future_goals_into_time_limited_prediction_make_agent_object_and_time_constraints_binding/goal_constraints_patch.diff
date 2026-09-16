@@ -1,0 +1,914 @@
+--- a/hdlab/goal_register.py
++++ b/hdlab/goal_register.py
+@@ -98,6 +98,25 @@ class Goal:
+     negated: bool = False      # 'did NOT want to', 'failed to' -> a thwarted/abandoned goal
+     status: str = "active"     # active | satisfied | failed  (set by track_status)
+     agent_canonical: Optional[str] = None   # filled by bind_agents
++    # --- THE GOAL'S CONTENT AND THE TIME ITS STATUS CLOSED (pri 135) -------------------------------
++    # A goal is a state of an agent ABOUT AN OBJECT AT A TIME (Zwaan & Radvansky 1998 intentionality
++    # index; Trabasso & van den Broek 1985 goal/outcome arcs).  The register used to carry only the
++    # agent + the goal head, so "buy bread" was closed by "bought a car", and a question asked at time
++    # t could read a closure that happens later.  These fields make the object and the time part of the
++    # record -- filled by track_status / track_status_thwart, read by the t-bounded queries.
++    goal_object: Optional[str] = None            # the goal's THEME head ("buy bread" -> "bread"); None = the
++                                                 #   goal states no object -> it closes on agent+predicate and
++                                                 #   status_evidence SAYS so
++    satisfied_at: Optional[Tuple[int, int]] = None   # (sent_idx, within-sentence position) of the closing outcome
++    failed_at: Optional[Tuple[int, int]] = None      # (sent_idx, position) of the thwart / negation
++    object_source: Optional[str] = None          # argument_structure_organ | span_head_final (glass-box:
++                                                 #   which rung decided the goal THEME)
++    status_evidence: Optional[str] = None        # entity_identity | head_lemma | goal_states_no_object |
++                                                 #   outcome_theme_unobserved | unresolved_pronoun_theme |
++                                                 #   negated_construction | thwart:<cue> | converse | antonym
++    status_conf: Optional[float] = None          # GRADED confidence of the status decision: 1.0 when the
++                                                 #   outcome theme was observed and matched, else the ONLINE
++                                                 #   validity of the agent+predicate cue (CONTENT_STATS)
+ 
+ 
+ def _lemma(tok: str) -> str:
+@@ -194,7 +213,8 @@ _PURPOSE_DEPREL = frozenset({"advcl"})
+ _COMPLEMENT_DEPREL = frozenset({"xcomp", "ccomp", "acl", "acl:relcl", "relcl", "csubj"})
+ 
+ 
+-def extract_goals_sentence(toks: List[str], up: List[str], si: int, subcat=None, deprels=None) -> List[Goal]:
++def extract_goals_sentence(toks: List[str], up: List[str], si: int, subcat=None, deprels=None,
++                           heads=None) -> List[Goal]:
+     """Extract explicit goals from ONE sentence (tokens + UPOS). Glass-box, rule-based, no LLM. When
+     `subcat` (a SubcatFrames lexicalist frame) is provided, the bare-purpose branch uses the brain-
+     foundational verb SUBCATEGORIZATION FRAME (complement-taker vs adjunct-host) + extraposition detection
+@@ -208,6 +228,17 @@ def extract_goals_sentence(toks: List[str], up: List[str], si: int, subcat=None,
+     out: List[Goal] = []
+     n = len(toks)
+ 
++    def _bind_theme(g):
++        """pri 135: the goal THEME is an ARGUMENT of the infinitive, read off the reader's OWN parse by the
++        SAME organ that binds event patients. Falls back (goal_object) to the span's head-final reading."""
++        if heads is not None and g.to_tok is not None and g.to_tok >= 0:
++            th = organ_theme(toks, up, heads, g.to_tok + 1, goal_span_end(g))
++            if th:
++                g.goal_object, g.object_source = th, "argument_structure_organ"
++                return g
++        g.goal_object, g.object_source = goal_object(g), "span_head_final"
++        return g
++
+     # (1) DESIRE/INTEND/TRY matrix verb + 'to VINF' complement (reliable: the matrix verb is the marker)
+     for i in range(n):
+         lem = low[i]
+@@ -235,9 +266,9 @@ def extract_goals_sentence(toks: List[str], up: List[str], si: int, subcat=None,
+             continue
+         subj = _subject_before(toks, up, i)
+         agent = subj[0] if subj else "?"
+-        out.append(Goal(agent=agent, goal_head=head, goal_text=span or head, kind=kind,
+-                        source_verb=lem, sent_idx=si, verb_tok=i, to_tok=to_i,
+-                        negated=_negated_before(toks, i)))
++        out.append(_bind_theme(Goal(agent=agent, goal_head=head, goal_text=span or head, kind=kind,
++                                    source_verb=lem, sent_idx=si, verb_tok=i, to_tok=to_i,
++                                    negated=_negated_before(toks, i))))
+ 
+     # (2) EXPLICIT purpose markers: 'in order to', 'so as to' (Tier-1); 'so that' (Tier-2, gated animate)
+     for i in range(n - 2):
+@@ -252,9 +283,9 @@ def extract_goals_sentence(toks: List[str], up: List[str], si: int, subcat=None,
+                 # the goal-holder is the matrix clause subject (nearest preceding nominal before 'in order')
+                 subj = _subject_before(toks, up, i)
+                 agent = subj[0] if subj else "?"
+-                out.append(Goal(agent=agent, goal_head=head, goal_text=span or head,
+-                                kind="purpose_marked", source_verb="in_order_to", sent_idx=si,
+-                                verb_tok=i, to_tok=trg, negated=_negated_before(toks, i)))
++                out.append(_bind_theme(Goal(agent=agent, goal_head=head, goal_text=span or head,
++                                            kind="purpose_marked", source_verb="in_order_to", sent_idx=si,
++                                            verb_tok=i, to_tok=trg, negated=_negated_before(toks, i))))
+ 
+     # (3) BARE 'to VINF' purpose ADJUNCT, attached to the nearest preceding finite ACTION verb (the
+     #     matrix action). The 'in order to' substitution test is applied ONLY when that verb is ADJACENT
+@@ -312,13 +343,14 @@ def extract_goals_sentence(toks: List[str], up: List[str], si: int, subcat=None,
+             continue
+         subj = _subject_before(toks, up, mvi)
+         agent = subj[0] if subj else "?"
+-        out.append(Goal(agent=agent, goal_head=head, goal_text=span or head, kind="purpose_bare",
+-                        source_verb=mv, sent_idx=si, verb_tok=mvi, to_tok=i,
+-                        negated=_negated_before(toks, mvi)))
++        out.append(_bind_theme(Goal(agent=agent, goal_head=head, goal_text=span or head, kind="purpose_bare",
++                                    source_verb=mv, sent_idx=si, verb_tok=mvi, to_tok=i,
++                                    negated=_negated_before(toks, mvi))))
+     return out
+ 
+ 
+-def extract_goals(sents: List[List[str]], pos_tags: List[List[str]], subcat=None, deprels_by_sent=None) -> List[Goal]:
++def extract_goals(sents: List[List[str]], pos_tags: List[List[str]], subcat=None, deprels_by_sent=None,
++                  heads_by_sent=None) -> List[Goal]:
+     """Extract explicit goals across a passage. sents = [[token]], pos_tags = [[UPOS]] aligned. When
+     `subcat` (a SubcatFrames lexicalist frame) is provided, the bare-purpose branch is gated by the
+     brain-foundational verb subcategorization frame + extraposition detection (the upstream fix). When
+@@ -333,7 +365,8 @@ def extract_goals(sents: List[List[str]], pos_tags: List[List[str]], subcat=None
+     for si, toks in enumerate(sents):
+         up = pos_tags[si] if si < len(pos_tags) else ["X"] * len(toks)
+         dr = deprels_by_sent[si] if (deprels_by_sent is not None and si < len(deprels_by_sent)) else None
+-        goals.extend(extract_goals_sentence(list(toks), list(up), si, subcat=subcat, deprels=dr))
++        hd = heads_by_sent[si] if (heads_by_sent is not None and si < len(heads_by_sent)) else None
++        goals.extend(extract_goals_sentence(list(toks), list(up), si, subcat=subcat, deprels=dr, heads=hd))
+     return goals
+ 
+ 
+@@ -350,6 +383,354 @@ def bind_agents(goals: List[Goal], canonicalize) -> List[Goal]:
+     return goals
+ 
+ 
++# ---------------------------------------------------------------------------
++# GOAL CLOSURE BY CONTENT, AGENT AND TIME  (pri 135 -- the three binding constraints)
++# ---------------------------------------------------------------------------
++# THE BRAIN (PINNED):
++#   * A goal node is CLOSED by an outcome only when the outcome achieves the goal CONTENT -- the same
++#     agent acting on the SAME THEME. Trabasso & van den Broek (1985) / Trabasso & Sperry (1985) build the
++#     narrative causal network out of goal->attempt->OUTCOME arcs in which the outcome state IS the goal
++#     state; Zwaan & Radvansky (1998) index each event on five dimensions and update an index only for the
++#     event that matches on it -- the intentionality index is (agent, goal content), so an event sharing
++#     the predicate but not the theme indexes a DIFFERENT goal.
++#   * The THEME IS AN ENTITY, not a string: a discourse file card (Heim 1982 file-change semantics;
++#     Kahneman & Treisman 1992 object files). So identity is decided through the reader OWN entity files
++#     first (the canonicaliser) and by head lemma only as the fallback.
++#   * ORDER IS (SENTENCE, WITHIN-SENTENCE POSITION): the reference time advances with every clause
++#     (Reichenbach 1947; van Dijk & Kintsch 1983 incremental updating), so a later clause of the SAME
++#     sentence is still later -- "she wanted to buy bread and bought the bread" closes the goal.
++#   * A QUERY AT TIME t READS THE MODEL AS OF t (Altmann & Kamide 1999: anticipation is driven by what has
++#     been heard so far; Kuperberg & Jaeger 2016). A goal stated after t is not evidence at t.
++#   * STATUS IS GRADED, NEVER SILENTLY EQUATED (Lutz & Radvansky 1997 failed > completed > neutral): when
++#     the outcome theme cannot be observed, the closure is recorded as agent+predicate-only and carries
++#     the ONLINE validity of that cue instead of a frozen constant.
++# OUR-INVENTION-UNDER-TEST: the theme-head extraction rule, the span-end ordering key, the accrual prior.
++CONTENT_MATCH = "match"
++CONTENT_MISMATCH = "mismatch"
++CONTENT_UNKNOWN = "unknown"
++
++# determiners / particles / prepositions that are never the THEME HEAD of an English NP (head-final)
++_OBJ_STOP = {"the", "a", "an", "this", "that", "these", "those", "his", "her", "their", "my", "your", "our",
++             "its", "some", "any", "no", "more", "much", "many", "own", "very", "just", "again", "back",
++             "out", "up", "down", "away", "off", "over", "in", "on", "at", "to", "for", "with", "of", "from",
++             "into", "about", "not", "never", "n't", "there", "here", "one", "thing", "things",
++             # INDEFINITE / INTERROGATIVE PRO-FORMS: they denote no individual, so a goal whose span ends in
++             # one states NO theme ("make something", "see what is available") and must close on
++             # agent+predicate like any objectless goal -- not veto on a theme that was never named.
++             "something", "anything", "nothing", "everything", "someone", "anyone", "everyone", "somebody",
++             "anybody", "nobody", "everybody", "stuff", "what", "whatever", "which", "whichever"}
++# a POST-MODIFIER boundary: everything from here on modifies the head, it is not the head
++_THEME_BREAK = {"of", "in", "on", "at", "for", "with", "from", "into", "about", "by", "over", "under",
++                "after", "before", "during", "through", "between", "against", "toward", "towards", "until",
++                "because", "that", "which", "who", "whom", "whose", "when", "while", "where", "and", "but",
++                "or", "so", "as", "than", "if"}
++
++
++def _lemma_noun(w: str) -> str:
++    """Stable noun-lemma key for a theme head ("loaves" -> "loaf"). hdlab.lexical_utils.head_lemma is the
++    shipped light noun morphology (regex + irregular map, NO external asset at inference); a head that
++    lemmatises to the empty string (a redaction, digits) keeps its lowered surface rather than collapsing."""
++    wl = str(w or "").lower()
++    try:
++        from hdlab.lexical_utils import head_lemma as _hl
++        return _hl(wl) or wl
++    except Exception:
++        return _lemma(wl)
++
++
++def _theme_head(text) -> Optional[str]:
++    """The HEAD of a theme surface: the last content token BEFORE any post-modifier (English NPs are
++    head-final but a PP/clause after the head is a modifier, not the theme -- "go snorkeling on his second
++    day" is about SNORKELLING, not about the DAY). A PRONOUN theme is returned as the pronoun -- it is
++    resolved through the entity files, never dropped."""
++    toks = [t for t in _tokset_raw(text) if t]
++    cut = len(toks)
++    for i, t in enumerate(toks):
++        if i > 0 and t in _THEME_BREAK:
++            cut = i
++            break
++    toks = toks[:cut]
++    if not toks:
++        return None
++    if toks[-1] in PRONOUNS:
++        return toks[-1]
++    keep = [t for t in toks if t not in _OBJ_STOP]
++    return keep[-1] if keep else None
++
++
++def goal_object(g) -> Optional[str]:
++    """The goal THEME, decided at extraction by the argument-structure organ when a parse was available
++    (g.goal_object / g.object_source='argument_structure_organ'); otherwise the head of the goal span AFTER
++    its head verb ("buy bread" -> "bread"), which is the fallback reading. None when
++    the goal states no object ("escape", "get out") -- that goal closes on agent+predicate and the record
++    SAYS so (status_evidence='goal_states_no_object'), which is what "treat missing target information as
++    uncertainty rather than automatic equivalence" requires of the record."""
++    pre = getattr(g, "goal_object", None)
++    if pre:
++        return pre
++    toks = [t for t in _tokset_raw(getattr(g, "goal_text", "") or "") if t]
++    ah = _norm_pred(getattr(g, "goal_head", "") or "")
++    rest, dropped = [], False
++    for t in toks:
++        if not dropped and (_norm_pred(t) == ah or _lemma(t) == _lemma(ah)):
++            dropped = True
++            continue
++        rest.append(t)
++    return _theme_head(" ".join(rest)) if rest else None
++
++
++_CLAUSE_BOUNDARY = {".", ",", ";", ":", "!", "?", "and", "but", "or", "because", "who", "which", "when",
++                    "that", "while", "so"}
++
++
++def organ_theme(toks, up, heads, inf_idx0, span_end=None) -> Optional[str]:
++    """The goal THEME as an ARGUMENT of the infinitival predicate, decided by the SAME organ that decides the
++    event patients -- hdlab.predicate_argument_frontend.structural_patient_pick over the reader OWN parse
++    (obj / nsubj:pass off the labelled arc, valency-gated). ONE STRUCTURE, ONE ORGAN: "what the action
++    targeted" is the Tier-0 agent->object binding (Woodward 1998), and the reader already computes it for
++    every event; the goal clause is not a different kind of object. None when the organ binds nothing inside
++    the goal's own clause -- the caller then falls back to the span's head-final reading.
++    OUR-INVENTION-UNDER-TEST: the clause-boundary window that keeps the pick inside the goal clause."""
++    if not heads:
++        return None
++    try:
++        from hdlab.predicate_argument_frontend import structural_patient_pick
++    except Exception:
++        return None
++    try:
++        p = structural_patient_pick(list(toks), list(up), dict(heads), inf_idx0 + 1)
++    except Exception:
++        return None
++    if not p:
++        return None
++    j = int(p) - 1
++    if j <= inf_idx0 or j >= len(toks):
++        return None
++    # THE PICK MUST LIE INSIDE THE GOAL'S OWN SPAN. The extractor has already decided how far the goal's
++    # content reaches; the patient organ is asked WHICH nominal inside that span is the theme, never to reach
++    # past it. (Measured: without this bound it bound `summer` for "trying to fix the old motorbike ALL
++    # SUMMER" and the theme test then vetoed a realization the passage reports.)
++    if span_end is not None and j > int(span_end):
++        return None
++    if any(str(t).lower() in _CLAUSE_BOUNDARY for t in toks[inf_idx0 + 1:j]):
++        return None                      # the organ reached past the goal clause -> not this goal's theme
++    # THE ORGAN NAMES THE ARGUMENT; THE NP NAMES THE THEME. The two channels answer different questions and
++    # their errors are complementary (measured on ROC: the organ recovers the argument where the span's
++    # head-final reading takes a temporal -- "help her MOM this thanksgiving", "land some INTERVIEWS soon" --
++    # while the span reading recovers the head where the organ takes a compound or possessive modifier --
++    # "chicken pot PIE", "soap box car DERBY", "his TIRE"). So: the organ picks the phrase, then the phrase's
++    # own head-final rule picks the token that names it -- one composition, both rungs used for what each
++    # actually computes.
++    k = j
++    while (k + 1 < len(toks) and (span_end is None or (k + 1) <= int(span_end))
++           and (k + 1) < len(up) and str(up[k + 1]) in ("NOUN", "PROPN", "NUM", "ADJ", "PART", "X")):
++        k += 1
++    while k > j and (k >= len(up) or str(up[k]) not in ("NOUN", "PROPN", "NUM", "X")):
++        k -= 1
++    return _theme_head(str(toks[k]))
++
++
++def event_object(e) -> Optional[str]:
++    """The outcome event THEME head (its bound patient). None = the reader bound no patient -> the theme is
++    UNOBSERVED (uncertainty), which is NOT the same as a theme that conflicts."""
++    p = str(getattr(e, "patient", "") or "").strip()
++    if not p or p in ("?", "None", "none"):
++        return None
++    return _theme_head(p)
++
++
++def content_verdict(goal_obj, ev_obj, canon=None, g_sent=0, e_sent=0, matcher=None):
++    """Three-valued CONTENT comparison of a goal theme and an outcome theme -> (verdict, how):
++    match / mismatch / unknown. The reader OWN entity files decide first (the theme is a file card, not a
++    string); an unresolved PRONOUN theme is UNKNOWN (the recall loss there belongs to the clustering,
++    pri 131, and must never be laundered into a silent match); head lemma is the fallback."""
++    if not goal_obj:
++        return CONTENT_UNKNOWN, "goal_states_no_object"
++    if not ev_obj:
++        return CONTENT_UNKNOWN, "outcome_theme_unobserved"
++    ga = ea = None
++    if canon is not None:
++        try:
++            ga = canon(goal_obj, g_sent)
++        except Exception:
++            ga = None
++        try:
++            ea = canon(ev_obj, e_sent)
++        except Exception:
++            ea = None
++    if ga and ea:
++        if _norm(str(ga)) == _norm(str(ea)):
++            return CONTENT_MATCH, "entity_identity"
++        # A DIFFERENCE is evidence ONLY BETWEEN TWO INDEPENDENTLY NAMED THEMES.  When either side is a
++        # PRONOUN, the "identity" is an antecedent the coreference organ picked in a graded competition that
++        # this register cannot re-run, and a disagreement with it is weak evidence, not a veto: on the OCC
++        # gold the files resolved "won IT" to "weekend" and the goal's own "championship" was then read as a
++        # DIFFERENT thing, blocking a realization that plainly happened.  The recall this leaves on the table
++        # belongs to the entity files (pri 131/136) and is recorded, never laundered into a match.
++        if goal_obj in PRONOUNS or ev_obj in PRONOUNS:
++            return CONTENT_UNKNOWN, "anaphoric_theme_identity_unconfirmed"
++        # TWO FILE CARDS CAN NAME ONE THING. The files are known to under-merge common nouns (pri 131/136),
++        # and a TYPE relation between the two heads is exactly the evidence that would have merged them
++        # ("buy the corner BAKERY" / "Tomas bought the SHOP": the structured store has bakery IS-A shop).
++        # So a bare entity DIFFERENCE is not evidence when the structured store says the heads are
++        # compatible -- abstain and hand the uncertainty down, never a veto and never a silent match.
++        if matcher is not None:
++            kg_, ke_ = _lemma_noun(goal_obj), _lemma_noun(ev_obj)
++            try:
++                if matcher.type_match(kg_, ke_)[0] > 0 or matcher.type_match(ke_, kg_)[0] > 0:
++                    return CONTENT_UNKNOWN, "entity_difference_overruled_by_type_compatibility"
++            except Exception:
++                pass
++        return CONTENT_MISMATCH, "entity_identity"
++    if (goal_obj in PRONOUNS and not ga) or (ev_obj in PRONOUNS and not ea):
++        return CONTENT_UNKNOWN, "unresolved_pronoun_theme"
++    kg, ke = _lemma_noun(goal_obj), _lemma_noun(ev_obj)
++    if kg == ke:
++        return CONTENT_MATCH, "head_lemma"
++    # THE COMPATIBLE THEME (opt-in): two different words can name the same thing ("the corner BAKERY" / "the
++    # SHOP"), and deciding that is a TYPE/PART relation on the STRUCTURED relational store, not a string test
++    # -- the separate combinatorial-semantics computation the polarity-blind distributional hub cannot do
++    # (Binder & Desai 2011). Consulted ONLY when a matcher is injected; matcher=None -> byte-identical, and
++    # the default reader reads no new asset at inference.
++    if matcher is not None:
++        try:
++            sign, why, _score = matcher.type_match(kg, ke)
++            if sign > 0:
++                return CONTENT_MATCH, "structured_compatible:" + str(why)
++            sign2, why2, _s2 = matcher.type_match(ke, kg)
++            if sign2 > 0:
++                return CONTENT_MATCH, "structured_compatible:" + str(why2)
++        except Exception:
++            pass
++    return CONTENT_MISMATCH, "head_lemma"
++
++
++def goal_span_end(g) -> int:
++    """The token index of the LAST token of the goal stated span within its sentence. An outcome in the
++    SAME sentence counts only if it lies AFTER this -- otherwise the goal own infinitive ("wanted to buy
++    bread", which the event reader also records as an event) would instantly close the goal itself."""
++    base = getattr(g, "to_tok", -1)
++    if base is None or base < 0:
++        base = getattr(g, "verb_tok", -1)
++    if base is None or base < 0:
++        return 10 ** 6                      # no position known -> no same-sentence outcome can be ordered
++    n = len([t for t in str(getattr(g, "goal_text", "") or "").split() if t])
++    return base + max(1, n)
++
++
++def outcome_is_after(g, e_sent, e_pos) -> bool:
++    """Discourse order: (sentence, within-sentence position). A later clause of the goal OWN sentence is
++    still later; an event with no recorded position cannot be ordered within the sentence (abstain)."""
++    gs = getattr(g, "sent_idx", 0)
++    if e_sent > gs:
++        return True
++    if e_sent < gs:
++        return False
++    return e_pos is not None and e_pos > goal_span_end(g)
++
++
++def _outcome_holds(pol) -> bool:
++    """D01 polarity (pri 132): a NEGATED outcome does not realize a goal. polarity None/0 = not read /
++    undetermined -> the incumbent positive reading (abstain, never a guess)."""
++    try:
++        return pol is None or int(pol) >= 0
++    except Exception:
++        return True
++
++
++class ContentMatchAccrual:
++    """THE ONLINE VALIDITY of the agent+predicate cue when the outcome theme is UNOBSERVABLE: P(the content
++    matched | the theme was observable), accrued from the reader OWN decoded outcomes with a Laplace prior.
++    Nothing here is frozen or fitted offline, and the STATUS DECISION NEVER READS IT -- it grades the
++    confidence handed downstream, so the register stays deterministic while the signal stays graded (the
++    brain is plastic, never frozen; a cue validity is a lifetime statistic accrued from counts)."""
++    __slots__ = ("n_match", "n_mismatch")
++
++    def __init__(self, n_match: int = 0, n_mismatch: int = 0):
++        self.n_match = int(n_match)
++        self.n_mismatch = int(n_mismatch)
++
++    def observe(self, verdict) -> None:
++        if verdict == CONTENT_MATCH:
++            self.n_match += 1
++        elif verdict == CONTENT_MISMATCH:
++            self.n_mismatch += 1
++
++    def p_match(self) -> float:
++        return (self.n_match + 1.0) / (self.n_match + self.n_mismatch + 2.0)
++
++    def as_dict(self) -> dict:
++        return {"n_match": self.n_match, "n_mismatch": self.n_mismatch, "p_match": round(self.p_match(), 4)}
++
++
++CONTENT_STATS = ContentMatchAccrual()      # the process-wide accrual (the observe path; no frozen number)
++
++
++def _ev_tuples(events, norm, agent_fn=None):
++    """[(sent_idx, position, normalized predicate, agent, theme head, polarity, theme PRECISION)].
++    The precision is the reader's OWN calibrated reliability of the parse arc the patient was read off
++    (EventRecord.patient_conf, Friston precision-weighting, already computed by the precision-weight wire and
++    previously thrown away by the goal closure). None = not available -> the evidence is taken at face value."""
++    out = []
++    for e in events:
++        si = getattr(e, "sent_idx", 0)
++        ag = getattr(e, "agent", "")
++        ag = agent_fn(ag, si) if agent_fn is not None else str(ag or "").lower()
++        out.append((si, getattr(e, "pred_idx", None), norm(getattr(e, "predicate", "")), ag,
++                    event_object(e), getattr(e, "polarity", None), getattr(e, "patient_conf", None)))
++    return out
++
++
++def closing_outcome(g, ga, ah, ev, canon=None, stats=None, p_prior=None, matcher=None):
++    """The EARLIEST outcome in `ev` that closes goal g -- same agent, same predicate, content NOT in
++    conflict, positive, and AFTER the goal in (sentence, position). Returns (sent, pos, evidence, conf) or
++    None. This is the ONE goal-closure predicate; track_status, track_status_thwart and any other consumer
++    of goal realization call it rather than re-deriving the rule (one structure, one organ)."""
++    st = stats if stats is not None else CONTENT_STATS
++    # the accrued validity is READ ONCE per call (the caller passes the snapshot it took before the pass), so
++    # a single status pass is internally deterministic while the validity itself stays plastic across passes.
++    p0 = st.p_match() if p_prior is None else float(p_prior)
++    gobj = getattr(g, "goal_object", None)
++    if gobj is None:
++        gobj = goal_object(g)
++        try:
++            g.goal_object = gobj
++        except Exception:
++            pass
++    best = None
++    for row in ev:
++        si, pos, pl, ea, th, pol = row[0], row[1], row[2], row[3], row[4], row[5]
++        prec = row[6] if len(row) > 6 else None
++        if not pl or pl != ah:
++            continue
++        if not (ea == ga or ga in ("?", "")):
++            continue
++        if not _outcome_holds(pol):
++            continue
++        if not outcome_is_after(g, si, pos):
++            continue
++        verdict, how = content_verdict(gobj, th, canon, getattr(g, "sent_idx", 0), si, matcher=matcher)
++        st.observe(verdict)                                   # the observe path: only decidable pairs count
++        if verdict == CONTENT_MISMATCH:
++            # PRECISION-WEIGHTED VETO (Friston precision-weighting: the brain weights a cue by its
++            # reliability instead of treating every cue as certain).  A conflicting theme is evidence only if
++            # the reader believes the ARC it was read off is more likely right than wrong -- a MAP decision on
++            # the arc's OWN calibrated probability (`EventRecord.patient_conf`, produced by the precision-
++            # weight rung and previously thrown away here), with no tuned constant.  Measured case: "he
++            # crossed the line and finished" binds `line` as the patient of `finished` with conf 0.27, and
++            # that 0.27-reliable token was vetoing a goal the passage plainly realizes.  Precision
++            # unavailable -> the evidence stands (the incumbent, stricter reading).
++            if prec is not None and float(prec) <= 0.5:
++                how, verdict = "low_precision_theme_conflict", CONTENT_UNKNOWN
++            else:
++                continue                                      # a different theme closes a DIFFERENT goal
++        conf = 1.0 if verdict == CONTENT_MATCH else round(p0, 4)
++        cand = (si, pos if pos is not None else 10 ** 6, how, conf)
++        if best is None or (cand[0], cand[1]) < (best[0], best[1]):
++            best = cand
++    return best
++
++
+ # ---------------------------------------------------------------------------
+ # THE PER-AGENT GOAL REGISTER (the situation-model dimension)
+ # ---------------------------------------------------------------------------
+@@ -371,69 +752,125 @@ class GoalRegister:
+     def agents(self) -> List[str]:
+         return [a for a in self._by_agent if a and a != "?"]
+ 
+-    def goals_of(self, agent: str) -> List[Goal]:
++    def goals_of(self, agent: str, t: Optional[int] = None) -> List[Goal]:
++        """The agent goals, most recent first. `t` (a sentence index) BOUNDS the query: a goal STATED
++        after t is not in the model at t (pri 135 R04 -- a question asked at t may not read the future)."""
+         gs = self._by_agent.get((agent or "").lower(), [])
++        if t is not None:
++            gs = [g for g in gs if getattr(g, "sent_idx", 0) <= t]
+         # reinstatement order: most recent first (Suh & Trabasso last-unsatisfied-superordinate priority)
+         return sorted(gs, key=lambda g: (g.sent_idx, g.verb_tok), reverse=True)
+ 
+-    def wants(self, agent: str) -> Optional[Goal]:
++    def status_of(self, g: Goal, t: Optional[int] = None) -> str:
++        """The goal status AS OF sentence t. A goal FINAL achieved/failed status is not its status at an
++        earlier point (pri 135 R04), so a t-bounded query recomputes it from the recorded closure TIMES and
++        the EARLIEST closure wins. t=None -> the final `status` field (byte-identical to the incumbent, and
++        the path any caller that sets `.status` directly -- e.g. an info-free twin -- keeps)."""
++        if t is None:
++            return g.status
++        if getattr(g, "negated", False):
++            return "failed"
++        sa, fa = getattr(g, "satisfied_at", None), getattr(g, "failed_at", None)
++        cands = []
++        if sa is not None and sa[0] <= t:
++            cands.append((tuple(sa), "satisfied"))
++        if fa is not None and fa[0] <= t:
++            cands.append((tuple(fa), "failed"))
++        if cands:
++            return min(cands)[1]
++        if sa is None and fa is None and g.status in ("satisfied", "failed"):
++            return g.status            # a status set with no recorded time -> untimed; report it unchanged
++        return "active"
++
++    def wants(self, agent: str, t: Optional[int] = None) -> Optional[Goal]:
+         """The agent's CURRENT goal via Suh & Trabasso (1993) REINSTATEMENT: the most recent ACTIVE goal
+         -- a completed (satisfied) subgoal DEACTIVATES and attention returns to the still-open superordinate
+         goal (which may be OLDER). So skip satisfied/failed/negated goals and return the most recent OPEN
+-        one; fall back to the most recent non-negated goal, else the most recent."""
+-        for g in self.goals_of(agent):                # goals_of is most-recent-first
+-            if not g.negated and g.status == "active":
++        one; fall back to the most recent non-negated goal, else the most recent.
++
++        `t` bounds the read to goals STATED at or before t, with each status taken AS OF t (pri 135 R04)."""
++        for g in self.goals_of(agent, t):             # goals_of is most-recent-first
++            if not g.negated and self.status_of(g, t) == "active":
+                 return g
+-        for g in self.goals_of(agent):
++        for g in self.goals_of(agent, t):
+             if not g.negated:
+                 return g
+-        gs = self.goals_of(agent)
++        gs = self.goals_of(agent, t)
+         return gs[0] if gs else None
+ 
+-    def why(self, action_head: str, agent: Optional[str] = None) -> Optional[Goal]:
++    def why(self, action_head: str, agent: Optional[str] = None, t: Optional[int] = None,
++            with_provenance: bool = False):
+         """The GOAL-based reason an agent performed `action_head`: the purpose adjunct whose matrix verb
+-        IS that action (goal-why, distinct from the physical cause). Falls back to the agent's active goal."""
++        IS that action (goal-why, distinct from the physical cause). Falls back to the agent active goal.
++
++        The IDENTITY constraint is BINDING (R02): when the requested agent has no purpose for that action
++        the answer is that agent OWN current goal or NOTHING -- never another agent purpose. `t` bounds the
++        read to purposes stated at or before t (R04). `with_provenance=True` returns (goal, provenance) so a
++        consumer can tell a real purpose from the LABELLED same-agent fallback instead of having to assume:
++        'purpose_construction' | 'same_agent_current_goal_fallback' | 'unavailable'."""
+         ah = _lemma(action_head)
+         cands = [g for g in self.goals if g.kind in ("purpose_marked", "purpose_bare")
+-                 and _lemma(g.source_verb) == ah]
++                 and _lemma(g.source_verb) == ah
++                 and (t is None or getattr(g, "sent_idx", 0) <= t)]
+         if agent is not None:
+             ca = (agent or "").lower()
+             # R02 (follow-up review 2026-09-15): the agent constraint is BINDING -- no broadening to another
+             # agent's purpose when the requested agent has none (the same-agent active-goal fallback below stays).
+             cands = [g for g in cands if (g.agent_canonical or g.agent or "").lower() == ca]
+         if cands:
+-            return sorted(cands, key=lambda g: (g.sent_idx, g.verb_tok))[0]
++            g = sorted(cands, key=lambda g: (g.sent_idx, g.verb_tok))[0]
++            return (g, "purpose_construction") if with_provenance else g
+         if agent is not None:
+-            return self.wants(agent)
+-        return None
+-
+-    def achieved(self, agent: str, goal_head: str) -> str:
+-        for g in self.goals_of(agent):
++            w = self.wants(agent, t)
++            if with_provenance:
++                return (w, "same_agent_current_goal_fallback" if w is not None else "unavailable")
++            return w
++        return (None, "unavailable") if with_provenance else None
++
++    def achieved(self, agent: str, goal_head: str, t: Optional[int] = None) -> str:
++        """The status of the agent `goal_head` goal, AS OF t when t is given (R04)."""
++        for g in self.goals_of(agent, t):
+             if _lemma(g.goal_head) == _lemma(goal_head):
+-                return g.status
++                return self.status_of(g, t)
+         return "unknown"
+ 
+ 
+ # ---------------------------------------------------------------------------
+ # STATUS TRACKING: goal satisfaction / failure over the event stream (PINNED status field)
+ # ---------------------------------------------------------------------------
+-def track_status(goals: List[Goal], events) -> List[Goal]:
+-    """Set each goal's STATUS (active/satisfied/failed) from the reader's event stream (Lutz & Radvansky:
+-    a goal is satisfied when a LATER event by the SAME agent realizes the goal head; failed when explicitly
+-    negated/thwarted). `events` is an iterable with .predicate/.agent/.sent_idx/.global_idx. Glass-box:
+-    satisfaction = a later same-agent event whose predicate lemma matches the goal head. Graded decay
+-    (not deletion) is represented by keeping the goal in the register with status=satisfied."""
+-    ev = [(getattr(e, "sent_idx", 0), getattr(e, "global_idx", 0), _lemma(str(getattr(e, "predicate", ""))),
+-           str(getattr(e, "agent", "") or "").lower()) for e in events]
++def track_status(goals: List[Goal], events, canon=None, stats=None) -> List[Goal]:
++    """Set each goal STATUS (active/satisfied/failed) from the reader event stream (Lutz & Radvansky: a goal
++    is satisfied when a LATER event by the SAME agent realizes the goal; failed when explicitly negated).
++    `events` is an iterable with .predicate/.agent/.sent_idx/.pred_idx/.patient/.polarity. `canon(surface,
++    si)` (optional) is the reader entity resolver, used to compare THEMES as entities rather than strings.
++
++    SATISFACTION IS A CONTENT MATCH (pri 135 R03): the outcome must share the goal PREDICATE, AGENT and
++    THEME and follow the goal in (sentence, within-sentence position) -- "buy bread" is no longer closed by
++    "bought a car", and "she wanted to buy bread and bought the bread" now closes in its own sentence. When
++    the outcome theme cannot be observed the closure still fires on agent+predicate but the record SAYS so
++    (status_evidence) and carries the ONLINE validity of that cue (status_conf), never a silent equivalence.
++    The closure TIME is recorded (satisfied_at / failed_at) so a query at time t can read the status AS OF t.
++    Graded decay (not deletion) is still represented by keeping the goal in the register with the status."""
++    ev = _ev_tuples(events, lambda w: _lemma(str(w)))
++    _p0 = (stats if stats is not None else CONTENT_STATS).p_match()      # one snapshot for the whole pass
+     for g in goals:
++        g.goal_object = goal_object(g)          # returns the organ-decided theme when extraction bound one
+         if g.negated:
+             g.status = "failed"
++            g.satisfied_at, g.failed_at = None, (getattr(g, "sent_idx", 0), goal_span_end(g))
++            g.status_evidence, g.status_conf = "negated_construction", 1.0
+             continue
+         ah = _lemma(g.goal_head)
+         ga = (g.agent_canonical or g.agent or "").lower()
+-        realized = any(si > g.sent_idx and pl == ah and (ea == ga or ga in ("?", ""))
+-                       for (si, _gi, pl, ea) in ev)
+-        g.status = "satisfied" if realized else "active"
++        hit = closing_outcome(g, ga, ah, ev, canon=canon, stats=stats, p_prior=_p0)
++        if hit is not None:
++            g.status = "satisfied"
++            g.satisfied_at, g.failed_at = (hit[0], hit[1]), None
++            g.status_evidence, g.status_conf = hit[2], hit[3]
++        else:
++            g.status = "active"
++            g.satisfied_at, g.failed_at = None, None
++            g.status_evidence, g.status_conf = None, None
+     return goals
+ 
+ 
+@@ -552,7 +989,8 @@ def implicit_investment_goals(raw_sents, char):
+     return out
+ 
+ 
+-def track_status_thwart(goals: List[Goal], events, sents=None, canon=None, matcher=None) -> List[Goal]:
++def track_status_thwart(goals: List[Goal], events, sents=None, canon=None, matcher=None,
++                        stats=None) -> List[Goal]:
+     """STRICT SUPERSET of track_status. Sets each goal's status in {active, satisfied, failed}, adding a
+     FAILURE-by-thwart branch (Lutz & Radvansky failed status) + two extraction generalizations the OCC
+     appraisal needs on modern prose: (i) event-agent COREF canonicalization (canon(surface, si) -> canonical
+@@ -581,27 +1019,40 @@ def track_status_thwart(goals: List[Goal], events, sents=None, canon=None, match
+             if c:
+                 return str(c).lower()
+         return s
+-    ev = [(getattr(e, "sent_idx", 0), _norm_pred(getattr(e, "predicate", "")),
+-           _agent(getattr(e, "agent", ""), getattr(e, "sent_idx", 0))) for e in events]
++    ev = _ev_tuples(events, _norm_pred, agent_fn=_agent)
++    _p0 = (stats if stats is not None else CONTENT_STATS).p_match()      # one snapshot for the whole pass
++    ev3 = [(row[0], row[2], row[3]) for row in ev]                   # the legacy 3-tuple view (matcher branch)
+     stexts = _sent_texts(events, sents)
+     for g in goals:
++        g.goal_object = goal_object(g)
+         # ---- baseline branch 1: negated goal construction -> failed (UNCHANGED) ----
+         if g.negated:
+             g.status = "failed"
++            g.satisfied_at, g.failed_at = None, (getattr(g, "sent_idx", 0), goal_span_end(g))
++            g.status_evidence, g.status_conf = "negated_construction", 1.0
+             continue
+         ah = _norm_pred(g.goal_head)
+         # canonicalize the GOAL agent through the SAME resolver as the event agent (else a pronoun goal-agent
+         # "we/they" mismatches an event-agent that canonicalized to the protagonist name).
+         ga = _agent(g.agent_canonical or g.agent or "", getattr(g, "sent_idx", 0))
+-        # ---- baseline branch 2: satisfaction (agent-canon + irregular-normalized head match) ----
+-        realized = any(si > g.sent_idx and pl == ah and (ea == ga or ga in ("?", ""))
+-                       for (si, pl, ea) in ev)
+-        if realized:
++        # ---- baseline branch 2+3, now ORDERED IN TIME (pri 135 R03): satisfaction by CONTENT match
++        # (agent-canon + irregular-normalized head + the goal THEME + (sentence, position) order) and
++        # FAILURE by thwart are both TIMED, and THE EARLIEST CLOSING EVENT WINS -- the situation model is
++        # updated in discourse order, so a thwart that happens BEFORE the realizing outcome closes the goal
++        # as failed (the brief asks for the thwart check first; ordering by time subsumes that and stays
++        # time-consistent with the t-bounded queries).  A tie keeps the realization, so the strict-superset
++        # guarantee over the baseline holds wherever the two cues land in the same place. ----
++        sat = closing_outcome(g, ga, ah, ev, canon=canon, stats=stats, p_prior=_p0, matcher=matcher)
++        thw = thwart_position(g, ah, ga, ev, stexts)
++        if sat is not None and (thw is None or (sat[0], sat[1]) <= (thw[0], thw[1])):
+             g.status = "satisfied"
++            g.satisfied_at, g.failed_at = (sat[0], sat[1]), None
++            g.status_evidence, g.status_conf = sat[2], sat[3]
+             continue
+-        # ---- NEW branch 3: FAILURE by thwart (the generalization) ----
+-        if _is_thwarted(g, ah, ga, ev, stexts):
++        if thw is not None:
+             g.status = "failed"
++            g.satisfied_at, g.failed_at = None, (thw[0], thw[1])
++            g.status_evidence, g.status_conf = thw[2], 1.0
+             continue
+         # ---- NEW branch 4 (matcher injected): STRUCTURED converse/antonym SIGN via hdlab.structured_matcher ----
+         # A later same-agent event whose predicate is a CONVERSE of the goal head SATISFIES it (a role-swap -- the
+@@ -611,11 +1062,18 @@ def track_status_thwart(goals: List[Goal], events, sents=None, canon=None, match
+         # Fires ONLY on goals still 'active' after branches 1-3, uses ONLY the structured edges (never the hub fuzzy
+         # fallback) -> a STRICT SUPERSET, byte-identical when matcher is None or abstains.
+         if matcher is not None:
+-            cv = _matcher_converse_antonym(g, ah, ga, ev, stexts, matcher)
++            cv = _matcher_converse_antonym(g, ah, ga, ev3, stexts, matcher)
+             if cv:
+                 g.status = cv
++                # the structured converse/antonym branch scores a RELATION, not a timed closure -> no
++                # satisfied_at/failed_at; status_of(t) reports it untimed and SAYS so via the evidence.
++                g.satisfied_at, g.failed_at = None, None
++                g.status_evidence = "structured_converse" if cv == "satisfied" else "structured_antonym"
++                g.status_conf = None
+                 continue
+         g.status = "active"
++        g.satisfied_at, g.failed_at = None, None
++        g.status_evidence, g.status_conf = None, None
+     return goals
+ 
+ 
+@@ -662,25 +1120,48 @@ def _matcher_converse_antonym(g, ah, ga, ev, stexts, matcher) -> Optional[str]:
+     return "failed" if anto_hit else None
+ 
+ 
+-def _is_thwarted(g, ah, ga, ev, stexts) -> bool:
+-    """A later event/clause thwarts goal g. Three cues (any fires)."""
+-    # (1) later same-agent FAILURE verb (predicate normalized; also match raw failure surface forms)
+-    for (si, pl, ea) in ev:
+-        if si > g.sent_idx and (ea == ga or ga in ("?", "")) and (pl in FAILURE_VERBS or _norm_pred(pl) in FAILURE_VERBS):
+-            return True
++def thwart_position(g, ah, ga, ev, stexts):
++    """The EARLIEST (sentence, position, evidence) at which a later event/clause THWARTS goal g, or None.
++    The same three cues as before, now TIMED (pri 135) so the caller can order a thwart against a realizing
++    outcome instead of hard-coding which cue wins. `ev` accepts the 6-tuple event view (sent, pos, pred,
++    agent, theme, polarity) or the legacy 3-tuple (sent, pred, agent). Cue (1) is an EVENT, so it carries the
++    event within-sentence position; cues (2) and (3) are SENTENCE-level scans, so they are positioned at the
++    end of their sentence (10**6) -- a sentence-level thwart therefore never displaces a realizing outcome
++    inside the SAME sentence, which keeps the strict-superset guarantee over the baseline."""
++    best = None
++
++    def _take(cand):
++        return cand if (best is None or cand[:2] < best[:2]) else best
++
++    for row in ev:
++        if len(row) >= 6:
++            si, pos, pl, ea = row[0], row[1], row[2], row[3]
++        else:
++            si, pos, pl, ea = row[0], None, row[1], row[2]
++        if not outcome_is_after(g, si, pos):
++            continue
++        if not (ea == ga or ga in ("?", "")):
++            continue
++        if pl in FAILURE_VERBS or _norm_pred(pl) in FAILURE_VERBS:
++            best = _take((si, pos if pos is not None else 10 ** 6, "thwart:failure_verb"))
+     if stexts is None:
+-        return False
++        return best
+     goal_obj = {t for t in _tokset(getattr(g, "goal_text", "") or "") if t != ah and len(t) > 2}
+-    for si in range(g.sent_idx + 1, len(stexts)):
++    for si in range(getattr(g, "sent_idx", 0) + 1, len(stexts)):
+         toks = _tokset(stexts[si])
+         ts = set(toks)
+         # (2) later sentence NEGATES the goal head
+         if ah in ts and (ts & _THWART_NEG):
+-            return True
++            best = _take((si, 10 ** 6, "thwart:negated_goal_head"))
+         # (3) the goal OBJECT + an adverse-resultant cue in the same later sentence
+         if goal_obj and (goal_obj & ts) and (ts & ADVERSE_RESULTANT):
+-            return True
+-    return False
++            best = _take((si, 10 ** 6, "thwart:adverse_resultant"))
++    return best
++
++
++def _is_thwarted(g, ah, ga, ev, stexts) -> bool:
++    """A later event/clause thwarts goal g (the boolean view of thwart_position, kept for callers)."""
++    return thwart_position(g, ah, ga, ev, stexts) is not None
+ 
+ 
+ # ===========================================================================
+
+--- a/hdlab/situation_reader.py
++++ b/hdlab/situation_reader.py
+@@ -514,7 +514,7 @@ class SituationModel:
+     # opt-in GOAL/INTENTION dimension (WHAT-IS-X-TRYING-TO-DO / WHY-DID-X-ACT); None unless the reader is
+     # built with track_goals=True. A hdlab.goal_register.GoalRegister over THIS passage's explicit
+     # purpose/desire/intention constructions (the missing 5th Zwaan-Radvansky event-indexing dimension,
+-    # intentionality); the query callables sm.wants(agent)/sm.why(action,agent)/sm.achieved(agent,goal) are
++    # intentionality); the query callables sm.wants(agent[,t])/sm.why(action,agent[,t])/sm.achieved(agent,goal[,t]) are
+     # bound as attributes at read time (mirroring sm.believes/knows). Additive -- never touches the other
+     # dimensions. From the owner-DONE the_situation_model_has_no_goal_intention_dimension (Q111).
+     goal_register: Optional[object] = None
+@@ -3304,6 +3304,12 @@ class SituationReader:
+         except Exception:
+             sc = None
+         pos = [self._cached_tag(list(t)) for t in sents]
++        # pri 135 (lever 2): a goal's THEME is an ARGUMENT of its infinitival predicate, so the extractor is
++        # handed the SAME per-read parse the purpose filter already reads (memoized -> no extra parse) and
++        # binds the theme with the SAME organ that binds every event's patient. Only a sentence containing a
++        # "to VERB" can bear a goal at all, so the other ~75-90% stay unparsed exactly as before.
++        heads_by_sent = [(self._cached_parse_heads(list(t), pos[i]) if self._has_to_verb(t, pos[i]) else None)
++                         for i, t in enumerate(sents)]
+         deprels_by_sent = None
+         if self.goal_purpose_filter:
+             # pri 129: the purpose verdict comes from the Competition-Model organ's PURPOSE arm, not a frozen
+@@ -3311,10 +3317,11 @@ class SituationReader:
+             # "to VERB" can never reach GR.extract_goals_sentence branch (3), so skipping it is byte-identical
+             # and the arm is not run on the ~75-90% of prose sentences that cannot use it.
+             deprels_by_sent = [
+-                (self._purpose_deprels(list(t), pos[i], self._cached_parse_heads(list(t), pos[i]))
+-                 if self._has_to_verb(t, pos[i]) else None)
++                (self._purpose_deprels(list(t), pos[i], dict(heads_by_sent[i]))
++                 if heads_by_sent[i] is not None else None)
+                 for i, t in enumerate(sents)]
+-        goals = GR.extract_goals(sents, pos, subcat=sc, deprels_by_sent=deprels_by_sent)
++        goals = GR.extract_goals(sents, pos, subcat=sc, deprels_by_sent=deprels_by_sent,
++                                 heads_by_sent=heads_by_sent)
+         canon, _names = GR.make_canonicalizer(sm, commonnoun_canonical=self.commonnoun_canonical)
+         GR.passive_agent_guard(goals, sm, sents, pos)
+         GR.bind_agents(goals, canon)
+@@ -3329,12 +3336,18 @@ class SituationReader:
+             _sm = self._structured_matcher() if self.affect_structured_matcher else None
+             GR.track_status_thwart(goals, sm.events, sents=sents, canon=canon, matcher=_sm)
+         else:
+-            GR.track_status(goals, sm.events)
++            # canon is passed here too (pri 135): the goal THEME is compared as an ENTITY through the
++            # reader OWN files, which is part of the satisfaction rule, not an optional generalization.
++            GR.track_status(goals, sm.events, canon=canon)
+         reg = GR.GoalRegister(goals)
+         sm.goal_register = reg
+-        sm.wants = lambda agent: reg.wants(agent)
+-        sm.why = lambda action_head, agent=None: reg.why(action_head, agent)
+-        sm.achieved = lambda agent, goal_head: reg.achieved(agent, goal_head)
++        # pri 135 R04: every goal query accepts the story time `t` (a sentence index) and reads ONLY goals
++        # stated at or before t, with each status taken AS OF t. t=None (every incumbent caller) is the
++        # whole-passage read, byte-identical to before.
++        sm.wants = lambda agent, t=None: reg.wants(agent, t)
++        sm.why = lambda action_head, agent=None, t=None, with_provenance=False: reg.why(
++            action_head, agent, t, with_provenance=with_provenance)
++        sm.achieved = lambda agent, goal_head, t=None: reg.achieved(agent, goal_head, t)
+         # GOAL->SUBGOAL HIERARCHY GRAPH (owner-DONE build_the_goal_subgoal_hierarchy_graph_for_plot_structure_
+         # comprehension, 2026-09-05, Q111): compose the flat register's goals + the reader's causal network into
+         # an explicit goal->subgoal graph, exposing the plot-structure readouts the FLAT register STRUCTURALLY
+@@ -3420,14 +3433,22 @@ class SituationReader:
+                 return agent_aliases[0] if agent_aliases else None
+             return agent_aliases
+ 
+-        def _desired_value(agent, fact):
+-            """The value the agent WANTS F to have, from the LIVE goal register (dmPFC): the fact's value_vocab
+-            token named in the agent's current goal text (sm.wants). None if the goal names no candidate value."""
++        def _desired_value(agent, fact, t=None):
++            """The value the agent WANTS F to have, from the LIVE goal register (dmPFC): the fact value_vocab
++            token named in the agent current goal text (sm.wants). None if the goal names no candidate value.
++
++            pri 135 R04: the DESIRE is read AS OF t, the same time the belief is read at -- an action
++            predicted for time t may not be conditioned on a goal the agent states later in the document."""
+             wants = getattr(sm, "wants", None)
+             if wants is None or agent is None:
+                 return None
+             try:
+-                g = wants(agent)
++                g = wants(agent, t) if t is not None else wants(agent)
++            except TypeError:
++                try:
++                    g = wants(agent)
++                except Exception:
++                    g = None
+             except Exception:
+                 g = None
+             gt = (getattr(g, "goal_text", None) or "") if g is not None else ""
+@@ -3450,7 +3471,7 @@ class SituationReader:
+         def predict_action(agent_aliases, fact, t, desired=None):
+             believed = _believed_value(agent_aliases, fact, t)
+             if desired is None:
+-                desired = _desired_value(_agent0(agent_aliases), fact)
++                desired = _desired_value(_agent0(agent_aliases), fact, t)      # pri 135 R04: desire as of t
+             return TOM.compose_action(believed, desired)
+ 
+         def will_act_on(agent_aliases, fact, t, desired=None):
+@@ -3460,7 +3481,7 @@ class SituationReader:
+             """INVERSE (Baker 2017): the belief value the observed action implies given the desire. FETCH -> the
+             OTHER candidate value of the (binary) fact, read off value_vocab."""
+             if desired is None:
+-                desired = _desired_value(_agent0(agent_aliases), fact)
++                desired = _desired_value(_agent0(agent_aliases), fact, t)      # pri 135 R04: desire as of t
+             other = None
+             vocab = list((fact or {}).get("value_vocab") or [])
+             if desired is not None:
+@@ -3822,21 +3843,33 @@ class SituationReader:
+                 toks.extend(str(tok).lower() for tok in s)
+             return GEK.lemmatize(" ".join(toks))
+ 
+-        def _goal_lemmas():
+-            """The agents' OPEN goal text lemmas, read off the LIVE goal register (sm.wants). [] when track_goals
+-            is off / no goal fired -- the projection then falls back to the GEK content cue alone (graceful)."""
++        def _goal_lemmas(t=None):
++            """The agents OPEN goal text lemmas, read off the LIVE goal register (sm.wants). [] when track_goals
++            is off / no goal fired -- the projection then falls back to the GEK content cue alone (graceful).
++
++            pri 135 R04: `t` BOUNDS the whole read the way `_passage_lemmas` already bounds the context -- the
++            agent population comes from events at or before t, and each agent goal is read AS OF t. Without
++            this a t-limited prediction was conditioned on goals stated LATER in the document (the reproduced
++            leak: prefix goal evidence [] vs full-document [buy, yacht] for identical passage context)."""
+             wants = getattr(sm, "wants", None)
+             if wants is None:
+                 return []
+             agents = set()
+             for e in sm.events:
++                if t is not None and getattr(e, "sent_idx", 0) > t:
++                    continue
+                 a = str(getattr(e, "agent", "")).lower()
+                 if a and a not in ("?", ""):
+                     agents.add(a)
+             spans = []
+             for ag in sorted(agents):
+                 try:
+-                    g = wants(ag)
++                    g = wants(ag, t) if t is not None else wants(ag)
++                except TypeError:
++                    try:
++                        g = wants(ag)
++                    except Exception:
++                        g = None
+                 except Exception:
+                     g = None
+                 gt = (getattr(g, "goal_text", None) or "") if g is not None else ""
+@@ -3852,7 +3885,7 @@ class SituationReader:
+             if candidates is not None:
+                 bags = [GEK.lemmatize(c) if isinstance(c, str) else [str(x).lower() for x in c]
+                         for c in candidates]
+-                fp = org.project(ctx, _goal_lemmas(), bags, gain=gain)
++                fp = org.project(ctx, _goal_lemmas(t), bags, gain=gain)
+                 if fp is not None:
+                     fp.candidates = [str(c) for c in candidates]
+                 sm.forward_prediction = fp
