@@ -204,7 +204,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-16T22:52:22.061422+00:00 (64 on record). Generated 2026-09-16T23:18:01+00:00.
+Last full check: 2026-09-16T22:52:22.061422+00:00 (64 on record). Generated 2026-09-16T23:35:25+00:00.
 
 ### THE PRODUCT, QUESTION BY QUESTION
 
@@ -242,7 +242,7 @@ One row per stage a passage passes through, in order.
 
 ### WHAT STRATEGY IS DOING NOW
 
-AS OF: 2026-09-16 18:58 local (autoloop ARMED; the LAPTOP is live; the desktop holds the 17:21 copy, a delta on request tonight). POSITION: 136, 137, 135, 146, 126 LANDED (126 = 1a7fca749: every model value byte-identical, the reader rows' twins repaired, the sealed read now fires once per landing). NOW: pri 139 (three diffs: the alias, the copular deletion, the mention hand-off after 137's union) being applied -> witnesses + board pri139a -> land with strategy_scratchpad/land_pri139.json (re-measure by_cluster, expect 18-26 on 71 facts); then 140 -> 138. Solver 147 (gate the walk) running. LO
+AS OF: 2026-09-16 19:19 local (AUTOLOOP DISARMED at the owner's request; STOPPING POINT; the desktop takes over from the delta shipped after this commit). LANDED TODAY: 136, 137, 135, 146, 126 (HEAD 5373ba126 + this commit). HELD: pri 139 -- its three diffs are APPLIED UNCOMMITTED on the laptop only; on the landed tree two witnesses are RED: test_belief_at_t_end_to_end_organ W18 ('gated stays-ignorant' 0.67 on n=3 -- one gated control now infers without a premise after the mention hand-off; a behaviour change to diagnose, not a re-pin) and exp_belief_one_organ_v1 --self-test check G (asserts t
 
 **Running now:** nothing recorded as running
 
