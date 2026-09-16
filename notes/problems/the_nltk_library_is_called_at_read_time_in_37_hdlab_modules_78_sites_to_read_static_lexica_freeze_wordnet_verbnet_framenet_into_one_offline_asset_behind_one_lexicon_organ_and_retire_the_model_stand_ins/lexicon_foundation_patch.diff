@@ -1,0 +1,927 @@
+diff --git a/hdlab/animacy_lexicon.py b/hdlab/animacy_lexicon.py
+--- a/hdlab/animacy_lexicon.py
++++ b/hdlab/animacy_lexicon.py
+@@ -49,7 +49,7 @@ import random
+ from collections import Counter
+ from typing import Iterable, Optional
+ 
+-from nltk.corpus import wordnet as wn
++from hdlab.lexicon_foundation import wordnet as wn
+ 
+ # ---------------------------------------------------------------------------
+ # 1) PRONOUN TABLE (checked first; guards the I->iodine / He->helium WordNet collision).
+diff --git a/hdlab/bridging_inference.py b/hdlab/bridging_inference.py
+--- a/hdlab/bridging_inference.py
++++ b/hdlab/bridging_inference.py
+@@ -137,7 +137,7 @@ def _mfnd_unit(word: str) -> Optional[np.ndarray]:
+     v = None
+     try:
+         from hdlab.meaning_foundation import sense_signature
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         ss = wn.synsets(word)
+         if ss:
+             sig = sense_signature(ss[0].name())
+diff --git a/hdlab/causation_typing.py b/hdlab/causation_typing.py
+--- a/hdlab/causation_typing.py
++++ b/hdlab/causation_typing.py
+@@ -111,7 +111,7 @@ _ABSTRACT_LEX = {"noun.act", "noun.cognition", "noun.communication", "noun.attri
+ 
+ def _wn_lexname(noun):
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+     except Exception:
+         return None
+     n = (noun or "").strip().lower()
+@@ -132,7 +132,7 @@ _NULL_PRON = {"nothing", "none", "anything", "everything", "something", "all"}
+ 
+ def _wn_noun_roots(noun):
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+     except Exception:
+         return set()
+     roots = set()
+@@ -606,7 +606,7 @@ def _lemma(word: str, upos: str) -> str:
+             return w
+     if upos in ("NOUN", "PROPN"):
+         try:
+-            from nltk.corpus import wordnet as wn
++            from hdlab.lexicon_foundation import wordnet as wn
+             m = _gbm.morphy(w, "n")
+             return m if m else w
+         except Exception:
+@@ -666,7 +666,7 @@ def _penn(word: str, upos: str) -> str:
+ # spaCy-token-compatible ADAPTER over the in-substrate UD parse.
+ # ---------------------------------------------------------------------------
+ try:
+-    from nltk.corpus import stopwords as _nltk_sw
++    from hdlab.lexicon_foundation import stopwords as _nltk_sw
+     _STOP = set(_nltk_sw.words("english"))
+ except Exception:
+     _STOP = {"the", "a", "an", "of", "to", "in", "on", "at", "for", "with", "by", "and", "or", "but",
+diff --git a/hdlab/conceptual_meaning.py b/hdlab/conceptual_meaning.py
+--- a/hdlab/conceptual_meaning.py
++++ b/hdlab/conceptual_meaning.py
+@@ -50,7 +50,7 @@ import os
+ from collections import Counter
+ from typing import Dict, List, Optional, Tuple
+ 
+-from nltk.corpus import wordnet as wn  # lazy LazyCorpusLoader -- import is cheap, data hit deferred to first use
++from hdlab.lexicon_foundation import wordnet as wn  # lazy LazyCorpusLoader -- import is cheap, data hit deferred to first use
+ 
+ _REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ DEFAULT_IDF_CACHE = os.path.join(_REPO, "data", "hdlab_conceptual_idf", "global_idf.json")
+diff --git a/hdlab/crosstype_bridge.py b/hdlab/crosstype_bridge.py
+--- a/hdlab/crosstype_bridge.py
++++ b/hdlab/crosstype_bridge.py
+@@ -94,7 +94,7 @@ def is_person_role(L):
+     out = False
+     if L not in _LEGAL_ORG_ROLE:
+         try:
+-            from nltk.corpus import wordnet as wn
++            from hdlab.lexicon_foundation import wordnet as wn
+             ss = wn.synsets(L, pos="n")
+             out = bool(ss) and ss[0].lexname() == "noun.person"
+         except Exception:
+diff --git a/hdlab/definitional_extraction.py b/hdlab/definitional_extraction.py
+--- a/hdlab/definitional_extraction.py
++++ b/hdlab/definitional_extraction.py
+@@ -180,7 +180,7 @@ def is_nominal_lemma(lemma: str) -> bool:
+     if not lemma:
+         return False
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+     except Exception:                        # noqa: BLE001 - degraded mode, do not block
+         return True
+     if wn.synsets(lemma, pos="n"):
+@@ -288,7 +288,7 @@ def _is_nominal_or_unknown(lemma: str) -> bool:
+     """True if `lemma` can head a noun phrase, or is not in WordNet at all (technical terms and
+     proper nouns must pass -- they are precisely the words a reader needs defined)."""
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+     except Exception:                       # noqa: BLE001 - degraded mode, do not block
+         return True
+     if wn.synsets(lemma, pos="n"):
+@@ -535,7 +535,7 @@ def _is_shared_head_modifier(tok: str) -> bool:
+         return True
+     lem = lemma_verb(tok)
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+     except Exception:                        # noqa: BLE001 - degraded mode, do not block
+         return False
+     if wn.synsets(lem, pos="n"):
+@@ -977,7 +977,7 @@ class PredicateFact:
+ 
+ def _wn():
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+     except Exception:                            # noqa: BLE001 - degraded mode, do not block
+         return None
+     return wn
+diff --git a/hdlab/director_kb.py b/hdlab/director_kb.py
+--- a/hdlab/director_kb.py
++++ b/hdlab/director_kb.py
+@@ -364,7 +364,7 @@ def _extract_triples_api(
+ def _extract_triples_wordnet(class_def: dict, schema: dict, repo_root: Path, max_items: int | None) -> list[dict]:
+     """WordNet via NLTK. Sorted-by-synset-name walk for determinism."""
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+     except ImportError:
+         return []
+     out: list[dict] = []
+@@ -413,7 +413,7 @@ def _extract_triples_wordnet(class_def: dict, schema: dict, repo_root: Path, max
+ def _extract_triples_verbnet(class_def: dict, schema: dict, repo_root: Path, max_items: int | None) -> list[dict]:
+     """VerbNet (Levin classes) via NLTK. Sorted-by-classid for determinism."""
+     try:
+-        from nltk.corpus import verbnet as vn
++        from hdlab.lexicon_foundation import verbnet as vn
+     except ImportError:
+         return []
+     out: list[dict] = []
+@@ -483,7 +483,7 @@ def _extract_triples_verbnet(class_def: dict, schema: dict, repo_root: Path, max
+ def _extract_triples_framenet(class_def: dict, schema: dict, repo_root: Path, max_items: int | None) -> list[dict]:
+     """FrameNet via NLTK. Sorted-by-frame-name for determinism."""
+     try:
+-        from nltk.corpus import framenet as fn
++        from hdlab.lexicon_foundation import framenet as fn
+     except ImportError:
+         return []
+     out: list[dict] = []
+diff --git a/hdlab/event_type.py b/hdlab/event_type.py
+--- a/hdlab/event_type.py
++++ b/hdlab/event_type.py
+@@ -53,7 +53,7 @@ _LEXCACHE = {}
+ def _wn():
+     global _WN
+     if _WN is None:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         _WN = wn
+     return _WN
+ 
+diff --git a/hdlab/force_dynamics_lexicon.py b/hdlab/force_dynamics_lexicon.py
+--- a/hdlab/force_dynamics_lexicon.py
++++ b/hdlab/force_dynamics_lexicon.py
+@@ -125,7 +125,7 @@ def build_force_lexicon(use_cache: bool = True, cause_frames=None, prevent_frame
+         with open(CACHE_PATH, "r", encoding="utf-8") as f:
+             return json.load(f)["lexicon"]
+ 
+-    from nltk.corpus import framenet as fn  # local import (heavy; remote has no need to parse)
++    from hdlab.lexicon_foundation import framenet as fn  # local import (heavy; remote has no need to parse)
+ 
+     cause: Dict[str, None] = {}
+     enable: Dict[str, None] = {}
+diff --git a/hdlab/force_dynamics_typer.py b/hdlab/force_dynamics_typer.py
+--- a/hdlab/force_dynamics_typer.py
++++ b/hdlab/force_dynamics_typer.py
+@@ -127,7 +127,7 @@ def build_force_lexicon(use_cache: bool = True, cause_frames=None, prevent_frame
+         with open(CACHE_PATH, "r", encoding="utf-8") as f:
+             return json.load(f)["lexicon"]
+ 
+-    from nltk.corpus import framenet as fn  # local import (heavy; remote has no need to parse)
++    from hdlab.lexicon_foundation import framenet as fn  # local import (heavy; remote has no need to parse)
+ 
+     cause: Dict[str, None] = {}
+     enable: Dict[str, None] = {}
+diff --git a/hdlab/force_dynamics_valence.py b/hdlab/force_dynamics_valence.py
+--- a/hdlab/force_dynamics_valence.py
++++ b/hdlab/force_dynamics_valence.py
+@@ -140,7 +140,7 @@ def verb_first_supersense(verb: str) -> Optional[str]:
+         return _SS_CACHE[v]
+     ss = None
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         syn = wn.synsets(v, pos=wn.VERB)
+         if syn:
+             ss = syn[0].lexname().split(".")[1]
+@@ -156,7 +156,7 @@ def _verb_all_supersenses(verb: str) -> set:
+         return _ALLSS_CACHE[v]
+     out: set = set()
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         out = {s.lexname().split(".")[1] for s in wn.synsets(v, pos=wn.VERB)}
+     except Exception:
+         out = set()
+@@ -172,7 +172,7 @@ def affectedness_score(verb: str) -> float:
+         return _AFFECT_CACHE[v]
+     num = den = 0.0
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         for s in wn.synsets(v, pos=wn.VERB):
+             ss = s.lexname().split(".")[1]
+             cnt = 1.0
+@@ -282,7 +282,7 @@ def result_state_evidence(verb: str, states: Optional[Dict[str, list]] = None) -
+     if not table:
+         return out
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         for ss in wn.synsets(v, pos=wn.VERB):
+             if ss.lexname().split(".")[1] not in AFFECTING_SUPERSENSES:
+                 continue
+@@ -372,7 +372,7 @@ def hyper_state_value(verb: str, afx: Optional[AffectLexicon] = None) -> Optiona
+     afx = _afx() if afx is None else afx
+     v = lemmatize_verb(verb)
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+     except Exception:
+         return None
+     per_sense = []
+@@ -581,7 +581,7 @@ def _adverb_stem(word: str) -> Optional[str]:
+     lexical check; Pinker-Ullman dual route). Verb particles ('put down', 'take off') fail both routes."""
+     w = word.lower()
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         for s in wn.synsets(w, "r"):
+             for lm in s.lemmas():
+                 if lm.name().lower() == w:
+@@ -654,7 +654,7 @@ def synset_endstate_sign(synset_name: Optional[str], afx: Optional[AffectLexicon
+     if synset_name is None:
+         return None, None
+     afx = _afx() if afx is None else afx
+-    from nltk.corpus import wordnet as wn
++    from hdlab.lexicon_foundation import wordnet as wn
+     ss = wn.synset(synset_name)
+     if ss.lexname().split(".")[1] not in AFFECTING_SUPERSENSES or not (set(ss.frame_ids()) & ANIMATE_OBJECT_FRAMES):
+         return None, False
+@@ -692,7 +692,7 @@ def sense_posterior_in_context(verb: str, tokens, gov_idx: int, lam: Optional[fl
+     try:
+         from hdlab.affect_lexicon import sense_rows, resting_level, SENSE_LAM
+         import numpy as np
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         from hdlab.grounded_semantic_graph import _sense_ppr
+         lam = SENSE_LAM if lam is None else lam
+         lem = lemmatize_verb(verb)
+diff --git a/hdlab/goal_achievement.py b/hdlab/goal_achievement.py
+--- a/hdlab/goal_achievement.py
++++ b/hdlab/goal_achievement.py
+@@ -32,7 +32,7 @@ from typing import Optional, Tuple
+ 
+ from hdlab import goal_typing as _gt
+ from hdlab import wordnet_polarity_propagation as _wpp
+-from nltk.corpus import wordnet as _wn
++from hdlab.lexicon_foundation import wordnet as _wn
+ from hdlab import morphology as _gbm   # glass-box morphy (byte-identical; no nltk on the lemma path)
+ 
+ MAJORITY_CLASS = "Fulfilled"
+@@ -57,7 +57,7 @@ def _opinion() -> Tuple[frozenset, frozenset]:
+     global _opinion_cache
+     if _opinion_cache is None:
+         try:
+-            from nltk.corpus import opinion_lexicon
++            from hdlab.lexicon_foundation import opinion_lexicon
+             _opinion_cache = (frozenset(opinion_lexicon.positive()), frozenset(opinion_lexicon.negative()))
+         except Exception:
+             _opinion_cache = (frozenset(), frozenset())
+diff --git a/hdlab/goal_outcome_relation.py b/hdlab/goal_outcome_relation.py
+--- a/hdlab/goal_outcome_relation.py
++++ b/hdlab/goal_outcome_relation.py
+@@ -125,7 +125,7 @@ RELATION_POLARITY = {"INSTANTIATES": "POS", "CONTRADICTS": "NEG"}  # NEITHER nev
+ # hdlab/result_type_induction.py's own established convention for the identical reason.
+ # ---------------------------------------------------------------------------------------------
+ def _primary_synonyms(word: str, pos) -> frozenset:
+-    from nltk.corpus import wordnet as _wn
++    from hdlab.lexicon_foundation import wordnet as _wn
+     syn = {word}
+     syns = _wn.synsets(word, pos=pos)
+     if syns:
+@@ -135,7 +135,7 @@ def _primary_synonyms(word: str, pos) -> frozenset:
+ 
+ 
+ def _pool_related(word: str, pool) -> bool:
+-    from nltk.corpus import wordnet as _wn
++    from hdlab.lexicon_foundation import wordnet as _wn
+     if word in pool:
+         return True
+     for pos in (_wn.VERB, _wn.ADJ, _wn.NOUN):
+@@ -432,7 +432,7 @@ def _wn_verb_gloss_disengage(lemma_form: str, width: int = 2) -> Tuple[Optional[
+     see module docstring's MWE-DISENGAGE-SCAN MECHANISM note for why that is appropriate here
+     (coverage measurement of a whole-gloss keyword match, not a fine polarity vote). `width=1` uses
+     the STRICTER `_DISENGAGE_GLOSS_KEYWORDS_WIDTH1` subset (see that constant's docstring)."""
+-    from nltk.corpus import wordnet as _wn
++    from hdlab.lexicon_foundation import wordnet as _wn
+     keywords = _DISENGAGE_GLOSS_KEYWORDS_WIDTH1 if width == 1 else DISENGAGE_GLOSS_KEYWORDS
+     for syn in _wn.synsets(lemma_form, pos=_wn.VERB):
+         gloss = syn.definition().lower()
+@@ -451,7 +451,7 @@ def mwe_disengage_scan(outcome: str) -> Optional[dict]:
+         return {"lemma": "put_the_kibosh_on", "synset": "kibosh.v (via stop.v.03)",
+                 "gloss": "stop from happening or developing",
+                 "span_kind": "discontinuous_light_verb_frame"}
+-    from nltk.corpus import wordnet as _wn
++    from hdlab.lexicon_foundation import wordnet as _wn
+     toks = _gt._tokens(outcome)
+     n = len(toks)
+     for width in (4, 3, 2, 1):
+diff --git a/hdlab/goal_outcome_relation_grounded.py b/hdlab/goal_outcome_relation_grounded.py
+--- a/hdlab/goal_outcome_relation_grounded.py
++++ b/hdlab/goal_outcome_relation_grounded.py
+@@ -117,7 +117,7 @@ def _lemma_candidates(word: str) -> List[str]:
+     own code never calls morphy explicitly. lexical_similarity.CONCEPT_FEATURES is a literal
+     string-keyed dict with no such built-in normalization, so this module must do it explicitly to
+     stay at parity on inflected outcome tokens."""
+-    from nltk.corpus import wordnet as _wn
++    from hdlab.lexicon_foundation import wordnet as _wn
+     cands = [word]
+     for pos in (_wn.VERB, _wn.NOUN, _wn.ADJ):
+         m = _gbm.morphy(word, pos)
+@@ -267,7 +267,7 @@ def _engagement_disengage_scan(outcome: str) -> Optional[dict]:
+                 "axis_value": _qr.AXIS_WORDS["engagement"]["turn_the_other_cheek"],
+                 "span_kind": "discontinuous_idiom"}
+ 
+-    from nltk.corpus import wordnet as _wn
++    from hdlab.lexicon_foundation import wordnet as _wn
+     toks = _gt._tokens(outcome)
+     n = len(toks)
+     for width in (4, 3, 2, 1):
+diff --git a/hdlab/grounded_semantic_graph.py b/hdlab/grounded_semantic_graph.py
+--- a/hdlab/grounded_semantic_graph.py
++++ b/hdlab/grounded_semantic_graph.py
+@@ -99,7 +99,7 @@ def _ppr(seed_idx: List[int], Tt: sp.csr_matrix, n: int, d: float = DAMPING, ite
+ 
+ # -- from exp_grounded_semantic_graph_ladder_wsd_v1.py --
+ def _synsets_ordered():
+-    from nltk.corpus import wordnet as wn
++    from hdlab.lexicon_foundation import wordnet as wn
+     return sorted(wn.all_synsets(), key=lambda s: s.name())
+ 
+ 
+@@ -111,7 +111,7 @@ def _rels(s):
+ 
+ 
+ def _relation_gloss_edges(syns, syn2idx, gloss_cap):
+-    from nltk.corpus import wordnet as wn
++    from hdlab.lexicon_foundation import wordnet as wn
+     rows, cols = [], []
+     for s in syns:
+         i = syn2idx[s.name()]
+@@ -130,7 +130,7 @@ def _relation_gloss_edges(syns, syn2idx, gloss_cap):
+ def _conceptnet_edges(syn2idx, cn_cap=1):
+     """Map ConceptNet (lemma-level) assertions to WordNet synset edges, MFS-disambiguated (sense-1 of
+     each endpoint, cn_cap=1 -- same principle as g1 gloss edges). Returns symmetric edge rows/cols."""
+-    from nltk.corpus import wordnet as wn
++    from hdlab.lexicon_foundation import wordnet as wn
+     rows, cols = [], []
+     n_kept = 0
+     if not os.path.exists(CN_PATH):
+@@ -174,7 +174,7 @@ def _syntagnet_edges(syn2idx):
+     syntagmatic (co-occurrence) edges between WordNet 3.0 synsets. Each line: off1+pos off2+pos w1 p1 w2 p2.
+     These are already sense-specific (no MFS mapping needed) -- the field's proven 'sharpen the context
+     edges' lever (SyntagRank 71.7 vs UKB 67.3 all-words). Returns symmetric edge rows/cols."""
+-    from nltk.corpus import wordnet as wn
++    from hdlab.lexicon_foundation import wordnet as wn
+     rows, cols = [], []
+     n_kept = 0
+     if not os.path.exists(SYNTAGNET_PATH):
+@@ -260,7 +260,7 @@ def _learn_cooc_edges(syn2idx, max_sents, shuffle_seed=None):
+     import glob
+     import re
+     from collections import Counter
+-    from nltk.corpus import wordnet as wn
++    from hdlab.lexicon_foundation import wordnet as wn
+     files = sorted(glob.glob(os.path.join(LITBANK_DIR, "*.txt")))
+     syn_cache = {}
+ 
+@@ -318,6 +318,16 @@ _SOURCE_EDGES = {
+ }
+ 
+ 
++# THE SEMANTIC GRAPH IS A STATIC STRUCTURE; BUILDING IT IS DEVELOPMENT, NOT READING (pri 127). Rebuilding
++# it at read time walked every relation of all 117,659 synsets through the library on the FIRST document
++# of every process (measured: 1,988,867 of the read's 2,006,404 unique library queries came from this
++# module). The edge list is now frozen once offline (data/frontend_assets/lexicon_foundation_graph_v1.npz,
++# 1,025,488 edges, 3.3 MB) and LOADED -- the identical matrix, checked by CSR bytes in the witness.
++# HDLAB_GSG_FROZEN=0 rebuilds from the lexicon organ instead (the baseline arm). A MISSING asset RAISES:
++# a silent rebuild is the degradation this problem exists to remove.
++FROZEN_GRAPH = os.environ.get("HDLAB_GSG_FROZEN", "1") == "1"
++
++
+ class GroundedSemanticGraph:
+     """A grounded relational semantic graph (WordNet++ synset nodes) read by personalized-PageRank
+     spreading activation. Augmentable (add_edges) and learnable (learn_from_text)."""
+@@ -333,6 +343,16 @@ class GroundedSemanticGraph:
+ 
+     # ---- BUILD (static foundation) -------------------------------------------------------------
+     def build(self):
++        """LOAD the frozen edge list (default) or rebuild it from the lexicon store (HDLAB_GSG_FROZEN=0).
++        Same node order (synsets sorted by name), same per-source edge concatenation order, so the
++        row-stochastic matrix is identical -- the witness compares its CSR bytes."""
++        if FROZEN_GRAPH:
++            from hdlab.lexicon_foundation import graph_edges
++            names, rows, cols = graph_edges(self.sources)
++            self.syn2idx = {n: i for i, n in enumerate(names)}
++            self._base_rows, self._base_cols = rows, cols
++            self._rebuild()
++            return self
+         syns = _synsets_ordered()
+         self.syn2idx = {s.name(): i for i, s in enumerate(syns)}
+         rows, cols = [], []
+@@ -373,7 +393,7 @@ class GroundedSemanticGraph:
+     def select_sense(self, lemma, pos, context_words):
+         """Pick the target's WordNet synset with max settled spreading activation seeded by the context
+         (ppr_w2w). pos in {'N','V'}. Returns a synset name (or None if the word is unknown)."""
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         tgt = wn.synsets(lemma, pos=_WNPOS.get(pos)); tn = [s.name() for s in tgt]
+         if not tgt:
+             return None
+@@ -385,7 +405,7 @@ class GroundedSemanticGraph:
+     def select_sense_blended(self, lemma, pos, context_words, lam=0.5):
+         """Read + the frequency resting-level prior via the log-linear blend (log P_freq + lam*log PPR) --
+         the brain's ambiguity gate == the field's UKB combination. Best for all-words WSD where the prior matters."""
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         tgt = wn.synsets(lemma, pos=_WNPOS.get(pos)); tn = [s.name() for s in tgt]
+         if not tgt:
+             return None
+diff --git a/hdlab/joint_relation_frontend.py b/hdlab/joint_relation_frontend.py
+--- a/hdlab/joint_relation_frontend.py
++++ b/hdlab/joint_relation_frontend.py
+@@ -79,7 +79,7 @@ def _is_event_noun(word, wordnet_gated=True):
+     if w in _wn_event_cache:
+         return _wn_event_cache[w]
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+     except Exception:
+         _wn_event_cache[w] = False
+         return False
+diff --git a/hdlab/lexical_utils.py b/hdlab/lexical_utils.py
+--- a/hdlab/lexical_utils.py
++++ b/hdlab/lexical_utils.py
+@@ -134,7 +134,7 @@ _person_cache: Dict[str, object] = {}
+ def _wn():
+     global _WN, _PERSON_SYN
+     if _WN is None:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         _WN = wn
+         _PERSON_SYN = wn.synset("person.n.01")
+     return _WN
+diff --git a/hdlab/location_register.py b/hdlab/location_register.py
+--- a/hdlab/location_register.py
++++ b/hdlab/location_register.py
+@@ -84,7 +84,7 @@ def spatial_region(node: Optional[str]) -> Optional[str]:
+         ans = OUTDOORS
+     else:
+         try:
+-            from nltk.corpus import wordnet as wn
++            from hdlab.lexicon_foundation import wordnet as wn
+             hol, hyp = set(), set()
+             for syn in wn.synsets(node, "n")[:2]:
+                 hol |= {h.name().split(".")[0] for h in syn.part_holonyms() + syn.member_holonyms()}
+diff --git a/hdlab/meaning_operation_router.py b/hdlab/meaning_operation_router.py
+--- a/hdlab/meaning_operation_router.py
++++ b/hdlab/meaning_operation_router.py
+@@ -25,7 +25,7 @@ from __future__ import annotations
+ 
+ from typing import Optional
+ 
+-from nltk.corpus import wordnet as wn
++from hdlab.lexicon_foundation import wordnet as wn
+ 
+ _ADJ_POS = ("a", "s")                # WordNet adjective (a) + satellite adjective (s)
+ _ADJ_TAGS = {"ADJ", "JJ", "JJR", "JJS", "a", "s", "adj"}
+diff --git a/hdlab/morphology_leakage.py b/hdlab/morphology_leakage.py
+--- a/hdlab/morphology_leakage.py
++++ b/hdlab/morphology_leakage.py
+@@ -25,11 +25,23 @@ control specifically.
+ """
+ import os
+ 
+-try:                                                    # optional; the prefix/substring rules below
+-    from nltk.stem import PorterStemmer                 # carry the test on their own without it
+-    _STEMMER = PorterStemmer()
++# THE STEM CLAUSE IS THE SUBSTRATE'S OWN MORPHOLOGY ORGAN (pri 127). Porter is an outside tool and it is
++# OFF by default; hdlab.morphology is the glass-box decomposition organ (exception store + detachment
++# rules + lexical check) this project already landed. MEASURED cost of the swap on WordNet vocabulary:
++# 0 of 200,000 random lemma pairs change verdict (the four surrounding rules already cover them), and
++# 2 of 80 pairs constructed to share a Porter stem lose the catch (adz/adze, nogging/nog -- not the
++# run/running class this helper exists for). Porter stays reachable via HDLAB_ALLOW_NLTK_STANDIN=1.
++_STEMMER = None
++try:
++    from hdlab.morphology import morphy as _organ_lemma
+ except Exception:                                       # noqa: BLE001
+-    _STEMMER = None
++    _organ_lemma = None
++if os.environ.get("HDLAB_ALLOW_NLTK_STANDIN", "0") == "1":   # deliberate baseline only
++    try:
++        from hdlab.lexicon_foundation import standin_nltk
++        _STEMMER = standin_nltk("nltk.stem", "PorterStemmer", reason="leakage-strip baseline")()
++    except Exception:                                   # noqa: BLE001
++        _STEMMER = None
+ 
+ try:
+     from hdlab.lemma_norm import normalize_lemma
+@@ -50,6 +62,10 @@ def shares_stem(a: str, b: str) -> bool:
+         return True
+     if _STEMMER is not None and _STEMMER.stem(a) == _STEMMER.stem(b):
+         return True
++    if _organ_lemma is not None:                        # the organ's lemma, both sides non-None
++        la, lb = _organ_lemma(a), _organ_lemma(b)
++        if la and lb and la == lb:
++            return True
+     p = os.path.commonprefix([a, b])
+     if len(p) >= 4 and min(len(a), len(b)) >= 4:
+         return True
+diff --git a/hdlab/patient_tendency.py b/hdlab/patient_tendency.py
+--- a/hdlab/patient_tendency.py
++++ b/hdlab/patient_tendency.py
+@@ -65,7 +65,7 @@ def lemmatize_verb(verb: str) -> str:
+     if not v:
+         return v
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         lem = _gbm.morphy(v, "v")
+         if lem:
+             return lem
+@@ -123,7 +123,7 @@ def derive_ambiguous_verbs(use_cache: bool = True) -> Set[str]:
+             pass
+     verbs = set(_AMBIGUOUS_SEED) | set(_FLOW_GRAVITY_VERBS)
+     try:
+-        from nltk.corpus import verbnet as vn
++        from hdlab.lexicon_foundation import verbnet as vn
+         vc = vn.vnclass("roll-51.3.1")
+         for lu in vn.lemmas(vc):
+             lem = lu.split("-")[0].split("_")[0].lower()
+@@ -260,7 +260,7 @@ def _wordnet_props(patient: str) -> Set[str]:
+     the core lexicon. Measured weak (category != disposition) -- used only as a backstop, and the cell
+     reports the WordNet-only score to show a lexical resource alone cannot supply this term."""
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+     except Exception:
+         return set()
+     LAB = {"round": "rollable", "circular": "rollable", "spherical": "rollable", "cylindrical": "rollable",
+@@ -339,7 +339,7 @@ def _is_spatial_ground(noun: str) -> bool:
+     if noun in SPATIAL_GROUNDS:
+         return True
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+     except Exception:
+         return False
+     roots = set()
+diff --git a/hdlab/pos_tagger.py b/hdlab/pos_tagger.py
+--- a/hdlab/pos_tagger.py
++++ b/hdlab/pos_tagger.py
+@@ -104,7 +104,7 @@ class DPHeadCategoryCorrection:
+         if w in self._noun_reading:
+             return self._noun_reading[w]
+         try:
+-            from nltk.corpus import wordnet as wn
++            from hdlab.lexicon_foundation import wordnet as wn
+             ok = len(wn.synsets(w, pos=wn.NOUN)) >= 1
+         except Exception:
+             ok = True
+@@ -121,7 +121,7 @@ class DPHeadCategoryCorrection:
+         if c and (c[0] + c[1]) >= self.min_evidence:
+             return n / a
+         try:
+-            from nltk.corpus import wordnet as wn
++            from hdlab.lexicon_foundation import wordnet as wn
+             return (len(wn.synsets(w, pos=wn.NOUN)) + 1.0) / (len(wn.synsets(w, pos=wn.ADJ)) + 1.0)
+         except Exception:
+             return n / a
+diff --git a/hdlab/possession_operators.py b/hdlab/possession_operators.py
+--- a/hdlab/possession_operators.py
++++ b/hdlab/possession_operators.py
+@@ -83,7 +83,7 @@ def build_lexicon(use_cache: bool = True) -> Dict[str, dict]:
+     if use_cache and os.path.exists(CACHE):
+         with open(CACHE, "r", encoding="utf-8") as f:
+             return json.load(f)
+-    from nltk.corpus import framenet as fn  # local import (heavy; FrameNet is the static asset)
++    from hdlab.lexicon_foundation import framenet as fn  # local import (heavy; FrameNet is the static asset)
+     lex: Dict[str, dict] = {}
+     for frame, (op, roles) in FRAME_OPS.items():
+         try:
+diff --git a/hdlab/predicate_argument_frontend.py b/hdlab/predicate_argument_frontend.py
+--- a/hdlab/predicate_argument_frontend.py
++++ b/hdlab/predicate_argument_frontend.py
+@@ -107,7 +107,7 @@ def get_event_classes(lemma: str) -> FrozenSet[str]:
+     if lemma in _verbnet_class_cache:
+         return _verbnet_class_cache[lemma]
+     try:
+-        from nltk.corpus import verbnet as vn
++        from hdlab.lexicon_foundation import verbnet as vn
+         classids = vn.classids(lemma)
+     except Exception:
+         classids = []
+@@ -138,7 +138,7 @@ def _classify_by_patterns(lemma: str, patterns: Tuple[str, ...], cache: Dict[str
+     if lemma in cache:
+         return cache[lemma]
+     try:
+-        from nltk.corpus import verbnet as vn
++        from hdlab.lexicon_foundation import verbnet as vn
+         classids = vn.classids(lemma)
+     except Exception:
+         classids = []
+@@ -187,7 +187,7 @@ def is_place_ground(word: Optional[str]) -> bool:
+         return _place_cache[w]
+     ans = False
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         for syn in wn.synsets(w, "n"):
+             for path in syn.hypernym_paths():
+                 if {s.name() for s in path} & _LOC_HYPERNYM_ROOTS:
+diff --git a/hdlab/predicate_detector.py b/hdlab/predicate_detector.py
+--- a/hdlab/predicate_detector.py
++++ b/hdlab/predicate_detector.py
+@@ -61,7 +61,7 @@ def has_verb_reading(tok: str) -> bool:
+     (verbatim from exp_whodidwhat_verb_id_recoverable_v1.has_verb_reading)"""
+     global _WN
+     if _WN is None:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         _WN = wn
+     low = tok.lower()
+     if _WN.synsets(low, pos="v"):
+diff --git a/hdlab/predictive_world_model.py b/hdlab/predictive_world_model.py
+--- a/hdlab/predictive_world_model.py
++++ b/hdlab/predictive_world_model.py
+@@ -106,7 +106,7 @@ def _lemma(w: str) -> str:
+     if hit is not None:
+         return hit
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         lem = _gbm.morphy(w, "v")
+     except Exception:
+         lem = None
+diff --git a/hdlab/quality_relation.py b/hdlab/quality_relation.py
+--- a/hdlab/quality_relation.py
++++ b/hdlab/quality_relation.py
+@@ -91,14 +91,8 @@ def _get_wn():
+     global _wn
+     if _wn is not None:
+         return _wn
+-    from nltk.corpus import wordnet as wn_mod
+-    try:
+-        wn_mod.synsets("test")
+-    except LookupError:
+-        import nltk
+-        nltk.download("wordnet", quiet=True)
+-        nltk.download("omw-1.4", quiet=True)
+-    _wn = wn_mod
++    from hdlab.lexicon_foundation import wordnet as wn_mod   # frozen offline store: no download path,
++    _wn = wn_mod                                            # and a missing asset raises, never degrades
+     return _wn
+ 
+ 
+diff --git a/hdlab/result_type_induction.py b/hdlab/result_type_induction.py
+--- a/hdlab/result_type_induction.py
++++ b/hdlab/result_type_induction.py
+@@ -136,7 +136,7 @@ CONSTRUCTION_ATOMS = ["comm_verb", "give_verb", "achieve_verb", "fail_verb",
+ # resulttype-grounded utility channel), so importing goal_achievement from here would be circular.
+ # ---------------------------------------------------------------------------------------------
+ def _primary_synonyms(word: str, pos) -> frozenset:
+-    from nltk.corpus import wordnet as _wn
++    from hdlab.lexicon_foundation import wordnet as _wn
+     syn = {word}
+     syns = _wn.synsets(word, pos=pos)
+     if syns:
+@@ -146,7 +146,7 @@ def _primary_synonyms(word: str, pos) -> frozenset:
+ 
+ 
+ def _pool_related(word: str, pool) -> bool:
+-    from nltk.corpus import wordnet as _wn
++    from hdlab.lexicon_foundation import wordnet as _wn
+     if word in pool:
+         return True
+     for pos in (_wn.VERB, _wn.ADJ, _wn.NOUN):
+diff --git a/hdlab/space_reader.py b/hdlab/space_reader.py
+--- a/hdlab/space_reader.py
++++ b/hdlab/space_reader.py
+@@ -104,7 +104,7 @@ def is_motion_verb(lemma: str) -> bool:
+     ans = w in _MOTION_VERBS
+     if not ans:
+         try:
+-            from nltk.corpus import wordnet as wn
++            from hdlab.lexicon_foundation import wordnet as wn
+             ss = wn.synsets(w, "v")
+             if ss:
+                 seen, stack = set(), [ss[0]]     # FIRST (most frequent) sense only -> low polysemy noise
+@@ -536,7 +536,7 @@ def is_place_wn(noun):
+     if w in _PLACE_CACHE:
+         return _PLACE_CACHE[w]
+     if _WN is None:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         _WN = wn
+     roots = {"location.n.01", "structure.n.01", "room.n.01", "way.n.06", "geological_formation.n.01",
+              "body_of_water.n.01", "tract.n.01"}
+diff --git a/hdlab/state_register.py b/hdlab/state_register.py
+--- a/hdlab/state_register.py
++++ b/hdlab/state_register.py
+@@ -152,7 +152,7 @@ def _wn_synonyms(word: str) -> frozenset:
+         return _wn_syn_cache[word]
+     out = set()
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         for syn in wn.synsets(word)[:4]:
+             for lm in syn.lemmas():
+                 out.add(lm.name().replace("_", " ").lower())
+@@ -179,7 +179,7 @@ def _wn_adj_antonyms(word: str) -> frozenset:
+         return _wn_ant_cache[word]
+     out = set()
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         for syn in [s for s in wn.synsets(word) if s.pos() == "a"][:1]:
+             for lm in syn.lemmas():
+                 for a in lm.antonyms():
+@@ -195,7 +195,7 @@ def _wn_hypernym_entails(specific: str, general: str) -> bool:
+     """True iff NOUN `specific` is a hyponym of `general` within 3 steps (so 'specific' entails 'general':
+     a soldier is-a serviceman). Nouns/verbs only -- adjectives have no hypernymy (use _SCALAR_ENTAILS)."""
+     try:
+-        from nltk.corpus import wordnet as wn
++        from hdlab.lexicon_foundation import wordnet as wn
+         gens = set(wn.synsets(general, "n")) | set(wn.synsets(general, "v"))
+         if not gens:
+             return False
+diff --git a/hdlab/structured_matcher.py b/hdlab/structured_matcher.py
+--- a/hdlab/structured_matcher.py
++++ b/hdlab/structured_matcher.py
+@@ -86,7 +86,7 @@ class StructuredMatcher:
+     # ---------- assets ----------
+     def _wordnet(self):
+         if self._wn is None:
+-            from nltk.corpus import wordnet as wn
++            from hdlab.lexicon_foundation import wordnet as wn
+             self._wn = wn
+         return self._wn
+ 
+@@ -130,7 +130,7 @@ class StructuredMatcher:
+             return self._fn_conv
+         conv: Dict[str, Set[str]] = {}
+         try:
+-            from nltk.corpus import framenet as fn
++            from hdlab.lexicon_foundation import framenet as fn
+             groups: Dict[str, list] = {}
+             for fr in fn.frame_relations():
+                 tname = ""
+diff --git a/hdlab/temporal_model.py b/hdlab/temporal_model.py
+--- a/hdlab/temporal_model.py
++++ b/hdlab/temporal_model.py
+@@ -126,7 +126,9 @@ _ORC_TAGGER = None
+ def _perceptron_tagger():
+     global _ORC_TAGGER
+     if _ORC_TAGGER is None:
+-        from nltk.tag import PerceptronTagger
++        from hdlab.lexicon_foundation import standin_nltk
++        PerceptronTagger = standin_nltk("nltk.tag", "PerceptronTagger",   # OFF the live path:
++                                        reason="supervised stand-in; the live tagger is the category organ's Penn arm")
+         _ORC_TAGGER = PerceptronTagger()
+     return _ORC_TAGGER
+ 
+@@ -457,7 +459,61 @@ order anterior events among themselves using explicit temporal markers, not tens
+ ASCII-only. Deterministic given a fixed codebook seed. Substrate-only (no LLM at runtime).
+ """
+ 
+-_tagger = _perceptron_tagger   # multiframe's historical alias for the shared in-substrate tagger
++class _PennArmTagger:
++    """(word, Penn-tag) pairs from the category organ's Penn arm, in the shape the punctuation-preserving
++    stream expects -- read GRADED for the ONE distinction this stream depends on.
++
++    WHY THE GRADED READ (pri 127, measured). Swapping the supervised stand-in for the organ's point
++    estimate costs the timeline EVENTS: on 40 GUM test documents the two taggers make the SAME number of
++    errors on gold VBD/VBN tokens (organ 276, stand-in 277) but not the same KIND -- the organ reads a
++    VBD as VBN 97 times (stand-in: 31), and `extract_events_punct` SKIPS a bare VBN that has no `had` /
++    COPULA_BE licenser in its 3-word lookback, so each of those is an event the timeline never sees
++    (event recall 0.7168 -> 0.6674, F1 0.8017 -> 0.7748, CI-separated). A past participle REQUIRES an
++    auxiliary licenser; an -ed form without one is a simple past. So when the argmax is VBN, the
++    EXTRACTOR'S OWN licensing condition fails, and the posterior still holds VBD, read VBD. Cue
++    competition over the organ's own graded posterior -- no new table, no new word list (the licensers
++    ARE `{had} | COPULA_BE`), and REL is a swept operating point chosen on the DEV half (even doc index):
++    TEST F1 0.8126 vs the point estimate's 0.7748 (+0.0378) and the supervised stand-in's 0.8017
++    (+0.0110, CI [-0.0036, +0.0269] -- at parity, no longer a CI-separated regression).
++    """
++
++    LICENSERS = frozenset({"had"} | set(COPULA_BE))
++    REL = float(os.environ.get("HDLAB_PUNCT_VBN_REL", "0.05"))   # swept on DEV; 0 disables the read
++
++    def tag(self, words):
++        ws = list(words)
++        if not ws:
++            return []
++        if self.REL <= 0:
++            return list(zip(ws, _penn_arm().tag(ws)))
++        tags, dist = _penn_arm().tag_with_posterior(ws)
++        lows = [w.lower() for w in ws]
++        out = []
++        for i, (t, d) in enumerate(zip(tags, dist)):
++            if t == "VBN" and not any(lows[j] in self.LICENSERS for j in range(max(0, i - 3), i)):
++                vbd, vbn = d.get("VBD", 0.0), d.get("VBN", 0.0)
++                if vbn > 0 and vbd >= self.REL * vbn:
++                    t = "VBD"
++            out.append(t)
++        return list(zip(ws, out))
++
++
++# THE PUNCTUATION-PRESERVING STREAM'S TAGGER (pri 127). Until 2026-09-15 this alias pointed STRAIGHT at the
++# NLTK PerceptronTagger, so the 2026-09-13 flip to the category organ's Penn arm reached `default_tagger`
++# and NOT the timeline register -- `situation_reader._read_timeline_register` -> `extract_passage` ->
++# `extract_events_punct` -> `tag_punct` -> `_tagger()` ran the supervised stand-in on EVERY default read
++# (measured: the poisoned-import witness crashes here at HEAD). It now honours the same switch, with its
++# own name so the OLD behaviour is exactly reproducible for a baseline.
++PUNCT_TAGGER = os.environ.get("HDLAB_TEMPORAL_PUNCT_TAGGER", TEMPORAL_TAGGER)
++if PUNCT_TAGGER not in TEMPORAL_TAGGERS:
++    raise ValueError("unknown HDLAB_TEMPORAL_PUNCT_TAGGER %r (allowed: %s)"
++                     % (PUNCT_TAGGER, sorted(TEMPORAL_TAGGERS)))
++_PENN_PUNCT_TAGGER = _PennArmTagger()
++
++
++def _tagger():
++    """The shared tagger for the punctuation-preserving stream; the organ's Penn arm by default."""
++    return _PENN_PUNCT_TAGGER if PUNCT_TAGGER == "counts_penn" else _perceptron_tagger()
+ 
+ 
+ 
+diff --git a/hdlab/typed_coref.py b/hdlab/typed_coref.py
+--- a/hdlab/typed_coref.py
++++ b/hdlab/typed_coref.py
+@@ -118,7 +118,7 @@ def _wn_related(h1, h2):
+     v = _SYN.get(k)
+     if v is not None:
+         return v
+-    from nltk.corpus import wordnet as wn
++    from hdlab.lexicon_foundation import wordnet as wn
+     s1 = wn.synsets(h1, pos="n"); s2 = wn.synsets(h2, pos="n")
+     r = False
+     if s1 and s2:
+diff --git a/hdlab/typed_spokes.py b/hdlab/typed_spokes.py
+--- a/hdlab/typed_spokes.py
++++ b/hdlab/typed_spokes.py
+@@ -95,7 +95,7 @@ def _wordnet():
+     global _WN, _WN_MISSING
+     if _WN is None and not _WN_MISSING:
+         try:
+-            from nltk.corpus import wordnet as wn
++            from hdlab.lexicon_foundation import wordnet as wn
+             wn.synsets("test", pos=wn.NOUN)  # force lazy corpus load now so later calls cannot raise
+             _WN = wn
+         except Exception:
+diff --git a/hdlab/underspecified_sense_reader.py b/hdlab/underspecified_sense_reader.py
+--- a/hdlab/underspecified_sense_reader.py
++++ b/hdlab/underspecified_sense_reader.py
+@@ -61,7 +61,7 @@ def coarse_cluster(synset_name: str) -> str:
+     """The shared-core cluster of a synset = its WordNet lexicographer file (supersense). This is the brain's
+     graded-shared-core grain (Rodd 2002); over-split fine synsets collapse to the sense the brain distinguishes.
+     (A finer OntoNotes/CoarseWSD grouping can be dropped in here later; lexname is the always-available default.)"""
+-    from nltk.corpus import wordnet as wn
++    from hdlab.lexicon_foundation import wordnet as wn
+     try:
+         return wn.synset(synset_name).lexname()
+     except Exception:
+@@ -98,7 +98,7 @@ def select_sense(context_words: Sequence[str], vec_lookup: Callable[[str], Optio
+        "n_fine": <#fine candidates>, "n_coarse": <#clusters>, "distribution": {label: prob}}
+     The DEFAULT committed sense is `coarse` (underspecified); `fine` is retained for on-demand elaboration.
+     """
+-    from nltk.corpus import wordnet as wn
++    from hdlab.lexicon_foundation import wordnet as wn
+     if candidate_synsets is None:
+         if lemma is None:
+             raise ValueError("select_sense needs candidate_synsets or lemma")
+diff --git a/hdlab/wordnet_polarity_propagation.py b/hdlab/wordnet_polarity_propagation.py
+--- a/hdlab/wordnet_polarity_propagation.py
++++ b/hdlab/wordnet_polarity_propagation.py
+@@ -48,7 +48,7 @@ from __future__ import annotations
+ 
+ from typing import Dict, FrozenSet, NamedTuple, Optional
+ 
+-from nltk.corpus import wordnet as wn
++from hdlab.lexicon_foundation import wordnet as wn
+ 
+ from hdlab.consequence_learning_loop import MIN_CONFIRM
+ from hdlab.verb_lexical_similarity import (
+diff --git a/pyproject.toml b/pyproject.toml
+--- a/pyproject.toml
++++ b/pyproject.toml
+@@ -21,6 +21,12 @@ dependencies = [
+ ]
+ 
+ [project.optional-dependencies]
++# BUILD-TIME ONLY (pri 127): nltk is needed to BUILD the frozen lexicon asset
++# (tools/build_lexicon_foundation_index.py), never to read. The runtime dependency list above must
++# NOT contain it -- verification/test_no_nltk_on_the_live_path.py fails if hdlab/ imports it.
++foundation-build = [
++    "nltk>=3.9",
++]
+ dashboard = [
+     "streamlit>=1.32",
+     "plotly>=5.20",
