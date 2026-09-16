@@ -195,7 +195,13 @@ def build_worker_script(cmdline: str, env_overrides: dict[str, str], log_path_re
         with open({log_path_remote!r}, "ab") as f:
             f.write(b"=== desktop_run worker start ===\\n")
             f.flush()
-            proc = subprocess.run({cmdline!r}, shell=True, cwd={repo_remote!r}, env=env,
+            # cmd.exe does not accept a FORWARD-SLASH relative path as a command name ('.venv' is not
+            # recognized...; found on the first real run 2026-09-15): normalise the first token's slashes;
+            # the arguments keep theirs (python accepts either).
+            _cmd = {cmdline!r}
+            _first, _sep, _rest = _cmd.partition(" ")
+            _cmd = _first.replace("/", "\\") + _sep + _rest
+            proc = subprocess.run(_cmd, shell=True, cwd={repo_remote!r}, env=env,
                                    stdout=f, stderr=subprocess.STDOUT)
         with open({log_path_remote!r}, "a") as f:
             f.write("exit={{}}\\n".format(proc.returncode))
@@ -418,12 +424,17 @@ def wait_for_completion(name: str, timeout_min: int) -> tuple[str, int | None]:
     deadline = time.monotonic() + timeout_min * 60
     pid = remote_pid(name)
     while True:
-        log_text = read_remote_log(name)
-        code = parse_exit_line(log_text)
-        if code is not None:
-            return "done", code
-        if pid is not None and not remote_pid_alive(pid):
-            return "vanished", None
+        # a transient ssh failure (a hung powershell, a dropped connection) must not kill the wait -- found on
+        # the first real run 2026-09-15 (subprocess.TimeoutExpired escaped and the driver died mid-job)
+        try:
+            log_text = read_remote_log(name)
+            code = parse_exit_line(log_text)
+            if code is not None:
+                return "done", code
+            if pid is not None and not remote_pid_alive(pid):
+                return "vanished", None
+        except (subprocess.TimeoutExpired, OSError) as e:
+            _log(f"poll error (will retry): {type(e).__name__}: {str(e)[:120]}")
         if time.monotonic() >= deadline:
             return "timeout", None
         _log(f"job {name!r} still running (pid={pid}); polling again in {POLL_INTERVAL_S}s")
