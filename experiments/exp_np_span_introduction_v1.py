@@ -563,8 +563,12 @@ def row_spans(n_docs=28, arms=("shipped", "npspan", "twin"), verbose=True, onlin
         else:
             install_patch(verbose=verbose)
             _install_twin_hook()
-            if os.path.exists(NPSPAN_ASSET):
-                use_asset(NPSPAN_ASSET)
+            # `npspan_oldasset` ISOLATES the organ from its consumer repair: the phrase stream read with the
+            # PRE-SPAN validity table (whose `np` cue counted NP-INTERNAL adjacency and whose criterion shift
+            # was learned while Heim's condition was inert at inference).  `npspan` is the landed form: the
+            # organ PLUS the validities re-accrued on the phrase stream.
+            use_asset(V1_ASSET if a == "npspan_oldasset"
+                      else (NPSPAN_ASSET if os.path.exists(NPSPAN_ASSET) else V1_ASSET))
             set_organ(span=True, collapse=collapse, boundary=boundary)
             twin_on(a == "twin")
         caps[a] = _read_arm(prepared, a, verbose=verbose, online=online)
@@ -729,7 +733,7 @@ def row_boundary(n_docs=12, verbose=True):
     install_patch(verbose=verbose)
     prepared = gum_docs(n_docs, split="train")
     out = {"n_docs": len(prepared), "split": "train", "modes": {}}
-    for mode in ("cat", "arc", "both", "graded"):
+    for mode in ("cat", "arc", "both", "graded", "post"):
         set_organ(span=True, collapse=True, boundary=mode)
         twin_on(False)
         caps = _read_arm(prepared, mode, verbose=False)

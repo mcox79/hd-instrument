@@ -1,5 +1,5 @@
 diff --git a/hdlab/referent_per_np.py b/hdlab/referent_per_np.py
-index 78504fb0c..24dc7b48c 100644
+index 78504fb0c..3a6ffc7d4 100644
 --- a/hdlab/referent_per_np.py
 +++ b/hdlab/referent_per_np.py
 @@ -11,6 +11,12 @@ that source: it REUSES the real coref parse for pronouns/clusters/gender, opens
@@ -24,7 +24,7 @@ index 78504fb0c..24dc7b48c 100644
  __bf_status__ = 'BF_SPIRIT'   # BF | BF_SPIRIT | NOT_BF | BF_UNPINNED | BF_UNVERIFIED ; mirrors notes/bf_status_registry.jsonl
  __bf_verified__ = '2026-09-09 BF-certification pass (reader CATALOG owner-DONE + BRAIN_FOUNDATIONAL_AUDIT §2b; strategy first-hand cross-ref)'
  __bf_note__ = 'Kamp/Heim DRT one-referent-per-NP discourse construction; CAT genuinely-BF'
-@@ -96,12 +104,199 @@ def pronoun_phi(form: Optional[str]) -> Optional[Dict]:
+@@ -96,12 +104,248 @@ def pronoun_phi(form: Optional[str]) -> Optional[Dict]:
      return PRONOUN_PHI.get((form or "").lower().strip(".,\'\"!?;:"))
  
  
@@ -109,6 +109,25 @@ index 78504fb0c..24dc7b48c 100644
 +    return False
 +
 +
++def _graded_prob(head_post, k: int, lo: int, h: int) -> float:
++    """P(k's head lies inside the phrase already built, k+1..h) under the attachment arm's own posterior.
++    1.0 when the arm hands down no distribution (the hard decision then stands)."""
++    if not head_post:
++        return 1.0
++    row = head_post.get(k + 1) or head_post.get(str(k + 1)) or {}
++    if not row:
++        return 1.0
++    p = 0.0
++    for j, q in row.items():
++        try:
++            j = int(j)
++        except (TypeError, ValueError):
++            continue
++        if lo + 1 <= j <= h + 1:
++            p += float(q)
++    return p
++
++
 +def _graded_inside(head_post, k: int, lo: int, h: int) -> bool:
 +    """MAP membership under the attachment arm's GRADED head belief: token `k` is inside the phrase when
 +    P(k's head lies in the phrase already built, k+1..h) >= P(it lies outside).  `head_post` is the arm's
@@ -129,7 +148,28 @@ index 78504fb0c..24dc7b48c 100644
 +    return p_in >= 0.5
 +
 +
-+def np_left_edge(toks, up, h: int, gov=None, head_post=None, mode=None) -> int:
++def _cat_prob_inside(toks, up, cat_post, k: int) -> float:
++    """P(token k is NP-INTERNAL MATERIAL) under the CATEGORY ORGAN'S OWN POSTERIOR -- the graded hand-down,
++    not its argmax.  The two conditional categories keep their conditions: ADV counts only as a degree word
++    on a following adjective, PRON only in determiner position.  With no posterior this is the hard test."""
++    if not cat_post:
++        return 1.0 if _np_cat_admissible(toks, up, k) else 0.0
++    row = cat_post[k] if k < len(cat_post) else None
++    if not row:
++        return 1.0 if _np_cat_admissible(toks, up, k) else 0.0
++    p = 0.0
++    for u, q in row.items():
++        if u not in _NP_LEFT:
++            continue
++        if u == "ADV" and not (k + 1 < len(up) and up[k + 1] == "ADJ"):
++            continue
++        if u == "PRON" and str(toks[k]).lower() not in _POSS_DET:
++            continue
++        p += float(q)
++    return p
++
++
++def np_left_edge(toks, up, h: int, gov=None, head_post=None, mode=None, cat_post=None) -> int:
 +    """THE LEFT EDGE (0-based, inclusive) of the noun phrase headed by 0-based `h`."""
 +    mode = RPN_BOUNDARY if mode is None else mode
 +    a = h
@@ -145,6 +185,15 @@ index 78504fb0c..24dc7b48c 100644
 +            ok = (gov is not None) and _arc_reaches(gov, k, h)
 +        elif mode == "graded":
 +            ok = okc and (oka or _graded_inside(head_post, k, k, h))
++        elif mode == "post":
++            # THE GRADED HAND-DOWN, END TO END.  Both rungs above this one hand DOWN a distribution -- the
++            # category organ a posterior over categories, the attachment arm P(head | dep) -- and the hard
++            # `both` test throws both away by reading their argmaxes.  The phrase boundary is a BELIEF:
++            #   P(k inside the phrase) = P(k is NP-internal material) * P(k's head lies inside the phrase)
++            # and the token joins when that clears its own complement (>= 0.5 IS the MAP boundary; no
++            # threshold is fitted).  The two factors are treated as independent, which is the honest
++            # statement of what the substrate hands down -- there is no joint (category, head) posterior.
++            ok = (_cat_prob_inside(toks, up, cat_post, k) * _graded_prob(head_post, k, k, h)) >= 0.5
 +        else:
 +            ok = okc and oka
 +        if not ok:
@@ -155,7 +204,7 @@ index 78504fb0c..24dc7b48c 100644
 +    return a
 +
 +
-+def np_groups(toks, up, head_wpos, gov=None, head_post=None, mode=None):
++def np_groups(toks, up, head_wpos, gov=None, head_post=None, mode=None, cat_post=None):
 +    """ONE REFERENT PER NP.  Group this sentence's content-noun heads into noun phrases and return
 +    {surviving_head: (span_start, surviving_head, [absorbed head positions])}.
 +
@@ -166,7 +215,7 @@ index 78504fb0c..24dc7b48c 100644
 +    hs = sorted({int(x) for x in (head_wpos or ())})
 +    if not hs:
 +        return {}
-+    edge = {h: np_left_edge(toks, up, h, gov, head_post, mode) for h in hs}
++    edge = {h: np_left_edge(toks, up, h, gov, head_post, mode, cat_post) for h in hs}
 +    parent = {}
 +    if RPN_COLLAPSE:
 +        for i, h in enumerate(hs):
@@ -227,7 +276,7 @@ index 78504fb0c..24dc7b48c 100644
              "wtok_start": wpos, "head": form_low, "is_pronoun": True,
              "gender": d.get("gender"), "number": d.get("number"), "name_gender": None,
              "span_toks": [form_low], "midx": -1, "span_upos": [upos or "PRON"],
-@@ -109,8 +304,12 @@ def _mk_pronoun_referent(form_low: str, sent_idx: int, wpos: int, cluster: int,
+@@ -109,8 +353,12 @@ def _mk_pronoun_referent(form_low: str, sent_idx: int, wpos: int, cluster: int,
  
  
  def _content_head_positions(toks: Sequence[str], up: Sequence[str]) -> List[int]:
@@ -242,7 +291,7 @@ index 78504fb0c..24dc7b48c 100644
      return [i for i, u in enumerate(up)
              if u in NOMINAL and toks[i].lower() not in STOP and len(toks[i]) >= 3]
  
-@@ -178,7 +377,8 @@ def _file_card_features(head_low: str, upos: Optional[str], name_gender_map=None
+@@ -178,7 +426,8 @@ def _file_card_features(head_low: str, upos: Optional[str], name_gender_map=None
  
  def _mk_referent(head_low: str, sent_idx: int, wpos: int, cluster: int, midx: int,
                   upos: Optional[str] = None, tag_post=None, tags=None,
@@ -252,7 +301,7 @@ index 78504fb0c..24dc7b48c 100644
      """A discourse-referent mention dict in the parse_litbank_conll schema (single-token, non-pronoun).
  
      MEASURED DEFECT THIS FIXES (pri-109, 8 LitBank docs): `span_toks` is the LOWERCASED head, and the ten
-@@ -189,10 +389,21 @@ def _mk_referent(head_low: str, sent_idx: int, wpos: int, cluster: int, midx: in
+@@ -189,10 +438,21 @@ def _mk_referent(head_low: str, sent_idx: int, wpos: int, cluster: int, midx: in
      becomes the organ's and survives the lowercasing: 150 name mentions typed where there were 0."""
      _g, _n, _ng = (_file_card_features(head_low, upos, name_gender_map) if fill_card
                     else (None, None, None))
@@ -278,7 +327,7 @@ index 78504fb0c..24dc7b48c 100644
          d["span_upos"] = [upos]
      if tag_post is not None:
          # pri 118: the category organ's POSTERIOR row for this head, so `coref.name_content_tokens` can
-@@ -201,7 +412,11 @@ def _mk_referent(head_low: str, sent_idx: int, wpos: int, cluster: int, midx: in
+@@ -201,7 +461,11 @@ def _mk_referent(head_low: str, sent_idx: int, wpos: int, cluster: int, midx: in
          # that carries the gain on the board loader's stream is the SPAN-level name-run cue, and it is INERT
          # here because this builder stores span_toks=[head], ONE token per mention.  Keeping the NP span is
          # the next rung and is filed as such.
@@ -291,7 +340,7 @@ index 78504fb0c..24dc7b48c 100644
          d["span_tags"] = tags
      return d
  
-@@ -223,7 +438,7 @@ def _finalize(mentions: List[Dict]) -> List[Dict]:
+@@ -223,7 +487,7 @@ def _finalize(mentions: List[Dict]) -> List[Dict]:
  
  
  def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_frame: bool = True,
@@ -300,7 +349,7 @@ index 78504fb0c..24dc7b48c 100644
      """THE candidate source: a discourse referent per content-noun-head NP (+ the determiner/name FRAME detector
      when use_frame), coref pronouns/clusters PRESERVED (coref demoted to a downstream linking pass). REPLACES the
      coref-column candidate source. Returns (mentions, n_sents) in the parse_litbank_conll schema -- a drop-in for
-@@ -234,12 +449,22 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
+@@ -234,12 +498,22 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
      `discover_pronouns=True` (pri 125, the DEFAULT): the pronoun referents come from the CATEGORY ORGAN's
      own PRON tags on the reader's own tokens, in reading order -- so the organ discovers its mentions from
      TEXT and the coref annotation column reaches no decision.  `discover_pronouns=False` reproduces the
@@ -324,7 +373,7 @@ index 78504fb0c..24dc7b48c 100644
      coref_head_wpos: Dict[tuple, int] = {}
      # REFLEXIVES (himself/herself/itself/themselves) are pronouns too (Binding Principle A; strategy 2026-09-12):
      # the CoNLL mention stream marks only PRONOUN_SCOPE forms as pronouns, so a reflexive coref mention was dropped
-@@ -289,20 +514,40 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
+@@ -289,20 +563,46 @@ def referent_per_np_source(conll_path: str, tagger, name_gender_map=None, use_fr
              for wi, w in enumerate(toks):
                  if wi >= len(up) or up[wi] != "PRON":
                      continue
@@ -341,7 +390,13 @@ index 78504fb0c..24dc7b48c 100644
 +        # ONE REFERENT PER NOUN PHRASE (pri 138).  The boundary is the reader's OWN attachment arm, so the
 +        # arcs come from the shared per-read parse when the caller serves one -- no second parse.
 +        _gov, _post = (_arcs_for(tagger, toks, up) if (RPN_SPAN and cands) else (None, None))
-+        _grp = (np_groups(toks, up, cands, _gov, _post, boundary) if (RPN_SPAN and cands)
++        # the CATEGORY ORGAN'S posterior per token, for the graded boundary (`mode="post"`); the matrix is
++        # already computed for this sentence, so this costs nothing.
++        _cpost = None
++        if RPN_SPAN and cands and mat is not None and _tags:
++            _cpost = [{t: float(mat[i][j]) for j, t in enumerate(_tags) if mat[i][j] >= 0.01}
++                      for i in range(len(toks))]
++        _grp = (np_groups(toks, up, cands, _gov, _post, boundary, _cpost) if (RPN_SPAN and cands)
 +                else {hw: (hw, hw, []) for hw in cands})
 +        _base = _offs[si] if si < len(_offs) else None
 +        for hw in sorted(_grp):
