@@ -287,14 +287,14 @@ def dirty_tracked_files(dirs: tuple[str, ...] = DIRTY_CHECK_DIRS) -> list[str]:
 
 
 def remote_mtime_epoch(remote_path_bs: str) -> float | None:
-    """Remote file/dir mtime (UTC epoch seconds) via PowerShell, or None if it doesn't exist."""
-    ps = (f"if (Test-Path '{remote_path_bs}') {{ "
-          f"(Get-Item '{remote_path_bs}').LastWriteTimeUtc.Subtract("
-          f"[datetime]'1970-01-01').TotalSeconds }} else {{ 'MISSING' }}")
+    """Remote file/dir mtime (epoch seconds) via the desktop's python, or None if it doesn't exist / cannot be probed."""
+    # The desktop's python starts in well under a second; powershell over ssh took 60-120 s per call there
+    # (found on the first real run 2026-09-15), so the probe uses the venv python. Output: epoch seconds or MISSING.
+    py = "import os,sys;p=sys.argv[1];print(os.path.getmtime(p) if os.path.exists(p) else 'MISSING')"
     try:
-        r = ssh_run(f'powershell -NoProfile -Command "{ps}"', timeout=120)
+        r = ssh_run(f'"{REMOTE_PYEXE}" -c "{py}" "{remote_path_bs}"', timeout=60)
     except (subprocess.TimeoutExpired, OSError):
-        return None   # a slow or hung powershell must not abort a pull: None = unknown -> pull it
+        return None   # a slow or hung probe must not abort a pull: None = unknown -> pull it
     out = (r.stdout or "").strip()
     if r.returncode != 0 or out == "MISSING" or not out:
         return None
