@@ -545,13 +545,17 @@ _SAVED = {}
 
 
 def install():
+    # 2026-09-16 (strategy, pri 146 landing): the three guards below were `or` (install when not landed OR not yet
+    # saved), so on the LANDED tree the first call still installed the shim and hit `del SR._affect_pos_cached` on an
+    # attribute the patch had removed (the self-test and --identity failed on the landed tree). A component is
+    # installed only when it is NOT landed AND not yet installed.
     """Exec the proposed source into the live modules.  Returns a token for `restore()`.  A no-op for any part
     that is already landed."""
     import hdlab.grounded_semantic_graph as GSG
     import hdlab.lexical_categories as LC
     import hdlab.situation_reader as SR
     st = landed()
-    if not st["memo"] or "gsg_ppr" not in _SAVED:
+    if not st["memo"] and "gsg_ppr" not in _SAVED:
         # `landed()` alone is NOT the test: `restore()` puts the stock functions back, and a shim that had been
         # installed once would otherwise be skipped here because its added NAMES are still in the module -- which
         # would silently run the "memo on" arm with no memo at all.  The saved token is the authority.
@@ -561,7 +565,7 @@ def install():
         exec(compile(SRC_GSG_MEMO + "\n\n" + SRC_GSG_PPR + "\n\n" + SRC_GSG_SENSE_PPR, GSG_PATH, "exec"),
              GSG.__dict__)
         _SAVED["gsg_added"] = set(GSG.__dict__) - _pre
-    if not st["passage"] or "lc_register_generation" not in _SAVED:
+    if not st["passage"] and "lc_register_generation" not in _SAVED:
         _SAVED["lc_reggen"] = getattr(LC, "_REG_GEN", 0)
         _SAVED["lc_register_generation"] = LC.register_generation
         _SAVED["lc_new_document"] = LC.LexicalCategories.new_document
@@ -573,7 +577,7 @@ def install():
         LC.LexicalCategories.new_document = ns["_P"].new_document
         if hasattr(LC, "_REG_GEN"):
             del LC._REG_GEN
-    if not st["read_wrapped"] or "sr_read" not in _SAVED:
+    if not st["read_wrapped"] and "sr_read" not in _SAVED:
         _SAVED["sr_read"] = SR.SituationReader.read
         _SAVED["sr_affect_pos"] = SR._affect_pos
         _SAVED["sr_affect_pos_cached"] = SR._affect_pos_cached
