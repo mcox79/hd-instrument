@@ -299,7 +299,62 @@ Every arm runs in ONE process with the SHIPPED arm first, because compiling a di
 reversible in-process; once the diff has landed the shipped arm is produced by switching the organ off on the
 module (`RPN_SPAN` / `RPN_COLLAPSE`) and pointing the resolver back at the pre-span asset.
 
-## 12. SECTIONS TO COME
+## 12. THE CONTROLS, IN ONE PLACE
+
+1. **THE INFO-FREE TWIN IS A RANDOM-BOUNDARY STREAM.** Same organ, same collapse, same mention COUNT, same
+   heads, same sentences -- every phrase's LEFT boundary redrawn uniformly at random within its own sentence
+   at or before its head. Shape, coverage and magnitude preserved; the boundary information destroyed. It is
+   installed as a WRAPPER around the organ's own output, so nothing else about the read changes.
+2. **THE SHIPPED ARM IS THE PRISTINE TREE**, run FIRST in the same process, before the diff is compiled into
+   the live modules (which is not reversible in-process).
+3. **THE ASSET IS ISOLATED FROM THE ORGAN.** `npspan_oldasset` reads the phrase stream with the PRE-SPAN
+   validity table, so the organ's contribution and its consumer repair are separable.
+4. **THE OPERATING POINT IS CHOSEN ON TRAIN.** The boundary-evidence sweep runs on GUM TRAIN documents and
+   the validities are accrued on GUM TRAIN; TEST is only ever reported.
+5. **THE SCORER IS THE CONSUMER'S OWN.** `occ_appraisal` is scored by `exp_occ_appraisal_emotion_v1`'s own
+   `extract_all` + `arm_type_correct`; the pronoun rows by `exp_pronoun_pick_identity_contract_v1._score_q`;
+   the entity-set row by the board's own head-keyed answer key
+   (`exp_board_rows_on_the_reader_v1._gold_eid_by_wpos`). Gold is read only AFTER a decision.
+6. **A DROPPED MENTION COUNTS WRONG.** The Right-Hand-Head collapse removes mentions, so the entity-set row
+   is also reported on the SHIPPED arm's own item set with every item this arm no longer files scored as an
+   error -- the conservative, apples-to-apples reading.
+7. **THE BOOTSTRAP UNIT IS THE DOCUMENT** for every GUM row (mentions inside a document are not independent)
+   and **the ITEM** for the 50 constructed emotion items.
+
+## 13. THE SUBMISSION PROMPT
+
+```
+pri 138 -- the_introduction_organ_opens_one_referent_per_content_noun_token_with_a_bare_head_span_and_no_
+global_index_rebuild_it_as_one_referent_per_np_with_the_attachment_arms_span_and_real_token_positions
+
+The introduction organ now opens ONE discourse referent per NOUN PHRASE, with the phrase on the card and a
+real position, instead of one per content-noun token with a bare lowercased head and no position.  The
+boundary is the reader's OWN attachment arm (the head's pre-head dependents) intersected with the category
+organ's NP-internal categories and closed at the determiner (Abney 1991); the surviving head is the phrase's
+rightmost member (Williams 1981).  Nothing is fitted: the operating point was chosen on GUM TRAIN and the
+graded arm is read at its MAP.
+
+READ FIRST: notes/problems/<slug>/SOLVED.md.  THE DIFF: notes/problems/<slug>/np_span_patch.diff
+(hdlab/referent_per_np.py, hdlab/situation_reader.py, hdlab/entity_resolver.py, hdlab/goal_register.py,
+hdlab/coref.py; `git apply --check` CLEAN).  THE ASSET:
+data/frontend_assets/object_file_validities_gum_npspan_v1.json (the object-file validities re-accrued on the
+phrase stream; the pre-span asset stays the fallback).  THE WITNESS:
+verification/test_referent_per_np_span_landing.py (22 checks, tree-aware).  THE CELL:
+experiments/exp_np_span_introduction_v1.py.
+
+THE HEADLINE: the inferred-emotion arm occ_appraisal is back at 0.9000 from 0.6400 on all 50 items with the
+object-file competition ON -- +0.2600 CI95 [+0.1400,+0.3805] CI-separated, 13 items FIXED and 0 BROKEN, and
+the mechanism is a count ('no goal found' 17 -> 5, goal_actual 3 -> 16, the prospect branches untouched).
+
+TWO THINGS THAT MUST LAND WITH IT, both named in the SOLVED: (1) the board's own entity-set scorer
+(exp_board_rows_on_the_reader_v1.score_entity_set) aligns a reader mention at (sent_idx, m["wtok_start"]),
+which after this rung is the phrase's FIRST token -- it must key on graded_role_assigner.mention_head_wpos(m)
+or the board row will align on determiners; (2) Heim's criterion was LANDED AND INERT on the live read (the
+cluster call site passes no `sents`, so every mention answered `bare`), and a real span turns it on at
+inference for the first time -- which is why the validities are re-accrued.
+```
+
+## 14. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
 check; (6) alternate paths and next steps.
