@@ -521,6 +521,57 @@ as 0.5046 against 0.738 on n=874 over 24 documents -- a different document subse
 the same conclusion: **the reader's own partition is well below the simplest same-head rule.** That is the
 gap strategy's bar 1 asks this rung to close, and it is a 0.25-wide gap, not a rounding error.
 
+### 10.6 THE NP-SPAN ARM ON THE SAME 12 DOCUMENTS -- THE JOINS ALL MOVE, AND THE PARTITION BREAKS
+
+| | shipped | NP-span | |
+|---|---|---|---|
+| mentions | 4,203 (3,208 non-pronoun) | 3,521 (2,526 non-pronoun) | -21.3% mentions, one per phrase |
+| **determiner readable** | **0** | **1,036** (41.0%) | Heim's condition becomes readable |
+| **usable global extent** | **0** | **2,526** (100%) | every mention locatable |
+| **multi-token spans** | **0** | **1,482** | pri 118's span cue can fire at all |
+| **crosstype bridge binds** | **0** | **28** | the `_ART` definite gate can see an article |
+| **cross-file mentions inside one gold mention** | **90** | **6** | **-93%** |
+| gold heads absorbed by the collapse | 0 | **862** | the collapse's honest cost |
+| B-cubed (gold-head alignment) | 0.6355 | **0.1814** | |
+| B-cubed (pri 136's alignment) | 0.6277 (P 0.6758 / R 0.6541) | **0.2081 (P 0.1211 / R 0.9739)** | |
+| entity-set row | 0.5379 (floor 0.7924, n=448) | **0.9673** (floor 0.7657, n=367) | |
+| pronoun row: span / identity | 0.2964 / 0.3653 | 0.2904 / 0.2665 | |
+
+**THE ENTITY-SET ROW APPEARS TO SMASH THE BAR AND I AM NOT CLAIMING IT, BECAUSE B-CUBED SAYS WHY.** Recall
+0.9739 against precision 0.1211 is a partition that has merged nearly everything in a document into one
+file -- and on such a partition EVERY re-mention is trivially "filed with its prior mention", so the
+entity-set row goes to 0.9673 **by construction**. The entity-set row is GAMEABLE BY A COUNT KNOB (total
+merge) and B-cubed is not; the honest verdict on bar 1 is therefore **NOT MET**, and the 0.9673 is recorded
+here only so that nobody later quotes it as a result.
+
+**FOUR OF THE FIVE JOINS THE BRIEF ASKED FOR DID MOVE, and they are not affected by the over-merge**:
+determiner readable 0 -> 1,036; global extents 0 -> 2,526; bridge binds 0 -> 28; cross-file mentions inside
+one gold mention 90 -> 6 (-93%). Those are counts over MENTIONS, not over the partition.
+
+### 10.7 THE OVER-MERGE, LOCATED AND NOT YET FIXED -- with two hypotheses already REFUTED
+
+On one LitBank document through the live read (a cheap isolation, 1 read per arm):
+
+| | non-pronoun mentions | entity files | clusters carrying a NAME |
+|---|---|---|---|
+| shipped | 663 | **347** | 28 |
+| NP-span | 536 | **151** | **2** |
+
+* **REFUTED -- it is not the `np` adjacency cue.** With every `np` strength forced to 0.0 (the cue made
+  inert) the same read gives **152 files and 3 name-carrying clusters** -- 151/2 vs 152/3. The cue the brief
+  predicted would misfire on the phrase stream is NOT carrying this; a hypothesis tested and killed with a
+  number rather than argued.
+* **REFUTED -- it is not the name typer.** Name-typed mention RATE is essentially unchanged (84 of 663 =
+  12.7% shipped, 70 of 536 = 13.1% NP-span), so `coref.name_content_tokens` reads the phrase span correctly.
+  What collapses is the number of FILES those name mentions end up in (28 -> 2), i.e. the merge decision,
+  not the typing.
+* **What remains**: the over-merge is in `entity_resolver.competition_cluster` itself and it is global (it
+  hits common nouns too -- precision 0.1211 over 2,526 mentions), so the surviving candidates are the cues
+  whose VALUE DISTRIBUTION the phrase span changes -- `name`/`canon` through the aliaser on a multi-token
+  span, `definite` through the now-live criterion, and `cb` through the changed `sent_role_rank` (fewer
+  mentions per sentence re-ranks every Centering backward-looking centre). **This is a LOCATED, NOT YET
+  FIXED item and it is the one thing that blocks bar 1.**
+
 ## 18. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
