@@ -725,7 +725,35 @@ produces a partition at 0.7221, ABOVE the shipped tree's live 0.6277**, which is
 continuity) are what the phrase boundary makes redundant, exactly as the brief predicted, and dropping both
 is worth **+0.10 B-cubed on gold heads** over the full cue set on this population.
 
-## 22. SECTIONS TO COME
+## 22. THE MECHANISM THE OFFLINE/LIVE GAP POINTS AT -- the plastic table has no LOSER term
+
+`entity_resolver.competition_cluster`'s online branch is:
+
+```
+if online and (best_a - runner) >= online_margin:
+    if not opened and best_cues is not None:
+        validities.observe(best_cues, True)      # <-- ONLY ever `same=True`
+    validities.observe_criterion(definite, opened)
+    validities.recompute()
+```
+
+**Every high-margin decision that MERGES accrues a `same` observation, and nothing ever accrues a
+`different` one.** `P(value | same)` therefore grows monotonically for every cue value that fires on a
+confident merge, `strength = log P(v|same) - log P(v|different)` rises, the next decision merges more
+easily, and the loop closes. On the pre-span stream this was measured as a GAIN (pri 136: +0.0745 with
+plasticity against +0.0680 frozen), because the per-token stream's merges were mostly NP-internal and
+genuinely correct. On the phrase stream the early merges are between PHRASES, and the same loop runs away --
+which is exactly the shape of the live number: **recall 0.9739 at precision 0.1211**.
+
+**THE BRAIN SAYS THE LOSER IS EVIDENCE TOO.** In a competition model the cue validities are a CONTRAST
+(Anderson & Milson's log-odds; MacWhinney's cue validity is P(correct | cue) against its complement), so a
+confident decision is evidence about the file that WON *and* about the files that LOST. The one-line
+brain-foundational fix is to accrue the runner-up's cue vector as `different` whenever the winner's is
+accrued as `same` -- the competition already computes it. **That is a change to `entity_resolver`, it is
+pri 136's organ not this one, and it is handed over as the specific board question rather than changed here
+under a running measurement.**
+
+## 23. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
 check; (6) alternate paths and next steps.
