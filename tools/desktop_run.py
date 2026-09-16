@@ -200,7 +200,7 @@ def build_worker_script(cmdline: str, env_overrides: dict[str, str], log_path_re
             # the arguments keep theirs (python accepts either).
             _cmd = {cmdline!r}
             _first, _sep, _rest = _cmd.partition(" ")
-            _cmd = _first.replace("/", "\\") + _sep + _rest
+            _cmd = _first.replace("/", os.sep) + _sep + _rest   # os.sep: no backslash literal in generated source
             proc = subprocess.run(_cmd, shell=True, cwd={repo_remote!r}, env=env,
                                    stdout=f, stderr=subprocess.STDOUT)
         with open({log_path_remote!r}, "a") as f:
@@ -242,7 +242,7 @@ def _log(msg: str) -> None:
     print(f"[desktop_run] {msg}")
 
 
-def ssh_run(remote_cmd: str, timeout: int = 30) -> subprocess.CompletedProcess:
+def ssh_run(remote_cmd: str, timeout: int = 90) -> subprocess.CompletedProcess:   # powershell on the desktop can take >30 s to start
     argv = ["ssh", "-o", "BatchMode=yes", "-o", "ConnectTimeout=10", SSH_HOST, remote_cmd]
     _log("ssh: " + remote_cmd)
     return subprocess.run(argv, capture_output=True, text=True, timeout=timeout, creationflags=_NO_WINDOW)
@@ -291,7 +291,10 @@ def remote_mtime_epoch(remote_path_bs: str) -> float | None:
     ps = (f"if (Test-Path '{remote_path_bs}') {{ "
           f"(Get-Item '{remote_path_bs}').LastWriteTimeUtc.Subtract("
           f"[datetime]'1970-01-01').TotalSeconds }} else {{ 'MISSING' }}")
-    r = ssh_run(f'powershell -NoProfile -Command "{ps}"')
+    try:
+        r = ssh_run(f'powershell -NoProfile -Command "{ps}"', timeout=120)
+    except (subprocess.TimeoutExpired, OSError):
+        return None   # a slow or hung powershell must not abort a pull: None = unknown -> pull it
     out = (r.stdout or "").strip()
     if r.returncode != 0 or out == "MISSING" or not out:
         return None
@@ -449,7 +452,7 @@ def pull_results(name: str, pull_paths: list[str], force: bool) -> int:
     log_local = os.path.join(HOOK_STATE, f"desktop_{name}.log")
     remote_mt = remote_mtime_epoch(log_remote)
     local_mt = os.path.getmtime(log_local) if os.path.exists(log_local) else None
-    if remote_mt is not None and should_pull(local_mt, remote_mt, force):
+    if remote_mt is None or should_pull(local_mt, remote_mt, force):   # unknown remote time -> pull
         r = scp_from(log_remote, log_local)
         if r.returncode == 0:
             pulled += 1
