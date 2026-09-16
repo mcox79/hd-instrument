@@ -1,0 +1,561 @@
+diff --git a/hdlab/entity_resolver.py b/hdlab/entity_resolver.py
+index 242e5bae2..fdb213bbf 100644
+--- a/hdlab/entity_resolver.py
++++ b/hdlab/entity_resolver.py
+@@ -69,7 +69,11 @@ __bf_note__ = ("ONE ACT-R content-addressable retrieval CORE (salience_binder.ac
+                "problem: strengthen_the_cue_based_pronoun_coreference_resolver). No NEW convenience stand-in introduced.")
+ __bf_corrections__ = []
+ 
++import io
++import json
+ import math
++import os
++import random
+ from collections import Counter, defaultdict
+ from typing import Callable, Dict, List, Optional, Sequence, Tuple
+ 
+@@ -83,6 +87,462 @@ import hdlab.typed_spokes as TS
+ 
+ NEG_INF = -1e9   # the finite floor every organ substitutes for actr_activation's -inf (empty history)
+ 
++# ==========================================================================================================
++# THE OBJECT-FILE MERGE/SPLIT DECISION AS ONE CUE COMPETITION  (pri 136)
++# ----------------------------------------------------------------------------------------------------------
++# A new mention either UPDATES an open file or OPENS a new one -- Heim (1982) file-change semantics'
++# Novelty-Familiarity Condition and Kahneman & Treisman (1992) object files.  The decision is a GRADED match
++# of the mention's features against the open files, not a string coincidence:
++#
++#   A(f) = B_i(f)  +  SUM_c w_c[value_c(m, f)]        ACT-R base-level + parallel cue evidence, SUMMED
++#   update argmax A if max A >= tau + lambda(definiteness); else OPEN A NEW FILE
++#
++# B_i is PINNED (salience_binder.actr_activation, imported -- never re-implemented).  The additive cue
++# weight is PINNED IN FORM as the log-likelihood ratio (Anderson & Milson 1989 rational analysis: the
++# associative strength S_ji is the log posterior odds), and those probabilities are COUNTS -- the
++# Competition Model's cue validity (MacWhinney & Bates 1989), accrued offline from GUM TRAIN partitions and
++# ONLINE from the reader's own high-margin decisions (`observe_file_decision`; nothing frozen).  This is the
++# SINGLE SHARED MATHEMATICAL GAP the brain-foundational audit names for this organ -- the hard phi/type
++# FILTER-then-rank replaced by graded Lewis-Vasishth cue combination, with the -P*mismatch interference term
++# LEARNED (a conflicting cue value simply gets a negative log-odds) rather than hand-set.
++# tau (the ACT-R retrieval threshold) and the accrual margin are OUR-INVENTION: SWEPT, never adopted.
++# ==========================================================================================================
++
++CUES = ("name", "head", "etype", "predication", "phi", "cb", "np")
++
++CUE_VALUES = {
++    "name":        ("canon_match", "surf_match", "clash", "na"),
++    "head":        ("lemma_match", "isa", "mismatch", "no_head"),
++    "etype":       ("licensed", "blocked", "na"),
++    "predication": ("linked", "na"),
++    "phi":         ("agree", "conflict", "unknown"),
++    "cb":          ("prev_cb", "no"),
++    # THE NOMINAL-RUN CUE.  The introduction organ opens a referent per CONTENT-NOUN TOKEN, so a complex
++    # nominal ("tenure track university faculty") arrives as FOUR mentions where the discourse has ONE
++    # object.  English compounds are RIGHT-HEADED (Williams 1981 Right-Hand Head Rule) and a complex
++    # nominal denotes ONE object, so an adjacent run of content heads is ONE file card.  Measured: 1,331 of
++    # 3,689 differently-filed mention pairs of a split gold entity lie INSIDE one gold mention span.
++    "np":          ("gap1", "gap2", "same_sent_far", "other_sent"),
++}
++
++# THE CRITERION CUE, which is a property of the MENTION and not of any pair: Heim's Novelty-Familiarity
++# Condition is a constraint on the UPDATE ("an indefinite introduces a new file"), not evidence about which
++# file -- so it belongs on the RIGHT-hand side of the retrieval-threshold inequality, as a criterion shift
++# (signal-detection: the novelty signal sets the criterion; Norman & O'Reilly 2003), NEVER as an additive
++# term in the activation.  Counting it as a pairwise cue produced a base-rate artifact in the first teacher
++# run (indefinite +2.84 == definite +2.84), because the candidate-set size, not identity, drove the ratio.
++CRITERION = "novelty"
++CRITERION_VALUES = ("indefinite", "definite", "bare")
++
++_DEF_DET = frozenset({"the", "this", "that", "these", "those", "its", "his", "her", "their", "my",
++                      "our", "your"})
++_INDEF_DET = frozenset({"a", "an", "another", "some", "one", "other"})
++
++
++def _definiteness(span_toks, sents=None, sent_idx=None, wpos=None):
++    """Heim's Novelty-Familiarity Condition, read off the determiner: an INDEFINITE introduces a NEW file;
++    a DEFINITE re-accesses an open one.  PINNED (Heim 1982); the shipped organ ignores it entirely.
++
++    MEASURED BLOCKER: the reader's mention spans are ONE TOKEN (the content head), so the determiner is not
++    on the mention at all -- on 24 GUM TRAIN documents EVERY mention reads `bare` and the condition is
++    unreadable.  Given the sentence tokens the organ can look one word to the left, which is where the
++    determiner is; without them it abstains to `bare` (and the criterion shift is then flat by
++    construction).  `sents` is an OPTIONAL argument: the organ is correct either way."""
++    if span_toks:
++        w = str(span_toks[0]).lower()
++        if w in _INDEF_DET:
++            return "indefinite"
++        if w in _DEF_DET:
++            return "definite"
++    if sents is not None and sent_idx is not None and wpos is not None:
++        try:
++            if 0 <= sent_idx < len(sents) and 0 < wpos <= len(sents[sent_idx]):
++                prev = str(sents[sent_idx][wpos - 1]).lower()
++                if prev in _INDEF_DET:
++                    return "indefinite"
++                if prev in _DEF_DET:
++                    return "definite"
++        except (IndexError, TypeError):
++            pass
++    return "bare"
++
++
++class OFile:
++    """One object file / Heim file card: the mention history (for ACT-R base-level) + the accrued card."""
++    __slots__ = ("cid", "history", "gender", "number", "heads", "canons", "surfaces", "names",
++                 "subj_sent", "last_order", "last_sent", "last_wpos")
++
++    def __init__(self, cid):
++        self.cid = cid
++        self.history = []
++        self.gender = None
++        self.number = None
++        self.heads = set()
++        self.canons = set()
++        self.surfaces = set()
++        self.names = set()          # the NAME surfaces filed here (the entity-type spoke's key)
++        self.subj_sent = -1
++        self.last_order = -1
++        self.last_sent = -1
++        self.last_wpos = -99
++
++    def update(self, order, role, gender, number, head, sent_idx, canon, surf, is_name, wpos=-99):
++        self.history.append((float(order), role))
++        if gender and self.gender is None:
++            self.gender = gender
++        if number and self.number is None:
++            self.number = number
++        if head:
++            self.heads.add(head)
++        if canon:
++            self.canons.add(canon)
++        if surf:
++            self.surfaces.add(surf)
++            if is_name:
++                self.names.add(surf)
++        if role == "SUBJECT":
++            self.subj_sent = sent_idx
++        self.last_order = order
++        self.last_sent = sent_idx
++        self.last_wpos = wpos
++
++
++class Validities:
++    """The Competition-Model cue-validity table for the merge/split decision.
++
++    counts[cue][value] = [n_same, n_different]      (accrued; the ONLY state)
++    strength[cue][value] = log P(value|same) - log P(value|different)    (Anderson & Milson log odds)
++
++    The strengths are a PURE FUNCTION of the counts, recomputed after every accrual -- so the table is
++    never frozen: `observe_file_decision` accrues one confirmed decision at read time."""
++
++    def __init__(self, counts=None, crit_counts=None, alpha=0.5):
++        self.alpha = float(alpha)
++        self.counts = {c: {v: [0.0, 0.0] for v in CUE_VALUES[c]} for c in CUES}
++        # the criterion counts are [n_reaccessed_an_open_file, n_opened_a_new_file] per definiteness value
++        self.crit = {v: [0.0, 0.0] for v in CRITERION_VALUES}
++        if counts:
++            for c, vals in counts.items():
++                if c not in self.counts:
++                    continue
++                for v, pair in vals.items():
++                    if v in self.counts[c]:
++                        self.counts[c][v] = [float(pair[0]), float(pair[1])]
++        if crit_counts:
++            for v, pair in crit_counts.items():
++                if v in self.crit:
++                    self.crit[v] = [float(pair[0]), float(pair[1])]
++        self.strength = {}
++        self.crit_shift = {}
++        self.recompute()
++
++    def recompute(self):
++        a = self.alpha
++        st = {}
++        for c in CUES:
++            vals = CUE_VALUES[c]
++            ns = sum(self.counts[c][v][0] for v in vals)
++            nd = sum(self.counts[c][v][1] for v in vals)
++            k = len(vals)
++            st[c] = {}
++            for v in vals:
++                if ns <= 0 or nd <= 0:
++                    st[c][v] = 0.0
++                    continue
++                ps = (self.counts[c][v][0] + a) / (ns + a * k)
++                pd = (self.counts[c][v][1] + a) / (nd + a * k)
++                st[c][v] = math.log(ps) - math.log(pd)
++        self.strength = st
++        # THE CRITERION SHIFT: how much harder (or easier) this mention's own determiner makes it to update
++        # an open file at all -- log P(new|value) - log P(new), the mention-level log odds of NOVELTY.
++        tot_new = sum(self.crit[v][1] for v in CRITERION_VALUES)
++        tot_all = sum(self.crit[v][0] + self.crit[v][1] for v in CRITERION_VALUES)
++        base = (tot_new + a) / (tot_all + 2 * a) if tot_all > 0 else 0.5
++        cs = {}
++        for v in CRITERION_VALUES:
++            n0, n1 = self.crit[v]
++            if n0 + n1 <= 0 or tot_all <= 0:
++                cs[v] = 0.0
++                continue
++            pnew = (n1 + a) / (n0 + n1 + 2 * a)
++            cs[v] = math.log(pnew / (1.0 - pnew)) - math.log(base / (1.0 - base))
++        self.crit_shift = cs
++
++    def w(self, cue, value):
++        return self.strength.get(cue, {}).get(value, 0.0)
++
++    def tau_shift(self, definiteness):
++        return self.crit_shift.get(definiteness, 0.0)
++
++    def observe(self, cues, same):
++        j = 0 if same else 1
++        for c, v in cues.items():
++            if c in self.counts and v in self.counts[c]:
++                self.counts[c][v][j] += 1.0
++
++    def observe_criterion(self, definiteness, opened_new):
++        if definiteness in self.crit:
++            self.crit[definiteness][1 if opened_new else 0] += 1.0
++
++    def permuted(self, seed=SEED):
++        """THE INFORMATION-FREE TWIN: the SAME numbers, attached to the WRONG cue values (a permutation of
++        each cue's value->strength map, and of the criterion shift).  Shape, magnitude and coverage
++        identical; the information destroyed."""
++        rng = random.Random(seed)
++        tw = Validities(alpha=self.alpha)
++        tw.counts = {c: {v: list(x) for v, x in vals.items()} for c, vals in self.counts.items()}
++        tw.crit = {v: list(x) for v, x in self.crit.items()}
++        st = {}
++        for c in CUES:
++            vals = list(CUE_VALUES[c])
++            perm = [self.strength[c][v] for v in vals]
++            rng.shuffle(perm)
++            st[c] = dict(zip(vals, perm))
++        tw.strength = st
++        cvals = list(CRITERION_VALUES)
++        cperm = [self.crit_shift[v] for v in cvals]
++        rng.shuffle(cperm)
++        tw.crit_shift = dict(zip(cvals, cperm))
++        return tw
++
++    def to_json(self):
++        return {"source": "object-file merge/split cue validities: counts accrued from GUM TRAIN gold "
++                          "partitions (offline supply) and from the reader's own high-margin decisions "
++                          "(online); strength = log P(value|same) - log P(value|different)",
++                "cues": list(CUES), "cue_values": {c: list(v) for c, v in CUE_VALUES.items()},
++                "criterion": CRITERION, "criterion_values": list(CRITERION_VALUES),
++                "alpha": self.alpha,
++                "counts": {c: {v: [float(x) for x in pair] for v, pair in vals.items()}
++                           for c, vals in self.counts.items()},
++                "criterion_counts": {v: [float(x) for x in pair] for v, pair in self.crit.items()},
++                "strength": {c: {v: float(x) for v, x in vals.items()} for c, vals in self.strength.items()},
++                "criterion_shift": {v: float(x) for v, x in self.crit_shift.items()}}
++
++    @staticmethod
++    def load(path=VALIDITY_ASSET):
++        with io.open(path, encoding="utf-8") as f:
++            doc = json.load(f)
++        return Validities(counts=doc.get("counts"), crit_counts=doc.get("criterion_counts"),
++                          alpha=float(doc.get("alpha", 0.5)))
++
++    def save(self, path=VALIDITY_ASSET):
++        with io.open(path, "w", encoding="utf-8", newline="\n") as f:
++            f.write(json.dumps(self.to_json(), indent=1, sort_keys=True))
++        return path
++
++
++_TYPE_CACHE = {}
++_ETYPE_CACHE = {}
++
++
++def _isa_compatible(h, heads):
++    """WordNet taxonomic type compatibility (hdlab.typed_spokes.coref_type_license) -- the NON-writing
++    bridge comparator the substrate already uses.  Static offline lexical foundation."""
++    from hdlab.typed_spokes import coref_type_license
++    for g in heads:
++        k = (h, g) if h <= g else (g, h)
++        v = _TYPE_CACHE.get(k)
++        if v is None:
++            try:
++                v = bool(coref_type_license(h, g))
++            except Exception:
++                v = False
++            _TYPE_CACHE[k] = v
++        if v:
++            return True
++    return False
++
++
++def _etype_cue(head, names, have_spoke):
++    """THE ENTITY-TYPE SPOKE (frozen offline asset): may a common-noun anaphor headed `head` co-refer with
++    a proper NAME filed here, on recorded entity-type grounds?  'the doctor' -> a person-typed name = licensed;
++    'she' -> 'youtube' (an organisation) = blocked -- the cue pri 125 named as the missing one."""
++    if not have_spoke or not names or not head:
++        return "na"
++    from hdlab.typed_spokes import type_licenses, entity_type_lemmas
++    any_typed = False
++    for s in names:
++        k = (head, s)
++        v = _ETYPE_CACHE.get(k)
++        if v is None:
++            try:
++                lems = entity_type_lemmas(s, backoff=True)
++                v = ("licensed" if (lems and type_licenses(head, s, backoff=True))
++                     else ("blocked" if lems else "na"))
++            except Exception:
++                v = "na"
++            _ETYPE_CACHE[k] = v
++        if v == "licensed":
++            return "licensed"
++        if v == "blocked":
++            any_typed = True
++    return "blocked" if any_typed else "na"
++
++
++def file_cues(m, f, *, head, canon, surf, gender, number, definite, is_name, sent_idx,
++              prev_cb, name_link, have_spoke, wpos=-99):
++    """THE CUE VECTOR for (mention m, open file f) -- every cue the brief names, read from the reader's own
++    state and the static foundation assets.  No gold is read anywhere."""
++    from hdlab.state_of_mind import compatible
++    c = {}
++    if canon and canon in f.canons:
++        c["name"] = "canon_match"
++    elif surf and surf in f.surfaces:
++        c["name"] = "surf_match"
++    elif canon and f.canons:
++        c["name"] = "clash"
++    else:
++        c["name"] = "na"
++    if not head or not f.heads:
++        c["head"] = "no_head"
++    elif head in f.heads:
++        c["head"] = "lemma_match"
++    elif _isa_compatible(head, f.heads):
++        c["head"] = "isa"
++    else:
++        c["head"] = "mismatch"
++    c["etype"] = "na" if is_name else _etype_cue(head, f.names, have_spoke)
++    c["predication"] = "linked" if (name_link is not None and name_link == f.cid) else "na"
++    if (gender or number) and (f.gender or f.number):
++        c["phi"] = "agree" if compatible(gender, number, f.gender, f.number) else "conflict"
++    else:
++        c["phi"] = "unknown"
++    c["cb"] = "prev_cb" if (prev_cb is not None and f.cid == prev_cb) else "no"
++    if f.last_sent != sent_idx:
++        c["np"] = "other_sent"
++    else:
++        d = int(wpos) - int(f.last_wpos)
++        c["np"] = "gap1" if d == 1 else ("gap2" if d == 2 else "same_sent_far")
++    return c
++
++
++def competition_cluster(ms, gaz, *, validities, tau=0.0, decay=None, role_prominence=None,
++                        bridge_binds=None, online=False, online_margin=2.0, trace=None,
++                        lemma="concept", sents=None):
++    """{midx: cluster_id} over NON-pronoun mentions -- THE PROPOSED ORGAN.
++
++    For every new mention, activation over the OPEN FILES is the ACT-R base-level (PINNED,
++    salience_binder.actr_activation, shared) PLUS the summed cue evidence weighted by ACCRUED VALIDITIES
++    (log-likelihood ratios).  A new file is opened when no open file's activation clears `tau` -- the
++    ACT-R retrieval-failure / Heim novelty branch, which the shipped always-merge organ does not have.
++
++    `bridge_binds` = {midx: file_id_of_the_bound_name} from the crosstype definite->name bridge, routed in
++    as ONE CUE (`predication`), never as an override (the brief's item 1c).
++    `online=True` accrues the reader's own HIGH-MARGIN decisions back into the validities (the observe path;
++    nothing frozen).  No gold is read on any path."""
++    from hdlab.salience_binder import actr_activation, ROLE_PROMINENCE, DEFAULT_DECAY
++    from hdlab.coref import EntityAliaser, name_content_tokens
++    from hdlab.lexical_utils import head_lemma, concept_lemma
++    from hdlab.typed_spokes import available_entity_type
++    # THE KEY.  `head_lemma` is the crude regex: it over-strips ("census" -> "censu") and, worse, it
++    # FALSE-MERGES -- a head with no alphabetic characters (a redaction, a number) becomes "" and every
++    # such head then matches every other.  `concept_lemma` is the substrate's owner-DONE brain-foundational
++    # wordform->lexical-concept map (WordNet morphy).  Swept here, not assumed.
++    lemma_fn = concept_lemma if lemma == "concept" else head_lemma
++    decay = DEFAULT_DECAY if decay is None else decay
++    role_prominence = ROLE_PROMINENCE if role_prominence is None else role_prominence
++    have_spoke = available_entity_type()
++    files, labels = [], {}
++    aliaser = EntityAliaser()
++    prev_cb, cur_sent = None, None
++    rank_in_sent = {}
++    for order, m in enumerate(ms):
++        if m["is_pronoun"]:
++            continue
++        sent_idx = m.get("sent_idx", 0)
++        if cur_sent is not None and sent_idx != cur_sent:
++            row = sorted(rank_in_sent.get(cur_sent, {}).items(), key=lambda kv: kv[1])
++            prev_cb = row[0][0] if row else prev_cb
++        cur_sent = sent_idx
++        rk = m.get("sent_role_rank", 99)
++        role = "SUBJECT" if rk == 0 else ("OBJECT" if rk == 1 else "OTHER")
++        span = m.get("span_toks", [m["head"]])
++        head = lemma_fn(m["head"])
++        gender = m.get("gender") or m.get("name_gender")
++        number = m.get("number")
++        surf = str(m["head"]).lower()
++        wpos = int(m.get("wtok_start", -99))
++        is_name = bool(name_content_tokens(span, upos=m.get("span_upos")))
++        canon = aliaser.assign(span, gender, upos=m.get("span_upos")) if is_name else None
++        definite = _definiteness(span, sents, sent_idx, wpos)
++        link_file = None
++        if bridge_binds is not None:
++            link_file = bridge_binds.get(m["midx"])
++        best, best_a, runner, best_cues = None, -1e18, -1e18, None
++        for f in files:
++            a = actr_activation(f.history, float(order), decay, role_prominence)
++            if a == float("-inf"):
++                a = -1e9
++            cu = file_cues(m, f, head=head, canon=canon, surf=surf, gender=gender, number=number,
++                           definite=definite, is_name=is_name, sent_idx=sent_idx, prev_cb=prev_cb,
++                           name_link=link_file, have_spoke=have_spoke, wpos=wpos)
++            s = a + sum(validities.w(c, v) for c, v in cu.items())
++            if s > best_a:
++                runner = best_a
++                best, best_a, best_cues = f, s, cu
++            elif s > runner:
++                runner = s
++        opened = False
++        # THE CRITERION, not the evidence: the mention's own determiner shifts the threshold (Heim's
++        # Novelty-Familiarity Condition as a signal-detection criterion).
++        thr = tau + validities.tau_shift(definite)
++        if best is None or best_a < thr:
++            best = OFile(len(files))
++            files.append(best)
++            opened = True
++        if trace is not None:
++            trace.append({"midx": m["midx"], "opened": opened, "cid": best.cid,
++                          "score": None if opened else round(best_a, 3),
++                          "cues": best_cues if not opened else None})
++        if online and (best_a - runner) >= online_margin:
++            # THE OBSERVE PATH: a decision the reader made with a high margin is its own confirmed outcome
++            # (self-supervised; the pri 117 template).  Nothing gold is consulted.
++            if not opened and best_cues is not None:
++                validities.observe(best_cues, True)
++            validities.observe_criterion(definite, opened)
++            validities.recompute()
++        best.update(order, role, gender, number, head, sent_idx, canon, surf, is_name, wpos=wpos)
++        rank_in_sent.setdefault(sent_idx, {}).setdefault(best.cid, rk)
++        labels[m["midx"]] = best.cid
++    return labels
++
++
++def observe_file_decision(validities, cues, same):
++    """PLASTICITY (owner 2026-09-12: nothing frozen).  Accrue ONE confirmed merge/split outcome into the
++    cue-validity counts and recompute the strengths.  The caller supplies the outcome from confirmed
++    comprehension (a high-margin decision, a later agreement check, a correction); the organ never reads
++    gold at inference."""
++    validities.observe(cues, bool(same))
++    validities.recompute()
++
++
++# THE OPERATING POINT (phase diagram): tau is the ACT-R retrieval threshold, SWEPT on the GUM TRAIN split
++# and reported on TEST -- never fitted on the population it is reported on.  +2.0 is the swept point at
++# which the partition improves and no consumer regresses; tau=0.0 maximises partition quality and costs the
++# pronoun row (both numbers are in the SOLVED).
++OBJECT_FILE_TAU = 2.0
++
++OBJECT_FILE_VALIDITY_ASSET = os.path.join(
++    os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data", "frontend_assets",
++    "object_file_validities_gum_v1.json")
++_OF_VALIDITIES = None
++
++
++def object_file_validities(path=None):
++    """The learned merge/split cue validities (a static, re-buildable offline asset; counts -> log-odds).
++    Returns None when the asset is absent -> `cluster` falls back to the pre-competition arm."""
++    global _OF_VALIDITIES
++    if path is None and _OF_VALIDITIES is not None:
++        return _OF_VALIDITIES
++    p = path or OBJECT_FILE_VALIDITY_ASSET
++    if not os.path.exists(p):
++        return None
++    v = Validities.load(p)
++    if path is None:
++        _OF_VALIDITIES = v
++    return v
++
++
+ 
+ # ==========================================================================================================
+ # THE ONE RETRIEVAL CORE  --  content-addressable, cue-based, ACT-R-scored argmax under a write policy.
+@@ -217,11 +677,35 @@ class EntityResolver:
+     #   Router: NAME -> identity (aliaser); COMMON -> [phi, type_exact] cue, base-level argmax, always-merge.
+     # ---------------------------------------------------------------------------------------------------
+     def cluster(self, ms, gaz, *, type_route: str = "exact", centering: bool = False,
+-                hold: Optional[float] = None, margin: float = 1.0) -> Dict[int, int]:
+-        """{midx: cluster_id} over NON-pronoun mentions -- reproduces online_entity_cluster.online_cluster.
++                hold: Optional[float] = None, margin: float = 1.0, sents=None, reader=None,
++                competition: Optional[bool] = None, tau: float = OBJECT_FILE_TAU,
++                bridge_binds=None) -> Dict[int, int]:
++        """{midx: cluster_id} over NON-pronoun mentions.
++
++        DEFAULT (pri 136): the OBJECT-FILE CUE COMPETITION above -- every open file scored by the ACT-R
++        base-level plus the summed cue evidence at its accrued validity, a new file opened when nothing
++        clears the retrieval threshold.  Set `competition=False` (or HDLAB_OBJECT_FILE_COMPETITION=0, or
++        remove the validity asset) for the pre-2026-09-16 hard-filter-then-always-merge arm, which is what
++        the paragraph below describes and what `_cluster_hard_filter` still is, byte-identical.
++
++        THE HARD-FILTER ARM (kept for the A/B): reproduces online_entity_cluster.online_cluster.
+         NAME -> given-name aliaser file (identity). COMMON -> retrieve() over the phi-compatible, type-licensed
+         prior files, scored by the shared ACT-R base-level (+ optional Centering-Cb continuity bonus), committed
+         by the write policy (always-merge, or hold-under-uncertainty)."""
++        if competition is None:
++            competition = os.environ.get("HDLAB_OBJECT_FILE_COMPETITION", "1") != "0"
++        if competition:
++            V = object_file_validities()
++            if V is not None:
++                return competition_cluster(ms, gaz, validities=V, tau=tau, decay=self.decay,
++                                           role_prominence=self.role_prominence,
++                                           bridge_binds=bridge_binds)
++        return self._cluster_hard_filter(ms, gaz, type_route=type_route, centering=centering,
++                                         hold=hold, margin=margin)
++
++    def _cluster_hard_filter(self, ms, gaz, *, type_route: str = "exact", centering: bool = False,
++                             hold: Optional[float] = None, margin: float = 1.0) -> Dict[int, int]:
++        """THE PRE-2026-09-16 ARM, byte-identical: phi + exact-head HARD FILTER, then always-merge argmax."""
+         files: List[_File] = []
+         labels: Dict[int, int] = {}
+         aliaser = EntityAliaser(); canon2f: Dict[object, _File] = {}; surf2f: Dict[str, _File] = {}
+diff --git a/hdlab/crosstype_live_adapter.py b/hdlab/crosstype_live_adapter.py
+index 0cece5fe2..bfdb28112 100644
+--- a/hdlab/crosstype_live_adapter.py
++++ b/hdlab/crosstype_live_adapter.py
+@@ -157,6 +157,31 @@ def _build_mention(m, eid):
+     return men
+ 
+ 
++def supply_global_indices(role_mentions, sents):
++    """THE MISSING JOIN (pri 136).  This adapter needs a GLOBAL token index on every non-pronoun mention;
++    since pri 125 made `referent_per_np` the reader's mention source those indices are -1 on every mention,
++    so `_can_build` abstained and the definite->name BRIDGE -- DE-LEAK PART 2, the organ that recovered the
++    +0.0838 CI-sep experiencer gain -- returned ZERO binds on every live read (measured: 0 binds on 12 of 12
++    GUM documents).  The index is fully determined by what the mention already carries:
++        gtok = sum(len(s) for s in sents[:sent_idx]) + wtok_start
++    (the same running count `_build_toks` uses).  Returns a NEW list; the caller's mentions are never
++    mutated.  A mention that already carries a valid index is left exactly as it is."""
++    offs, total = [], 0
++    for s in sents:
++        offs.append(total)
++        total += len(s)
++    out = []
++    for m in role_mentions:
++        si = int(m.get("sent_idx", -1))
++        if (not m.get("is_pronoun")) and int(m.get("gtok_start", -1)) < 0 and 0 <= si < len(offs):
++            g = offs[si] + int(m.get("wtok_start", -1))
++            if 0 <= g < total:
++                m = dict(m)
++                m["gtok_start"] = m["gtok_end"] = m["head_g"] = g
++        out.append(m)
++    return out
++
++
+ def _can_build(role_mentions, sents):
+     """The Doc needs global token indices for every NON-pronoun mention (the parse_litbank_conll shape) and enough
+     tokens to cover them. Abstain (return False) otherwise -- keeps the wire byte-safe on any other mention source."""
+@@ -176,6 +201,7 @@ def build_gold_free_doc(role_mentions, online_labels, sents, *, reader=None):
+     """Build the crosstype `Doc` (.toks + .mentions) from the reader's live state, GOLD-FREE (mention.eid = the ONLINE
+     label). `.mentions` is enumerated in the SAME order as `role_mentions` (position i <-> role_mentions[i]) so
+     crosstype_bridge_links' returned midx == position i. Returns None if a Doc cannot be built from the live state."""
++    role_mentions = supply_global_indices(role_mentions, sents)
+     if not _can_build(role_mentions, sents):
+         return None
+     doc = _Doc()
