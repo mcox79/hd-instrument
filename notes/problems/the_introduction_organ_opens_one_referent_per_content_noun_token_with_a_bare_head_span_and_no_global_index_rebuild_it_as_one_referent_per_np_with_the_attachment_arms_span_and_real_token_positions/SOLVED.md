@@ -453,7 +453,23 @@ hdlab/referent_per_np.py  | 344 +++++++++++++++++++++++++++++++++++++++++++---
 hdlab/situation_reader.py |  72 ++++++++--
 ```
 
-## 17. SECTIONS TO COME
+## 17. KNOWN IMPERFECTIONS IN THE FORM AS MEASURED (recorded, not hidden)
+
+1. **The genitive marker is absorbed rather than used as a stop.** On 'John 's mother' the phrase closes AT
+   the `'s` (so the span is `['s, mother]` and 'John' correctly stays its own referent), where the cleaner
+   statement is that `'s` closes the phrase WITHOUT joining it. It costs one token of span text, changes no
+   head, and `definiteness` answers `bare` either way. It is left as measured rather than changed under a
+   running measurement; the one-line refinement is in `_np_closes_left`.
+2. **A possessive pronoun's phrase overlaps the pronoun's own referent.** 'his mother' is one nominal phrase
+   spanning [his, mother] AND 'his' is a pronoun referent of its own (the possessor). `coref.ent_at_pos` now
+   registers every token of the nominal phrase, so position of 'his' maps to the mother-card rather than the
+   possessor-card. This is the correct reading for the phrase and the wrong one for the possessor; the
+   principled fix is nested cards (section 7).
+3. **The `graded` and `post` arms are shipped as options, not as the default.** `both` won on TRAIN and is
+   the default; `post` (the product of the two posteriors at its MAP) is the brain-faithful form and is
+   available under `HDLAB_RPN_BOUNDARY=post`.
+
+## 18. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
 check; (6) alternate paths and next steps.
