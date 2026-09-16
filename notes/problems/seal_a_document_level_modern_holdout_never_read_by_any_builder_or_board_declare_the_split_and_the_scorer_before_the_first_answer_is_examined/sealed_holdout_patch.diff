@@ -1,0 +1,84 @@
+PROPOSED CHANGE OUTSIDE THIS BRIEF'S WRITE LIST -- NOT APPLIED. (pri 126)
+
+TARGET  experiments/exp_board_rows_on_the_reader_v1.py  (pri 122's landed cell -- the fixed scorer this
+        instrument imports; a solver may not edit it, so it is proposed here as a diff.)
+
+WHAT IS WRONG, WITH THE NUMBER THAT FOUND IT.  The `state` row's information-free TWIN shuffles the gold
+holders WITHIN ONE SENTENCE (`holders = [h for (h, p, ty) in gold_states]; rng.shuffle(shuf)`).  A sentence
+with a single predicational clause -- the common case -- therefore hands the holder back to itself and the
+twin IS the model.  Measured on the sealed modern holdout (279 documents, 139 state items): model 0.7410,
+twin 0.6906, model - twin +0.0504 [+0.0142,+0.0981].  Only about 5% of items ever received a different
+holder, so the state row's "the twin loses" check is close to vacuous.  It is NOT a property of short
+documents: the chunk-matched arm (8 sealed documents concatenated, identical token stream) reproduces the
+twin at 0.6906 exactly, because the shuffle is sentence-scoped, not unit-scoped.
+
+THE FIX.  Collect the unit's state items during the sentence loop and score the twin AFTER it, permuting the
+holders ACROSS the whole scoring unit (with a derangement attempt so a holder is not handed back to itself).
+The `model` and `most_recent_noun` arms are untouched, item-for-item, so no published model or floor number
+moves; only the twin becomes genuinely information-free.
+
+RISK OF THIS RECOMMENDATION, STATED.  It will LOWER the published state twin and therefore WIDEN the
+state model-minus-twin margin on every population, sealed and read.  That is a number moving in the
+flattering direction because a control was made stricter, and it must be reported that way, not as a gain.
+It also changes `state` twin numbers in every historical landing record, so the board's state twin column is
+not comparable across the change and the landing record should carry a scorer-version marker.
+
+NOT VERIFIED BY A RUN.  The patched copy parses and the edit is mechanical, but it has NOT been executed:
+running it would require the strategy session to land it in hdlab/experiments and re-run the board.
+
+---
+diff --git a/experiments/exp_board_rows_on_the_reader_v1.py b/experiments/exp_board_rows_on_the_reader_v1.py
+index d97643d12..83bd6ccb1 100644
+--- a/experiments/exp_board_rows_on_the_reader_v1.py
++++ b/experiments/exp_board_rows_on_the_reader_v1.py
+@@ -653,6 +653,13 @@ def score_ud_chunk(chunk, sm, reader, rng, base_sid):
+     ev_by = defaultdict(list)
+     for e in sm.events:
+         ev_by[(e.sent_idx, e.pred_idx)].append(e)
++    # pri 126: the STATE twin is scored after the sentence loop, over the WHOLE scoring unit.  Shuffling the
++    # gold holders WITHIN one sentence is a near-identity whenever that sentence has a single predicational
++    # clause, which is the common case: measured on the sealed modern holdout the within-sentence twin scored
++    # 0.6906 against a model of 0.7410 -- only ~5% of items ever received a different holder.  A twin that
++    # usually IS the model is not an information-free control.
++    unit_state_items = []          # (si, gold_property_norm, holder_norm)
++    unit_model_props = {}          # si -> {holder_norm: {property_norm}}
+     for si, s in enumerate(chunk):
+         toks = [t["form"] for t in s]
+         cid = "%s:%d" % (base_sid, si)
+@@ -727,10 +734,8 @@ def score_ud_chunk(chunk, sm, reader, rng, base_sid):
+             for (hh, pp) in fl_pairs:
+                 if 0 <= hh < len(toks) and 0 <= pp < len(toks):
+                     floor_props[_norm(toks[hh])].add(_norm(toks[pp]))
+-            holders = [h for (h, p, ty) in gold_states]
+-            shuf = list(holders)
+-            rng.shuffle(shuf)
+-            for k, (h, p, ty) in enumerate(gold_states):
++            unit_model_props[si] = model_props
++            for (h, p, ty) in gold_states:
+                 gold = _norm(toks[p])
+                 diag["state_items"] += 1
+                 diag["state_answered"] += int(bool(model_props.get(_norm(toks[h]))))
+@@ -738,10 +743,21 @@ def score_ud_chunk(chunk, sm, reader, rng, base_sid):
+                 out["state"]["model"][1] += 1
+                 out["state"]["most_recent_noun"][0] += int(gold in floor_props.get(_norm(toks[h]), set()))
+                 out["state"]["most_recent_noun"][1] += 1
+-                out["state"]["twin"][0] += int(gold in model_props.get(_norm(toks[shuf[k]]), set()))
+-                out["state"]["twin"][1] += 1
++                unit_state_items.append((si, gold, _norm(toks[h])))
+         for rname in out:
+             pass
++    # pri 126: the STATE twin, over the whole unit.  The holders are permuted ACROSS the unit's gold states,
++    # so an item can only score by luck; a derangement is attempted so a holder is not handed back to itself.
++    if unit_state_items:
++        idx = list(range(len(unit_state_items)))
++        for _ in range(8):
++            rng.shuffle(idx)
++            if len(idx) == 1 or any(i != j for i, j in enumerate(idx)):
++                break
++        for k, (si, gold, _own) in enumerate(unit_state_items):
++            sj, _g, other_holder = unit_state_items[idx[k]]
++            out["state"]["twin"][0] += int(gold in unit_model_props.get(sj, {}).get(other_holder, set()))
++            out["state"]["twin"][1] += 1
+     # re-key every arm by the chunk's own cluster id (sentence-level clusters would over-split the bootstrap;
+     # the chunk is the read unit, so it is the resampling unit)
+     return {k: {a: tuple(v) for a, v in d.items()} for k, d in out.items()}, dict(diag)
