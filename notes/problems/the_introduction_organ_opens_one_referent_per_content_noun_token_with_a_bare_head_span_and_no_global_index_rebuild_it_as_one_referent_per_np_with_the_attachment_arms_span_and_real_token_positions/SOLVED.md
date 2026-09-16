@@ -628,7 +628,39 @@ some open file and usually a different entity. **So the brief's prediction was r
 span is real, the adjacency cue's job IS done by the span -- and the fix is not to re-accrue it on the gold
 partition but to accrue it over the READER'S OWN open files, or to retire the cue.**
 
-## 18. SECTIONS TO COME
+## 18. THE VERDICT CHECK, BAR BY BAR -- PARTIAL
+
+| # | the bar | verdict | the number |
+|---|---|---|---|
+| 1 | one referent per NP with real positions, from the reader's own parse | **MET** | 4,203 -> 3,521 mentions (one per phrase), 2,526 of 2,526 with a valid global extent, 1,482 multi-token spans, no chunker and no second parse (witness 22/22) |
+| 2 | entity partition up CI-separated, twin loses CI-separated | **NOT MET** | B-cubed -0.4196 CI[-0.5033,-0.3331] DOWN; the twin does not lose (-0.0035, not separated). Cause located: the `np` adjacency cue (section 10.9) |
+| 3a | determiner readable | **MET** | 0 -> 1,036 of 2,526 (41.0%) |
+| 3b | same-gold-mention cross-file pairs down | **MET** | 90 -> 6 (**-93%**) |
+| 3c | the bridge's `_can_build` accepting the reader's mentions | **ALREADY TRUE, not mine** (section 6); what this rung buys is binds 0 -> 28 | |
+| 4 | the pronoun row, both scorers, not down CI-separated | **MET** | span -0.0060 CI[-0.0831,+0.0710]; identity -0.0988 CI[-0.2098,+0.0131] -- neither separated |
+| 5 | every consumer enumerated and measured | **MET** | 197 sites / 17 files enumerated and classified (section 5); five repaired in the diff; the scorer hand-off named |
+| 6 | a landing witness | **MET** | `verification/test_referent_per_np_span_landing.py`, 22 checks, tree-aware |
+| S9-1 | the entity-set row at or above same-head string identity | **NOT MET** (the 0.9673 that clears it is a degenerate artefact of the over-merge -- section 10.6) | |
+| S9-2 | occ_appraisal back to >= 0.90 with the competition ON | **MET** | **0.6400 -> 0.9000**, +0.2600 CI[+0.1400,+0.3805] CI-SEPARATED, 13 fixed / 0 broken |
+| S9-3 | the goal register names a file by its proper name when it holds one | **MET IN MECHANISM, the population measurement is confounded** | shipped: 21 of 54 name-holding cards (38.9%) labelled by something else; the repair returns the name (witness [9]); the NP-span arm's card count is not comparable because of the over-merge |
+
+**VERDICT: PARTIAL.** The rung is built and the mention-level joins all move; the end-to-end consumer that
+strategy named as the evidence of the defect is repaired CI-separated; the entity PARTITION regresses and the
+cause is located to a single cue with a measurement.
+
+### WHAT WOULD IT TAKE TO CONVERT THIS TO A FULL PASS
+
+**One change, and it is the one the brief predicted:** the `np` adjacency cue must stop being evidence on the
+phrase stream. Three forms, in increasing order of effort:
+1. **RETIRE the cue's gap values** (keep `same_sent_far` / `other_sent`, which are recency, and drop
+   `gap1_*` / `gap2_*`). The brief's own words: "once mentions carry real spans, the adjacency cue's job is
+   done by the span". Measured in section 10.10.
+2. **Re-accrue it over the READER'S OWN open files** instead of one pseudo-file per gold entity, so the
+   "different" population at gap1/gap2 matches inference. This is the principled fix and it is a change to
+   the teacher, not to the organ.
+3. **Make the boundary itself plastic** (next step 2) so the cue and the boundary are learned together.
+
+## 19. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
 check; (6) alternate paths and next steps.
