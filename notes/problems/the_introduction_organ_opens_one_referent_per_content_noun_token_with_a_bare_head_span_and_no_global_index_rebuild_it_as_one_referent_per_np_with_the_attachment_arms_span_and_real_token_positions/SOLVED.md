@@ -168,7 +168,21 @@ With the phrase on the card, 'the baker' passes. Measured on the same 4 GUM docu
 | **Post-head dependents inside the phrase** ('the baker of York' as one card) | Heim's file card is opened by the whole DP including its complements | one flag | the prior `boundary_nphead` work measured it as a LOSS and the brief forbids re-treading it; the collapse already costs gold-head alignments (section 8) and this would cost more |
 | **Nested cards** (a card for 'New York' INSIDE the card for 'the New York Times') | object files nest under part-whole/containment (Treisman's object files do not, but discourse referents can -- Asher's abstract entities) | a containment relation on the file card + every consumer taught to read it | it changes the mention SCHEMA for every consumer again; the collapse's measured cost has to justify it first. **Filed with its number** (section 8). |
 
-## 8. SECTIONS TO COME
+## 8. WHAT IS STILL RUNNING / WHAT REMAINS
+
+Measured and recorded so far: the boundary sweep (section 3, TRAIN), the located criterion finding
+(section 4), the consumer enumeration (section 5), the bridge correction (section 6), the alternate paths
+(section 7), the landing witness (22/22 green on the diff compiled into the live modules). The validity
+re-accrual on 24 GUM TRAIN documents, the headline TEST run (shipped / npspan / random-boundary twin) and
+the three pri-136 bars are the remaining measurements; they are written into sections 9-12 as they land.
+
+**Laptop contention is the limiting factor, not the design:** two product-board runs
+(`exp_situation_model_qa_modern_v1 --run`) have been resident throughout, and a live GUM read went from
+~56 s/document uncontended to ~400 s/document with three jobs resident. Every arm is one live read per
+document per arm; the run sizes below are chosen against that, and the population is reported with every
+number rather than assumed.
+
+## 9. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
 check; (6) alternate paths and next steps.
