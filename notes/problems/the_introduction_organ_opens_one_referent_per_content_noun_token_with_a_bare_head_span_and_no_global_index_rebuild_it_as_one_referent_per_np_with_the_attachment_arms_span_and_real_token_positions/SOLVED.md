@@ -436,7 +436,24 @@ which is filed as next step 5.
 * **The board's own entity-set scorer is not repaired by this diff** (it is an experiment file); without the
   one-line alignment fix the board row would align on determiners (next step 1).
 
-## 16. SECTIONS TO COME
+## 16. THE DIFF'S HYGIENE, CHECKED
+
+`np_span_patch.diff` applied into a throwaway git tree: **`git diff --stat` and `git diff -w --stat` are
+IDENTICAL** (429 insertions, 41 deletions across 5 files), so there is no whitespace-only churn, and every
+file keeps its own line endings on this mixed tree -- `situation_reader.py` stays mixed (5,798 -> 5,846 CRLF
+with its 8 LF-only lines intact), `goal_register.py` stays all-CRLF, and `referent_per_np.py`,
+`entity_resolver.py` and `coref.py` stay LF-only. The patched sources are generated in BYTES from each
+file's own endings and the diff is generated from those, so what is measured IS what lands.
+
+```
+hdlab/coref.py            |  12 +-
+hdlab/entity_resolver.py  |  27 +++-
+hdlab/goal_register.py    |  15 +-
+hdlab/referent_per_np.py  | 344 +++++++++++++++++++++++++++++++++++++++++++---
+hdlab/situation_reader.py |  72 ++++++++--
+```
+
+## 17. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
 check; (6) alternate paths and next steps.
