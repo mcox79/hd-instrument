@@ -495,6 +495,32 @@ emotion items ('the goal register then names the owner by the wrong head'). The 
 the register reads the card's NAME first (Kripke 1980's rigid designator; Semenza 2006's separate
 proper-name retrieval route) and falls back to the longest surface only for a card that holds no name.
 
+### 10.5 THE HEADLINE A/B ON GUM TEST -- the shipped arm, reproduced
+
+12 GUM TEST documents, one LIVE `SituationReader.read` per document per arm, the shipped arm first on the
+pristine tree (`--spans 12 --arms shipped,npspan,twin`; log `spans12.log`, checkpoint
+`spans_checkpoint.json`).
+
+**THE SHIPPED ARM, and it reproduces the board's own entity-set row:**
+
+| | shipped (per-token mentions) |
+|---|---|
+| mentions | 4,203 (3,208 non-pronoun) |
+| determiner readable | **0** |
+| mentions with a usable global extent | **0** |
+| multi-token spans | **0** |
+| crosstype bridge: documents / binds | 12 / **0** |
+| B-cubed (gold-head alignment) | 0.6355 |
+| B-cubed (pri 136's alignment) | 0.6277 (P 0.6758 / R 0.6541) |
+| **entity-set row** | **model 0.5379 vs same-head string identity 0.7924, n=448** |
+| pronoun row: span scorer / identity scorer | 0.2964 / 0.3653 |
+| cross-file mentions inside one gold mention | 90 |
+
+The entity-set row here (model 0.5379, floor 0.7924, n=448 on 12 documents) is the same row the board reports
+as 0.5046 against 0.738 on n=874 over 24 documents -- a different document subset, the same instrument and
+the same conclusion: **the reader's own partition is well below the simplest same-head rule.** That is the
+gap strategy's bar 1 asks this rung to close, and it is a 0.25-wide gap, not a rounding error.
+
 ## 18. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
