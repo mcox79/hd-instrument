@@ -681,7 +681,25 @@ phrase stream. Three forms, in increasing order of effort:
 **NO external LLM, no supervised parser, no chunker and no off-the-shelf model is used at inference. The two
 organs that draw the boundary are organs the reader already runs on every sentence.**
 
-## 20. SECTIONS TO COME
+## 20. THE ONE NUMBER ON THE BAR'S OWN CONSERVATIVE POPULATION
+
+On the SHIPPED arm's own 448 entity-set items, with every item the collapse no longer files scored WRONG:
+
+| | |
+|---|---|
+| shipped | 0.5379 |
+| same-head string-identity floor | **0.7924** |
+| **NP-span (a dropped mention counts wrong)** | **0.7924** |
+| NP-span vs shipped | +0.2545 CI[+0.1200, +0.4188] **separated** |
+| **NP-span vs the string-identity floor** | **+0.0000 CI[-0.0625, +0.0699] -- LEVEL WITH IT, not above** |
+
+So even read conservatively, the rung takes the reader's merge/split decision from a quarter of a point BELOW
+the simplest rule to exactly LEVEL with it. **I do not claim that as clearing bar S9-1**: the partition that
+produces it is the over-merged one (section 10.6), so the number is not trustworthy as a capability. It is
+recorded because it is the honest conservative reading of the same arm, and because it says where the rung
+would sit once the `np` cue is fixed.
+
+## 21. SECTIONS TO COME
 
 (2) the measured result; (3) the signal-loss trace with counts; (4) the quality push; (5) the verdict
 check; (6) alternate paths and next steps.
