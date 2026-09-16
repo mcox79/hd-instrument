@@ -1,0 +1,547 @@
+diff --git a/hdlab/attachment_arm.py b/hdlab/attachment_arm.py
+--- a/hdlab/attachment_arm.py
++++ b/hdlab/attachment_arm.py
+@@ -157,9 +157,47 @@ CSUB_SUBJ_HYPHEN = os.environ.get("HDLAB_ARM_CSUB_SUBJ_HYPHEN", "1") != "0"
+ CSUB_SUBJ_NO_CLAUSAL = os.environ.get("HDLAB_ARM_CSUB_SUBJ_NO_CLAUSAL", "0") == "1"
+ 
+ 
++# ------------------------------------------- THE INFINITIVAL GOVERNOR'S TWO CUES (pri 133; the block below `state_pairs_from_slot`)
++INFIN_CUE = os.environ.get("HDLAB_ARM_INFIN_CUE", "1") != "0"           # the lexical infinitival-expectation cue
++INFIN_SLOT_CUE = os.environ.get("HDLAB_ARM_INFIN_SLOT", "1") != "0"     # the predicate-slot governor cue
++# THE CASE-MARKING / RETRIEVAL-INTERFERENCE CHANNEL -- BUILT, MEASURED, AND REFUTED AS BUILT (pri 133), kept
++# selectable with the number so it is not re-tried blind.  The claim was Pinker 1984's case marking plus
++# similarity-based retrieval interference (Van Dyke & McElree 2006): a candidate behind a preposition is oblique
++# and a closer candidate of the same type interferes.  MEASURED (UD-EWT test 700, the accrued validities): it
++# lifts `acl_nominal` 0.3333 -> 0.5000 and costs `csubj_extrapos` 0.8571 -> 0.5714 and `advcl_purpose` 0.7200 ->
++# 0.5600, net 0.7674 -> 0.7287 (gating it to the sites where its value actually VARIES: 0.7054).  THE MECHANISM,
++# counted: in the PP-interrupted purpose clause pri 129 6c named ("went to the market TO BUY"), the true governor
++# is the matrix VERB, which sits BEHIND the preposition (adp1:cm0, validity -2.96), while the PP-internal noun
++# sits in front of it and is merely case-marked (adp0:cm1, +0.93) -- so the cue prefers the noun over the verb,
++# which is right for "asked for permission to leave" and WRONG for every purpose clause.  The thing that actually
++# separates those two is whether the NOUN's own frame licenses an infinitival, and that is exactly what `iexp`
++# already is: this channel is redundant where it is right and harmful where it is not.  Default OFF.
++INFIN_CTX_CUE = os.environ.get("HDLAB_ARM_INFIN_CTX", "0") == "1"       # the case-marking / retrieval-interference cue
++INFIN_WINDOW = int(os.environ.get("HDLAB_ARM_INFIN_WINDOW", "8"))       # candidate retrieval window (a swept operating point)
++INFIN_BINS = (0.010, 0.035, 0.120)   # lexical-expectation rate bins (swept, never adopted)
++INFIN_SHRINK = 3.0                   # Dirichlet shrinkage of a lexical rate toward the corpus base rate (swept)
++# THE CANDIDATE CLASSES the retrieval offers.  ADV is included because the SAME lexical expectation licenses a
++# DEGREE word to take an infinitival complement ("enough TO EAT", "too tired TO MOVE") -- it is one expectation
++# over words, not a list of categories, so excluding a category would be the special case, not including it.
++# MEASURED as its own arm (the residual attribution named it: 8 of the patched organ's 76 remaining misses were a
++# gold governor the retrieval never offered because the category organ reads it ADV).
++# MEASURED AND REFUTED AS BUILT (UD-EWT test, n=337, the cells re-accrued for the wider retrieval): offering ADV
++# candidates lifts `acl_nominal` 0.4286 -> 0.4643 and costs `csubj_extrapos` 0.8261 -> 0.6957 and `advcl_purpose`
++# 0.7183 -> 0.6479, net 0.7745 -> 0.7478, paired -0.0267 CI[-0.0470,-0.0060] CI-SEPARATED DOWN.  The mechanism is
++# the same one that refuted the context channel: every extra candidate DILUTES the competition -- an ADV standing
++# between the expletive and the slot holder takes activation the predicate-slot cue had just concentrated.  The 8
++# misses that motivated it are a CATEGORIES-rung loss (a UD ADJ / NOUN the organ reads ADV), and widening the
++# retrieval is the wrong place to pay for it (section 9.1).  Default OFF, kept selectable with its number.
++INFIN_CAND_ADV = os.environ.get("HDLAB_ARM_INFIN_CAND_ADV", "0") == "1"
++INFIN_CAND = ("VERB", "AUX", "NOUN", "PROPN", "PRON", "ADJ") + (("ADV",) if INFIN_CAND_ADV else ())
++INFIN_EXPLETIVE = frozenset({"it", "there"})     # the placeholder subject of the extraposed construction
++
++
+ CUES = (("locality", "frame", "form", "boundary", "agree", "constr", "pp", "ppobj") + (("plaus",) if PLAUS_CUE else ())
+         + ROOT_CUES + (("csub",) if CSUB_CUE else ()) + (("csubg",) if CSUBG_CUE else ())
+-        + (("clause",) if CLAUSE_CUE else ()) + (("npb",) if NPB_CUE else ()))   # catpair / root = configuration
++        + (("clause",) if CLAUSE_CUE else ()) + (("npb",) if NPB_CUE else ())
++        + (("iexp",) if INFIN_CUE else ()) + (("islot",) if INFIN_SLOT_CUE else ())
++        + (("ictx",) if INFIN_CTX_CUE else ()))   # catpair / root = configuration
+ # "ppobj" (2026-09-13, solver pri-94): the THEMATIC channel of the PP cue -- what kind of thing the prepositional
+ # phrase is about, given the type of the candidate that would license it (Taraban & McClelland 1988; Ratnaparkhi's
+ # fourth element).  See the PP ATTACHMENT block below.
+@@ -2117,6 +2155,325 @@ def state_pairs_from_slot(toks: Sequence[str], tags: Sequence[str], post, tag_na
+ 
+ 
+ 
++# ------------------------------------------------- THE INFINITIVAL GOVERNOR: TWO COMPETING CUES (pri 133)
++# THE LOSS, COUNTED (pri 129 6b): the arm attaches an infinitival verb to the wrong head on 32.3% of UD-EWT test
++# infinitivals (109 of 337), and it is TWO cues it does not own.  (a) 32 of the 43 `acl_nominal` errors ("a plan TO
++# LEAVE", arm 0.2321) are "the arm says VERB or ROOT where the gold governor is a NOUN" -- every infinitival cue the
++# arm owns pushes the clause AWAY from a nominal governor: `to` CLOSES the verb group (`host_belief`), a
++# to-infinitive is not finite so it is penalised as a predicate (`HOLD_FINITENESS`), and `subordination` reads
++# PART-`to` as a clause opener attaching to the FOLLOWING verb.  (b) 22 errors across three classes are "the arm
++# says PRON where the gold governor is the ADJ that HOLDS THE PREDICATE SLOT" ("it is hard TO SAY") -- pri 110's
++# `predicate_sites` computes that occupancy, graded, on every read, and the infinitival arc never reads it.
++# THE BRAIN.  Infinitival attachment is LEXICALIST constraint satisfaction: the governor is the candidate whose
++# stored subcategorisation EXPECTS an infinitival complement, and the strength of that expectation is its usage
++# frequency (MacDonald, Pearlmutter & Seidenberg 1994; Trueswell, Tanenhaus & Kello 1993 and Garnsey, Pearlmutter,
++# Myers & Lotocky 1997 on lexical frame bias driving the attachment), settled by competition among the retrieved
++# candidates (Vosse & Kempen 2000; Bates & MacWhinney validity = availability x reliability).  It is ONE expectation
++# whatever the candidate's category -- `plan` / `attempt` / `chance` / `way` (NOUN), `want` / `try` (VERB), `hard` /
++# `easy` / `eager` (ADJ) all carry it -- which is why this lands as ONE cue and NOT a list of infinitival-taking
++# nouns, and why it also supplies the verb's own control expectation the nominal cue has to compete with.
++# The extraposed family adds the second constraint: a clause predicates ONE thing (Spivey-Knowlton 1993) and an
++# expletive is a PLACEHOLDER, not a predicate (Postal & Pullum 1988) -- the extraposed clause belongs to the token
++# holding the predicate slot, so the slot's graded occupancy is a cue FOR that token while the expletive takes the
++# competing value.  BOTH ARE CUES, NOT OVERRIDES: pri 129's prototype was a separate argmax over the same counts and
++# it LOST advcl_purpose (0.6338 -> 0.5775) precisely because it overrode the arm's other cues.  Here the values are
++# categorical, the validities are the same configuration-conditioned log-odds contrasts every other cue in this
++# table uses, accrued from reading, with an observe path (`observe_infinitival_governor`) so nothing is frozen.
++def infin_sites(toks: Sequence[str], pos: Sequence[str]) -> List[int]:
++    """The 1-based indices of INFINITIVAL VERBS -- a VERB whose immediately preceding token is `to` (the category
++    organ reads infinitival `to` as PART, occasionally ADP).  Arc-free, and known IN ORDER at the verb's arrival."""
++    out = []
++    for j in range(2, len(pos) + 1):
++        if pos[j - 1] == "VERB" and toks[j - 2].lower() == "to" and pos[j - 2] in ("PART", "ADP"):
++            out.append(j)
++    return out
++
++
++def infin_candidates(pos: Sequence[str], j: int, window: Optional[int] = None) -> List[int]:
++    """The governors an infinitival clause can have: the predicate-capable and nominal candidates retrieved inside
++    the locality window (Lewis & Vasishth 2005 -- retrieval, not enumeration of the sentence)."""
++    w = INFIN_WINDOW if window is None else int(window)
++    return [h for h in range(max(1, j - w), min(len(pos), j + w) + 1)
++            if h != j and pos[h - 1] in INFIN_CAND]
++
++
++def infin_key(toks: Sequence[str], pos: Sequence[str], h: int) -> str:
++    """The lexical key the infinitival expectation is stored under: the verb lemma for a VERB/AUX, the de-pluralised
++    form for a nominal (the organ's own plural convention, as in the `agree` cue), the lowercase form otherwise."""
++    p = pos[h - 1]; w = toks[h - 1].lower()
++    if p in ("VERB", "AUX"):
++        return "V:" + lemma_verb(w).lower()
++    if p in ("NOUN", "PROPN", "PRON"):
++        if len(w) > 3 and w.endswith("s") and not w.endswith("ss"):
++            w = w[:-1]
++        return "N:" + w
++    return "A:" + w
++
++
++def infin_new_assoc() -> Dict[str, object]:
++    return {"t": {}, "n": {}, "sites": 0.0, "occ": 0.0, "base": 0.0}
++
++
++def infin_rate(assoc: Optional[Dict[str, object]], key: str) -> Optional[float]:
++    """P(this word governs an infinitival clause | the word occurs), shrunk toward the corpus-wide rate so a word
++    seen a handful of times cannot claim a strong expectation and an UNSEEN word gets no expectation at all."""
++    if not assoc:
++        return None
++    n = float(assoc["n"].get(key, 0.0))
++    if n <= 0.0:
++        return None
++    t = float(assoc["t"].get(key, 0.0)); b = float(assoc.get("base", 0.0))
++    return (t + INFIN_SHRINK * b) / (n + INFIN_SHRINK)
++
++
++def _infin_bin(r: Optional[float]) -> str:
++    """The expectation VALUE: a graded belief binned so each band's validity is learned separately."""
++    if r is None:
++        return "unk"
++    names = ("0", "lo", "md")
++    for i, e in enumerate(INFIN_BINS):
++        if r < e:
++            return names[i]
++    return "hi"
++
++
++def infin_assoc_from_reading(sentences_tp, rounds: int = 1, window: Optional[int] = None) -> Dict[str, object]:
++    """THE LEXICAL INFINITIVAL EXPECTATION, accrued from READING and nothing else -- no tree, no treebank head, no
++    gold column.  Pass 1 is the parse-free availability estimate: at every infinitival site the NEAREST candidate to
++    the marker's left takes the credit, against how often each word occurs at all (a distributional frame statistic;
++    Mintz 2003 on frequent frames as the acquisition cue).  Then `rounds` REALLOCATION passes soften it: the credit
++    at each site is shared over the candidates in proportion to the expectation learned so far x locality, which is
++    Hindle & Rooth's (1993) treebank-free estimator -- the same one this organ already uses for the PP cue -- and it
++    is what separates "a plan to leave" (plan is often followed by an infinitival) from "the market to buy" (market
++    almost never is).  PLASTIC: `observe_infinitival_governor` is the same increment, one comprehension at a time."""
++    A = infin_new_assoc(); n = A["n"]
++    rows = []
++    for toks, pos in sentences_tp:
++        toks = list(toks); pos = list(pos)
++        for h in range(1, len(pos) + 1):
++            if pos[h - 1] in INFIN_CAND:
++                k = infin_key(toks, pos, h); n[k] = n.get(k, 0.0) + 1.0; A["occ"] += 1.0
++        for j in infin_sites(toks, pos):
++            left = [h for h in infin_candidates(pos, j, window) if h < j - 1]
++            if left:
++                rows.append(([infin_key(toks, pos, h) for h in left], [j - h for h in left]))
++    A["sites"] = float(len(rows))
++    A["base"] = A["sites"] / max(1.0, A["occ"])
++    t = A["t"]
++    for keys, _d in rows:
++        t[keys[-1]] = t.get(keys[-1], 0.0) + 1.0                  # pass 1: the nearest left candidate
++    for _r in range(max(0, int(rounds))):
++        t2 = {}
++        for keys, dists in rows:
++            w = []
++            for k, d in zip(keys, dists):
++                r = infin_rate(A, k)
++                w.append(max(1e-6, (r if r is not None else A["base"])) / float(max(1, d)))
++            s = sum(w)
++            for k, wi in zip(keys, w):
++                t2[k] = t2.get(k, 0.0) + wi / s
++        A["t"] = t = t2
++    return A
++
++
++def infin_case_context(toks: Sequence[str], pos: Sequence[str], h: int, marker: int) -> str:
++    """RETRIEVAL CONTEXT for a candidate governor: is it CASE-MARKED, and does a preposition stand between it and
++    the infinitival marker?  A case-marked nominal is oblique -- its phrase is closed by the preposition that marks
++    it (Pinker 1984, the same case-marking principle this organ already applies in PP_NO_SUBJ) -- and an
++    intervening candidate of the same type interferes with retrieving an earlier one (Lewis & Vasishth 2005;
++    Van Dyke & McElree 2006 similarity-based interference).  This is the discriminator pri 129 6c named for the
++    `pp` configuration: "went to the market TO BUY" (governor behind a preposition, purpose) against "asked for
++    permission TO LEAVE" (the noun inside the PP is the governor)."""
++    between = "1" if any(pos[k] == "ADP" for k in range(h, max(h, marker - 1))) else "0"
++    cm = "0"
++    for k in range(h - 2, max(-1, h - 6), -1):
++        if pos[k] == "ADP":
++            cm = "1"; break
++        if pos[k] not in ("DET", "ADJ", "NUM", "NOUN", "PROPN", "PUNCT"):
++            break
++    return "adp" + between + ":cm" + cm
++
++
++def infin_arc_values(toks: Sequence[str], pos: Sequence[str], assoc: Optional[Dict[str, object]], occ):
++    """The three cue values per (candidate governor <- infinitival verb) arc.
++      `iexp`  = the candidate's class x the binned lexical infinitival expectation (the lexicalist constraint)
++      `islot` = the binned predicate-slot occupancy of the candidate, or `expl` when the candidate is the
++                placeholder subject of an extraposed construction (a placeholder predicates nothing)
++      `ictx`  = the candidate's case-marking / intervening-preposition context (retrieval interference)
++    Everything is read from what the arm already holds: `assoc` travels in the validity table beside `frames` and
++    `pp_assoc`, and `occ` is pri 110's graded occupancy that `arc_scores_graded` already computes once per read.
++    Each channel is SILENT when its own input is absent (a table built before this cue; a category inventory the
++    occupancy read cannot use), so the organ degrades to its previous behaviour rather than raising."""
++    iex: Dict[Tuple[int, int], str] = {}; isl: Dict[Tuple[int, int], str] = {}
++    ict: Dict[Tuple[int, int], str] = {}
++    if not (INFIN_CUE or INFIN_SLOT_CUE or INFIN_CTX_CUE):
++        return iex, isl, ict
++    for j in infin_sites(toks, pos):
++        for h in infin_candidates(pos, j):
++            cls = pos[h - 1]
++            if INFIN_CUE and assoc:
++                cc = "NOM" if cls in NOMINAL else cls
++                iex[(h, j)] = cc + ":" + _infin_bin(infin_rate(assoc, infin_key(toks, pos, h)))
++            if INFIN_SLOT_CUE and occ is not None:
++                if cls == "PRON" and toks[h - 1].lower() in INFIN_EXPLETIVE:
++                    isl[(h, j)] = "expl"
++                else:
++                    o = float(occ[h - 1]) if h - 1 < len(occ) else 0.0
++                    isl[(h, j)] = "slot:" + _csubg_bin(o)
++            if INFIN_CTX_CUE and h < j - 1:
++                ict[(h, j)] = infin_case_context(toks, pos, h, j - 1)
++        if INFIN_CTX_CUE:
++            # A CUE COMPETES ONLY WHERE IT VARIES.  Cue availability in the Competition Model is defined over the
++            # cases where the cue DISCRIMINATES; a value that is the same for every candidate at a site carries no
++            # information about which of them wins, and -- because the contrasts are conditioned on the CATEGORY
++            # PAIR -- it would still move the candidates by different amounts and silently re-weight the other
++            # cues.  MEASURED (UD-EWT test 700): ungated, this channel took `acl_nominal` 0.3333 -> 0.5000 but
++            # `csubj_extrapos` 0.8571 -> 0.5714 and `advcl_purpose` 0.7200 -> 0.5600, net 0.7674 -> 0.7287,
++            # because a constant value re-inflated the expletive the predicate-slot cue had just demoted.
++            at = [(h, jj) for (h, jj) in ict if jj == j]
++            if len({ict[k] for k in at}) < 2:
++                for k in at:
++                    del ict[k]
++    return iex, isl, ict
++
++
++INFIN_REANALYSIS = os.environ.get("HDLAB_ARM_INFIN_REANALYSIS", "1") != "0"
++INFIN_REANALYSIS_SWAP = os.environ.get("HDLAB_ARM_INFIN_REANALYSIS_SWAP", "1") != "0"
++INFIN_STATS = {"fired": 0, "eligible": 0}
++
++
++def revise_infinitival_governor(toks: Sequence[str], pos: Sequence[str], A: "np.ndarray", hd):
++    """CLAUSE-ARRIVAL REANALYSIS of the infinitival arc -- the in-order form of the decision, and the lever the
++    measurement says dominates.  MEASURED (UD-EWT test 700, the patched organ): the arc competition, read by
++    ARGMAX over the candidate governors with no tree constraint at all, is right on 0.7674 of infinitivals, and
++    the whole-sentence search realises 0.7597 of that -- but the live IN-ORDER beam realises only 0.6822.  The
++    arc the organ already prefers is in the matrix and the beam, which committed the clause while its governor
++    was still one of several open candidates, cannot reach it.  The brain's repair for exactly this is REANALYSIS
++    when the disambiguating word arrives (Frazier & Rayner 1982; MacDonald 1994 on overtaking), which this organ
++    already does for the ROOT arc (INCR_ROOT_REANALYSIS) and for the copular subject (pri 117).
++    It carries NO parameter: it takes the arc the organ's OWN learned activations prefer, only among candidates
++    the reader has ALREADY HEARD (h < j -- so this is the decision AT the clause's arrival, not lookahead), never
++    creates a cycle, and never leaves the sentence rootless."""
++    if not INFIN_REANALYSIS or not hd:
++        return hd
++    out = dict(hd); n = len(pos)
++    for j in infin_sites(toks, pos):
++        v = out.get(j, 0)
++        if not (0 <= v <= n):
++            continue
++        cur = float(A[v][j]) if (np.isfinite(A[v][j])) else -1e18
++        best = None
++        for h in infin_candidates(pos, j):
++            if h >= j or h == v:
++                continue                                    # words already heard only: this IS the in-order decision
++            if np.isfinite(A[h][j]) and float(A[h][j]) > cur:
++                cur = float(A[h][j]); best = h
++        if best is None:
++            continue
++        INFIN_STATS["eligible"] += 1
++        if v == 0 and not any(hh == 0 for k, hh in out.items() if k != j):
++            continue                                        # the sentence would be left without a root
++        below = False; k = best; seen = 0                   # is `best` currently sitting BELOW j?
++        while k and seen <= n:
++            if k == j:
++                below = True; break
++            k = out.get(k, 0); seen += 1
++        if below:
++            # THE PAIR IS THE WRONG WAY ROUND, which is the commonest way the beam loses this arc: it made the
++            # nominal a dependent of the clause ("a plan" under "to leave") instead of its governor.  Reanalysis
++            # re-ranks the PAIR (MacDonald 1994's overtaking is a re-ranking of the local analysis, not a single
++            # arc move): the governor takes j's own head and j goes under the governor.  Measured separately
++            # (INFIN_REANALYSIS_SWAP) because it moves two arcs, not one.
++            if not INFIN_REANALYSIS_SWAP:
++                continue
++            out[best] = v
++            k = best; seen = 0; ok = True
++            while k and seen <= n:
++                if k == j:
++                    ok = False; break
++                k = out.get(k, 0); seen += 1
++            if not ok:
++                out[best] = hd.get(best, 0); continue       # put it back: the swap did not untangle the chain
++        out[j] = best; INFIN_STATS["fired"] += 1
++    return out
++
++
++INFIN_CLEAR_GAP = int(os.environ.get("HDLAB_ARM_INFIN_CLEAR_GAP", "1"))   # how adjacent a CLEAR case must be (swept)
++
++
++def infin_clear_case(toks: Sequence[str], pos: Sequence[str], j: int):
++    """THE CLEAR CASE at an infinitival site, or None.  The candidate IMMEDIATELY before the marker is the governor:
++    adjacency is the highest-availability cue there is (Bates & MacWhinney), it is right across all three lexical
++    classes at once -- `want`/`began` (VERB), `a plan`/`a chance` (NOUN), `hard`/`able` (ADJ) -- and it needs no
++    tree, no treebank head and no gold column.  This is the estimator the organ already uses for the PP cue
++    (Hindle & Rooth 1993: learn from the unambiguous cases, generalise by the lexical statistic), and the
++    acquisition claim behind it is the standard one: the learner fixes its cue validities on the clear input and
++    the learned lexical expectation carries them to the ambiguous sites.
++    Its own error is BENIGN BY CONSTRUCTION: at the sites where adjacency is wrong (a purpose clause after a
++    prepositional phrase, "went to the market TO BUY"), the adjacent word is a low-expectation noun, so the wrong
++    credit lands in the LOW-expectation cell and not in the high one the decision turns on."""
++    cands = [h for h in infin_candidates(pos, j) if h < j - 1]
++    if not cands:
++        return None
++    gov = max(cands)
++    if (j - 1) - gov > INFIN_CLEAR_GAP:
++        return None
++    return gov, cands
++
++
++def observe_infinitival_site(toks: Sequence[str], pos: Sequence[str], occ=None,
++                            table: Optional[Dict[str, object]] = None, weight: float = 1.0) -> int:
++    """THE OBSERVE PATH / ACQUISITION, one sentence at a time (the shape of `observe_copular_subject`): every
++    infinitival site READ whose governor is unambiguous by construction is one confirmed comprehension outcome --
++    the clear-case governor accrues the outcome, every competing candidate the zero outcome -- and the two cues'
++    validities are recomputed from the counts.  No treebank, no tree, no gold column; runs online at read time."""
++    tab = table if table is not None else load_attachment_validities()
++    acc = 0
++    for j in infin_sites(toks, pos):
++        cc = infin_clear_case(toks, pos, j)
++        if cc is None:
++            continue
++        acc += observe_infinitival_governor(toks, pos, j, cc[0], tab, weight, occ=occ, lexical=False)
++    return acc
++
++
++def observe_infinitival_governor(toks: Sequence[str], pos: Sequence[str], j: int, h: int,
++                                 table: Optional[Dict[str, object]] = None, weight: float = 1.0,
++                                 occ=None, lexical: bool = True) -> int:
++    """PLASTICITY, BOTH HALVES.  One confirmed comprehension -- the infinitival clause at `j` was understood to be
++    governed by `h` -- (1) increments the LEXICAL EXPECTATION (the governor's count; every candidate's occurrence is
++    already counted by reading) and (2) accrues the two cue cells, the governor taking the confirmed outcome and its
++    competitors the zero outcome, exactly as `observe_arc_outcome` does for every other cue.  The strengths are then
++    recomputed from the counts -- there is no frozen weight anywhere on this path.  `lexical=False` accrues the
++    validities only (the store is already carrying that site, e.g. inside `observe_infinitival_site`)."""
++    tab = table if table is not None else load_attachment_validities()
++    counts = tab["counts"]; cfgc = counts["config"]
++    assoc = tab.get("infin_assoc")
++    if assoc and lexical:
++        k = infin_key(toks, pos, h)
++        assoc["t"][k] = assoc["t"].get(k, 0.0) + weight
++        assoc["sites"] = float(assoc.get("sites", 0.0)) + weight
++        assoc["base"] = assoc["sites"] / max(1.0, float(assoc.get("occ", 0.0)) or 1.0)
++    iex, isl, ict = infin_arc_values(toks, pos, assoc, occ)
++    n = len(pos); acc = 0
++    sc_cfg = lambda jj, hh: ("ROOT:" + pos[jj - 1]) if hh == 0 else         "%s>%s:%s" % (pos[hh - 1], pos[jj - 1], "L" if hh < jj else "R")
++    for cue, vals in (("iexp", iex), ("islot", isl), ("ictx", ict)):
++        if not vals:
++            continue
++        cells = counts.setdefault("cues", {}).setdefault(cue, {})
++        for (hh, jj), val in vals.items():
++            if jj != j:
++                continue
++            cfg = sc_cfg(jj, hh)
++            if cfg not in cfgc:
++                continue                      # an unseen configuration has no base rate to contrast against
++            cell = cells.setdefault(cfg + "|" + val, [0.0, 0.0])
++            cell[0] += weight * (1.0 if hh == h else 0.0); cell[1] += weight; acc += 1
++    if acc:
++        tab["strength"] = strengths_from_arc_counts(counts)
++    return acc
++
++
+ def subordination(toks: Sequence[str], pos: Sequence[str], i: int) -> str:
+     """SUBORDINATION CUE: the clause-dependency marking in force at 1-based i -- the nearest preceding clause opener
+     (subordinator / relativizer / coordinator) with no finite predicate in between (a VERB or a sentence-final mark
+@@ -2270,7 +2627,8 @@ class SentenceCues:
+ 
+     def __init__(self, toks: Sequence[str], pos: Sequence[str], frames: Dict[str, List[int]],
+                  pp_assoc: Optional[Dict[str, Dict[str, float]]] = None,
+-                 pp_assoc_v2: Optional[Dict[str, object]] = None, occ=None):
++                 pp_assoc_v2: Optional[Dict[str, object]] = None, occ=None,
++                 infin_assoc: Optional[Dict[str, object]] = None):
+         self.toks = list(toks); self.pos = list(pos); self.n = len(toks); self.frames = frames
+         self.cum = np.concatenate([[0], np.cumsum([1 if p == "PUNCT" else 0 for p in self.pos])])
+         self.constr = construction_map(self.toks, self.pos)
+@@ -2283,6 +2641,13 @@ class SentenceCues:
+         # existed upstream and was handed down only as a TAG).  `occ` absent => the graded cue is silent.
+         self.occ = occ
+         self.csubg = csub_graded_sites(self.toks, self.pos, occ) if (CSUBG_CUE and occ is not None) else {}
++        # THE INFINITIVAL GOVERNOR (pri 133): the lexical infinitival expectation and the predicate-slot
++        # governor, as two more cue channels on the arcs of an infinitival verb (one scan, skipped when the
++        # sentence contains no `to` at all).
++        self.iexp_arc: Dict[Tuple[int, int], str] = {}; self.islot_arc: Dict[Tuple[int, int], str] = {}
++        self.ictx_arc: Dict[Tuple[int, int], str] = {}
++        if (INFIN_CUE or INFIN_SLOT_CUE or INFIN_CTX_CUE) and any(t.lower() == "to" for t in self.toks):
++            self.iexp_arc, self.islot_arc, self.ictx_arc = infin_arc_values(self.toks, self.pos, infin_assoc, occ)
+         self.clause = clause_matrices(self.toks, self.pos) if CLAUSE_CUE else None   # (predicates, opener) crossed
+         self.npb = npb_matrix(self.toks, self.pos) if NPB_CUE else None              # phrase membership
+         # PP ATTACHMENT (v2): the case-marked nominals and their retrieved candidate hosts, when the table carries the
+@@ -2344,6 +2709,18 @@ class SentenceCues:
+             v = self.csubg.get((h, j))
+             if v is not None:
+                 c["csubg"] = v                # the same arcs x HOW STRONGLY this head holds the predicate slot
++        if self.iexp_arc:
++            v = self.iexp_arc.get((h, j))
++            if v is not None:
++                c["iexp"] = v                 # how strongly this candidate's stored frame expects an infinitival
++        if self.islot_arc:
++            v = self.islot_arc.get((h, j))
++            if v is not None:
++                c["islot"] = v                # how strongly this candidate holds the clause's predicate slot
++        if self.ictx_arc:
++            v = self.ictx_arc.get((h, j))
++            if v is not None:
++                c["ictx"] = v                 # case marking / an intervening preposition: retrieval interference
+         if self.clause is not None:
+             c["clause"] = clause_value(int(self.clause[0][h][j - 1]), int(self.clause[1][h][j - 1]))
+         if self.npb is not None:
+@@ -2396,7 +2773,8 @@ def load_attachment_validities(path: Optional[str] = None) -> Dict[str, object]:
+     with open(path or ASSET, encoding="utf-8") as f:
+         doc = json.load(f)
+     tab = {"counts": doc["counts"], "frames": doc.get("frames", {}), "pp_assoc": doc.get("pp_assoc"),
+-           "pp_assoc_v2": doc.get("pp_assoc_v2"), "strength": strengths_from_arc_counts(doc["counts"])}
++           "pp_assoc_v2": doc.get("pp_assoc_v2"), "infin_assoc": doc.get("infin_assoc"),
++           "strength": strengths_from_arc_counts(doc["counts"])}
+     if path is None:
+         _TABLE = tab
+     return tab
+@@ -2407,7 +2785,7 @@ def save_attachment_validities(path: Optional[str] = None, table: Optional[Dict[
+     doc = {"source": "attachment arm of the Competition-Model organ: soft arc counts accrued from reading (knowledge-free teacher + "
+                      "anchored self-teaching; no treebank, no hand prior); strengths = attachment_arm.strengths_from_arc_counts",
+            "counts": tab["counts"], "frames": tab.get("frames", {}), "pp_assoc": tab.get("pp_assoc"),
+-           "pp_assoc_v2": tab.get("pp_assoc_v2")}
++           "pp_assoc_v2": tab.get("pp_assoc_v2"), "infin_assoc": tab.get("infin_assoc")}
+     with open(p, "w", encoding="utf-8", newline=chr(10)) as f:
+         json.dump(doc, f, indent=1)
+     return p
+@@ -2437,7 +2815,8 @@ def observe_arc_outcome(toks: Sequence[str], pos: Sequence[str], j: int, h: int,
+                         weight: float = 1.0) -> None:
+     """PLASTICITY: one confirmed comprehension outcome -- word j was understood to depend on h -- accrues into the counts (the
+     competing candidates of j accrue a zero outcome) and the strengths are recomputed."""
+-    tab = table or load_attachment_validities(); sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"), tab.get("pp_assoc_v2"))
++    tab = table or load_attachment_validities(); sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"), tab.get("pp_assoc_v2"),
++                                                                  infin_assoc=tab.get("infin_assoc"))
+     marg = {j: {hh: (weight if hh == h else 0.0) for hh in range(0, sc.n + 1) if hh != j}}
+     accrue_sentence(tab["counts"], sc, marg)
+     tab["strength"] = strengths_from_arc_counts(tab["counts"])
+@@ -2537,7 +2916,8 @@ def arc_scores(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str
+     if not _ARC_FAST:
+         return arc_scores_reference(toks, pos, table, occ)
+     tab = table or load_attachment_validities(); ix = _arc_index(tab)
+-    sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"), tab.get("pp_assoc_v2"), occ=occ); n = sc.n
++    sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"), tab.get("pp_assoc_v2"), occ=occ,
++                      infin_assoc=tab.get("infin_assoc")); n = sc.n
+     cat = np.array([ix.cats.get(p, ix.unk) for p in pos], dtype=np.int64)            # dependent / head (1..n) category ids
+     H = np.arange(0, n + 1)[:, None]; J = np.arange(1, n + 1)[None, :]               # grid: rows h = 0..n, cols j = 1..n
+     dr = (H > J).astype(np.int64)                                                    # config/cue convention: 'L' when the head is LEFT of the dependent (h < j) -> 0; 'R' (h > j) -> 1
+@@ -2623,6 +3003,15 @@ def arc_scores(toks: Sequence[str], pos: Sequence[str], table: Optional[Dict[str
+         for (h, j), v in sc.csubg.items():
+             if 1 <= h <= n and 1 <= j <= n:
+                 S[h, j - 1] += T[C[h, j - 1]][vid.get(v, 0)]
++    # THE INFINITIVAL GOVERNOR (pri 133): two sparse channels on the arcs of each infinitival verb
++    for _cue, _arcs in (("iexp", sc.iexp_arc), ("islot", sc.islot_arc), ("ictx", sc.ictx_arc)):
++        _T = ix.cue_tab.get(_cue)
++        if _T is None or not _arcs:
++            continue
++        _vid = ix.val_id[_cue]
++        for (h, j), v in _arcs.items():
++            if 1 <= h <= n and 1 <= j <= n:
++                S[h, j - 1] += _T[C[h, j - 1]][_vid.get(v, 0)]
+     # CLAUSE MEMBERSHIP + CONSTITUENCY (pri-105): dense adds over the same grid
+     if sc.clause is not None and "clause" in ix.cue_tab:
+         nv, sb = sc.clause; vid = ix.val_id["clause"]
+@@ -2645,7 +3034,8 @@ def arc_scores_reference(toks: Sequence[str], pos: Sequence[str], table: Optiona
+                          occ=None) -> Tuple[np.ndarray, int]:
+     """THE REFERENCE readout (the original per-pair loop): additive cue activation per arc (row = head incl. 0 = ROOT, col =
+     dependent); form classes never head or root. Kept as the oracle for the vectorised `arc_scores`."""
+-    tab = table or load_attachment_validities(); st = tab["strength"]; sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"), tab.get("pp_assoc_v2"), occ=occ)
++    tab = table or load_attachment_validities(); st = tab["strength"]; sc = SentenceCues(toks, pos, tab.get("frames", {}), tab.get("pp_assoc"), tab.get("pp_assoc_v2"), occ=occ,
++                                                                                        infin_assoc=tab.get("infin_assoc"))
+     n = sc.n; A = np.full((n + 1, n + 1), -np.inf)
+     words = [j for j in range(1, n + 1) if pos[j - 1] not in FORM]
+     for j in range(1, n + 1):
+@@ -3208,6 +3598,10 @@ def decode(toks: Sequence[str], pos: Sequence[str], A: np.ndarray, n: int, temp:
+     # not arrived yet; when it does arrive the subject's attachment is revised, if the organ's OWN activations prefer
+     # it (Frazier & Rayner 1982; the same accounting INCR_ROOT_REANALYSIS already applies to the root arc).
+     hd = revise_copular_subject(toks, pos, A, hd)
++    # CLAUSE-ARRIVAL REANALYSIS of the infinitival governor (pri 133): the in-order beam commits the infinitival
++    # clause while several governors are still open, and the arc the competition prefers is already in A (measured:
++    # matrix argmax 0.7674, search 0.7597, in-order beam 0.6822 on UD-EWT test 700).
++    hd = revise_infinitival_governor(toks, pos, A, hd)
+     hd = punct_convention(toks, pos, hd)
+     for j in range(1, len(toks) + 1):
+         if PUNCT_CONVENTION and pos[j - 1] == "PUNCT" and j in post:
+diff --git a/tools/build_attachment_validities.py b/tools/build_attachment_validities.py
+--- a/tools/build_attachment_validities.py
++++ b/tools/build_attachment_validities.py
+@@ -135,6 +135,7 @@ def main(argv=None) -> int:
+     ap.add_argument("--beta", type=float, default=10.0, help="semantic-bootstrapping weight (0 = co-occurrence only); 10 = the measured operating point")
+     ap.add_argument("--pp-assoc", default=None, help="a PP association (pp_assoc_v2) mined offline from a larger reading corpus")
+     ap.add_argument("--pp-rounds", type=int, default=2, help="Hindle-Rooth reallocation rounds when mining from the training text")
++    ap.add_argument("--infin-rounds", type=int, default=1, help="reallocation rounds for the infinitival lexical expectation (pri 133; 0 = the parse-free nearest-left estimate)")
+     ap.add_argument("--tsp-asset", default=None, help="alternative plausibility asset for the semantic-bootstrapping teacher (e.g. the self-grown store's typed asset)")
+     ap.add_argument("--categories-lc", default=None, help="a lexical_categories COUNTS asset (e.g. the reading-acquired one) to tag the sentences with, in place of the UPOS column")
+     ap.add_argument("--categories", default=None, help="reading-induced category asset (word2cat + cluster names) to use INSTEAD of the UPOS column -- the categories->heads hand-off test")
+@@ -153,6 +154,12 @@ def main(argv=None) -> int:
+     frames = AA.verb_frames_from_reading([(t, p) for t, p, _, _ in train])
+     pp_assoc = AA.pp_assoc_from_reading([(t, p) for t, p, _, _ in train])    # Hindle-Rooth preposition association (treebank-free)
+     print("pp association: %d verb|prep, %d noun|prep cells" % (len(pp_assoc["fv"]), len(pp_assoc["fn"])), flush=True)
++    # pri 133: the INFINITIVAL EXPECTATION is read as a cue VALUE, so it must be accrued at build time from the same
++    # reading the rest of the table is taught from -- and PASSED to every SentenceCues call below (the 2026-09-14
++    # builder rule: a builder that runs the organ without the argument the cell passed ships a DIFFERENT organ).
++    infin_assoc = AA.infin_assoc_from_reading([(t, p) for t, p, _, _ in train], rounds=a.infin_rounds)
++    print("infinitival expectation: %d lexical keys, %d sites, base rate %.4f"
++          % (len(infin_assoc["n"]), int(infin_assoc["sites"]), infin_assoc["base"]), flush=True)
+     # PP ATTACHMENT v2 (solver pri-94): the case-marked-nominal association, mined from UNAMBIGUOUS reading with
+     # Hindle & Rooth reallocation. --pp-assoc points at an association mined OFFLINE from a larger reading corpus
+     # (tagged by the substrate's own category organ); without it, it is mined from the same training sentences.
+@@ -184,9 +191,10 @@ def main(argv=None) -> int:
+         # this its cells are never accrued at build time and the read-out finds an empty table (the 2026-09-14
+         # lesson: a builder that runs the organ without the argument the cell passed ships a different organ).
+         AA.accrue_sentence(counts, AA.SentenceCues(toks, pos, frames, pp_assoc, pp_assoc_v2,
+-                                                   occ=AA.occupancy_from_tags(toks, pos)), mt)
++                                                   occ=AA.occupancy_from_tags(toks, pos),
++                                                   infin_assoc=infin_assoc), mt)
+     table = {"counts": counts, "frames": frames, "pp_assoc": pp_assoc, "pp_assoc_v2": pp_assoc_v2,
+-             "strength": AA.strengths_from_arc_counts(counts)}
++             "infin_assoc": infin_assoc, "strength": AA.strengths_from_arc_counts(counts)}
+     print("round 0 accrued (%d sentences) in %.0fs" % (len(train), time.time() - t0), flush=True)
+     for r in range(1, a.rounds + 1):
+         nxt = AA.new_counts()
+@@ -195,9 +203,10 @@ def main(argv=None) -> int:
+             ms = AA.head_posterior(toks, pos, table, occ=occ); mt = tmarg[i]; n = len(toks)
+             mix = {j: {h: a.alpha * ms.get(j, {}).get(h, 0.0) + (1 - a.alpha) * mt.get(j, {}).get(h, 0.0)
+                        for h in set(ms.get(j, {})) | set(mt.get(j, {}))} for j in range(1, n + 1)}
+-            AA.accrue_sentence(nxt, AA.SentenceCues(toks, pos, frames, pp_assoc, pp_assoc_v2, occ=occ), mix)
++            AA.accrue_sentence(nxt, AA.SentenceCues(toks, pos, frames, pp_assoc, pp_assoc_v2, occ=occ,
++                                                    infin_assoc=infin_assoc), mix)
+         table = {"counts": nxt, "frames": frames, "pp_assoc": pp_assoc, "pp_assoc_v2": pp_assoc_v2,
+-                 "strength": AA.strengths_from_arc_counts(nxt)}
++                 "infin_assoc": infin_assoc, "strength": AA.strengths_from_arc_counts(nxt)}
+         print("round %d re-estimated in %.0fs" % (r, time.time() - t0), flush=True)
+     path = AA.save_attachment_validities(a.out, table)
+     print("wrote", path, flush=True)
