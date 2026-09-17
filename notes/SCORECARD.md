@@ -204,7 +204,7 @@ Long term (the next few months):
 
 <!-- AUTO:BEGIN (written by tools/scorecard.py; edit the sections ABOVE, not this) -->
 
-Last full check: 2026-09-16T22:52:22.061422+00:00 (64 on record). Generated 2026-09-17T00:14:59+00:00.
+Last full check: 2026-09-16T22:52:22.061422+00:00 (64 on record). Generated 2026-09-17T00:27:06+00:00.
 
 ### THE PRODUCT, QUESTION BY QUESTION
 
